@@ -94,9 +94,9 @@ function Navbar() {
         </a>
 
         <div className="hidden md:flex gap-8 text-sm font-mono text-slate-300">
-          <a href="#ai-terminal" onClick={(e) => scrollToSection(e, 'ai-terminal')} className="hover:text-cyan-400 transition-colors">TERMINAL</a>
-          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-400 transition-colors">IDENTIFICATION</a>
-          <a href="#neural_models" onClick={(e) => scrollToSection(e, 'neural_models')} className="hover:text-cyan-400 transition-colors">MODELS</a>
+          <a href="#ai-terminal" onClick={(e) => scrollToSection(e, 'ai-terminal')} className="hover:text-cyan-400 transition-colors">HOME</a>
+          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-400 transition-colors">ABOUT</a>
+          <a href="#neural_models" onClick={(e) => scrollToSection(e, 'neural_models')} className="hover:text-cyan-400 transition-colors">WORKS</a>
           <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="hover:text-cyan-400 transition-colors">CONTACT</a>
         </div>
 
@@ -115,9 +115,9 @@ function Navbar() {
       <div className={`fixed inset-0 bg-[#020204]/95 backdrop-blur-3xl z-40 transition-transform duration-300 ease-in-out
         md:hidden flex flex-col items-center justify-center ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col gap-8 text-xl font-mono text-slate-300 items-center">
-          <a href="#ai-terminal" onClick={(e) => scrollToSection(e, 'ai-terminal')} className="hover:text-cyan-400 transition-colors">TERMINAL</a>
-          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-400 transition-colors">IDENTIFICATION</a>
-          <a href="#neural_models" onClick={(e) => scrollToSection(e, 'neural_models')} className="hover:text-cyan-400 transition-colors">MODELS</a>
+          <a href="#ai-terminal" onClick={(e) => scrollToSection(e, 'ai-terminal')} className="hover:text-cyan-400 transition-colors">HOME</a>
+          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-400 transition-colors">ABOUT</a>
+          <a href="#neural_models" onClick={(e) => scrollToSection(e, 'neural_models')} className="hover:text-cyan-400 transition-colors">WORKS</a>
           <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="hover:text-cyan-400 transition-colors">CONTACT</a>
         </div>
       </div>
@@ -396,7 +396,7 @@ function GitHubMetricsSection() {
   const metrics = [
     {
       label: "Contributions",
-      value: 306,
+      value: 300,
       suffix: "+",
       description: "Total GitHub contributions",
       icon: (
@@ -408,7 +408,7 @@ function GitHubMetricsSection() {
     },
     {
       label: "Repositories",
-      value: 10,
+      value: 7,
       suffix: "",
       description: "Public projects created",
       icon: (
@@ -423,7 +423,7 @@ function GitHubMetricsSection() {
   // Top language config
   const topLanguage = {
     name: "Python",
-    percentage: 60,
+    percentage: 80,
   };
 
   const contributionsCount = useCountUp(metrics[0].value, 2000, isVisible);
@@ -696,13 +696,45 @@ function FooterSection() {
     const endpoint =
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-    const prompt = `You are drafting a sharp, professional outreach message from David Huang to a recruiter at "${company}". David builds production-grade AI systems — deep learning pipelines with TensorFlow, NLP engines, data-driven forecasting models, and prompt-optimized LLM workflows. He bridges theoretical math (linear algebra, calculus, probability) with applied machine learning to ship real solutions. Draft a confident, compelling 3-sentence message that leads with what David can BUILD for ${company}, not credentials. Do NOT mention "student" or "undergraduate" — focus entirely on capability and value. Keep the tone direct, professional, and high-signal.`;
+    const systemPrompt = `You are an outreach message generator embedded in David Huang's portfolio website.
+
+    DAVID HUANG — VERIFIED KNOWLEDGE BASE (use ONLY these facts about David):
+    - Name: David Huang
+    - Currently pursuing BEng in Artificial Intelligence at Xiamen University Malaysia
+    - Technical Skills: Python, TensorFlow, Pandas, NumPy, Scikit-Learn, Prompt Engineering
+    - Project 1: Vision Matrix Classifier — CNN-based deep learning image classifier, 92% accuracy over 100 epochs
+    - Project 2: Sentiment Vector Space — NLP sentiment analysis using transformers, F1 score 0.88 on 50k tokens
+    - Project 3: Algorithmic Forecaster — Data science forecasting model using Scikit-learn, R² 0.85
+    - Project 4: LLM Prompt Optimizer — Reduced latency by 40% and token usage by 20%
+    - Project 5: Audio Speech Recognition — Deep learning ASR system, 4.2% WER
+    - Project 6: Customer Churn Predictor — AUC 0.91, 88% precision
+    - Project 7: Semantic Search Engine — NLP-based search, Recall@10 of 94%
+    - Strengths: Bridges theoretical math (linear algebra, calculus, probability) with applied ML
+    - 300+ GitHub contributions, 7 public repositories, primary language Python (80%)
+
+    STRICT RULES:
+    1. About David: ONLY mention skills, projects, and facts listed above. Do NOT invent capabilities or experience he doesn't have.
+    2. About the company: ONLY reference things you are genuinely confident are true about the company. If you are not sure what the company does, keep the message general — say something like "your team" or "your engineering challenges" instead of guessing specifics.
+    3. NEVER fabricate company products, projects, missions, or values you aren't certain about.
+    4. Do NOT mention "student" or "undergraduate" — frame everything around capabilities and what David can deliver.
+    5. Keep the tone confident, direct, and professional.`;
+
+    const prompt = `Draft a 3-sentence outreach message from David Huang to a recruiter at "${company}".
+    
+    Sentence 1: Lead with what David can build that would be relevant to ${company} — connect his specific projects/skills to the company's likely needs. If you're unsure what the company does, keep it general.
+    Sentence 2: Highlight a specific technical achievement from his knowledge base that demonstrates impact.
+    Sentence 3: Express interest in contributing and suggest connecting.
+    
+    Remember: only state facts about David from the knowledge base, and only reference company details you're genuinely confident about.`;
 
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] }
+        })
       });
       const data = await res.json();
       setPitch(data.candidates?.[0]?.content?.parts?.[0]?.text || "Failed to generate outreach pitch.");
