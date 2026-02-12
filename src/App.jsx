@@ -36,9 +36,11 @@ export default function App() {
       {/* Background stays persistent across views */}
       <ThreeJSFluidNetwork isMobile={isMobile} />
 
+      {/* Navbar at root level so z-50 isn't trapped inside a lower stacking context */}
+      {currentView === 'home' && <Navbar />}
+
       {currentView === 'home' ? (
         <div className="relative z-10 fade-in animate-in duration-500">
-          <Navbar />
           <HeroAISection />
           <AboutSection />
           <ProjectsSection onOpenLibrary={() => {
@@ -87,7 +89,7 @@ function Navbar() {
         className="fixed top-0 left-0 w-full z-50 bg-[#020204]/90 backdrop-blur-xl border-b border-white/5 px-4 md:px-8 py-4 flex justify-between items-center transition-all duration-300">
         <a href="#top" onClick={(e) => scrollToSection(e, 'top')}
           className="font-bold text-lg md:text-xl tracking-tighter text-white cursor-pointer hover:text-cyan-400 transition-colors">
-          AI_ARCHITECT<span className="text-cyan-500">.</span>
+          David Huang<span className="text-cyan-500">.</span>
         </a>
 
         <div className="hidden md:flex gap-8 text-sm font-mono text-slate-300">
