@@ -43,6 +43,7 @@ export default function App() {
         <div className="relative z-10 fade-in animate-in duration-500">
           <HeroAISection />
           <AboutSection />
+          <GitHubMetricsSection />
           <ProjectsSection onOpenLibrary={() => {
             window.scrollTo(0, 0);
             setCurrentView('library');
@@ -273,7 +274,7 @@ function AboutSection() {
               className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">intelligence.</span>
           </h3>
           <p className="text-slate-400 leading-relaxed text-lg">
-            I am an Indonesian undergraduate student pursuing a BSc in Artificial Intelligence at Xiamen University
+            I am an Indonesian undergraduate student pursuing a BEng in Artificial Intelligence at Xiamen University
             Malaysia. My current academic focus bridges theoretical mathematics with applied machine learning.
           </p>
           <p className="text-slate-400 leading-relaxed text-lg">
@@ -332,6 +333,165 @@ function AboutSection() {
                     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMDZiNmQ0IiBkeT0iLjNlbSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SU1BR0VfTUlTU0lORzwvdGV4dD48L3N2Zz4=';
                 }}
               />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// --- ANIMATED COUNTER HOOK ---
+function useCountUp(target, duration = 2000, startCounting = false) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!startCounting) return;
+
+    let startTime = null;
+    let animationFrame;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+
+      // Ease-out cubic for a satisfying deceleration
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [target, duration, startCounting]);
+
+  return count;
+}
+
+function GitHubMetricsSection() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // ========================================
+  // UPDATE THESE WITH YOUR REAL GITHUB STATS
+  // ========================================
+  const metrics = [
+    {
+      label: "Contributions",
+      value: 306,
+      suffix: "+",
+      description: "Total GitHub contributions",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      ),
+    },
+    {
+      label: "Repositories",
+      value: 10,
+      suffix: "",
+      description: "Public projects created",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+      ),
+    },
+  ];
+
+  // Top language config
+  const topLanguage = {
+    name: "Python",
+    percentage: 60,
+  };
+
+  const contributionsCount = useCountUp(metrics[0].value, 2000, isVisible);
+  const reposCount = useCountUp(metrics[1].value, 1800, isVisible);
+  const langPercent = useCountUp(topLanguage.percentage, 2200, isVisible);
+  const animatedCounts = [contributionsCount, reposCount];
+
+  return (
+    <section ref={sectionRef} className="py-24 px-4 md:px-6 max-w-5xl mx-auto">
+      <h2 className="text-sm font-mono tracking-[0.2em] text-cyan-400 mb-12 text-center">
+        // GITHUB_METRICS
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Contribution & Repo Cards */}
+        {metrics.map((metric, idx) => (
+          <div key={idx}
+            className="relative group bg-[#0a0a0f] border border-white/10 rounded-2xl p-8 text-center hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mb-5">
+                {metric.icon}
+              </div>
+              <div className="text-5xl font-black text-white tracking-tight mb-2">
+                {animatedCounts[idx]}
+                {metric.suffix && (
+                  <span className="text-cyan-400">{metric.suffix}</span>
+                )}
+              </div>
+              <div className="text-sm font-mono text-white uppercase tracking-widest mb-1">
+                {metric.label}
+              </div>
+              <div className="text-xs text-slate-500">
+                {metric.description}
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Top Language Card */}
+        <div
+          className="relative group bg-[#0a0a0f] border border-white/10 rounded-2xl p-8 text-center hover:border-cyan-500/30 transition-all duration-500 overflow-hidden">
+          <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-purple-500/20 to-fuchsia-600/20 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+          <div className="relative z-10">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 mb-5">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <div className="text-5xl font-black text-white tracking-tight mb-2">
+              {topLanguage.name}
+            </div>
+            <div className="text-sm font-mono text-white uppercase tracking-widest mb-3">
+              Top Language
+            </div>
+
+            {/* Percentage Bar */}
+            <div className="w-full bg-white/5 rounded-full h-2 mt-2 overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-[2200ms] ease-out"
+                style={{ width: isVisible ? `${topLanguage.percentage}%` : '0%' }}>
+              </div>
+            </div>
+            <div className="text-xs text-slate-500 mt-2 font-mono">
+              {langPercent}% of codebase
             </div>
           </div>
         </div>
