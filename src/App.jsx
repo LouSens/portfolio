@@ -536,7 +536,7 @@ function FooterSection() {
     const endpoint =
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-    const prompt = `You are drafting a professional outreach message for an AI undergraduate student from Xiamen University Malaysia. The student wants to connect with a recruiter from the company "${company}". Draft a brief, compelling 3-sentence message highlighting their skills in Python and TensorFlow, and their eagerness to apply theoretical math to real-world AI problems at ${company}. Keep it professional and enthusiastic.`;
+    const prompt = `You are drafting a sharp, professional outreach message from David Huang to a recruiter at "${company}". David builds production-grade AI systems — deep learning pipelines with TensorFlow, NLP engines, data-driven forecasting models, and prompt-optimized LLM workflows. He bridges theoretical math (linear algebra, calculus, probability) with applied machine learning to ship real solutions. Draft a confident, compelling 3-sentence message that leads with what David can BUILD for ${company}, not credentials. Do NOT mention "student" or "undergraduate" — focus entirely on capability and value. Keep the tone direct, professional, and high-signal.`;
 
     try {
       const res = await fetch(endpoint, {
