@@ -138,7 +138,7 @@ function HeroAISection() {
   const callGemini = async (prompt) => {
     setLoading(true);
     setResponse('');
-    const apiKey = "";
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     const endpoint =
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
@@ -386,7 +386,7 @@ function ProjectCard({ proj }) {
     setIsExplaining(true);
     setExplanation('');
 
-    const apiKey = "";
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     const endpoint =
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
@@ -532,7 +532,7 @@ function FooterSection() {
     setIsPitching(true);
     setPitch('');
 
-    const apiKey = "";
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
     const endpoint =
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
