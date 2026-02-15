@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // --- MOCK DATABASE OF ALL PROJECTS ---
 const ALL_PROJECTS = [
-  { title: "Vision Matrix Classifier", category: "Deep Learning", color: "from-cyan-500 to-blue-500", metrics: "Epochs: 100 | Acc: 92%" },
+  { title: "Multimodal Financial Sentiment Correlator", category: "Deep Learning", color: "from-cyan-500 to-blue-500", metrics: "R²: 0.97 | MSE: 0.024" },
   { title: "Sentiment Vector Space", category: "Natural Language", color: "from-blue-500 to-indigo-500", metrics: "Tokens: 50k | F1: 0.88" },
   { title: "Algorithmic Forecaster", category: "Data Science", color: "from-indigo-500 to-purple-500", metrics: "R²: 0.85 | MSE: 0.04" },
   { title: "LLM Prompt Optimizer", category: "Generative AI", color: "from-purple-500 to-fuchsia-500", metrics: "Latency: -40% | Tokens: -20%" },
