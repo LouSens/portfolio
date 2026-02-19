@@ -261,7 +261,7 @@ function HeroAISection() {
 }
 
 function AboutSection() {
-  const skills = ["Python", "TensorFlow", "Pandas", "NumPy", "Scikit-Learn", "Prompt Engineering"];
+  const skills = ["Python", "TensorFlow", "Pandas", "NumPy", "Scikit-Learn", "Git", "C", "FastAPI", "Flask"];
 
   return (
     <section id="about" className="py-24 px-4 md:px-6 max-w-5xl mx-auto">
