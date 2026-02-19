@@ -292,7 +292,7 @@ function AboutSection() {
               ))}
             </div>
 
-            <a href="https://github.com/your-username/your-repo/blob/main/resume.pdf" target="_blank"
+            <a href="https://github.com/LouSens/portfolio/blob/main/static/CV-DAVID%20KURNIAWAN.pdf" target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold font-mono text-sm tracking-widest rounded-lg transition-colors cursor-pointer">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
