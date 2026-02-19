@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // --- MOCK DATABASE OF ALL PROJECTS ---
 const ALL_PROJECTS = [
-  { title: "Multimodal Financial Sentiment Correlator", category: "Deep Learning", color: "from-cyan-500 to-blue-500", metrics: "R²: 0.97 | MSE: 0.024" },
-  { title: "Sentiment Vector Space", category: "Natural Language", color: "from-blue-500 to-indigo-500", metrics: "Tokens: 50k | F1: 0.88" },
-  { title: "Algorithmic Forecaster", category: "Data Science", color: "from-indigo-500 to-purple-500", metrics: "R²: 0.85 | MSE: 0.04" },
-  { title: "LLM Prompt Optimizer", category: "Generative AI", color: "from-purple-500 to-fuchsia-500", metrics: "Latency: -40% | Tokens: -20%" },
-  { title: "Audio Speech Recognition", category: "Deep Learning", color: "from-emerald-500 to-cyan-500", metrics: "WER: 4.2% | RTF: 0.8" },
-  { title: "Customer Churn Predictor", category: "Data Science", color: "from-orange-500 to-red-500", metrics: "AUC: 0.91 | Precision: 88%" },
-  { title: "Semantic Search Engine", category: "Natural Language", color: "from-pink-500 to-rose-500", metrics: "Recall@10: 94%" },
+  { title: "Multimodal Financial Sentiment Correlator", category: "Deep Learning", color: "from-cyan-500 to-blue-500", metrics: "R²: 0.97 | MSE: 0.024", githubUrl: "https://github.com/LouSens/multimodal-financial-sentiment-correlator" },
+  { title: "Sentiment Vector Space", category: "Natural Language", color: "from-blue-500 to-indigo-500", metrics: "Tokens: 50k | F1: 0.88", githubUrl: "https://github.com/LouSens/sentiment-vector-space" },
+  { title: "Algorithmic Forecaster", category: "Data Science", color: "from-indigo-500 to-purple-500", metrics: "R²: 0.85 | MSE: 0.04", githubUrl: "https://github.com/LouSens/algorithmic-forecaster" },
+  { title: "LLM Prompt Optimizer", category: "Generative AI", color: "from-purple-500 to-fuchsia-500", metrics: "Latency: -40% | Tokens: -20%", githubUrl: "https://github.com/LouSens/llm-prompt-optimizer" },
+  { title: "Audio Speech Recognition", category: "Deep Learning", color: "from-emerald-500 to-cyan-500", metrics: "WER: 4.2% | RTF: 0.8", githubUrl: "https://github.com/LouSens/audio-speech-recognition" },
+  { title: "Customer Churn Predictor", category: "Data Science", color: "from-orange-500 to-red-500", metrics: "AUC: 0.91 | Precision: 88%", githubUrl: "https://github.com/LouSens/customer-churn-predictor" },
+  { title: "Semantic Search Engine", category: "Natural Language", color: "from-pink-500 to-rose-500", metrics: "Recall@10: 94%", githubUrl: "https://github.com/LouSens/semantic-search-engine" },
 ];
 
 // --- MAIN APPLICATION ---
@@ -261,7 +261,7 @@ function HeroAISection() {
 }
 
 function AboutSection() {
-  const skills = ["Python", "TensorFlow", "Pandas", "NumPy", "Scikit-Learn", "Git", "C", "FastAPI", "Flask"];
+  const skills = ["Python", "TensorFlow", "Pandas", "NumPy", "Scikit-Learn", "Git", "C", "FastAPI", "Flask", "AI Automation"];
 
   return (
     <section id="about" className="py-24 px-4 md:px-6 max-w-5xl mx-auto">
@@ -583,7 +583,7 @@ function ProjectCard({ proj }) {
 
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <a href="#"
+              <a href={proj.githubUrl} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white hover:text-cyan-400 transition-colors">
                 Source Code
                 <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none"
