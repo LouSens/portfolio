@@ -1,23 +1,22 @@
 # David Huang — Interactive AI Resume
 
-A futuristic, AI-powered interactive resume built with React, TailwindCSS, and Three.js. Instead of a static PDF, visitors can **query an embedded AI assistant** powered by Google Gemini to explore skills, projects, and background in real time.
+A premium, interactive AI architecture portfolio built with React, Framer Motion, and TailwindCSS. Beyond a static resume, visitors can **interrogate a neural proxy** powered by Google Gemini to explore background and technical depth.
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?logo=framer&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-r128-000000?logo=threedotjs&logoColor=white)
 ![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4?logo=google&logoColor=white)
 
 ---
 
 ## ✨ Features
 
-- **AI Terminal** — Ask questions about skills, projects, and education via a Gemini-powered conversational interface
-- **AI Dive** — Each project card has an AI button that generates a technical explanation on demand
-- **AI Outreach Generator** — Recruiters enter their company name and get a custom pitch drafted by AI
-- **Three.js Particle Background** — Animated 3D neural network particles with responsive performance scaling
-- **Project Archive** — Netflix-style filterable library of all projects with category-based navigation
-- **Fully Responsive** — Optimized for desktop and mobile with adaptive layouts and a slide-out mobile menu
+- **Agentic Interrogation** — Query David's technical shadow via a sleek, staggered-animation AI terminal.
+- **Neural Archive** — A fluid, Netflix-style 프로젝트 vault with Framer Motion layout transitions.
+- **Premium Glassmorphism** — Bespoke design system with multi-layered blurs, border gradients, and grain texture.
+- **Dynamic Metrics** — Real-time animated counters for GitHub contributions and stack density.
+- **Responsive Navigation** — Custom mobile menu with spring physics and seamless section jumping.
 
 ---
 
@@ -25,12 +24,12 @@ A futuristic, AI-powered interactive resume built with React, TailwindCSS, and T
 
 | Layer | Technology |
 |-------|-----------|
-| **Framework** | React 18 |
-| **Build Tool** | Vite 5 |
-| **Styling** | TailwindCSS 3 + PostCSS + Autoprefixer |
-| **3D Graphics** | Three.js (CDN) |
-| **AI Backend** | Google Gemini API (generativelanguage) |
-| **Fonts** | Inter + JetBrains Mono (Google Fonts) |
+| **Core** | React 18 / Vite 5 |
+| **Animation** | Framer Motion 11 |
+| **Styling** | TailwindCSS 3 + Custom Glassmorphism Utilities |
+| **3D Engine** | Three.js (Procedural Network Background) |
+| **AI Core** | Google Gemini API (Flash 2.0) |
+| **Typography** | Outfit (Headers) & Inter (Body) |
 
 ---
 
