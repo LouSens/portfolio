@@ -969,7 +969,15 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 0;
-  border: var(--nb-border);
+  border-top: var(--nb-border);
+  border-left: var(--nb-border);
+}
+
+.nb-projects-grid .nb-card {
+  border-top: none;
+  border-left: none;
+  border-right: var(--nb-border);
+  border-bottom: var(--nb-border);
 }
 
 /* ─────────────────────────────────────────
@@ -977,28 +985,13 @@ body {
 ───────────────────────────────────────── */
 .nb-card {
   padding: 1.75rem;
-  border-right: var(--nb-border);
-  border-bottom: var(--nb-border);
+  border: var(--nb-border);
   background: var(--nb-paper);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   opacity: 0;
   transition: background 0.18s;
-}
-
-.nb-card:nth-child(2n) {
-  border-right: none;
-}
-
-@media (min-width: 900px) {
-  .nb-card:nth-child(3n) {
-    border-right: none;
-  }
-
-  .nb-card:nth-child(2n) {
-    border-right: var(--nb-border);
-  }
 }
 
 .nb-card:hover {
@@ -1163,7 +1156,7 @@ body {
 .nb-library-header {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.4rem;
   margin-bottom: 2.5rem;
   padding-bottom: 2rem;
   border-bottom: var(--nb-border);
@@ -1182,6 +1175,7 @@ body {
   padding: 0;
   transition: color 0.15s;
   width: fit-content;
+  margin-bottom: 0.5rem;
 }
 
 .nb-back-btn:hover {
@@ -1194,6 +1188,14 @@ body {
   font-size: clamp(2rem, 5vw, 3.5rem);
   letter-spacing: -0.035em;
   color: var(--nb-ink);
+}
+
+.nb-library-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(13, 13, 13, 0.4);
+  letter-spacing: 0.08em;
 }
 
 .nb-filter-row {
@@ -1230,9 +1232,29 @@ body {
 
 .nb-library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 0;
-  border: var(--nb-border);
+  border-top: var(--nb-border);
+  border-left: var(--nb-border);
+}
+
+.nb-library-grid .nb-card {
+  border-top: none;
+  border-left: none;
+  border-right: var(--nb-border);
+  border-bottom: var(--nb-border);
+  opacity: 1;
+}
+
+.nb-library-empty {
+  grid-column: 1 / -1;
+  padding: 4rem 2rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: rgba(13, 13, 13, 0.4);
+  border-right: var(--nb-border);
+  border-bottom: var(--nb-border);
 }
 
 /* ─────────────────────────────────────────

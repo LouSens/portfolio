@@ -150,7 +150,7 @@ function Navbar({ onLibrary, isLibrary, onHome }) {
   const links = [
     { label: 'About', id: 'about' },
     { label: 'Skills', id: 'skills' },
-    { label: 'Work', id: 'neural_models' },
+    { label: 'Projects', id: 'projects' },
     { label: 'Contact', id: 'contact' },
   ];
 
@@ -165,7 +165,7 @@ function Navbar({ onLibrary, isLibrary, onHome }) {
           {links.map(l => (
             <a key={l.id} href={`#${l.id}`} onClick={e => scroll(e, l.id)} className="nb-nav-link">{l.label}</a>
           ))}
-          <button onClick={onLibrary} className="nb-nav-btn">Archive →</button>
+          <button onClick={onLibrary} className="nb-nav-btn">All Projects →</button>
         </div>
 
         <button onClick={() => setOpen(v => !v)} className="nb-hamburger" aria-label="Menu">
@@ -179,7 +179,7 @@ function Navbar({ onLibrary, isLibrary, onHome }) {
         {links.map(l => (
           <a key={l.id} href={`#${l.id}`} onClick={e => scroll(e, l.id)} className="nb-drawer-link">{l.label}</a>
         ))}
-        <button onClick={() => { setOpen(false); onLibrary(); }} className="nb-drawer-btn">Full Archive</button>
+        <button onClick={() => { setOpen(false); onLibrary(); }} className="nb-drawer-btn">All Projects</button>
       </div>
       {open && <div className="nb-overlay" onClick={() => setOpen(false)} />}
     </>
@@ -345,7 +345,7 @@ function AboutSection() {
   return (
     <section id="about" ref={ref} className={`nb-about ${visible ? 'nb-visible' : ''}`}>
       <div className="nb-about-inner">
-        <div className="nb-section-tag">01 / ABOUT</div>
+        <div className="nb-section-tag">01 / ABOUT ME</div>
         <div className="nb-about-grid">
           <div className="nb-about-text">
             <h2 className="nb-section-h2">
@@ -415,15 +415,15 @@ function ProjectsSection({ onOpenLibrary }) {
   const visible = useIntersection(ref, 0.1);
 
   return (
-    <section id="neural_models" ref={ref} className="nb-projects">
+    <section id="projects" ref={ref} className="nb-projects">
       <div className="nb-projects-inner">
         <div className="nb-projects-header">
           <div>
-            <div className="nb-section-tag">02 / WORK</div>
-            <h2 className="nb-section-h2">Featured<br /><span className="nb-accent">Builds</span></h2>
+            <div className="nb-section-tag">02 / PROJECTS</div>
+            <h2 className="nb-section-h2">Selected<br /><span className="nb-accent">Work</span></h2>
           </div>
           <button onClick={onOpenLibrary} className="nb-btn-secondary nb-archive-btn">
-            Full Archive →
+            All Projects →
           </button>
         </div>
         <div className="nb-projects-grid">
@@ -503,8 +503,9 @@ function ProjectLibrary({ onClose }) {
     <div className="nb-library">
       <div className="nb-library-inner">
         <div className="nb-library-header">
-          <button onClick={onClose} className="nb-back-btn">← Back</button>
-          <h1 className="nb-library-title">Neural <span className="nb-accent">Archive</span></h1>
+          <button onClick={onClose} className="nb-back-btn">← Back to Portfolio</button>
+          <h1 className="nb-library-title">Project <span className="nb-accent">Archive</span></h1>
+          <p className="nb-library-subtitle">All {ALL_PROJECTS.length} projects · Filter by category</p>
         </div>
         <div className="nb-filter-row">
           {categories.map(cat => (
@@ -512,7 +513,10 @@ function ProjectLibrary({ onClose }) {
           ))}
         </div>
         <div className="nb-library-grid">
-          {filtered.map((p, i) => <ProjectCard key={i} proj={p} delay={i * 50} visible />)}
+          {filtered.map((p, i) => <ProjectCard key={`${p.title}-${filter}`} proj={p} delay={i * 40} visible />)}
+          {filtered.length === 0 && (
+            <div className="nb-library-empty">No projects match this filter.</div>
+          )}
         </div>
       </div>
     </div>
@@ -547,8 +551,8 @@ function FooterSection() {
   return (
     <section id="contact" className="nb-footer">
       <div className="nb-footer-inner">
-        <div className="nb-section-tag">03 / CONTACT</div>
-        <h2 className="nb-section-h2">Let's Build<br /><span className="nb-accent">Something.</span></h2>
+        <div className="nb-section-tag">03 / GET IN TOUCH</div>
+        <h2 className="nb-section-h2">Open to<br /><span className="nb-accent">Opportunities.</span></h2>
 
         {/* Outreach generator */}
         <div className="nb-outreach">
