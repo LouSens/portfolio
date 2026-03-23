@@ -9,7 +9,7 @@ export default {
             fontFamily: {
                 display: ['Syne', 'system-ui', 'sans-serif'],
                 sans: ['DM Sans', 'system-ui', '-apple-system', 'sans-serif'],
-                mono: ['JetBrains Mono', 'monospace'],
+                mono: ['DM Mono', 'monospace'],
             },
             colors: {
                 surface: {

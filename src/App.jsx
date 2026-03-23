@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import {
   Github, Linkedin, Mail, Download, ArrowRight, Trophy, Sparkles, Search, CheckCircle2,
   Brain, Menu, X, ArrowUpRight, Layers, BarChart3, Mic,
@@ -43,10 +43,10 @@ const TIMELINE = [
 
 const GEMINI_MODEL = 'gemini-1.5-flash';
 const GEMINI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
-const SYS_PROMPT = `You are the AI embedded in David Huang's portfolio. Indonesian AI student at Xiamen University Malaysia.
-Skills: Python, TensorFlow, PyTorch, Pandas, NumPy, Scikit-Learn, FastAPI, Flask.
-Projects: 1) Multimodal Financial Sentiment Correlator (R² 0.97). 2) Sentiment Vector Space (F1: 0.88). 3) LLM Prompt Optimizer (Latency −40%). 4) Audio Speech Recognition (WER 4.2%). 5) Customer Churn Predictor (AUC 0.91). 6) Semantic Search Engine (Recall@10 94%).
-Rules: Max 3 sentences. Knowledge base only. Unknown → "Outside my knowledge scope. Contact David directly."`;
+const SYS_PROMPT = `You are the AI embedded in David Huang's portfolio. Indonesian AI student pursuing BEng Artificial Intelligence at Xiamen University Malaysia (XMUM).
+Skills: Python, TensorFlow, PyTorch, Pandas, NumPy, Scikit-Learn, FastAPI, Flask, C.
+Projects: 1) Multimodal Financial Sentiment Correlator (R² 0.97, MSE 0.024). 2) Customer Churn Predictor (AUC 0.91, Precision 88%). 3) LLM Prompt Optimizer (Latency −40%, Token savings 20%). 4) Audio Speech Recognition (WER 4.2%, RTF 0.8). 5) Sentiment Vector Space (F1 0.88, 50K tokens). 6) Semantic Search Engine (Recall@10 94%, FAISS). 7) BTC Daily ML Pipeline.
+Rules: Max 3 sentences. Knowledge base only. Unknown → "Outside my embedded knowledge scope. Please contact David directly."`;
 
 async function askGemini(prompt, signal) {
   const key = import.meta.env.VITE_GEMINI_API_KEY;
@@ -67,11 +67,16 @@ const ease = [0.16, 1, 0.3, 1];
 const stagger = { hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
 const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
 
+/* ═══════════════════════════════════════
+   SectionReveal — exact spec:
+   useInView margin: -50px, y: 30→0,
+   duration 0.8s, ease [0.16, 1, 0.3, 1]
+   ═══════════════════════════════════════ */
 function Reveal({ children, className = '', delay = 0 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-50px' });
   return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 40 }}
+    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay, ease }}
       className={className}>{children}</motion.div>
   );
@@ -98,7 +103,6 @@ function Cursor() {
     document.addEventListener('mousemove', move);
     loop();
 
-    // Re-bind on DOM changes
     const bind = () => {
       document.querySelectorAll('a, button, [data-hover]').forEach(el => {
         el.removeEventListener('mouseenter', on);
@@ -131,7 +135,8 @@ function ScrollProgress() {
 }
 
 /* ═══════════════════════════════════════
-   ANIMATED COUNTER — counts up on view
+   AnimatedCounter — exact spec:
+   easeOutCubic, rAF, useInView once
    ═══════════════════════════════════════ */
 function Counter({ target, suffix = '', prefix = '', decimals = 0 }) {
   const ref = useRef(null);
@@ -145,7 +150,7 @@ function Counter({ target, suffix = '', prefix = '', decimals = 0 }) {
     const start = performance.now();
     const tick = now => {
       const p = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
       setVal(eased * num);
       if (p < 1) requestAnimationFrame(tick);
     };
@@ -156,16 +161,24 @@ function Counter({ target, suffix = '', prefix = '', decimals = 0 }) {
 }
 
 /* ═══════════════════════════════════════
-   MAGNETIC BUTTON
+   Magnetic — exact spec:
+   strength: 0.3, stiffness: 400, damping: 30
+   Disabled on mobile
    ═══════════════════════════════════════ */
 function Magnetic({ children, className = '', strength = 0.3, ...props }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 20 });
-  const sy = useSpring(y, { stiffness: 200, damping: 20 });
+  const sx = useSpring(x, { stiffness: 400, damping: 30 });
+  const sy = useSpring(y, { stiffness: 400, damping: 30 });
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia('(hover: hover) and (pointer: fine)').matches);
+  }, []);
 
   const handleMove = useCallback(e => {
+    if (!isDesktop) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -173,7 +186,7 @@ function Magnetic({ children, className = '', strength = 0.3, ...props }) {
     const cy = rect.top + rect.height / 2;
     x.set((e.clientX - cx) * strength);
     y.set((e.clientY - cy) * strength);
-  }, [x, y, strength]);
+  }, [x, y, strength, isDesktop]);
 
   const reset = useCallback(() => { x.set(0); y.set(0); }, [x, y]);
 
@@ -186,32 +199,78 @@ function Magnetic({ children, className = '', strength = 0.3, ...props }) {
 }
 
 /* ═══════════════════════════════════════
-   3D TILT CARD WRAPPER
+   TiltCard — exact spec:
+   perspective: 900, stiffness: 180, damping: 22,
+   ±7deg rotateX/Y, glare layer with
+   useMotionTemplate radial gradient
    ═══════════════════════════════════════ */
 function TiltCard({ children, className = '' }) {
   const ref = useRef(null);
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
-  const sRx = useSpring(rotateX, { stiffness: 200, damping: 30 });
-  const sRy = useSpring(rotateY, { stiffness: 200, damping: 30 });
+  const mouseX = useMotionValue(50);
+  const mouseY = useMotionValue(50);
+  const sRx = useSpring(rotateX, { stiffness: 180, damping: 22 });
+  const sRy = useSpring(rotateY, { stiffness: 180, damping: 22 });
+
+  // Glare — radial gradient following cursor
+  const glare = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(255,255,255,0.05) 0%, transparent 60%)`;
 
   const onMove = useCallback(e => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const cx = (e.clientX - rect.left) / rect.width - 0.5;
-    const cy = (e.clientY - rect.top) / rect.height - 0.5;
-    rotateY.set(cx * 8);   // max 4deg each side
-    rotateX.set(-cy * 8);
-  }, [rotateX, rotateY]);
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    rotateY.set((px - 0.5) * 14);  // ±7deg
+    rotateX.set(-(py - 0.5) * 14); // ±7deg
+    mouseX.set(px * 100);
+    mouseY.set(py * 100);
+  }, [rotateX, rotateY, mouseX, mouseY]);
 
-  const onLeave = useCallback(() => { rotateX.set(0); rotateY.set(0); }, [rotateX, rotateY]);
+  const onLeave = useCallback(() => {
+    rotateX.set(0); rotateY.set(0);
+    mouseX.set(50); mouseY.set(50);
+  }, [rotateX, rotateY, mouseX, mouseY]);
 
   return (
     <motion.div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}
-      style={{ rotateX: sRx, rotateY: sRy, transformPerspective: 800 }}
-      className={`tilt-card ${className}`}
-    >{children}</motion.div>
+      style={{ rotateX: sRx, rotateY: sRy, transformPerspective: 900 }}
+      className={`tilt-card relative ${className}`}
+    >
+      {children}
+      {/* Glare layer */}
+      <motion.div style={{ background: glare }} className="tilt-glare" />
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════
+   Typewriter — character by character
+   with blinking ▊ cursor in orange
+   ═══════════════════════════════════════ */
+function Typewriter({ text, speed = 18 }) {
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    setDisplayed('');
+    setDone(false);
+    if (!text) return;
+    let i = 0;
+    const id = setInterval(() => {
+      i++;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) { clearInterval(id); setDone(true); }
+    }, speed);
+    return () => clearInterval(id);
+  }, [text, speed]);
+
+  return (
+    <span>
+      {displayed}
+      {!done && <span className="typewriter-cursor">▊</span>}
+    </span>
   );
 }
 
@@ -248,7 +307,7 @@ function Particles() {
    ═══════════════════════════════════════ */
 export default function App() {
   return (
-    <div className="grain relative min-h-screen bg-[var(--bg)]">
+    <div className="relative min-h-screen bg-[var(--bg)]">
       <Cursor />
       <ScrollProgress />
       <Nav />
@@ -323,11 +382,10 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex flex-col overflow-hidden dot-grid">
-      {/* ATMOSPHERE — gradient orbs */}
+      {/* ATMOSPHERE — two orbs, exact spec */}
       <motion.div style={{ y: orbY }} className="absolute inset-0 z-0">
-        <div className="orb orb-1" />
-        <div className="orb orb-2" />
-        <div className="orb orb-3" />
+        <div className="orb-a" />
+        <div className="orb-b" />
       </motion.div>
 
       {/* Particles */}
@@ -409,104 +467,130 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════
-   ABOUT — Timeline
+   ABOUT — Horizontal 4-column timeline
    ═══════════════════════════════════════ */
 function About() {
   return (
     <section id="about" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-24 sm:py-32 md:py-40">
       <Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-12 md:gap-20 mb-20 sm:mb-28">
-          <div>
-            <p className="label mb-4">Journey</p>
-            <h2 className="section-heading text-2xl sm:text-3xl md:text-4xl leading-tight">From foundations<br />to production.</h2>
-          </div>
-          <div className="flex items-end">
-            <p className="text-[var(--text-2)] text-sm sm:text-base leading-relaxed max-w-md">
-              A trajectory of continuous learning and deploying — driven by the conviction that intelligence should be engineered, not accidental.
-            </p>
-          </div>
+        <div className="mb-14 sm:mb-16">
+          <p className="label mb-4">Journey</p>
+          <h2 className="section-heading text-2xl sm:text-3xl md:text-4xl leading-tight mb-4">From foundations to production.</h2>
+          <p className="text-[var(--text-2)] text-sm sm:text-base leading-relaxed max-w-lg">
+            A trajectory of continuous learning and deploying — driven by the conviction that intelligence should be engineered, not accidental.
+          </p>
         </div>
       </Reveal>
 
-      <div className="relative pl-8 sm:pl-10 md:pl-0">
-        <div className="timeline-line left-0 sm:left-1 md:left-[3px] top-0 bottom-0" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-0">
-          {TIMELINE.map((item, idx) => <TimelineItem key={idx} item={item} idx={idx} />)}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TimelineItem({ item, idx }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: idx * 0.1, ease }}
-      className="relative pb-12 sm:pb-14 md:pb-16">
-      <div className="absolute -left-8 sm:-left-10 md:static"><motion.div initial={{ scale: 0 }} animate={inView ? { scale: 1 } : {}} transition={{ delay: 0.2 }} className="timeline-dot md:hidden" /></div>
-      <div className="group">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-7 h-7 rounded-lg bg-[var(--surface-1)] border border-[var(--border)] flex items-center justify-center text-[var(--accent)]">{item.icon}</div>
-          <span className="label text-[10px]">{item.year}</span>
-        </div>
-        <h3 className="font-display font-bold text-base sm:text-lg text-[var(--text-1)] tracking-tight mb-1">{item.title}</h3>
-        <p className="text-[11px] text-[var(--text-3)] font-medium mb-2">{item.sub}</p>
-        <p className="text-[13px] text-[var(--text-2)] leading-relaxed mb-3">{item.desc}</p>
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[var(--accent)]"><Trophy size={10} /> {item.stat}</span>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ═══════════════════════════════════════
-   WORK — Bento grid with 3D tilt cards
-   ═══════════════════════════════════════ */
-function Work() {
-  return (
-    <section id="work" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-24 sm:py-32 md:py-40">
-      <Reveal>
-        <div className="mb-14 sm:mb-18">
-          <p className="label mb-4">Selected Work</p>
-          <h2 className="section-heading text-2xl sm:text-3xl md:text-4xl mb-3">Project Showcase</h2>
-          <p className="text-[var(--text-2)] max-w-md text-sm sm:text-base">Production-oriented models and pipelines, optimized for scale and accuracy.</p>
-        </div>
-      </Reveal>
-
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-3 sm:gap-4">
-        <Reveal className="md:col-span-4"><TiltCard><ProjCard p={PROJECTS[0]} large /></TiltCard></Reveal>
-        <Reveal className="md:col-span-2" delay={0.08}><TiltCard><ProjCard p={PROJECTS[1]} /></TiltCard></Reveal>
-        {PROJECTS.slice(2).map((p, i) => (
-          <Reveal key={i} className="md:col-span-2" delay={i * 0.06}><TiltCard><ProjCard p={p} /></TiltCard></Reveal>
+      {/* Horizontal timeline — 4 columns on desktop, 2 on tablet, 1 on mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        {TIMELINE.map((item, idx) => (
+          <Reveal key={idx} delay={idx * 0.08}>
+            <TiltCard>
+              <div className="card p-5 sm:p-6 h-full flex flex-col group">
+                {/* Year badge + icon */}
+                <div className="flex items-center justify-between mb-5">
+                  <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-[var(--accent)] bg-[var(--accent-dim)] px-2.5 py-1 rounded-md">{item.year}</span>
+                  <div className="w-8 h-8 rounded-lg bg-[var(--accent-dim)] flex items-center justify-center text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-white transition-colors duration-300">
+                    {item.icon}
+                  </div>
+                </div>
+                {/* Content */}
+                <h3 className="font-display font-bold text-base sm:text-lg text-[var(--text-1)] tracking-tight mb-1">{item.title}</h3>
+                <p className="text-[11px] text-[var(--text-3)] font-medium mb-3">{item.sub}</p>
+                <p className="text-[13px] text-[var(--text-2)] leading-relaxed mb-4 flex-grow">{item.desc}</p>
+                {/* Stat */}
+                <div className="pt-3 border-t border-[var(--border)]">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[var(--accent)]"><Trophy size={10} /> {item.stat}</span>
+                </div>
+              </div>
+            </TiltCard>
+          </Reveal>
         ))}
       </div>
     </section>
   );
 }
 
-function ProjCard({ p, large = false }) {
+/* ═══════════════════════════════════════
+   WORK — True bento with dominant featured card
+   ═══════════════════════════════════════ */
+function Work() {
+  return (
+    <section id="work" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-24 sm:py-32 md:py-40">
+      <Reveal>
+        <div className="mb-14 sm:mb-16">
+          <p className="label mb-4">Selected Work</p>
+          <h2 className="section-heading text-2xl sm:text-3xl md:text-4xl mb-3">Project Showcase</h2>
+          <p className="text-[var(--text-2)] max-w-md text-sm sm:text-base">Production-oriented models and pipelines, optimized for scale and accuracy.</p>
+        </div>
+      </Reveal>
+
+      {/* Bento: featured spans 3 cols + 2 rows, others fill remaining space */}
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-3 sm:gap-4 auto-rows-auto" style={{ gridTemplateRows: 'auto auto' }}>
+        {/* Featured — spans 3 cols, 2 rows */}
+        <Reveal className="md:col-span-3 md:row-span-2">
+          <TiltCard className="h-full">
+            <a href={PROJECTS[0].url} target="_blank" rel="noopener noreferrer" data-hover
+              className="card-accent p-6 sm:p-8 md:p-10 flex flex-col h-full group block relative overflow-hidden">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--accent-dim)] flex items-center justify-center text-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:text-white transition-colors duration-300">{PROJECTS[0].icon}</div>
+                  <span className="label text-[10px]">{PROJECTS[0].category}</span>
+                </div>
+                <ArrowUpRight size={16} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+              </div>
+              <h3 className="font-display font-bold text-xl sm:text-2xl md:text-3xl tracking-tight mb-3 text-[var(--text-1)]">{PROJECTS[0].title}</h3>
+              <p className="text-[var(--text-2)] text-sm sm:text-base leading-relaxed mb-8 flex-grow max-w-md">{PROJECTS[0].desc}</p>
+              {/* Giant metric */}
+              <div className="pt-5 border-t border-[var(--border)]">
+                <div className="flex items-end gap-3 mb-4">
+                  <span className="font-display font-bold text-[var(--text-1)] leading-none" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)' }}>{PROJECTS[0].metric}</span>
+                  <div className="pb-2">
+                    <span className="text-sm text-[var(--text-2)] block">{PROJECTS[0].metricLabel}</span>
+                    <span className="text-xs text-[var(--text-3)]">{PROJECTS[0].secondary}</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {PROJECTS[0].tags.map(t => <span key={t} className="px-2.5 py-1 text-[10px] font-mono text-[var(--text-3)] bg-[var(--surface-2)] border border-[var(--border)] rounded-md">{t}</span>)}
+                </div>
+              </div>
+            </a>
+          </TiltCard>
+        </Reveal>
+
+        {/* Remaining 5 cards — each spans 2 cols, 1 row */}
+        {PROJECTS.slice(1).map((p, i) => (
+          <Reveal key={i} className="md:col-span-2" delay={0.06 + i * 0.05}>
+            <TiltCard className="h-full"><SmallProjCard p={p} /></TiltCard>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SmallProjCard({ p }) {
   return (
     <a href={p.url} target="_blank" rel="noopener noreferrer" data-hover
-      className={`${large ? 'card-accent' : 'card'} p-5 sm:p-7 flex flex-col h-full group block relative overflow-hidden`}>
-      <div className="flex-grow flex flex-col">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${large ? 'bg-[var(--accent-dim)] text-[var(--accent)]' : 'bg-[var(--surface-2)] text-[var(--text-3)]'} group-hover:text-[var(--text-1)] transition-colors`}>{p.icon}</div>
-            <span className="label text-[9px]">{p.category}</span>
-          </div>
-          <ArrowUpRight size={14} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+      className="card p-5 sm:p-6 flex flex-col h-full group block relative overflow-hidden">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[var(--surface-2)] flex items-center justify-center text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors">{p.icon}</div>
+          <span className="label text-[9px]">{p.category}</span>
         </div>
-        <h3 className={`font-display font-bold tracking-tight mb-2 text-[var(--text-1)] ${large ? 'text-lg sm:text-xl md:text-2xl' : 'text-base sm:text-lg'}`}>{p.title}</h3>
-        <p className="text-[var(--text-2)] text-[13px] leading-relaxed mb-5 flex-grow">{p.desc}</p>
-        <div className="pt-4 border-t border-[var(--border)]">
-          <div className="flex items-baseline gap-2 mb-3">
-            <span className={`font-display font-bold ${large ? 'text-3xl sm:text-4xl' : 'text-2xl'} text-[var(--text-1)]`}>{p.metric}</span>
-            <span className="text-[11px] text-[var(--text-2)]">{p.metricLabel}</span>
-            <span className="text-[10px] text-[var(--text-3)] ml-auto">{p.secondary}</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {p.tags.map(t => <span key={t} className="px-2 py-0.5 text-[9px] sm:text-[10px] font-mono text-[var(--text-3)] bg-[var(--surface-2)] border border-[var(--border)] rounded">{t}</span>)}
-          </div>
+        <ArrowUpRight size={13} className="text-[var(--text-3)] group-hover:text-[var(--text-1)] transition-colors" />
+      </div>
+      <h3 className="font-display font-bold text-sm sm:text-base tracking-tight mb-1.5 text-[var(--text-1)]">{p.title}</h3>
+      <p className="text-[var(--text-2)] text-[12px] leading-relaxed mb-4 flex-grow line-clamp-2">{p.desc}</p>
+      <div className="pt-3 border-t border-[var(--border)]">
+        <div className="flex items-baseline gap-2">
+          <span className="font-display font-bold text-xl text-[var(--text-1)]">{p.metric}</span>
+          <span className="text-[10px] text-[var(--text-2)]">{p.metricLabel}</span>
+          <span className="text-[9px] text-[var(--text-3)] ml-auto">{p.secondary}</span>
+        </div>
+        <div className="flex flex-wrap gap-1 mt-2">
+          {p.tags.map(t => <span key={t} className="px-2 py-0.5 text-[9px] font-mono text-[var(--text-3)] bg-[var(--surface-2)] border border-[var(--border)] rounded">{t}</span>)}
         </div>
       </div>
     </a>
@@ -514,7 +598,7 @@ function ProjCard({ p, large = false }) {
 }
 
 /* ═══════════════════════════════════════
-   AI ASSISTANT
+   AI SECTION — Full-width terminal
    ═══════════════════════════════════════ */
 function Assistant() {
   const [q, setQ] = useState('');
@@ -532,86 +616,158 @@ function Assistant() {
   const hints = ['What ML frameworks does he use?', 'Explain the Churn Predictor.', 'Educational background?'];
 
   return (
-    <section id="assistant" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-24 sm:py-32 md:py-40">
+    <section id="ai" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-24 sm:py-32 md:py-40">
       <Reveal>
-        <TiltCard>
-          <div className="card-accent p-6 sm:p-10 md:p-14 relative overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-start">
-              <div>
-                <p className="label mb-4 text-[var(--accent)]"><Sparkles size={11} className="inline mr-1.5 -mt-0.5" />AI-Powered</p>
-                <h2 className="section-heading text-2xl sm:text-3xl md:text-4xl mb-4">Ask about<br />this portfolio.</h2>
-                <p className="text-[var(--text-2)] text-sm sm:text-base leading-relaxed mb-6">Query the embedded AI about skills, projects, and metrics.</p>
-                <div className="flex flex-wrap gap-2">
-                  {hints.map(h => <button key={h} onClick={() => { setQ(h); ask(h); }} data-hover
-                    className="text-[10px] sm:text-[11px] px-3 py-1.5 bg-[var(--surface-1)] border border-[var(--border)] rounded-lg text-[var(--text-3)] hover:text-[var(--text-1)] hover:border-[var(--border-hover)] transition-all">{h}</button>)}
-                </div>
+        {/* Terminal card */}
+        <div className="overflow-hidden" style={{ background: 'rgba(0,0,0,0.65)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16 }}>
+          {/* macOS title bar */}
+          <div className="px-5 sm:px-6 py-3.5 flex items-center border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+            <div className="flex items-center gap-2">
+              <div className="traffic-light" style={{ background: '#FF5F57' }} />
+              <div className="traffic-light" style={{ background: '#FFBD2E' }} />
+              <div className="traffic-light" style={{ background: '#28C840' }} />
+            </div>
+            <span className="mx-auto font-mono-dm text-[10px]" style={{ color: '#2a2a2a' }}>portfolio-ai — query.sh</span>
+            <div className="flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#28C840' }} />
+              <span className="font-mono-dm text-[9px]" style={{ color: '#28C840' }}>connected</span>
+            </div>
+          </div>
+
+          {/* Section heading — inside the card */}
+          <div className="px-6 sm:px-8 pt-6 sm:pt-8 pb-2">
+            <p className="label mb-3">AI-Powered</p>
+            <h2 className="section-heading text-xl sm:text-2xl md:text-3xl">Query the portfolio.</h2>
+          </div>
+
+          {/* 2-column: suggestions | terminal */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.7fr]">
+            {/* Left — suggestions */}
+            <div className="p-6 sm:p-8 lg:border-r" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+              <p className="label mb-4">Suggested queries</p>
+              <div className="flex flex-col gap-2 mb-6">
+                {hints.map(h => (
+                  <motion.button key={h} whileHover={{ x: 5 }} onClick={() => { setQ(h); ask(h); }} data-hover
+                    className="text-left font-mono-dm text-[11px] px-3.5 py-2.5 border rounded-lg transition-all duration-200"
+                    style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.06)', color: 'var(--text-2)' }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--accent-border)'; e.currentTarget.style.background = 'var(--accent-dim)'; e.currentTarget.style.color = 'var(--orange)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.color = 'var(--text-2)'; }}>
+                    {h}
+                  </motion.button>
+                ))}
               </div>
-              <div className="card overflow-hidden">
-                <div className="bg-[var(--surface-2)] px-4 py-2.5 flex items-center gap-2 border-b border-[var(--border)]">
-                  <div className="w-2 h-2 rounded-full bg-[var(--accent)] opacity-50" />
-                  <div className="w-2 h-2 rounded-full bg-[var(--text-3)] opacity-30" />
-                  <div className="w-2 h-2 rounded-full bg-[var(--text-3)] opacity-30" />
-                  <span className="ml-2 text-[9px] font-mono text-[var(--text-3)]">query.sh</span>
+              <p className="font-mono-dm text-[9px]" style={{ color: 'var(--text-3)' }}>Powered by Google Gemini</p>
+            </div>
+
+            {/* Right — terminal I/O */}
+            <div className="p-5 sm:p-6 lg:p-8">
+              <form onSubmit={e => { e.preventDefault(); ask(); }} className="flex gap-2 mb-5">
+                <div className="relative flex-grow">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono-dm text-[13px] font-bold select-none" style={{ color: 'var(--orange)' }}>›</span>
+                  <input type="text"
+                    className="w-full rounded-lg py-3 pl-9 pr-4 text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none transition-colors font-mono-dm text-[12px]"
+                    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+                    onFocus={e => e.currentTarget.style.borderColor = 'var(--accent)'}
+                    onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'}
+                    placeholder="Type a question..." value={q} onChange={e => setQ(e.target.value)} />
                 </div>
-                <div className="p-4 sm:p-5">
-                  <form onSubmit={e => { e.preventDefault(); ask(); }} className="flex gap-2 mb-4">
-                    <div className="relative flex-grow">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-3)]" size={13} />
-                      <input type="text" className="w-full bg-[var(--surface-1)] border border-[var(--border)] rounded-lg py-2.5 pl-9 pr-4 text-[var(--text-1)] placeholder:text-[var(--text-3)] focus:outline-none focus:border-[var(--accent)] transition-colors font-mono text-[12px]"
-                        placeholder="Type a question..." value={q} onChange={e => setQ(e.target.value)} />
+                <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }} type="submit"
+                  disabled={st === 'loading' || !q.trim()} data-hover
+                  className="btn-primary px-5 py-3 font-mono-dm text-[12px] font-bold disabled:opacity-30 disabled:cursor-not-allowed shrink-0">
+                  Run
+                </motion.button>
+              </form>
+
+              {/* Output area — always visible, min-height 160px */}
+              <div className="rounded-lg flex items-center justify-center" style={{ minHeight: 160, background: 'rgba(0,0,0,0.4)' }}>
+                {st === 'idle' && (
+                  <p className="font-mono-dm text-[13px]" style={{ color: 'var(--text-3)' }}>
+                    › Awaiting query<span className="typewriter-cursor">_</span>
+                  </p>
+                )}
+                {st === 'loading' && (
+                  <div className="flex items-center gap-2">
+                    <span className="bounce-dot" />
+                    <span className="bounce-dot" />
+                    <span className="bounce-dot" />
+                  </div>
+                )}
+                {(st === 'ok' || st === 'err') && res && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full p-5">
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <CheckCircle2 size={12} style={{ color: 'var(--orange)' }} />
+                      <span className="label text-[9px]">Output</span>
                     </div>
-                    <motion.button whileTap={{ scale: 0.95 }} type="submit" disabled={st === 'loading' || !q.trim()} data-hover
-                      className="btn-primary px-4 py-2.5 text-[12px] disabled:opacity-40 disabled:cursor-not-allowed shrink-0">
-                      {st === 'loading' ? <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" /> : 'Run'}
-                    </motion.button>
-                  </form>
-                  <AnimatePresence mode="wait">
-                    {res && (
-                      <motion.div key="r" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease }}
-                        className="bg-[var(--surface-1)] border border-[var(--border)] rounded-lg p-4">
-                        <div className="flex items-center gap-1.5 mb-2"><CheckCircle2 size={11} className="text-[var(--accent)]" /><span className="label text-[9px]">Output</span></div>
-                        <p className="text-[13px] text-[var(--text-2)] leading-relaxed font-mono">{res}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                    <p className="font-mono-dm text-[13px] text-[var(--text-1)] leading-relaxed"><Typewriter text={res} /></p>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
-        </TiltCard>
+        </div>
       </Reveal>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════
-   FOOTER
+   CONTACT / FOOTER
    ═══════════════════════════════════════ */
 function Footer() {
   return (
-    <footer id="contact" className="max-w-[1100px] mx-auto px-6 sm:px-8 pt-14 pb-8 border-t border-[var(--border)]">
+    <footer id="contact" className="max-w-[1100px] mx-auto px-6 sm:px-8 py-10 sm:py-12">
       <Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center mb-10">
-          <div>
-            <h3 className="font-display font-bold text-lg text-[var(--text-1)] mb-1">Open to opportunities</h3>
-            <p className="text-sm text-[var(--text-2)]">Let's discuss how I can contribute to your team.</p>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
-            {[
-              { href: 'mailto:student@xmu.edu.my', icon: <Mail size={14} />, label: 'Email' },
-              { href: 'https://linkedin.com/in/yourprofile', icon: <Linkedin size={14} />, label: 'LinkedIn', ext: true },
-              { href: 'https://github.com/LouSens', icon: <Github size={14} />, label: 'GitHub', ext: true },
-            ].map((l, i) => (
-              <motion.a key={i} whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} data-hover
-                href={l.href} target={l.ext ? '_blank' : undefined} rel={l.ext ? 'noopener noreferrer' : undefined}
-                className="btn-ghost px-4 py-2 text-[13px] flex items-center gap-2">{l.icon} {l.label}</motion.a>
-            ))}
+        {/* Orange-tinted banner card */}
+        <div className="relative overflow-hidden" style={{ background: 'rgba(224,85,48,0.04)', border: '1px solid rgba(224,85,48,0.12)', borderRadius: 20, padding: 'clamp(40px, 6vw, 64px)' }}>
+          {/* Radial orange glow from left edge */}
+          <div className="absolute top-0 left-0 w-1/2 h-full pointer-events-none" style={{ background: 'radial-gradient(ellipse at 0% 50%, rgba(224,85,48,0.08) 0%, transparent 70%)' }} />
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 md:gap-16 items-start">
+            {/* Left — heading */}
+            <div>
+              <p className="label mb-5">Get in touch</p>
+              <h2 className="font-display tracking-tight" style={{ fontWeight: 800, fontSize: 'clamp(2.5rem, 6.5vw, 6rem)', lineHeight: 0.92, color: 'var(--text-1)' }}>
+                Let's<br /><span style={{ color: 'var(--orange)' }}>build.</span>
+              </h2>
+            </div>
+
+            {/* Right — description + buttons */}
+            <div className="md:pt-4">
+              <p className="text-[var(--text-2)] text-sm sm:text-base leading-relaxed mb-8">
+                Currently open to full-time roles, contract work, and meaningful collaborations in AI & ML engineering.
+              </p>
+              <div className="flex flex-nowrap gap-3">
+                <Magnetic>
+                  <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} data-hover
+                    href="mailto:student@xmu.edu.my"
+                    className="btn-primary px-6 py-3 text-[13px] flex items-center gap-2">
+                    <Mail size={14} /> Send Email
+                  </motion.a>
+                </Magnetic>
+                <Magnetic>
+                  <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} data-hover
+                    href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer"
+                    className="btn-ghost px-6 py-3 text-[13px] flex items-center gap-2">
+                    <Linkedin size={14} /> LinkedIn
+                  </motion.a>
+                </Magnetic>
+                <Magnetic>
+                  <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} data-hover
+                    href="https://github.com/LouSens" target="_blank" rel="noopener noreferrer"
+                    className="btn-ghost px-6 py-3 text-[13px] flex items-center gap-2">
+                    <Github size={14} /> GitHub
+                  </motion.a>
+                </Magnetic>
+              </div>
+            </div>
           </div>
         </div>
       </Reveal>
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-6 border-t border-[var(--border)]">
-        <span className="text-[11px] text-[var(--text-3)]">© {new Date().getFullYear()} David Huang</span>
-        <span className="text-[10px] text-[var(--text-3)]">React · Vite · Tailwind</span>
+
+      {/* Bottom bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-2 mt-8">
+        <span className="font-mono-dm text-[10px]" style={{ color: '#222' }}>© {new Date().getFullYear()} David Huang</span>
+        <span className="font-mono-dm text-[10px]" style={{ color: '#222' }}>React · Vite · Framer Motion</span>
       </div>
     </footer>
   );
