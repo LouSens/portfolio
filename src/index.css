@@ -132,3 +132,39 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Terminal caret */
+.terminal-caret {
+  display: inline-block;
+  width: 9px;
+  height: 18px;
+  background: var(--accent);
+  vertical-align: middle;
+  animation: caret-blink 1.05s steps(1) infinite;
+  transform: translateY(-2px);
+}
+@keyframes caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* Subtle scanline tint for terminal frame */
+.terminal-frame {
+  background-image:
+    linear-gradient(to bottom, rgba(255,255,255,0.015) 0%, transparent 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+}
+
+/* Terminal body scrollbar */
+.terminal-body::-webkit-scrollbar { width: 8px; }
+.terminal-body::-webkit-scrollbar-track { background: transparent; }
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 90, 54, 0.25);
+  border-radius: 8px;
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 90, 54, 0.45);
+}
+
+/* Hide native cursor inside terminal input — we draw our own caret via CSS caret-color */
+.terminal-body input { caret-color: var(--accent); }

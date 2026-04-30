@@ -1,5 +1,6 @@
 import { liquidMetalFragmentShader, ShaderMount } from "@paper-design/shaders";
 import { Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -37,11 +38,11 @@ export function LiquidMetalButton({
       };
     } else {
       return {
-        width: 142,
+        width: 200,
         height: 46,
-        innerWidth: 138,
+        innerWidth: 196,
         innerHeight: 42,
-        shaderWidth: 142,
+        shaderWidth: 200,
         shaderHeight: 46,
       };
     }
@@ -160,10 +161,41 @@ export function LiquidMetalButton({
 
   return (
     <div className="relative inline-block text-[14px]">
-      <div
+      {/* Glow ring — expands and fades in on hover */}
+      <motion.div
+        aria-hidden
+        animate={isHovered
+          ? { opacity: 1, scale: 1.25 }
+          : { opacity: 0, scale: 0.85 }
+        }
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          position: "absolute",
+          inset: "-6px",
+          borderRadius: "100px",
+          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.18) 0%, transparent 70%)",
+          filter: "blur(10px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Lift + scale wrapper */}
+      <motion.div
+        animate={isHovered
+          ? { scale: 1.06, y: -3 }
+          : { scale: 1, y: 0 }
+        }
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 22,
+        }}
         style={{
           perspective: "1000px",
           perspectiveOrigin: "50% 50%",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         <div
@@ -208,19 +240,20 @@ export function LiquidMetalButton({
               />
             )}
             {viewMode === "text" && (
-              <span
+              <motion.span
+                animate={isHovered ? { y: -2 } : { y: 0 }}
+                transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 style={{
                   fontSize: "14px",
                   color: "#666666",
                   fontWeight: 400,
                   textShadow: "0px 1px 2px rgba(0, 0, 0, 0.5)",
-                  transition: "all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  transform: "scale(1)",
+                  display: "inline-block",
                   whiteSpace: "nowrap",
                 }}
               >
                 {label}
-              </span>
+              </motion.span>
             )}
           </div>
 
@@ -345,7 +378,7 @@ export function LiquidMetalButton({
             ))}
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
