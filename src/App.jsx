@@ -458,20 +458,18 @@ function RotatingStatus() {
     return () => clearInterval(t);
   }, []);
   return (
-    <span className="relative inline-block min-w-[260px] text-left overflow-hidden align-middle h-[18px]">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={idx}
-          initial={{ y: 18, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -18, opacity: 0 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-block whitespace-nowrap text-white"
-        >
-          {STATUS_ROTATION[idx]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={idx}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="text-white whitespace-nowrap"
+      >
+        {STATUS_ROTATION[idx]}
+      </motion.span>
+    </AnimatePresence>
   );
 }
 
@@ -487,11 +485,11 @@ function Hero() {
 
         <motion.div
           initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-[var(--border)] bg-[rgba(20,20,20,0.6)] backdrop-blur-md mb-8 shadow-2xl shadow-[var(--accent-dim)]"
+          className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full border border-[var(--border)] bg-[rgba(20,20,20,0.6)] backdrop-blur-md mb-8 shadow-2xl shadow-[var(--accent-dim)] max-w-[92vw] overflow-hidden"
         >
-          <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-          <span className="text-xs font-mono-dm text-[var(--text-3)] uppercase tracking-widest">Currently</span>
-          <span className="text-xs font-mono-dm tracking-wide"><RotatingStatus /></span>
+          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[var(--accent)] animate-pulse flex-shrink-0" />
+          <span className="text-[9px] sm:text-xs font-mono-dm text-[var(--text-3)] uppercase tracking-tight sm:tracking-widest flex-shrink-0 whitespace-nowrap">Currently</span>
+          <span className="text-[9px] sm:text-xs font-mono-dm tracking-tight sm:tracking-wide whitespace-nowrap overflow-hidden text-ellipsis"><RotatingStatus /></span>
         </motion.div>
 
         <motion.h1 style={{ y: y2 }} className="font-display font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight mb-6 md:mb-8">
