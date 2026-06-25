@@ -41,7 +41,7 @@ const PROJECTS = [
     team: '4-person team',
     isTeam: true,
     year: '2025',
-    context: 'MyHack 2025 · Preliminary Round',
+    context: 'MyHack 2025 · Preliminary Round · 4-Person Team',
     metric: '4-Phase',
     metricLabel: 'AI Pipeline',
     secondaryMetric: 'Live',
@@ -49,7 +49,7 @@ const PROJECTS = [
     url: 'https://github.com/nerdylive123/Startup-emp.git',
     liveUrl: 'https://n8n-proj-455013.web.app/',
     tags: ['LangGraph', 'FastAPI', 'Gemini 3.1', 'Pydantic v2', 'Cloud Run', 'Firestore'],
-    desc: 'An AI Chief of Staff for accelerator programs — replaces fragile spreadsheets with a living knowledge graph. I owned the backend and all agent logic; teammates handled the React frontend and Firebase infrastructure.',
+    desc: 'An AI Chief of Staff for accelerator programs — replaces fragile spreadsheets with a living knowledge graph. The team built a full-stack platform across backend AI, React frontend, and Firebase infrastructure; this covers the backend and agent systems.',
     bullets: [
       'Designed and built the entire 4-phase agentic pipeline: AI triage of startup applications, multimodal pitch deck parsing (Gemini), semantic mentor matching via vector embeddings, and institutional knowledge capture.',
       'Engineered the FastAPI backend with LangGraph orchestration and Pydantic v2 schema coercion as the anti-hallucination backbone — all LLM outputs are strictly typed before touching state.',
@@ -65,7 +65,7 @@ const PROJECTS = [
     team: '4-person team',
     isTeam: true,
     year: '2026',
-    context: 'Team project · ~99% engineering by me',
+    context: '4-Person Team · Engineering Lead',
     metric: '5-Signal',
     metricLabel: 'Hybrid Ranking',
     secondaryMetric: 'pgvector',
@@ -73,7 +73,7 @@ const PROJECTS = [
     url: 'https://github.com/LouSens/KerjaCerdas.git',
     liveUrl: null,
     tags: ['LangGraph', 'FastAPI', 'Gemini 3.1 Flash', 'PostgreSQL + pgvector', 'React', 'Docker', 'JWT'],
-    desc: 'End-to-end talent matching infrastructure that solves the Triple Mismatch problem in recruitment. Built as a team project — I owned nearly all the engineering while teammates handled market research and business framing.',
+    desc: 'End-to-end talent matching infrastructure that solves the Triple Mismatch problem in recruitment. The team covered engineering, market research, and business strategy — this covers the full technical stack from backend to frontend.',
     bullets: [
       'Architected a Multi-Agent Swarm (LangGraph) with a Supervisor node routing tasks to SearchJobs, ResumeReview, and SkillGap worker agents — running parallel function calls when needed.',
       'Built a 5-signal hybrid ranking engine: cosine similarity (50%), skill overlap (30%), geography (10%), salary fit (5%), and experience fit (5%) — replicating real HR hiring priorities mathematically.',
@@ -138,14 +138,14 @@ const EXPERIENCE = [
   {
     year: '2026',
     role: 'Lead Engineer — KerjaCerdas',
-    company: '3-Person Team (Engineering lead)',
-    desc: 'Owned ~99% of the engineering on a team project — designed and shipped the full autonomous recruitment stack: LangGraph multi-agent swarm, PostgreSQL + pgvector hybrid ranking, React SPA with Zustand, JWT auth, streaming SSE chat, Docker Compose orchestration, and Gemini-powered CV parsing. Teammates focused on market research and business strategy.',
+    company: '4-Person Team · Engineering Lead',
+    desc: 'Led the full engineering of an autonomous recruitment platform — designed and shipped the complete technical stack: LangGraph multi-agent swarm, PostgreSQL + pgvector hybrid ranking, React SPA with Zustand, JWT auth, streaming SSE chat, Docker Compose orchestration, and Gemini-powered CV parsing. The team collaborated across engineering, market research, and business strategy.',
   },
   {
     year: '2025',
     role: 'Backend & AI Engineer — Startup EMP',
     company: '4-Person Team · MyHack 2025',
-    desc: 'Responsible for all backend and AI agent logic on the accelerator management platform. Built the FastAPI/LangGraph pipeline, Pydantic v2-validated Gemini multimodal ingestion, semantic mentor matching via vector embeddings, and the human-in-the-loop governance layer. Frontend and Firebase infrastructure were owned by teammates.',
+    desc: 'Built the backend and AI agent systems for the accelerator management platform — FastAPI/LangGraph pipeline, Pydantic v2-validated Gemini multimodal ingestion, semantic mentor matching via vector embeddings, and the human-in-the-loop governance layer. The team covered frontend (React) and Firebase cloud infrastructure.',
   },
   {
     year: '2026',
