@@ -5,7 +5,7 @@ import { Points, PointMaterial } from '@react-three/drei';
 import Lenis from 'lenis';
 import {
   Github, Linkedin, Mail, ArrowUpRight, Code, Database, Sparkles, Server,
-  Terminal, X, Menu, Download, ChevronRight, Plus, Minus, GraduationCap,
+  Terminal, X, Menu, Download, ChevronRight, ChevronLeft, Plus, Minus, GraduationCap,
   Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe,
 } from 'lucide-react';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
@@ -917,6 +917,86 @@ function ExperienceTimeline() {
 }
 
 /* ═══════════════════════════════════════
+   PROJECT SLIDESHOW COMPONENT
+   ═══════════════════════════════════════ */
+function ProjectSlideshow({ images, title }) {
+  const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (!images || images.length <= 1 || isPaused) return;
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [images, isPaused]);
+
+  if (!images || images.length === 0) return null;
+
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
+
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-xl border border-[var(--border)] bg-[#050505] mb-6 group/slideshow select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div className="relative aspect-[16/9] w-full overflow-hidden flex items-center justify-center bg-black/40">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={current}
+            src={images[current]}
+            alt={`${title} preview ${current + 1}`}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full h-full object-cover rounded-xl"
+          />
+        </AnimatePresence>
+
+        {images.length > 1 && (
+          <>
+            {/* Prev Button */}
+            <button
+              onClick={prevSlide}
+              aria-label="Previous slide"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95"
+            >
+              <ChevronLeft size={16} />
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={nextSlide}
+              aria-label="Next slide"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95"
+            >
+              <ChevronRight size={16} />
+            </button>
+
+            {/* Pagination Dots */}
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 shadow-lg">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrent(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === current ? 'w-5 bg-[var(--accent)]' : 'w-2 bg-white/40 hover:bg-white/70'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════
    PROJECT CARD  (enhanced)
    ═══════════════════════════════════════ */
 function ProjectCard({ project, idx }) {
@@ -1005,7 +1085,7 @@ function ProjectCard({ project, idx }) {
           {project.desc}
         </p>
 
-        {/* ── EXPANDABLE BULLETS ── */}
+        {/* ── EXPANDABLE BULLETS & SLIDESHOW ── */}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
@@ -1013,8 +1093,11 @@ function ProjectCard({ project, idx }) {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden"
+              className="overflow-hidden pt-2"
             >
+              {project.images && project.images.length > 0 && (
+                <ProjectSlideshow images={project.images} title={project.title} />
+              )}
               <ul className="border-l-2 border-[var(--accent)]/30 pl-5 space-y-3 mb-6">
                 {project.bullets.map((b, i) => (
                   <motion.li
