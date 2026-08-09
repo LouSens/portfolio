@@ -41,91 +41,76 @@ const PROJECTS = [
     team: '4-person team',
     isTeam: true,
     year: '2025',
-    context: 'MyHack 2025 · Preliminary Round · 4-Person Team',
-    metric: '4-Phase',
-    metricLabel: 'AI Pipeline',
-    secondaryMetric: 'Live',
-    secondaryLabel: 'on Google Cloud',
+    context: 'MyHack 2025 Preliminary Round : 4-Person Team',
     url: 'https://github.com/nerdylive123/Startup-emp.git',
-    liveUrl: 'https://n8n-proj-455013.web.app/',
-    tags: ['LangGraph', 'FastAPI', 'Gemini 3.1', 'Pydantic v2', 'Cloud Run', 'Firestore'],
-    desc: 'An AI Chief of Staff for accelerator programs — replaces fragile spreadsheets with a living knowledge graph. The team built a full-stack platform across backend AI, React frontend, and Firebase infrastructure; this covers the backend and agent systems.',
+    liveUrl: null,
+    tags: ['LangGraph', 'FastAPI', 'Google Gemini', 'Pydantic v2', 'Cloud Run', 'Firestore'],
+    desc: 'An AI Chief of Staff platform for accelerator programs that replaces fragile spreadsheet management with a structured knowledge graph.',
     bullets: [
-      'Designed and built the entire 4-phase agentic pipeline: AI triage of startup applications, multimodal pitch deck parsing (Gemini), semantic mentor matching via vector embeddings, and institutional knowledge capture.',
-      'Engineered the FastAPI backend with LangGraph orchestration and Pydantic v2 schema coercion as the anti-hallucination backbone — all LLM outputs are strictly typed before touching state.',
-      'Implemented the human-in-the-loop governance layer — every AI recommendation is a draft requiring explicit admin approval before any state change.',
-      'Integrated Gemini Embedding 2 for high-dimensional vector similarity in mentor-startup matching, with aggressive caching to eliminate redundant LLM calls during review sessions.',
+      'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing via Gemini, vector mentor matching, and institutional knowledge capture.',
+      'Engineered the FastAPI backend using LangGraph orchestration and Pydantic v2 schema coercion to enforce strict LLM output typing.',
+      'Implemented human-in-the-loop governance controls where AI recommendations serve as drafts requiring explicit admin approval before state mutation.',
+      'Integrated Gemini Embedding 2 for high-dimensional vector similarity matching with aggressive caching to reduce redundant LLM compute calls.',
     ],
     icon: <Zap size={26} />,
   },
   {
     title: 'KerjaCerdas',
-    category: 'Autonomous Recruitment Platform',
+    category: 'Enterprise Talent AI Infrastructure',
     role: 'Lead Engineer',
     team: '4-person team',
     isTeam: true,
     year: '2026',
-    context: '4-Person Team · Engineering Lead',
-    metric: '5-Signal',
-    metricLabel: 'Hybrid Ranking',
-    secondaryMetric: 'pgvector',
-    secondaryLabel: 'HNSW Search',
+    context: 'Engineering Lead : 4-Person Team',
     url: 'https://github.com/LouSens/KerjaCerdas.git',
     liveUrl: null,
-    tags: ['LangGraph', 'FastAPI', 'Gemini 3.1 Flash', 'PostgreSQL + pgvector', 'React', 'Docker', 'JWT'],
-    desc: 'End-to-end talent matching infrastructure that solves the Triple Mismatch problem in recruitment. The team covered engineering, market research, and business strategy — this covers the full technical stack from backend to frontend.',
+    tags: ['LangGraph', 'FastAPI', 'Gemini 3.1 Flash', 'PostgreSQL + pgvector', 'React + Zustand', 'Docker Compose', 'A/B Testing'],
+    desc: 'Enterprise talent matching infrastructure engineered to solve the labor market Triple Mismatch problem using high-dimensional vector search and ReAct multi-agent swarms.',
     bullets: [
-      'Architected a Multi-Agent Swarm (LangGraph) with a Supervisor node routing tasks to SearchJobs, ResumeReview, and SkillGap worker agents — running parallel function calls when needed.',
-      'Built a 5-signal hybrid ranking engine: cosine similarity (50%), skill overlap (30%), geography (10%), salary fit (5%), and experience fit (5%) — replicating real HR hiring priorities mathematically.',
-      'Engineered the full stack: PostgreSQL 16 + pgvector (HNSW indexing), JWT auth, FastAPI backend, React SPA with Zustand, streaming SSE for the AI chat advisor, and Docker Compose orchestration.',
-      'Integrated Gemini multimodal PDF parsing for zero-friction CV ingestion and built PII mitigation middleware to strip personally identifiable information before any external LLM call.',
+      'Architected a ReAct Multi-Agent Swarm using LangGraph and Gemini 3.1 Flash with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
+      'Engineered a 5-signal composite ranking engine combining vector cosine similarity (50%), skill overlap (30%), regional boost (10%), salary fit (5%), and experience fit (5%) with HNSW pgvector search.',
+      'Built an asynchronous PDF processing pipeline achieving low-latency CV extraction, Token Efficiency Gates to control LLM compute costs, and PII mitigation middleware.',
+      'Delivered an Employer Kanban pipeline featuring Pay-to-Unlock candidate contact monetization, E-KYC credential verification, closed-loop A/B event tracking, and a 4-phase automated CI/CD pipeline.',
     ],
     icon: <Globe size={26} />,
   },
   {
     title: 'Orion',
     category: 'Multi-Agent LLM Workflow',
-    role: 'Tech Lead / Backend',
+    role: 'Tech Lead & Backend',
     team: '4-person team',
     isTeam: true,
     year: '2026',
-    context: 'Production · 6-stage pipeline',
-    metric: '~80%',
-    metricLabel: 'Faster Processing',
-    secondaryMetric: '85%',
-    secondaryLabel: 'Test Coverage',
+    context: 'Team One Hit Wonder : Production Pipeline',
     url: 'https://github.com/LouSens/orion.git',
+    videoUrl: 'https://drive.google.com/drive/folders/1uS_SWztFofZyJsnMjqxJLOxFHvmt5pCQ?usp=sharing',
     liveUrl: null,
-    tags: ['LangGraph', 'FastAPI', 'LangSmith', 'Pydantic v2', 'GitHub Actions'],
-    desc: 'A six-stage agentic pipeline that automates end-to-end expense claim processing — employees submit claims in natural language, the system extracts, validates, and auto-approves them.',
+    tags: ['LangGraph', 'FastAPI', 'ILMU GLM-5.1', 'LangSmith', 'Pydantic v2', 'React 19', 'Tailwind CSS v4'],
+    desc: 'An AI-powered SaaS reimbursement assistant that automates end-to-end expense processing from natural language requests and uploaded receipt files.',
     bullets: [
-      'Architected the multi-agent LangGraph workflow that cut processing time by ~80% versus the manual baseline.',
-      'Built a type-safe FastAPI backend with Pydantic v2 contracts and LangSmith tracing across all six agent stages.',
-      'Stood up dual CI/CD via GitHub Actions: a PR gate (120 unit + stub-integration tests at 85% coverage) and a nightly cron running live regressions against GLM-5.1 with automatic secret rotation.',
-      'Wrote a deterministic policy engine and ledger tools in Python (rapidfuzz, pypdf) for PDF/DOCX parsing, fuzzy duplicate detection, and persistent JSON-backed claim records.',
+      'Architected a 6-stage agentic workflow in LangGraph routing claims through Intake, Intelligence, Policy, Validation, Approval, and Recorder nodes.',
+      'Implemented sliding-window rate limiting, anti-hallucination regex pre-passes, and prompt-injection sanitization across API endpoints.',
+      'Built deterministic policy evaluation tools with rapidfuzz duplicate detection, subscription catalog lookup, and JSON-backed ledger storage.',
+      'Established dual CI/CD workflows via GitHub Actions: a PR quality gate with 85% coverage across 120 unit tests and scheduled nightly regressions against production LLMs.',
     ],
     icon: <Bot size={28} />,
   },
   {
     title: 'NeuralVoid',
-    category: 'Behavioural Analytics + Clinical AI',
+    category: 'Behavioural Analytics & Clinical AI',
     role: 'Full-Stack Engineer',
     team: 'Solo build',
     isTeam: false,
     year: '2026',
-    context: 'End-to-end · Research-grade',
-    metric: '~96%',
-    metricLabel: 'Ensemble Accuracy',
-    secondaryMetric: '25',
-    secondaryLabel: 'ML Features',
+    context: 'Independent Research & Engineering',
     url: 'https://github.com/LouSens/neural-void.git',
     liveUrl: null,
-    tags: ['Node.js', 'FastAPI', 'scikit-learn', 'XGBoost', 'Gemini', 'Vercel', 'Railway'],
-    desc: 'End-to-end TikTok behavioural analytics platform — from raw session events to a clinical-grade report on doomscroll patterns, surfaced through an interactive React dashboard.',
+    tags: ['Node.js', 'FastAPI', 'scikit-learn', 'XGBoost', 'Google Gemini', 'Vercel', 'Railway'],
+    desc: 'End-to-end behavioural analytics platform transforming raw session events into clinical-grade reports on digital consumption patterns.',
     bullets: [
-      'Engineered a 25-feature ML pipeline (session detection, binge streaks, doomscroll velocity) feeding a soft-voting ensemble of Logistic Regression, Random Forest, and XGBoost — ~96% accuracy.',
-      'Integrated Google Gemini for clinical report generation served through a FastAPI backend.',
-      'Built a responsive React SPA dashboard with heatmaps, radar charts, and area charts; deployed on Vercel with a Railway-hosted REST API.',
+      'Engineered a 25-feature machine learning pipeline calculating session velocity, streak metrics, and binge probability feeding an ensemble model with ~96% classification accuracy.',
+      'Integrated Google Gemini for automated clinical report synthesis served through a high-throughput FastAPI backend.',
+      'Built a responsive React SPA dashboard with interactive heatmaps and radar charts deployed on Vercel with a Railway API gateway.',
     ],
     icon: <Brain size={28} />,
   },
@@ -137,33 +122,33 @@ const PROJECTS = [
 const EXPERIENCE = [
   {
     year: '2026',
-    role: 'Lead Engineer — KerjaCerdas',
-    company: '4-Person Team · Engineering Lead',
-    desc: 'Led the full engineering of an autonomous recruitment platform — designed and shipped the complete technical stack: LangGraph multi-agent swarm, PostgreSQL + pgvector hybrid ranking, React SPA with Zustand, JWT auth, streaming SSE chat, Docker Compose orchestration, and Gemini-powered CV parsing. The team collaborated across engineering, market research, and business strategy.',
-  },
-  {
-    year: '2025',
-    role: 'Backend & AI Engineer — Startup EMP',
-    company: '4-Person Team · MyHack 2025',
-    desc: 'Built the backend and AI agent systems for the accelerator management platform — FastAPI/LangGraph pipeline, Pydantic v2-validated Gemini multimodal ingestion, semantic mentor matching via vector embeddings, and the human-in-the-loop governance layer. The team covered frontend (React) and Firebase cloud infrastructure.',
+    role: 'Lead Engineer : KerjaCerdas',
+    company: '4-Person Team : Engineering Lead',
+    desc: 'Led full-stack engineering of an enterprise talent AI platform solving labor market Triple Mismatch. Architected a LangGraph multi-agent swarm (Supervisor + parallel worker nodes), 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard with Pay-to-Unlock monetization, E-KYC credential verification, and an automated 4-phase CI/CD pipeline.',
   },
   {
     year: '2026',
-    role: 'Tech Lead — Orion',
-    company: '4-Person Engineering Team',
-    desc: 'Led backend architecture for a multi-agent LLM expense-claim platform. Owned the LangGraph pipeline, the FastAPI contracts, and the dual-strategy CI/CD that keeps live regressions running nightly against production LLM endpoints.',
-  },
-  {
-    year: '2026',
-    role: 'Full-Stack Engineer — NeuralVoid',
-    company: 'Independent build',
-    desc: 'Shipped a behavioural analytics platform end-to-end: 25-feature ensemble ML model, Gemini-powered clinical reporting, and a React/Vercel dashboard backed by a Railway-hosted FastAPI API.',
+    role: 'Tech Lead : Orion',
+    company: '4-Person Team (One Hit Wonder)',
+    desc: 'Architected backend infrastructure for a multi-agent LLM expense reimbursement platform. Owned the 6-stage LangGraph workflow, FastAPI type contracts, security rate-limiting middleware, and dual CI/CD pipelines running scheduled regressions against production LLM endpoints.',
   },
   {
     year: '2025',
-    role: 'Lead Developer — DPickleball RL Agent',
-    company: '3-person engineering team',
-    desc: 'Architected the full Unity ML-Agents training stack, environment, reward shaping, PPO loop, and hyperparameter sweep for a competition-graded reinforcement learning agent. 3rd place finish.',
+    role: 'Backend & AI Engineer : Startup EMP',
+    company: '4-Person Team : MyHack 2025',
+    desc: 'Built the backend and AI agent systems for an accelerator management platform. Designed the FastAPI/LangGraph triage pipeline, Pydantic v2 Gemini multimodal ingestion, semantic mentor matching via vector embeddings, and human-in-the-loop governance controls.',
+  },
+  {
+    year: '2026',
+    role: 'Full-Stack Engineer : NeuralVoid',
+    company: 'Independent Project',
+    desc: 'Shipped a behavioural analytics platform end-to-end, including a 25-feature ensemble ML model (~96% accuracy), Gemini clinical report generation, and a React dashboard backed by a Railway-hosted FastAPI service.',
+  },
+  {
+    year: '2025',
+    role: 'Lead Developer : DPickleball RL Agent',
+    company: '3-Person Engineering Team',
+    desc: 'Architected Unity ML-Agents environment, reward shaping, PPO training loops, and hyperparameter sweeps for a competition-graded reinforcement learning agent, achieving a 3rd place finish.',
   },
 ];
 
@@ -178,7 +163,7 @@ const EDUCATION = {
   start: 'Sept 2024',
   expected: 'Sept 2028',
   highlights: [
-    "Dean's List Awardee — 3 consecutive semesters",
+    "Dean's List Awardee : 3 consecutive semesters",
     'Top 16% of cohort',
     'College of Artificial Intelligence & Robotics',
   ],
@@ -189,19 +174,31 @@ const EDUCATION = {
    ═══════════════════════════════════════ */
 const AWARDS = [
   {
+    place: 'Silver Award',
+    title: 'SEA-CICSIC 2026',
+    org: 'China-ASEAN Innovation Competition : Undergraduate Category',
+    date: '2026',
+    note: 'Led AI strategy and technical risk assessment for Omni-QC. Developed predictive modeling concepts, system scalability, manufacturing process analysis, and real-time defect prediction to deliver industrial intelligence capabilities.',
+    details: [
+      'Core Focus: Student startup pitches, technological inventions, and sustainable business models solving regional and global challenges.',
+      'Responsibilities: Architected data-driven predictive systems supporting real-time defect detection and operational decision-making for manufacturing.',
+    ],
+    icon: <Trophy size={20} />,
+  },
+  {
     place: '3rd Place',
     title: 'DPickleball AI Competition',
-    org: 'Unity · ML-Agents · Reinforcement Learning',
+    org: 'Unity ML-Agents : Reinforcement Learning Competition',
     date: 'Oct 2025',
-    note: 'Lead developer — architected the full training system, reward shaping, and PPO loop for a competition-grade RL agent.',
+    note: 'Served as lead developer, architecting the complete Unity ML-Agents environment, reward shaping logic, and PPO training loop for a competition-grade RL agent.',
     icon: <Trophy size={20} />,
   },
   {
     place: 'Top 20% Globally',
-    title: 'International Quant Championship — Stage 1',
-    org: 'Quantitative Reasoning',
+    title: 'International Quant Championship',
+    org: 'Quantitative Reasoning Stage 1',
     date: 'Apr 2025',
-    note: 'Benchmarked analytical and data-driven problem-solving against international competitors.',
+    note: 'Benchmarked analytical and data-driven problem-solving methodologies against international competitors in quantitative reasoning.',
     icon: <Sparkles size={20} />,
   },
 ];
@@ -824,7 +821,7 @@ function PersonalSection() {
             <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
             <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
             <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-4 font-mono-dm text-[11px] text-[var(--text-3)]">~/david — about.md</span>
+            <span className="ml-4 font-mono-dm text-[11px] text-[var(--text-3)]">~/david : about.md</span>
           </div>
 
           <div className="p-6 md:p-10 font-mono-dm text-[14px] leading-relaxed text-[var(--text-2)] space-y-5">
@@ -842,17 +839,17 @@ function PersonalSection() {
 
             <p>
               I spend most of my time{' '}
-              <span className="text-white">exploring the frontier of AI tooling</span> — multi-agent
-              orchestration, vector search, and the messy reality of getting LLMs to behave reliably in
-              production. I build things{' '}
-              <span className="text-white">solo and in teams</span>, and I use AI heavily as a force
-              multiplier: to express ideas faster, prototype further, and ship better.
+              <span className="text-white">exploring the frontier of AI tooling</span>: multi-agent
+              orchestration, vector search, and the reality of getting LLMs to behave reliably in
+              production. I build systems{' '}
+              <span className="text-white">solo and in teams</span>, using AI heavily as a force
+              multiplier to express ideas faster, prototype further, and ship better code.
             </p>
 
             <p>
-              I'm a firm believer in <span className="text-white">learning by shipping</span> — building
-              real systems, breaking them, and iterating until they work. Whether it's a hackathon crunch or
-              a months-long solo project, the goal is always the same: something that{' '}
+              I believe in <span className="text-white">learning by shipping</span>: building
+              real systems, testing them thoroughly, and iterating until they work reliably. Whether it's a hackathon crunch or
+              a long-term project, the goal is always a solution that{' '}
               <span className="text-[var(--accent)]">actually runs in production</span>.
             </p>
 
@@ -1064,18 +1061,36 @@ function ProjectCard({ project, idx }) {
           </button>
 
           {/* GitHub */}
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            data-hover="true"
-            className="btn-outline"
-          >
-            <Github size={12} />
-            Source
-          </a>
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              data-hover="true"
+              className="btn-outline"
+            >
+              <Github size={12} />
+              Source
+            </a>
+          )}
 
-          {/* Live demo — only shown if url exists */}
+          {/* Demo Video */}
+          {project.videoUrl && (
+            <a
+              href={project.videoUrl}
+              target="_blank"
+              rel="noreferrer"
+              data-hover="true"
+              className="btn-primary"
+            >
+              <span className="flex items-center gap-2">
+                <ExternalLink size={12} />
+                Demo Video
+              </span>
+            </a>
+          )}
+
+          {/* Live demo — only shown if liveUrl exists */}
           {project.liveUrl && (
             <a
               href={project.liveUrl}
@@ -1090,22 +1105,6 @@ function ProjectCard({ project, idx }) {
               </span>
             </a>
           )}
-        </div>
-
-        {/* ── RIGHT STATS PANEL ── */}
-        <div className="absolute bottom-8 right-8 md:right-12 text-right hidden md:flex flex-col gap-4">
-          <div className="stat-block items-end">
-            <p className="stat-number text-4xl text-white group-hover:text-[var(--accent)] transition-colors">
-              {project.metric}
-            </p>
-            <p className="stat-label">{project.metricLabel}</p>
-          </div>
-          <div className="stat-block items-end pt-3 border-t border-[var(--border)]/60">
-            <p className="stat-number text-2xl text-white/70">
-              {project.secondaryMetric}
-            </p>
-            <p className="stat-label">{project.secondaryLabel}</p>
-          </div>
         </div>
       </div>
     </motion.div>
@@ -1124,8 +1123,8 @@ function ProjectsGallery() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 w-full mb-14 md:mb-20">
         <SectionHeading
           subtitle="Selected Works"
-          title="Five projects, end-to-end."
-          description="Real systems with real metrics — not demo widgets. Two built with teams, three built solo. Each one shipped."
+          title="Featured Projects"
+          description="Production AI architectures and machine learning systems built for scalability and real-world deployment."
         />
       </div>
 
@@ -1191,7 +1190,7 @@ function EducationSection() {
             <div className="flex flex-wrap items-center gap-2 mb-4">
               <GraduationCap size={17} className="text-[var(--accent)]" />
               <span className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)]">
-                {EDUCATION.start} — Expected {EDUCATION.expected}
+                {EDUCATION.start} to Expected {EDUCATION.expected}
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] text-[10px] font-mono-dm text-[var(--accent)] uppercase tracking-widest">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
@@ -1204,7 +1203,7 @@ function EducationSection() {
             </h3>
             <p className="text-[var(--text-2)] mb-1">
               {EDUCATION.school}{' '}
-              <span className="text-[var(--text-3)]">— {EDUCATION.location}</span>
+              <span className="text-[var(--text-3)]">: {EDUCATION.location}</span>
             </p>
             <p className="text-[var(--accent)] font-mono-dm text-sm mb-6">GPA {EDUCATION.gpa}</p>
 
@@ -1264,7 +1263,17 @@ function AwardsSection() {
               <p className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] mb-4">
                 {a.org}
               </p>
-              <p className="text-[var(--text-2)] text-sm leading-relaxed">{a.note}</p>
+              <p className="text-[var(--text-2)] text-sm leading-relaxed mb-3">{a.note}</p>
+              {a.details && (
+                <ul className="space-y-2 pt-3 border-t border-[var(--border)]/60 mt-3">
+                  {a.details.map((item, i) => (
+                    <li key={i} className="text-[var(--text-2)] text-xs leading-relaxed flex items-start gap-2">
+                      <ChevronRight size={11} className="mt-1 flex-shrink-0 text-[var(--accent)]" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </motion.div>
           ))}
         </div>
