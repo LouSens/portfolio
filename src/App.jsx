@@ -44,7 +44,7 @@ const PROJECTS = [
     context: 'MyHack 2025 Preliminary Round : 4-Person Team',
     url: 'https://github.com/nerdylive123/Startup-emp.git',
     liveUrl: null,
-    tags: ['LangGraph', 'FastAPI', 'Google Gemini', 'Pydantic v2', 'Cloud Run', 'Firestore'],
+    tags: ['LangGraph', 'FastAPI', 'Pydantic v2', 'Cloud Run', 'Firestore'],
     desc: 'An AI Chief of Staff platform for accelerator programs that replaces fragile spreadsheet management with a structured knowledge graph.',
     bullets: [
       'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing via Gemini, vector mentor matching, and institutional knowledge capture.',
@@ -64,7 +64,7 @@ const PROJECTS = [
     context: 'Engineering Lead : 4-Person Team',
     url: 'https://github.com/LouSens/KerjaCerdas.git',
     liveUrl: null,
-    tags: ['LangGraph', 'FastAPI', 'Gemini 3.1 Flash', 'PostgreSQL + pgvector', 'React + Zustand', 'Docker Compose', 'A/B Testing'],
+    tags: ['LangGraph', 'FastAPI', 'PostgreSQL + pgvector', 'React + Zustand', 'Docker Compose', 'A/B Testing'],
     desc: 'Enterprise talent matching infrastructure engineered to solve the labor market Triple Mismatch problem using high-dimensional vector search and ReAct multi-agent swarms.',
     bullets: [
       'Architected a ReAct Multi-Agent Swarm using LangGraph and Gemini 3.1 Flash with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
@@ -84,7 +84,7 @@ const PROJECTS = [
     context: 'Team One Hit Wonder : Production Pipeline',
     url: 'https://github.com/LouSens/orion.git',
     liveUrl: null,
-    tags: ['LangGraph', 'FastAPI', 'ILMU GLM-5.1', 'LangSmith', 'Pydantic v2', 'React 19', 'Tailwind CSS v4'],
+    tags: ['LangGraph', 'FastAPI', 'LangSmith', 'Pydantic v2', 'React 19', 'Tailwind CSS v4'],
     desc: 'An AI-powered SaaS reimbursement assistant that automates end-to-end expense processing from natural language requests and uploaded receipt files.',
     bullets: [
       'Architected a 6-stage agentic workflow in LangGraph routing claims through Intake, Intelligence, Policy, Validation, Approval, and Recorder nodes.',
@@ -104,7 +104,7 @@ const PROJECTS = [
     context: 'Independent Research & Engineering',
     url: 'https://github.com/LouSens/neural-void.git',
     liveUrl: null,
-    tags: ['Node.js', 'FastAPI', 'scikit-learn', 'XGBoost', 'Google Gemini', 'Vercel', 'Railway'],
+    tags: ['Node.js', 'FastAPI', 'scikit-learn', 'XGBoost', 'Vercel', 'Railway'],
     desc: 'End-to-end behavioural analytics platform transforming raw session events into clinical-grade reports on digital consumption patterns.',
     bullets: [
       'Engineered a 25-feature machine learning pipeline calculating session velocity, streak metrics, and binge probability feeding an ensemble model with ~96% classification accuracy.',
