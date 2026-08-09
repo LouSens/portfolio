@@ -231,19 +231,40 @@ const CORE_COMPETENCIES = [
     title: 'AI Agent Systems',
     icon: <Bot size={20} />,
     tagline: 'Multi-step AI that reliably finishes the job.',
-    items: ['LangChain / LangGraph orchestration', 'Multi-agent swarm design', 'LangSmith observability', 'Gemini & GLM integration', 'Tool-calling · policy engines'],
+    items: [
+      'LangChain / LangGraph multi-agent orchestration',
+      'Supervisor + parallel worker swarm architecture',
+      'LangSmith observability & evaluation',
+      'Gemini & GLM model integration',
+      'Tool-calling, policy engines & RAG pipelines',
+    ],
+    tools: ['LangChain', 'LangGraph', 'LangSmith', 'Gemini API', 'OpenAI API'],
   },
   {
     title: 'ML & Data Science',
     icon: <Brain size={20} />,
     tagline: 'Models that train, deploy, and stay accurate.',
-    items: ['Ensemble methods (XGBoost, RF)', 'CNNs · TensorFlow / Keras / PyTorch', 'Reinforcement learning (PPO)', 'OpenCV · computer vision', 'scikit-learn · feature engineering'],
+    items: [
+      'Ensemble methods — XGBoost, Random Forest',
+      'CNNs for image classification & detection',
+      'Reinforcement learning (PPO via ML-Agents)',
+      'OpenCV & real-time computer vision',
+      'Feature engineering & model evaluation',
+    ],
+    tools: ['TensorFlow', 'Keras', 'PyTorch', 'scikit-learn', 'OpenCV', 'Pandas'],
   },
   {
     title: 'Backend & Infrastructure',
     icon: <Layers size={20} />,
     tagline: 'APIs and pipelines that survive real traffic.',
-    items: ['FastAPI · Flask · Node.js · React', 'PostgreSQL + pgvector · Docker', 'GitHub Actions CI/CD', 'Cloud Run · Vercel · Railway', 'Pydantic v2 · REST APIs'],
+    items: [
+      'FastAPI + Pydantic v2 type-safe REST APIs',
+      'PostgreSQL & pgvector hybrid search engines',
+      'Containerised deploys with Docker',
+      'GitHub Actions CI/CD pipelines',
+      'Cloud Run · Vercel · Railway · Firebase',
+    ],
+    tools: ['FastAPI', 'PostgreSQL', 'Docker', 'GitHub Actions', 'React', 'Node.js'],
   },
 ];
 
@@ -258,15 +279,7 @@ const STATUS_ROTATION = [
   'Silver Award · SEA-CICSIC 2026',
 ];
 
-/* ═══════════════════════════════════════
-   TECH STACK ROWS (Skills section)
-   ═══════════════════════════════════════ */
-const TECH_ROWS = [
-  { label: 'Languages', items: ['Python', 'JavaScript', 'HTML & CSS', 'C', 'C++'] },
-  { label: 'AI & ML', items: ['TensorFlow', 'Keras', 'PyTorch', 'scikit-learn', 'Pandas', 'LangChain', 'OpenCV'] },
-  { label: 'Infra & Frameworks', items: ['FastAPI', 'React', 'Node.js', 'Docker', 'Flask', 'ML-Agents'] },
-  { label: 'Tools', items: ['Git', 'GitHub Actions', 'VS Code', 'Cursor', 'PyCharm', 'Anaconda'] },
-];
+const LANGUAGES = ['Python', 'JavaScript', 'HTML & CSS', 'C', 'C++'];
 
 /* ═══════════════════════════════════════
    SMOOTH SCROLL
@@ -1592,70 +1605,86 @@ function AwardsSection() {
    ═══════════════════════════════════════ */
 function SkillsGrid() {
   return (
-    <section className="py-20 md:py-32 px-4 sm:px-6 border-t border-[var(--border)] bg-[#060606]">
+    <section id="skills" className="py-20 md:py-32 px-4 sm:px-6 border-t border-[var(--border)] bg-[#060606]">
       <div className="max-w-[1200px] mx-auto">
         <SectionHeading
           subtitle="Capabilities"
-          title="What I build with."
+          title="What I can do for you."
+          description="Three focused areas — from training a model to shipping the API around it."
           align="center"
         />
 
-        {/* Problem-solving cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-14">
+        {/* Competency cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
           {CORE_COMPETENCIES.map((comp, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 36 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-8%' }}
-              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4 }}
-              className="p-8 border border-[var(--border)] rounded-3xl bg-[#080808] group transition-all duration-300 hover:border-[var(--border-hover)] hover:shadow-xl"
+              transition={{ duration: 0.7, delay: idx * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -5 }}
+              className="flex flex-col p-7 md:p-8 border border-[var(--border)] rounded-3xl bg-[#080808] group transition-all duration-300 hover:border-[var(--accent)]/30 hover:shadow-[0_0_40px_rgba(255,90,54,0.06)]"
             >
+              {/* Header */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] transition-all duration-300">
+                <div className="w-9 h-9 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)]/60 transition-all duration-300">
                   {comp.icon}
                 </div>
-                <h3 className="font-display font-bold text-xl text-white">{comp.title}</h3>
+                <h3 className="font-display font-bold text-lg text-white">{comp.title}</h3>
               </div>
-              <p className="text-[var(--text-3)] text-[12px] italic mb-6 leading-relaxed">{comp.tagline}</p>
-              <ul className="flex flex-col gap-3.5">
+
+              {/* Tagline */}
+              <p className="text-[var(--text-3)] text-[12px] italic mb-5 leading-relaxed">{comp.tagline}</p>
+
+              {/* Capability bullets */}
+              <ul className="flex flex-col gap-2.5 flex-1">
                 {comp.items.map((item, i) => (
                   <li
                     key={i}
-                    className="flex items-center gap-3 text-[var(--text-2)] group-hover:text-[var(--text-1)] transition-colors duration-500"
-                    style={{ transitionDelay: `${i * 40}ms` }}
+                    className="flex items-start gap-2.5 text-[var(--text-2)] group-hover:text-[var(--text-1)] transition-colors duration-500"
+                    style={{ transitionDelay: `${i * 35}ms` }}
                   >
-                    <ChevronRight size={13} className="text-[var(--accent)] opacity-40 group-hover:opacity-70 transition-opacity" />
-                    <span className="text-sm font-medium">{item}</span>
+                    <ChevronRight size={12} className="mt-0.5 flex-shrink-0 text-[var(--accent)] opacity-40 group-hover:opacity-70 transition-opacity" />
+                    <span className="text-sm leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
+
+              {/* Tool pills — specific tech used in this area */}
+              <div className="flex flex-wrap gap-1.5 pt-5 mt-5 border-t border-[var(--border)]">
+                {comp.tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono-dm text-[10px] text-[var(--text-3)] group-hover:border-[var(--accent)]/20 group-hover:text-[var(--text-2)] transition-all duration-500"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Full tech stack strip */}
+        {/* Languages strip — minimal, just the foundation layer */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-8%' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-2xl border border-[var(--border)] bg-[#080808] p-6 md:p-8"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-3 px-1"
         >
-          <p className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] mb-6">Full stack</p>
-          <div className="flex flex-col gap-5">
-            {TECH_ROWS.map(({ label, items }) => (
-              <div key={label} className="flex flex-col sm:flex-row sm:items-start gap-3">
-                <span className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--accent)] sm:w-40 shrink-0 pt-1">{label}</span>
-                <div className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <span key={item} className="px-3 py-1 rounded-full border border-[var(--border)] text-xs font-mono-dm text-[var(--text-2)] bg-black/30 hover:border-[var(--border-hover)] transition-colors">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          <span className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] shrink-0">
+            Languages
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {LANGUAGES.map((lang) => (
+              <span
+                key={lang}
+                className="px-3 py-1 rounded-full border border-[var(--border)] text-xs font-mono-dm text-[var(--text-2)] hover:border-[var(--border-hover)] transition-colors"
+              >
+                {lang}
+              </span>
             ))}
           </div>
         </motion.div>
