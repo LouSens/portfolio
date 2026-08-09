@@ -60,6 +60,7 @@ const PROJECTS = [
     role: 'Lead Engineer',
     team: '4-person team',
     isTeam: true,
+    isFeatured: true,
     year: '2026',
     context: 'Engineering Lead : 4-Person Team',
     url: 'https://github.com/LouSens/KerjaCerdas.git',
@@ -139,7 +140,8 @@ const PROJECTS = [
 const EXPERIENCE = [
   {
     year: '2026',
-    role: 'Lead Engineer : KerjaCerdas',
+    current: true,
+    role: 'Lead Engineer @ KerjaCerdas',
     company: '4-Person Team : Engineering Lead',
     desc: 'Led full-stack engineering of an enterprise talent AI platform solving labor market Triple Mismatch. Architected a LangGraph multi-agent swarm (Supervisor + parallel worker nodes), 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard with Pay-to-Unlock monetization, E-KYC credential verification, and an automated 4-phase CI/CD pipeline.',
   },
@@ -180,9 +182,14 @@ const EDUCATION = {
   start: 'Sept 2024',
   expected: 'Sept 2028',
   highlights: [
-    "Dean's List Awardee : 3 consecutive semesters",
+    "Dean's List Awardee — three consecutive semesters",
     'Top 16% of cohort',
     'College of Artificial Intelligence & Robotics',
+  ],
+  learning: [
+    'Robotic simulation environments',
+    'Reinforcement learning for control tasks',
+    'OpenCV & computer vision pipelines',
   ],
 };
 
@@ -191,31 +198,27 @@ const EDUCATION = {
    ═══════════════════════════════════════ */
 const AWARDS = [
   {
-    place: 'Silver Award',
-    title: 'SEA-CICSIC 2026',
-    org: 'China-ASEAN Innovation Competition : Undergraduate Category',
-    date: '2026',
-    note: 'Led AI strategy and technical risk assessment for Omni-QC. Developed predictive modeling concepts, system scalability, manufacturing process analysis, and real-time defect prediction to deliver industrial intelligence capabilities.',
-    details: [
-      'Core Focus: Student startup pitches, technological inventions, and sustainable business models solving regional and global challenges.',
-      'Responsibilities: Architected data-driven predictive systems supporting real-time defect detection and operational decision-making for manufacturing.',
-    ],
+    place: '3rd Place',
+    title: 'DPickleball AI Competition',
+    org: 'Unity ML-Agents · Reinforcement Learning',
+    date: 'Oct 2025',
+    note: 'Lead developer on a 3-person engineering team. Architected the full Unity ML-Agents environment, reward shaping logic, and PPO training pipeline for a competition-grade RL agent — placing 3rd out of all competing teams.',
     icon: <Trophy size={20} />,
   },
   {
-    place: '3rd Place',
-    title: 'DPickleball AI Competition',
-    org: 'Unity ML-Agents : Reinforcement Learning Competition',
-    date: 'Oct 2025',
-    note: 'Served as lead developer, architecting the complete Unity ML-Agents environment, reward shaping logic, and PPO training loop for a competition-grade RL agent.',
+    place: 'Silver Award',
+    title: 'SEA-CICSIC 2026',
+    org: 'China-ASEAN Innovation Competition · Undergraduate',
+    date: '2026',
+    note: 'Led AI strategy and technical architecture for Omni-QC — a manufacturing intelligence platform featuring real-time defect prediction and predictive quality control, competing at the China-ASEAN undergraduate level.',
     icon: <Trophy size={20} />,
   },
   {
     place: 'Top 20% Globally',
-    title: 'International Quant Championship',
-    org: 'Quantitative Reasoning Stage 1',
+    title: 'Intl. Quant Championship',
+    org: 'Quantitative Reasoning · Stage 1',
     date: 'Apr 2025',
-    note: 'Benchmarked analytical and data-driven problem-solving methodologies against international competitors in quantitative reasoning.',
+    note: 'Placed top 20% globally against international competitors in data-driven analytical reasoning and quantitative problem-solving.',
     icon: <Sparkles size={20} />,
   },
 ];
@@ -225,19 +228,22 @@ const AWARDS = [
    ═══════════════════════════════════════ */
 const CORE_COMPETENCIES = [
   {
-    title: 'LLM & Agent Systems',
+    title: 'AI Agent Systems',
     icon: <Bot size={20} />,
-    items: ['LangChain / LangGraph', 'Multi-agent swarm design', 'LangSmith observability', 'Gemini & GLM integration', 'Tool-calling & policy engines'],
+    tagline: 'Multi-step AI that reliably finishes the job.',
+    items: ['LangChain / LangGraph orchestration', 'Multi-agent swarm design', 'LangSmith observability', 'Gemini & GLM integration', 'Tool-calling · policy engines'],
   },
   {
     title: 'ML & Data Science',
     icon: <Brain size={20} />,
-    items: ['Ensemble methods (XGBoost, RF, LR)', 'CNNs (TensorFlow / Keras)', 'PyTorch & scikit-learn', 'Reinforcement learning (PPO)', 'Feature engineering at scale'],
+    tagline: 'Models that train, deploy, and stay accurate.',
+    items: ['Ensemble methods (XGBoost, RF)', 'CNNs · TensorFlow / Keras / PyTorch', 'Reinforcement learning (PPO)', 'OpenCV · computer vision', 'scikit-learn · feature engineering'],
   },
   {
-    title: 'Backend & DevOps',
+    title: 'Backend & Infrastructure',
     icon: <Layers size={20} />,
-    items: ['FastAPI + Pydantic v2', 'PostgreSQL + pgvector', 'GitHub Actions CI/CD', 'Docker, Cloud Run, Firebase', 'Vercel + Railway deploys'],
+    tagline: 'APIs and pipelines that survive real traffic.',
+    items: ['FastAPI · Flask · Node.js · React', 'PostgreSQL + pgvector · Docker', 'GitHub Actions CI/CD', 'Cloud Run · Vercel · Railway', 'Pydantic v2 · REST APIs'],
   },
 ];
 
@@ -245,8 +251,21 @@ const CORE_COMPETENCIES = [
    STATUS ROTATION
    ═══════════════════════════════════════ */
 const STATUS_ROTATION = [
+  'building enterprise AI pipelines',
+  'open to 2-month remote internship',
+  '3rd-year AI Engineering student',
   'shipping multi-agent LLM systems',
-  'building AI tools that actually ship',
+  'Silver Award · SEA-CICSIC 2026',
+];
+
+/* ═══════════════════════════════════════
+   TECH STACK ROWS (Skills section)
+   ═══════════════════════════════════════ */
+const TECH_ROWS = [
+  { label: 'Languages', items: ['Python', 'JavaScript', 'HTML & CSS', 'C', 'C++'] },
+  { label: 'AI & ML', items: ['TensorFlow', 'Keras', 'PyTorch', 'scikit-learn', 'Pandas', 'LangChain', 'OpenCV'] },
+  { label: 'Infra & Frameworks', items: ['FastAPI', 'React', 'Node.js', 'Docker', 'Flask', 'ML-Agents'] },
+  { label: 'Tools', items: ['Git', 'GitHub Actions', 'VS Code', 'Cursor', 'PyCharm', 'Anaconda'] },
 ];
 
 /* ═══════════════════════════════════════
@@ -437,6 +456,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text-1)]">
+      <ScrollProgress />
       <Cursor />
 
       {/* Hero particle background — only renders for first viewport */}
@@ -471,6 +491,22 @@ export default function App() {
 
       <Footer />
     </div>
+  );
+}
+
+/* ═══════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ═══════════════════════════════════════ */
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-[2px] z-[200] origin-left"
+      style={{
+        scaleX: scrollYProgress,
+        background: 'linear-gradient(90deg, #FF5A36, #FF8C69)',
+      }}
+    />
   );
 }
 
@@ -679,10 +715,10 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-[640px] text-[var(--text-2)] text-base sm:text-lg md:text-xl mb-10 md:mb-14 font-light leading-relaxed px-2 sm:px-0"
         >
-          AI engineering student building{' '}
-          <span className="text-white">multi-agent LLM systems</span>,{' '}
+          3rd-year AI Engineering student who ships production systems —{' '}
+          <span className="text-white">multi-agent LLM orchestration</span>,{' '}
           <span className="text-white">ML pipelines</span>, and the backend
-          plumbing that keeps them running in production.
+          infrastructure that keeps them running in the real world.
         </motion.p>
 
         {/* CTA row */}
@@ -741,6 +777,17 @@ function Hero() {
             </motion.span>
           </motion.a>
         </motion.div>
+
+        {/* Availability signal */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.95 }}
+          className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] flex items-center gap-2 mt-2"
+        >
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          Available · 2-month remote internship
+        </motion.p>
 
         {/* Quick stats row */}
         <motion.div
@@ -848,29 +895,28 @@ function PersonalSection() {
             </div>
 
             <p>
-              Hi! I'm <span className="text-white font-semibold">David</span>, a 2nd-year AI Engineering
+              Hi! I'm <span className="text-white font-semibold">David</span>, a 3rd-year AI Engineering
               student at <span className="text-white">Xiamen University Malaysia</span>.
             </p>
 
             <p>
-              I spend most of my time{' '}
-              <span className="text-white">exploring the frontier of AI tooling</span>: multi-agent
-              orchestration, vector search, and the reality of getting LLMs to behave reliably in
-              production. I build systems{' '}
-              <span className="text-white">solo and in teams</span>, using AI heavily as a force
-              multiplier to express ideas faster, prototype further, and ship better code.
+              Currently{' '}
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[var(--accent)]/10 border border-[var(--accent)]/20 text-[var(--accent)] text-[12px] align-middle mx-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+                active
+              </span>
+              {' '}on <span className="text-white">KerjaCerdas</span> — leading backend engineering on an enterprise talent AI platform as part of a 4-person team. Most of my shipped work comes from team competitions and hackathons.{' '}
+              <span className="text-white">NeuralVoid</span> is the one I built out of personal curiosity — behavioural analytics meets clinical AI.
             </p>
 
             <p>
-              I believe in <span className="text-white">learning by shipping</span>: building
-              real systems, testing them thoroughly, and iterating until they work reliably. Whether it's a hackathon crunch or
-              a long-term project, the goal is always a solution that{' '}
-              <span className="text-[var(--accent)]">actually runs in production</span>.
+              My approach:{' '}
+              <span className="text-white">learn by shipping</span>. I use AI as a force multiplier — to prototype faster, test deeper, and build systems that hold up in production. CI/CD, type-safe APIs, and real test coverage are non-negotiable even in a hackathon.
             </p>
 
             <p>
-              Outside the terminal: video games, late-night food hunts near campus, and the occasional
-              sleep.
+              <span className="text-[var(--accent)]">Open to a 2-month remote internship.</span>{' '}
+              I work best in teams where the code actually matters.
             </p>
 
             <div className="pt-2">
@@ -912,9 +958,17 @@ function ExperienceTimeline() {
               <div className="absolute top-[-2px] left-[-9px] w-5 h-5 rounded-full bg-[var(--accent)] opacity-0 group-hover:opacity-20 transition-opacity blur-[8px]" />
 
               <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-5 mb-3">
-                <span className="font-mono-dm text-[12px] text-[var(--accent)] tracking-widest uppercase">
-                  {exp.year}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono-dm text-[12px] text-[var(--accent)] tracking-widest uppercase">
+                    {exp.year}
+                  </span>
+                  {exp.current && (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--accent-dim)] border border-[var(--accent)]/30 font-mono-dm text-[9px] text-[var(--accent)] uppercase tracking-widest">
+                      <span className="w-1 h-1 rounded-full bg-[var(--accent)] animate-pulse" />
+                      Now
+                    </span>
+                  )}
+                </div>
                 <span className="font-mono-dm text-[10px] border border-[var(--border)] rounded px-3 py-1 max-w-max text-[var(--text-3)] uppercase tracking-wide">
                   {exp.company}
                 </span>
@@ -995,7 +1049,7 @@ function ProjectSlideshow({ images, title }) {
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95 z-10"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-100 md:opacity-0 md:group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95 z-10"
             >
               <ChevronLeft size={16} />
             </button>
@@ -1004,7 +1058,7 @@ function ProjectSlideshow({ images, title }) {
             <button
               onClick={nextSlide}
               aria-label="Next slide"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95 z-10"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-100 md:opacity-0 md:group-hover/slideshow:opacity-100 transition-all duration-300 hover:bg-black/90 hover:scale-110 active:scale-95 z-10"
             >
               <ChevronRight size={16} />
             </button>
@@ -1089,6 +1143,12 @@ function ProjectCard({ project, idx }) {
                 {project.team}
               </div>
             )}
+            {project.isFeatured && (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] font-mono-dm text-[9px] text-[var(--accent)] uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+                Active
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col items-end gap-1.5 shrink-0">
@@ -1114,9 +1174,16 @@ function ProjectCard({ project, idx }) {
           {project.title}
         </h3>
 
-        <p className="text-[var(--text-2)] text-sm md:text-base leading-relaxed max-w-2xl mb-6">
+        <p className="text-[var(--text-2)] text-sm md:text-base leading-relaxed max-w-2xl mb-4">
           {project.desc}
         </p>
+
+        {/* First bullet teaser — visible without expanding */}
+        {project.bullets?.[0] && (
+          <p className="flex items-start gap-2.5 text-[var(--text-3)] text-[13px] leading-relaxed mb-5 italic border-l border-[var(--border)] pl-3">
+            {project.bullets[0]}
+          </p>
+        )}
 
         {/* ── EXPANDABLE BULLETS & SLIDESHOW ── */}
         <AnimatePresence initial={false}>
@@ -1154,7 +1221,7 @@ function ProjectCard({ project, idx }) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full border border-[var(--border)] text-[10px] font-mono-dm text-[var(--text-3)] bg-black/40 hover:border-[var(--border-hover)] hover:text-[var(--text-2)] transition-colors duration-200"
+              className="px-3 py-1.5 rounded-full border border-[var(--border)] text-xs font-mono-dm text-[var(--text-3)] bg-black/40 hover:border-[var(--border-hover)] hover:text-[var(--text-2)] transition-colors duration-200"
             >
               {tag}
             </span>
@@ -1266,7 +1333,7 @@ function EducationSection() {
       className="py-20 md:py-32 px-4 sm:px-6 bg-[var(--bg)] border-t border-[var(--border)]"
     >
       <div className="max-w-[1100px] mx-auto">
-        <SectionHeading subtitle="Education" title="Still in the loop." />
+        <SectionHeading subtitle="Education" title="Building the foundation." />
 
         <motion.div
           initial={{ opacity: 0, y: 36 }}
@@ -1320,7 +1387,7 @@ function EducationSection() {
             </p>
             <p className="text-[var(--accent)] font-mono-dm text-sm mb-6">GPA {EDUCATION.gpa}</p>
 
-            <ul className="grid sm:grid-cols-2 gap-3">
+            <ul className="grid sm:grid-cols-2 gap-3 mb-6">
               {EDUCATION.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-2 text-[var(--text-2)] text-sm">
                   <ChevronRight size={13} className="mt-1 text-[var(--accent)] flex-shrink-0" />
@@ -1328,6 +1395,21 @@ function EducationSection() {
                 </li>
               ))}
             </ul>
+
+            {EDUCATION.learning && (
+              <div className="pt-5 border-t border-[var(--border)]">
+                <p className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] mb-3">
+                  Currently exploring
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {EDUCATION.learning.map((item) => (
+                    <span key={item} className="px-3 py-1.5 rounded-full border border-[var(--border)] text-xs font-mono-dm text-[var(--text-2)] bg-black/30 hover:border-[var(--border-hover)] transition-colors">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -1351,9 +1433,9 @@ function AwardsSection() {
           {AWARDS.map((a, idx) => (
             <motion.div
               key={a.title}
-              initial={{ opacity: 0, y: 36, rotate: idx % 2 === 0 ? -1.5 : 1.5 }}
-              whileInView={{ opacity: 1, y: 0, rotate: idx % 2 === 0 ? -1 : 1 }}
-              whileHover={{ rotate: 0, y: -4, scale: 1.015 }}
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4, scale: 1.015 }}
               viewport={{ once: true, margin: '-8%' }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative rounded-2xl border border-[var(--border)] bg-[#0A0A0A] p-8 shadow-xl overflow-hidden group"
@@ -1377,16 +1459,7 @@ function AwardsSection() {
                 {a.org}
               </p>
               <p className="text-[var(--text-2)] text-sm leading-relaxed mb-3">{a.note}</p>
-              {a.details && (
-                <ul className="space-y-2 pt-3 border-t border-[var(--border)]/60 mt-3">
-                  {a.details.map((item, i) => (
-                    <li key={i} className="text-[var(--text-2)] text-xs leading-relaxed flex items-start gap-2">
-                      <ChevronRight size={11} className="mt-1 flex-shrink-0 text-[var(--accent)]" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+
             </motion.div>
           ))}
         </div>
@@ -1404,11 +1477,12 @@ function SkillsGrid() {
       <div className="max-w-[1200px] mx-auto">
         <SectionHeading
           subtitle="Capabilities"
-          title="Skills & technologies"
+          title="What I build with."
           align="center"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {/* Problem-solving cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-14">
           {CORE_COMPETENCIES.map((comp, idx) => (
             <motion.div
               key={idx}
@@ -1419,12 +1493,13 @@ function SkillsGrid() {
               whileHover={{ y: -4 }}
               className="p-8 border border-[var(--border)] rounded-3xl bg-[#080808] group transition-all duration-300 hover:border-[var(--border-hover)] hover:shadow-xl"
             >
-              <div className="flex items-center gap-3 mb-7">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] transition-all duration-300">
                   {comp.icon}
                 </div>
                 <h3 className="font-display font-bold text-xl text-white">{comp.title}</h3>
               </div>
+              <p className="text-[var(--text-3)] text-[12px] italic mb-6 leading-relaxed">{comp.tagline}</p>
               <ul className="flex flex-col gap-3.5">
                 {comp.items.map((item, i) => (
                   <li
@@ -1440,6 +1515,31 @@ function SkillsGrid() {
             </motion.div>
           ))}
         </div>
+
+        {/* Full tech stack strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-8%' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl border border-[var(--border)] bg-[#080808] p-6 md:p-8"
+        >
+          <p className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] mb-6">Full stack</p>
+          <div className="flex flex-col gap-5">
+            {TECH_ROWS.map(({ label, items }) => (
+              <div key={label} className="flex flex-col sm:flex-row sm:items-start gap-3">
+                <span className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--accent)] sm:w-40 shrink-0 pt-1">{label}</span>
+                <div className="flex flex-wrap gap-2">
+                  {items.map((item) => (
+                    <span key={item} className="px-3 py-1 rounded-full border border-[var(--border)] text-xs font-mono-dm text-[var(--text-2)] bg-black/30 hover:border-[var(--border-hover)] transition-colors">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1462,7 +1562,7 @@ function CTASection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="font-mono-dm text-[11px] tracking-widest uppercase text-[var(--accent)] mb-5"
         >
-          // open for opportunities
+          // available · 2-month remote internship
         </motion.p>
 
         <motion.h2
@@ -1483,8 +1583,7 @@ function CTASection() {
           transition={{ duration: 0.8, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           className="text-[var(--text-2)] text-base sm:text-lg md:text-xl mb-10 md:mb-12 max-w-[560px] mx-auto leading-relaxed"
         >
-          Whether it's a weekend collab or a serious AI project — I'm always
-          interested in working on things worth building.
+          I'm a 3rd-year AI Engineering student open to 2-month remote internships. If you're building something AI-heavy and want someone who actually ships — reach out.
         </motion.p>
 
         <motion.div
@@ -1499,7 +1598,7 @@ function CTASection() {
             onClick={() => (window.location.href = 'mailto:davidk.academic@gmail.com')}
           />
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/davidkurniawan13/"
             target="_blank"
             className="font-mono-dm text-[11px] tracking-widest uppercase text-[var(--text-2)] hover:text-white transition-colors underline underline-offset-8 decoration-[var(--border)] hover:decoration-white"
             data-hover="true"
@@ -1578,7 +1677,7 @@ function Footer() {
             </li>
             <li>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/davidkurniawan13/"
                 target="_blank"
                 className="text-[var(--text-3)] hover:text-white transition-colors flex items-center gap-2 text-sm group"
               >
