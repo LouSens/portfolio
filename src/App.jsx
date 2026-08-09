@@ -83,7 +83,6 @@ const PROJECTS = [
     year: '2026',
     context: 'Team One Hit Wonder : Production Pipeline',
     url: 'https://github.com/LouSens/orion.git',
-    videoUrl: 'https://drive.google.com/drive/folders/1uS_SWztFofZyJsnMjqxJLOxFHvmt5pCQ?usp=sharing',
     liveUrl: null,
     tags: ['LangGraph', 'FastAPI', 'ILMU GLM-5.1', 'LangSmith', 'Pydantic v2', 'React 19', 'Tailwind CSS v4'],
     desc: 'An AI-powered SaaS reimbursement assistant that automates end-to-end expense processing from natural language requests and uploaded receipt files.',
@@ -229,8 +228,6 @@ const CORE_COMPETENCIES = [
    ═══════════════════════════════════════ */
 const STATUS_ROTATION = [
   'shipping multi-agent LLM systems',
-  'researching deep learning for HAR',
-  'open to weekend project collab',
   'building AI tools that actually ship',
 ];
 
