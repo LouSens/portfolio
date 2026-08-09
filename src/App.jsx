@@ -47,10 +47,10 @@ const PROJECTS = [
     tags: ['LangGraph', 'FastAPI', 'Pydantic v2', 'Cloud Run', 'Firestore'],
     desc: 'An AI Chief of Staff platform for accelerator programs that replaces fragile spreadsheet management with a structured knowledge graph.',
     bullets: [
-      'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing via Gemini, vector mentor matching, and institutional knowledge capture.',
+      'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing, vector mentor matching, and institutional knowledge capture.',
       'Engineered the FastAPI backend using LangGraph orchestration and Pydantic v2 schema coercion to enforce strict LLM output typing.',
       'Implemented human-in-the-loop governance controls where AI recommendations serve as drafts requiring explicit admin approval before state mutation.',
-      'Integrated Gemini Embedding 2 for high-dimensional vector similarity matching with aggressive caching to reduce redundant LLM compute calls.',
+      'Integrated high-dimensional vector similarity matching with aggressive caching to reduce redundant LLM compute calls.',
     ],
     icon: <Zap size={26} />,
   },
@@ -67,7 +67,7 @@ const PROJECTS = [
     tags: ['LangGraph', 'FastAPI', 'PostgreSQL + pgvector', 'React + Zustand', 'Docker Compose', 'A/B Testing'],
     desc: 'Enterprise talent matching infrastructure engineered to solve the labor market Triple Mismatch problem using high-dimensional vector search and ReAct multi-agent swarms.',
     bullets: [
-      'Architected a ReAct Multi-Agent Swarm using LangGraph and Gemini 3.1 Flash with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
+      'Architected a ReAct Multi-Agent Swarm using LangGraph with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
       'Engineered a 5-signal composite ranking engine combining vector cosine similarity (50%), skill overlap (30%), regional boost (10%), salary fit (5%), and experience fit (5%) with HNSW pgvector search.',
       'Built an asynchronous PDF processing pipeline achieving low-latency CV extraction, Token Efficiency Gates to control LLM compute costs, and PII mitigation middleware.',
       'Delivered an Employer Kanban pipeline featuring Pay-to-Unlock candidate contact monetization, E-KYC credential verification, closed-loop A/B event tracking, and a 4-phase automated CI/CD pipeline.',
@@ -108,7 +108,7 @@ const PROJECTS = [
     desc: 'End-to-end behavioural analytics platform transforming raw session events into clinical-grade reports on digital consumption patterns.',
     bullets: [
       'Engineered a 25-feature machine learning pipeline calculating session velocity, streak metrics, and binge probability feeding an ensemble model with ~96% classification accuracy.',
-      'Integrated Google Gemini for automated clinical report synthesis served through a high-throughput FastAPI backend.',
+      'Integrated LLM-driven automated clinical report synthesis served through a high-throughput FastAPI backend.',
       'Built a responsive React SPA dashboard with interactive heatmaps and radar charts deployed on Vercel with a Railway API gateway.',
     ],
     icon: <Brain size={28} />,
