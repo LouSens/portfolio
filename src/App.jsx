@@ -1084,7 +1084,150 @@ function ProjectSlideshow({ images, title }) {
 }
 
 /* ═══════════════════════════════════════
-   PROJECT CARD  (enhanced)
+   FEATURED PROJECT CARD (KerjaCerdas)
+   ═══════════════════════════════════════ */
+function FeaturedProjectCard({ project }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-8%' }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      className="relative w-full rounded-[var(--radius-card)] overflow-hidden bg-[#070707] group"
+      style={{
+        border: '1px solid transparent',
+        backgroundImage:
+          'linear-gradient(#070707, #070707), linear-gradient(135deg, rgba(255,90,54,0.55) 0%, rgba(255,140,105,0.2) 40%, rgba(255,255,255,0.06) 100%)',
+        backgroundOrigin: 'border-box',
+        backgroundClip: 'padding-box, border-box',
+      }}
+    >
+      {/* Ambient glow behind the card */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 -left-20 w-[520px] h-[520px] rounded-full opacity-[0.07]"
+        style={{ background: 'radial-gradient(circle, #FF5A36 0%, transparent 70%)' }}
+      />
+
+      {/* ── FEATURED BANNER ── */}
+      <div className="flex items-center justify-between px-8 md:px-12 pt-8 md:pt-10 pb-0">
+        <div className="flex items-center gap-3">
+          <span className="font-mono-dm text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            Featured Project
+          </span>
+          {project.isTeam && (
+            <div className="team-badge collab">
+              <Users size={10} />
+              {project.team}
+            </div>
+          )}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] font-mono-dm text-[9px] text-[var(--accent)] uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            Active
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-1.5 shrink-0">
+          <span className="font-mono-dm text-[11px] text-[var(--text-3)] uppercase tracking-widest">{project.year}</span>
+          <span className="font-mono-dm text-[10px] text-[var(--text-3)] border border-[var(--border)] rounded-full px-3 py-0.5 uppercase tracking-wide">
+            {project.role}
+          </span>
+        </div>
+      </div>
+
+      {/* ── FULL-BLEED SLIDESHOW ── */}
+      {project.images && project.images.length > 0 && (
+        <div className="px-8 md:px-12 pt-8">
+          <ProjectSlideshow images={project.images} title={project.title} />
+        </div>
+      )}
+
+      {/* ── MAIN CONTENT ── */}
+      <div className="relative p-8 md:p-12">
+        {/* Context */}
+        <p className="font-mono-dm text-[10px] text-[var(--accent)] uppercase tracking-[0.22em] mb-2">
+          {project.context}
+        </p>
+
+        {/* Category + Title — larger for featured */}
+        <p className="font-mono-dm text-[10px] text-[var(--text-3)] uppercase tracking-[0.18em] mb-2">
+          {project.category}
+        </p>
+        <h3 className="font-display font-bold text-4xl sm:text-5xl md:text-[56px] mb-5 text-white leading-tight tracking-tight">
+          {project.title}
+        </h3>
+
+        {/* Description */}
+        <p className="text-[var(--text-2)] text-base md:text-lg leading-relaxed max-w-3xl mb-8">
+          {project.desc}
+        </p>
+
+        {/* ── BULLETS — always visible on featured ── */}
+        <ul className="border-l-2 border-[var(--accent)]/30 pl-5 space-y-3.5 mb-8">
+          {project.bullets.map((b, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 + i * 0.07 }}
+              className="text-[var(--text-2)] text-sm md:text-[15px] leading-relaxed flex gap-3"
+            >
+              <ChevronRight size={13} className="mt-1.5 flex-shrink-0 text-[var(--accent)]" />
+              <span>{b}</span>
+            </motion.li>
+          ))}
+        </ul>
+
+        {/* ── TAGS ── */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1.5 rounded-full border border-[var(--accent)]/20 text-xs font-mono-dm text-[var(--accent)]/70 bg-[var(--accent-dim)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-colors duration-200"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* ── ACTIONS ── */}
+        <div className="flex flex-wrap items-center gap-3">
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              data-hover="true"
+              className="btn-outline"
+            >
+              <Github size={12} />
+              Source
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              data-hover="true"
+              className="btn-primary"
+            >
+              <span className="flex items-center gap-2">
+                <Globe size={12} />
+                Live Demo
+              </span>
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+
+/* ═══════════════════════════════════════
+   PROJECT CARD  (regular)
    ═══════════════════════════════════════ */
 function ProjectCard({ project, idx }) {
   const [open, setOpen] = useState(false);
@@ -1109,7 +1252,7 @@ function ProjectCard({ project, idx }) {
       className="relative w-full rounded-[var(--radius-card)] overflow-hidden border border-[var(--border)] bg-[#070707] group"
       style={{ willChange: 'transform' }}
     >
-      {/* Mouse spotlight — GPU composite only */}
+      {/* Mouse spotlight */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[inherit]"
@@ -1127,11 +1270,9 @@ function ProjectCard({ project, idx }) {
         {/* ── TOP ROW ── */}
         <div className="flex items-start justify-between gap-4 mb-7">
           <div className="flex items-center gap-3">
-            {/* Icon */}
             <div className="w-12 h-12 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] group-hover:scale-105 transition-all duration-400">
               {project.icon}
             </div>
-            {/* Team / solo badge */}
             {project.isTeam ? (
               <div className="team-badge collab">
                 <Users size={10} />
@@ -1141,12 +1282,6 @@ function ProjectCard({ project, idx }) {
               <div className="team-badge">
                 <User size={10} />
                 {project.team}
-              </div>
-            )}
-            {project.isFeatured && (
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] font-mono-dm text-[9px] text-[var(--accent)] uppercase tracking-widest">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                Active
               </div>
             )}
           </div>
@@ -1166,7 +1301,7 @@ function ProjectCard({ project, idx }) {
           {project.context}
         </p>
 
-        {/* Title + category */}
+        {/* Title */}
         <p className="font-mono-dm text-[10px] text-[var(--text-3)] uppercase tracking-[0.18em] mb-1.5">
           {project.category}
         </p>
@@ -1174,6 +1309,7 @@ function ProjectCard({ project, idx }) {
           {project.title}
         </h3>
 
+        {/* Description */}
         <p className="text-[var(--text-2)] text-sm md:text-base leading-relaxed max-w-2xl mb-4">
           {project.desc}
         </p>
@@ -1199,7 +1335,7 @@ function ProjectCard({ project, idx }) {
                 <ProjectSlideshow images={project.images} title={project.title} />
               )}
               <ul className="border-l-2 border-[var(--accent)]/30 pl-5 space-y-3 mb-6">
-                {project.bullets.map((b, i) => (
+                {project.bullets.slice(1).map((b, i) => (
                   <motion.li
                     key={i}
                     initial={{ opacity: 0, x: -8 }}
@@ -1230,7 +1366,6 @@ function ProjectCard({ project, idx }) {
 
         {/* ── ACTION ROW ── */}
         <div className="flex flex-wrap items-center gap-3">
-          {/* Toggle detail */}
           <button
             onClick={() => setOpen((v) => !v)}
             data-hover="true"
@@ -1240,29 +1375,15 @@ function ProjectCard({ project, idx }) {
             {open ? 'Hide details' : 'View details'}
           </button>
 
-          {/* GitHub */}
           {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-              data-hover="true"
-              className="btn-outline"
-            >
+            <a href={project.url} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
               <Github size={12} />
               Source
             </a>
           )}
 
-          {/* Demo Video */}
           {project.videoUrl && (
-            <a
-              href={project.videoUrl}
-              target="_blank"
-              rel="noreferrer"
-              data-hover="true"
-              className="btn-primary"
-            >
+            <a href={project.videoUrl} target="_blank" rel="noreferrer" data-hover="true" className="btn-primary">
               <span className="flex items-center gap-2">
                 <ExternalLink size={12} />
                 Demo Video
@@ -1270,15 +1391,8 @@ function ProjectCard({ project, idx }) {
             </a>
           )}
 
-          {/* Live demo — only shown if liveUrl exists */}
           {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              data-hover="true"
-              className="btn-primary"
-            >
+            <a href={project.liveUrl} target="_blank" rel="noreferrer" data-hover="true" className="btn-primary">
               <span className="flex items-center gap-2">
                 <Globe size={12} />
                 Live Demo
@@ -1291,10 +1405,11 @@ function ProjectCard({ project, idx }) {
   );
 }
 
-/* ═══════════════════════════════════════
-   PROJECTS GALLERY
-   ═══════════════════════════════════════ */
+
 function ProjectsGallery() {
+  const featured = PROJECTS.find((p) => p.isFeatured);
+  const rest = PROJECTS.filter((p) => !p.isFeatured);
+
   return (
     <section
       id="work"
@@ -1309,7 +1424,11 @@ function ProjectsGallery() {
       </div>
 
       <div className="relative w-full max-w-[1200px] mx-auto px-6 md:px-12 pb-16 flex flex-col gap-8 md:gap-12">
-        {PROJECTS.map((project, idx) => (
+        {/* Featured card — full-bleed hero treatment */}
+        {featured && <FeaturedProjectCard project={featured} />}
+
+        {/* Regular project cards */}
+        {rest.map((project, idx) => (
           <ProjectCard key={project.title} project={project} idx={idx} />
         ))}
       </div>
