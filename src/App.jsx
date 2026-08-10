@@ -1589,6 +1589,60 @@ function EducationSection() {
 }
 
 /* ═══════════════════════════════════════
+   AWARD VIDEO PLAYER
+   ═══════════════════════════════════════ */
+function AwardVideoPlayer({ videos }) {
+  const [active, setActive] = useState(0);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [active]);
+
+  if (!videos || videos.length === 0) return null;
+
+  return (
+    <div className="relative w-full mb-5 rounded-xl overflow-hidden border border-[var(--border)] bg-black group/vid">
+      {/* Video */}
+      <video
+        ref={videoRef}
+        key={videos[active].url}
+        src={videos[active].url}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="w-full aspect-video object-cover"
+      />
+
+      {/* Label pill — top left */}
+      <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 font-mono-dm text-[10px] text-white/80 uppercase tracking-wider">
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+        {videos[active].label}
+      </div>
+
+      {/* Tab switcher — only shown when multiple videos */}
+      {videos.length > 1 && (
+        <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex gap-1.5 px-2.5 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10">
+          {videos.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              aria-label={`Switch to video ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === active ? 'w-5 bg-[var(--accent)]' : 'w-1.5 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════
    AWARDS
    ═══════════════════════════════════════ */
 function AwardsSection() {
@@ -1653,10 +1707,15 @@ function AwardsSection() {
                 </div>
               )}
 
-              {/* ── DOCUMENT / VIDEO ACTIONS ── */}
-              {((a.docs && a.docs.filter(d => d.url).length > 0) || (a.videos && a.videos.length > 0)) && (
+              {/* ── INLINE VIDEO PLAYER ── */}
+              {a.videos && a.videos.length > 0 && (
+                <AwardVideoPlayer videos={a.videos} />
+              )}
+
+              {/* ── DOCUMENT ACTIONS ── */}
+              {a.docs && a.docs.filter(d => d.url).length > 0 && (
                 <div className="flex flex-wrap gap-2 pt-4 border-t border-[var(--border)]">
-                  {a.docs && a.docs.filter(d => d.url).map((doc) => (
+                  {a.docs.filter(d => d.url).map((doc) => (
                     <a
                       key={doc.label}
                       href={doc.url}
@@ -1666,18 +1725,6 @@ function AwardsSection() {
                     >
                       <ExternalLink size={10} />
                       {doc.label}
-                    </a>
-                  ))}
-                  {a.videos && a.videos.map((vid) => (
-                    <a
-                      key={vid.label}
-                      href={vid.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--accent)]/20 text-[11px] font-mono-dm text-[var(--accent)]/80 hover:border-[var(--accent)]/60 hover:text-[var(--accent)] transition-all duration-200 bg-[var(--accent-dim)]"
-                    >
-                      <ExternalLink size={10} />
-                      {vid.label}
                     </a>
                   ))}
                 </div>
