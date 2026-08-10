@@ -4,7 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import Lenis from 'lenis';
 import {
-  Github, Linkedin, Mail, ArrowUpRight, Code, Database, Sparkles, Server,
+  Github, Linkedin, Mail, ArrowUpRight, Code, Database, Server,
   Terminal, X, Menu, Download, ChevronRight, ChevronLeft, Plus, Minus, GraduationCap,
   Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe,
 } from 'lucide-react';
@@ -1848,11 +1848,6 @@ function Footer() {
 
       <div className="max-w-[1200px] mx-auto pt-7 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-3 text-[10px] font-mono-dm text-[var(--text-3)] uppercase tracking-widest text-center md:text-left">
         <p>© {new Date().getFullYear()} David Kurniawan. All rights reserved.</p>
-        <p className="flex items-center gap-2">
-          Built with React{' '}
-          <Sparkles size={11} className="text-[var(--accent)]" />{' '}
-          Hosted on Vercel
-        </p>
       </div>
     </footer>
   );
