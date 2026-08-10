@@ -1,22 +1,24 @@
-# David Huang — Interactive AI Resume
+# David Kurniawan — Interactive AI Engineering Portfolio
 
-A premium, interactive AI architecture portfolio built with React, Framer Motion, and TailwindCSS. Beyond a static resume, visitors can **interrogate a neural proxy** powered by Google Gemini to explore background and technical depth.
+A high-performance, interactive portfolio and AI architecture showcase built with **React 18**, **Three.js / React Three Fiber**, **Framer Motion 12**, **Lenis**, and **TailwindCSS**. Highlights multi-agent LLM systems, machine learning pipelines, competitive AI awards, and production backend infrastructure.
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?logo=framer&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss&logoColor=white)
-![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4?logo=google&logoColor=white)
+![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5.1-646CFF?logo=vite&logoColor=white)
+![Three.js](https://img.shields.io/badge/Three.js-0.183-black?logo=three.js&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.36-ff0055?logo=framer&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
 
 ---
 
-## ✨ Features
+## ✨ Highlights & Key Features
 
-- **Agentic Interrogation** — Query David's technical shadow via a sleek, staggered-animation AI terminal.
-- **Neural Archive** — A fluid, Netflix-style 프로젝트 vault with Framer Motion layout transitions.
-- **Premium Glassmorphism** — Bespoke design system with multi-layered blurs, border gradients, and grain texture.
-- **Dynamic Metrics** — Real-time animated counters for GitHub contributions and stack density.
-- **Responsive Navigation** — Custom mobile menu with spring physics and seamless section jumping.
+- 🌌 **3D Particle Field & Physics Effects** — Interactive 3D particle sphere header powered by Three.js & `@react-three/fiber` with continuous rotation, mouse cursor ring tracking, and smooth scroll parallax.
+- ⚡ **Lenis Smooth Scrolling & Progress Tracking** — Smooth, friction-based inertial scrolling integrated with Lenis and a top scroll progress bar.
+- 🚀 **Featured Project Showcase (KerjaCerdas)** — Enterprise talent matching infrastructure featuring an interactive 16-screenshot gallery slideshow with carousel controls and caption overlays.
+- 🎞️ **Embedded Media & Document Viewer** — Inline auto-playing video player for RL agent gameplay (DPickleball 3rd place) and photo galleries with downloadable pitch decks, proposals, and certificates.
+- 🔄 **Infinite Tech Stack Marquee** — Continuous animated marquee displaying core frameworks (Python, FastAPI, LangChain, PyTorch, TensorFlow, Docker, PostgreSQL, React, etc.).
+- 📊 **Dynamic Education Progress Ring** — SVG progress indicator automatically calculating exact degree completion percentage at Xiamen University Malaysia (GPA 3.83/4.00, Dean's List).
+- 🎨 **Glassmorphism & Micro-Interactions** — Custom color tokens, mouse-following card spotlights, border gradient cards, shimmer & liquid-metal buttons, and spring-physics mobile navigation.
 
 ---
 
@@ -24,31 +26,58 @@ A premium, interactive AI architecture portfolio built with React, Framer Motion
 
 | Layer | Technology |
 |-------|-----------|
-| **Core** | React 18 / Vite 5 |
-| **Animation** | Framer Motion 11 |
-| **Styling** | TailwindCSS 3 + Custom Glassmorphism Utilities |
-| **3D Engine** | Three.js (Procedural Network Background) |
-| **AI Core** | Google Gemini API (Flash 2.0) |
-| **Typography** | Outfit (Headers) & Inter (Body) |
+| **Core Framework** | React 18 / Vite 5 |
+| **Styling & Design** | TailwindCSS 3, Custom Glassmorphism, CSS Variables |
+| **3D & Visuals** | Three.js, `@react-three/fiber`, `@react-three/drei`, `@paper-design/shaders` |
+| **Animation & Motion** | Framer Motion 12, GSAP, Lenis Smooth Scroll |
+| **Icons & UI** | Lucide React, Custom Shimmer & Liquid Metal Buttons |
+| **Fonts** | Outfit (Display Headers), Inter & DM Mono (Body / Technical) |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-resume/
-├── index.html            # Vite HTML entry point
-├── package.json          # Dependencies & scripts
-├── vite.config.js        # Vite configuration
-├── tailwind.config.js    # TailwindCSS configuration
-├── postcss.config.js     # PostCSS plugin wiring
-├── .env                  # API keys (not committed)
-├── .gitignore            # Excludes node_modules, dist, .env
+portfolio-website/
+├── index.html              # HTML entry point with font preloads
+├── package.json            # Scripts and dependencies
+├── vite.config.js          # Vite build configuration & aliases (@/ -> src/)
+├── tailwind.config.js      # Custom theme, colors & font family definitions
+├── postcss.config.js       # PostCSS with Tailwind & Autoprefixer
+├── README.md               # Project documentation
+├── static/                 # Static assets (PDFs, media videos, screenshots, certificates)
+│   ├── CV_DAVID KURNIAWAN.pdf
+│   ├── docs/               # Omni-QC pitch decks & merit scholarship letters
+│   ├── media/              # Competition videos & photos (DPickleball RL)
+│   └── screenshots/        # Project screenshot slideshows (KerjaCerdas)
 └── src/
-    ├── main.jsx          # React entry — mounts <App /> into #root
-    ├── App.jsx           # All components (Navbar, Hero, About, Projects, Footer, Three.js)
-    └── index.css         # TailwindCSS directives + global styles
+    ├── main.jsx            # React mounting root
+    ├── App.jsx             # Comprehensive single-page app layout & components
+    ├── index.css           # Global directives, CSS variables & keyframe animations
+    └── components/
+        └── ui/
+            ├── liquid-metal-button.tsx  # WebGL shader-inspired button component
+            └── shimmer-button.jsx       # Animated shimmering CTA button
 ```
+
+---
+
+## 💻 Projects Featured
+
+1. **KerjaCerdas** (*Lead Engineer · 2026*) — Enterprise Talent AI Infrastructure. ReAct Multi-Agent Swarm with LangGraph (Supervisor + parallel worker nodes), 5-signal `pgvector` hybrid search, low-latency PDF extraction, Employer Kanban & E-KYC credential verification.
+2. **Startup EMP** (*Backend & AI Engineer · May 2026*) — AI Chief of Staff accelerator platform. 4-phase LangGraph pipeline, FastAPI, Pydantic v2 typing coercion, Cloud Run, vector mentor matching & human-in-the-loop governance.
+3. **Orion** (*Tech Lead & Backend · May 2026*) — AI-powered SaaS expense reimbursement platform. 6-stage LangGraph workflow, sliding-window rate limiting, policy evaluation engines, and dual CI/CD pipelines. *UM Hackathon Top 24 / 100+ Teams*.
+4. **NeuralVoid** (*Full-Stack Engineer · Jan 2026*) — Clinical-grade behavioural analytics platform. 25-feature ML model (~96% accuracy), XGBoost/scikit-learn, LLM report synthesis, Node.js & FastAPI backend.
+5. **Indonesian Legal LLM** (*Solo ML Engineer · 2026*) — Fine-tuning Llama 3 8B with 4-bit QLoRA & Unsloth, GRPO alignment with 4 custom reward functions, Parent-Child BM25 + FAISS RAG system with HyDE reranking. Published on Hugging Face.
+
+---
+
+## 🏆 Competitions & Recognition
+
+- 🥉 **3rd Place — DPickleball AI Competition** (*Oct 2025*): Unity ML-Agents RL agent with PPO training pipeline & reward shaping.
+- 🥈 **Silver Award — SEA-CICSIC 2026** (*China-ASEAN Innovation Competition*): Omni-QC real-time defect prediction & manufacturing quality control.
+- 🌟 **Top 20% Globally — International Quant Championship** (*Apr 2025*): Quantitative reasoning & analytical problem-solving.
+- 🎓 **Dean's List (3 Consecutive Semesters)** & **Merit Scholarship**: Xiamen University Malaysia (Top 16% of cohort, GPA 3.83 / 4.00).
 
 ---
 
@@ -56,58 +85,37 @@ resume/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (LTS recommended)
-- A [Gemini API key](https://aistudio.google.com/apikey) (free tier available)
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- `npm` or `yarn`
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/resume.git
+git clone https://github.com/LouSens/resume.git
 cd resume
 
 # Install dependencies
 npm install
 
-# Add your Gemini API key
-# Create or edit the .env file in the project root:
-echo VITE_GEMINI_API_KEY=your_api_key_here > .env
-
 # Start the development server
 npm run dev
 ```
 
-The app will open automatically at `http://localhost:5173`.
+The application will start at `http://localhost:5173`.
 
-### Build for Production
+### Production Build
 
 ```bash
-npm run build    # Outputs to dist/
-npm run preview  # Preview the production build locally
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
 ```
-
----
-
-## ⚙️ Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_GEMINI_API_KEY` | Your Google Gemini API key for AI features |
-
-> ⚠️ The `.env` file is listed in `.gitignore` and will **never** be committed to the repository.
-
----
-
-## 📝 Customization
-
-- **Personal Info** — Edit `src/App.jsx` to update your name, bio, skills, and contact links
-- **Projects** — Modify the `ALL_PROJECTS` array at the top of `src/App.jsx`
-- **AI System Prompt** — Customize the knowledge base in the `callGemini` function inside `HeroAISection`
-- **Styling** — Adjust `src/index.css` for global styles or modify Tailwind classes inline
-- **Fonts** — Swap Google Fonts in `index.html`
 
 ---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open-source under the [MIT License](LICENSE).
