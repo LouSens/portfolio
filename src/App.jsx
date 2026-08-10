@@ -209,10 +209,9 @@ const AWARDS = [
       { src: '/media/dpickleball/IMG_8700.png', caption: '3rd Place Award — DPickleball AI Category' },
       { src: '/media/dpickleball/IMG_8724.png', caption: 'Competition Group Photo — All Teams & Organisers' },
     ],
-    // RL agent gameplay recordings
+    // RL agent gameplay recording
     videos: [
-      { label: 'Watch RL Agent Play', url: '/media/dpickleball/WhatsApp Video 2025-12-01 at 21.35.32_cb1e0156.mp4' },
-      { label: 'Watch RL Agent Play (2)', url: '/media/dpickleball/WhatsApp Video 2026-08-10 at 3.44.51 PM.mp4' },
+      { label: 'Watch RL Agent Play', url: '/media/dpickleball/WhatsApp Video 2026-08-10 at 3.44.51 PM.mp4' },
     ],
   },
   {
