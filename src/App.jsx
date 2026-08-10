@@ -141,7 +141,11 @@ const PROJECTS = [
     isCourse: true,
     year: '2026',
     context: 'Dicoding · LLM Specialisation Course',
-    url: 'https://github.com/LouSens/FineTune-Dicoding',
+    url: null,
+    colabUrls: [
+      { label: 'RAG Notebook', url: 'https://colab.research.google.com/drive/1wzslBMXBo9QL4-ToEDmWl3amLrcVWpRP?usp=sharing' },
+      { label: 'Fine-Tuning Notebook', url: 'https://colab.research.google.com/drive/1xwqQl8i3gc5g4ZgAf-uv6q94mst3U6uK?usp=sharing' },
+    ],
     hfUrl: 'https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal',
     wandbUrl: 'https://wandb.ai/kyzo/legal-llm-finetune',
     liveUrl: null,
@@ -1461,6 +1465,13 @@ function ProjectCard({ project, idx }) {
               Source
             </a>
           )}
+
+          {project.colabUrls && project.colabUrls.map((nb) => (
+            <a key={nb.label} href={nb.url} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
+              <ExternalLink size={12} />
+              {nb.label}
+            </a>
+          ))}
 
           {project.hfUrl && (
             <a href={project.hfUrl} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
