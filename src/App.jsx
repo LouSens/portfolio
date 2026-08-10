@@ -204,6 +204,16 @@ const AWARDS = [
     date: 'Oct 2025',
     note: 'Lead developer on a 3-person engineering team. Architected the full Unity ML-Agents environment, reward shaping logic, and PPO training pipeline for a competition-grade RL agent — placing 3rd out of all competing teams.',
     icon: <Trophy size={20} />,
+    // Award ceremony photo + competition group shot (shows scale of the event)
+    photos: [
+      { src: '/media/dpickleball/IMG_8700.png', caption: '3rd Place Award — DPickleball AI Category' },
+      { src: '/media/dpickleball/IMG_8724.png', caption: 'Competition Group Photo — All Teams & Organisers' },
+    ],
+    // RL agent gameplay recordings
+    videos: [
+      { label: 'Watch RL Agent Play', url: '/media/dpickleball/WhatsApp Video 2025-12-01 at 21.35.32_cb1e0156.mp4' },
+      { label: 'Watch RL Agent Play (2)', url: '/media/dpickleball/WhatsApp Video 2026-08-10 at 3.44.51 PM.mp4' },
+    ],
   },
   {
     place: 'Silver Award',
@@ -212,6 +222,10 @@ const AWARDS = [
     date: '2026',
     note: 'Led AI strategy and technical architecture for Omni-QC — a manufacturing intelligence platform featuring real-time defect prediction and predictive quality control, competing at the China-ASEAN undergraduate level.',
     icon: <Trophy size={20} />,
+    docs: [
+      { label: 'Pitch Deck', url: '/docs/omni-qc/Omni-QC Pitch Deck.pdf' },
+      { label: 'Business Proposal', url: '/docs/omni-qc/Omni-QC Business Proposal.pdf' },
+    ],
   },
   {
     place: 'Top 20% Globally',
@@ -220,6 +234,31 @@ const AWARDS = [
     date: 'Apr 2025',
     note: 'Placed top 20% globally against international competitors in data-driven analytical reasoning and quantitative problem-solving.',
     icon: <Sparkles size={20} />,
+  },
+  {
+    place: 'Merit Scholarship',
+    title: 'Xiamen University Malaysia',
+    org: 'Academic Excellence · BEng Artificial Intelligence',
+    date: '2024',
+    note: 'Awarded merit scholarship by Xiamen University Malaysia in recognition of academic excellence upon entry to the BEng (Hons) Artificial Intelligence programme.',
+    icon: <GraduationCap size={20} />,
+    docs: [
+      { label: 'Scholarship Letter', url: '/docs/merit-scholarship/AIT2409110 KURNIAWAN DAVID - 202509.pdf' },
+    ],
+  },
+  {
+    place: "Dean's List",
+    title: 'Three Consecutive Semesters',
+    org: 'Xiamen University Malaysia · Top 16% of Cohort',
+    date: '2024 – 2026',
+    note: "Placed on the Dean's List for three consecutive semesters, ranking in the top 16% of the cohort across the College of Artificial Intelligence & Robotics.",
+    icon: <GraduationCap size={20} />,
+    // JPEG certificates per semester (2409 = Sep 2024, 2504 = Apr 2025, 2509 = Sep 2025)
+    photos: [
+      { src: "/docs/deans-list/2409 Dean's List.jpeg", caption: 'Sem 1 — Sep 2024' },
+      { src: "/docs/deans-list/2504 Dean's List.jpeg", caption: 'Sem 2 — Apr 2025' },
+      { src: "/docs/deans-list/2509 Dean's List.jpeg", caption: 'Sem 3 — Sep 2025' },
+    ],
   },
 ];
 
@@ -1570,7 +1609,7 @@ function AwardsSection() {
               whileHover={{ y: -4, scale: 1.015 }}
               viewport={{ once: true, margin: '-8%' }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative rounded-2xl border border-[var(--border)] bg-[#0A0A0A] p-8 shadow-xl overflow-hidden group"
+              className="relative rounded-2xl border border-[var(--border)] bg-[#0A0A0A] p-8 shadow-xl overflow-hidden group flex flex-col"
             >
               <div className="absolute -top-16 -right-16 w-52 h-52 bg-[var(--accent)] opacity-[0.06] blur-[60px] rounded-full pointer-events-none" />
 
@@ -1590,8 +1629,59 @@ function AwardsSection() {
               <p className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] mb-4">
                 {a.org}
               </p>
-              <p className="text-[var(--text-2)] text-sm leading-relaxed mb-3">{a.note}</p>
+              <p className="text-[var(--text-2)] text-sm leading-relaxed mb-5 flex-1">{a.note}</p>
 
+              {/* ── PHOTO THUMBNAIL STRIP ── */}
+              {a.photos && a.photos.length > 0 && (
+                <div className="flex gap-2 overflow-x-auto pb-1 mb-4 scrollbar-none">
+                  {a.photos.map((ph, i) => (
+                    <a
+                      key={i}
+                      href={ph.src}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={ph.caption}
+                      className="flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border border-[var(--border)] hover:border-[var(--accent)]/50 transition-all duration-200 group/ph"
+                    >
+                      <img
+                        src={ph.src}
+                        alt={ph.caption}
+                        className="w-full h-full object-cover opacity-70 group-hover/ph:opacity-100 transition-opacity duration-200"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
+
+              {/* ── DOCUMENT / VIDEO ACTIONS ── */}
+              {((a.docs && a.docs.filter(d => d.url).length > 0) || (a.videos && a.videos.length > 0)) && (
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-[var(--border)]">
+                  {a.docs && a.docs.filter(d => d.url).map((doc) => (
+                    <a
+                      key={doc.label}
+                      href={doc.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--border)] text-[11px] font-mono-dm text-[var(--text-3)] hover:border-[var(--accent)]/50 hover:text-[var(--accent)] transition-all duration-200 bg-black/30"
+                    >
+                      <ExternalLink size={10} />
+                      {doc.label}
+                    </a>
+                  ))}
+                  {a.videos && a.videos.map((vid) => (
+                    <a
+                      key={vid.label}
+                      href={vid.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--accent)]/20 text-[11px] font-mono-dm text-[var(--accent)]/80 hover:border-[var(--accent)]/60 hover:text-[var(--accent)] transition-all duration-200 bg-[var(--accent-dim)]"
+                    >
+                      <ExternalLink size={10} />
+                      {vid.label}
+                    </a>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
