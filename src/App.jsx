@@ -1219,9 +1219,9 @@ function FeaturedProjectCard({ project }) {
       />
 
       {/* ── FEATURED BANNER ── */}
-      <div className="flex items-center justify-between px-8 md:px-12 pt-8 md:pt-10 pb-0">
-        <div className="flex items-center gap-3">
-          <span className="font-mono-dm text-[10px] uppercase tracking-[0.28em] text-[var(--accent)] flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-6 md:px-12 pt-6 md:pt-10 pb-0">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <span className="font-mono-dm text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-[var(--accent)] flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
             Featured Project
           </span>
@@ -1236,7 +1236,7 @@ function FeaturedProjectCard({ project }) {
             Active
           </div>
         </div>
-        <div className="flex flex-col items-end gap-1.5 shrink-0">
+        <div className="flex items-center sm:flex-col sm:items-end justify-between sm:justify-start gap-2 shrink-0 border-t sm:border-t-0 border-[var(--border)]/40 pt-2.5 sm:pt-0">
           <span className="font-mono-dm text-[11px] text-[var(--text-3)] uppercase tracking-widest">{project.year}</span>
           <span className="font-mono-dm text-[10px] text-[var(--text-3)] border border-[var(--border)] rounded-full px-3 py-0.5 uppercase tracking-wide">
             {project.role}
@@ -1246,13 +1246,13 @@ function FeaturedProjectCard({ project }) {
 
       {/* ── FULL-BLEED SLIDESHOW ── */}
       {project.images && project.images.length > 0 && (
-        <div className="px-8 md:px-12 pt-8">
+        <div className="px-6 md:px-12 pt-6 md:pt-8">
           <ProjectSlideshow images={project.images} title={project.title} />
         </div>
       )}
 
       {/* ── MAIN CONTENT ── */}
-      <div className="relative p-8 md:p-12">
+      <div className="relative p-6 sm:p-8 md:p-12">
         {/* Context */}
         <p className="font-mono-dm text-[10px] text-[var(--accent)] uppercase tracking-[0.22em] mb-2">
           {project.context}
@@ -1262,7 +1262,7 @@ function FeaturedProjectCard({ project }) {
         <p className="font-mono-dm text-[10px] text-[var(--text-3)] uppercase tracking-[0.18em] mb-2">
           {project.category}
         </p>
-        <h3 className="font-display font-bold text-4xl sm:text-5xl md:text-[56px] mb-5 text-white leading-tight tracking-tight">
+        <h3 className="font-display font-bold text-3xl sm:text-5xl md:text-[56px] mb-5 text-white leading-tight tracking-tight">
           {project.title}
         </h3>
 
@@ -1272,7 +1272,7 @@ function FeaturedProjectCard({ project }) {
         </p>
 
         {/* ── BULLETS — always visible on featured ── */}
-        <ul className="border-l-2 border-[var(--accent)]/30 pl-5 space-y-3.5 mb-8">
+        <ul className="border-l-2 border-[var(--accent)]/30 pl-4 sm:pl-5 space-y-3.5 mb-8">
           {project.bullets.map((b, i) => (
             <motion.li
               key={i}
@@ -1280,7 +1280,7 @@ function FeaturedProjectCard({ project }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 + i * 0.07 }}
-              className="text-[var(--text-2)] text-sm md:text-[15px] leading-relaxed flex gap-3"
+              className="text-[var(--text-2)] text-sm md:text-[15px] leading-relaxed flex gap-2.5 sm:gap-3"
             >
               <ChevronRight size={13} className="mt-1.5 flex-shrink-0 text-[var(--accent)]" />
               <span>{b}</span>
@@ -1289,11 +1289,11 @@ function FeaturedProjectCard({ project }) {
         </ul>
 
         {/* ── TAGS ── */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-8">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 rounded-full border border-[var(--accent)]/20 text-xs font-mono-dm text-[var(--accent)]/70 bg-[var(--accent-dim)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-colors duration-200"
+              className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[var(--accent)]/20 text-[10px] sm:text-xs font-mono-dm text-[var(--accent)]/70 bg-[var(--accent-dim)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] transition-colors duration-200"
             >
               {tag}
             </span>
@@ -1371,15 +1371,15 @@ function ProjectCard({ project, idx }) {
       />
 
       {/* Ghost index number */}
-      <div className="absolute top-5 right-7 font-display font-bold text-[100px] md:text-[160px] leading-none text-white/[0.022] select-none pointer-events-none">
+      <div className="absolute top-5 right-7 font-display font-bold text-[80px] sm:text-[100px] md:text-[160px] leading-none text-white/[0.022] select-none pointer-events-none">
         {String(idx + 1).padStart(2, '0')}
       </div>
 
-      <div className="relative p-8 md:p-12">
+      <div className="relative p-6 sm:p-8 md:p-12">
         {/* ── TOP ROW ── */}
-        <div className="flex items-start justify-between gap-4 mb-7">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] group-hover:scale-105 transition-all duration-400">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-7">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#050505] border border-[var(--border)] flex items-center justify-center text-[var(--accent)] group-hover:border-[var(--accent)] group-hover:scale-105 transition-all duration-400 shrink-0">
               {project.icon}
             </div>
             {project.isTeam ? (
@@ -1401,7 +1401,7 @@ function ProjectCard({ project, idx }) {
             )}
           </div>
 
-          <div className="flex flex-col items-end gap-1.5 shrink-0">
+          <div className="flex items-center sm:flex-col sm:items-end justify-between sm:justify-start gap-2 shrink-0 border-t sm:border-t-0 border-[var(--border)]/40 pt-2.5 sm:pt-0">
             <span className="font-mono-dm text-[11px] text-[var(--text-3)] uppercase tracking-widest">
               {project.year}
             </span>
