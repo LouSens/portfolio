@@ -8,7 +8,7 @@ import {
   Terminal, X, Menu, Download, ChevronRight, ChevronLeft, Plus, Minus, GraduationCap,
   Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe, Sparkles, BookOpen,
 } from 'lucide-react';
-import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
+import { ShimmerButton } from '@/components/ui/shimmer-button';
 
 /* ═══════════════════════════════════════
    TOOLS MARQUEE DATA
@@ -173,6 +173,18 @@ const EXPERIENCE = [
     desc: 'Led full-stack engineering of an enterprise talent AI platform solving labor market Triple Mismatch. Architected a LangGraph multi-agent swarm (Supervisor + parallel worker nodes), 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard with Pay-to-Unlock monetization, E-KYC credential verification, and an automated 4-phase CI/CD pipeline.',
   },
   {
+    year: 'July 2026',
+    role: 'LLM Fine-Tuning & RAG Developer',
+    company: 'Dicoding LLM Specialisation Course',
+    desc: 'Engineered an Indonesian Legal LLM pipeline fine-tuning Llama 3 8B via 4-bit QLoRA and Unsloth, GRPO alignment training, and a parent-child hybrid RAG system with FAISS and BM25.',
+  },
+  {
+    year: 'June 2026',
+    role: 'Silver Award Winner & AI Strategy Lead',
+    company: 'China-ASEAN Innovation Competition (SEA-CICSIC)',
+    desc: 'Led AI strategy and technical architecture for Omni-QC — a manufacturing intelligence platform featuring real-time defect prediction and predictive quality control, competing at the China-ASEAN undergraduate level.',
+  },
+  {
     year: 'May 2026',
     role: 'Tech Lead : Orion',
     company: '4-Person Team (One Hit Wonder)',
@@ -183,12 +195,6 @@ const EXPERIENCE = [
     role: 'Backend & AI Engineer : Startup EMP',
     company: '4-Person Team : MyHack 2025',
     desc: 'Built the backend and AI agent systems for an accelerator management platform. Designed the FastAPI/LangGraph triage pipeline, Pydantic v2 Gemini multimodal ingestion, semantic mentor matching via vector embeddings, and human-in-the-loop governance controls.',
-  },
-  {
-    year: 'Jan 2026',
-    role: 'Full-Stack Engineer : NeuralVoid',
-    company: 'Independent Project',
-    desc: 'Shipped a behavioural analytics platform end-to-end, including a 25-feature ensemble ML model (~96% accuracy), Gemini clinical report generation, and a React dashboard backed by a Railway-hosted FastAPI service.',
   },
   {
     year: 'Oct 2025',
@@ -806,7 +812,7 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.68, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 w-full sm:w-auto"
         >
-          <LiquidMetalButton
+          <ShimmerButton
             label="See Featured Work"
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
           />
@@ -942,70 +948,95 @@ function Marquee() {
    ═══════════════════════════════════════ */
 function PersonalSection() {
   return (
-    <section id="about" className="py-24 md:py-32 px-6 bg-[var(--bg)] relative">
-      <div className="max-w-[1000px] mx-auto">
+    <section id="about" className="py-24 md:py-32 px-6 bg-[var(--bg)] relative border-t border-[var(--border)]">
+      <div className="max-w-[1100px] mx-auto">
         <SectionHeading
-          subtitle="// whoami"
-          title="About me, briefly."
+          subtitle="// background & philosophy"
+          title="How I think & how I build."
+          description="My journey from Xiamen University Malaysia to shipping production-grade AI systems."
         />
 
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-8%' }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="terminal-frame rounded-2xl border border-[var(--border)] bg-[#080808] overflow-hidden shadow-2xl"
-        >
-          {/* macOS chrome */}
-          <div className="flex items-center gap-2 px-5 py-3.5 border-b border-[var(--border)] bg-[#050505]">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="ml-4 font-mono-dm text-[11px] text-[var(--text-3)]">~/david : about.md</span>
-          </div>
-
-          <div className="p-6 md:p-10 font-mono-dm text-[14px] leading-relaxed text-[var(--text-2)] space-y-5">
-            <div>
-              <span className="text-[var(--accent)]">david@portfolio</span>
-              <span className="text-white">:</span>
-              <span className="text-[#69b6ff]">~</span>
-              <span className="text-white">$ cat about.md</span>
+        <div className="grid md:grid-cols-12 gap-8 items-stretch">
+          {/* Left Story Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-8%' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="md:col-span-7 rounded-3xl border border-[var(--border)] bg-[#080808] p-8 md:p-10 flex flex-col justify-between"
+          >
+            <div className="space-y-5 text-[var(--text-2)] text-base md:text-[15px] leading-relaxed font-light">
+              <p className="text-white font-medium text-lg leading-snug">
+                "I'm a <span className="text-[var(--accent)]">Systems Orchestrator</span> who connects tech stacks into working applications."
+              </p>
+              <p>
+                Entering the AI program at <span className="text-white font-normal">Xiamen University Malaysia</span>, I realized my strength wasn't just typing manual syntax—it was seeing the full architectural picture. I treat AI as a force multiplier: directing agent workflows, applying university theoretical concepts directly into hackathon code, and hunting edge cases to guarantee system reliability.
+              </p>
+              <p>
+                Rather than staying confined to classroom exams and assignments, I push myself into high-pressure competitions and team hackathons (placing <span className="text-white font-medium">Top 24 out of 120+ teams</span> in MyHack AI Agent, <span className="text-white font-medium">3rd Place</span> in DPickleball RL, and <span className="text-white font-medium">Silver Award</span> in SEA-CICSIC 2026).
+              </p>
+              <p>
+                I'm looking for an early <span className="text-[var(--accent)] font-medium">2-month remote internship</span> where I can solve real engineering problems and ship code alongside a team that values speed and execution.
+              </p>
             </div>
 
-            <p>
-              Hi! I'm <span className="text-white font-semibold">David</span>, a 3rd-year AI Engineering
-              student at <span className="text-white">Xiamen University Malaysia</span>.
-            </p>
-
-            <p>
-              Currently{' '}
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-[var(--accent)]/10 border border-[var(--accent)]/20 text-[var(--accent)] text-[12px] align-middle mx-0.5">
+            <div className="pt-8 mt-8 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[var(--accent-dim)] border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] font-bold text-sm">
+                  DK
+                </div>
+                <div>
+                  <p className="text-white text-sm font-semibold">David Kurniawan</p>
+                  <p className="font-mono-dm text-[11px] text-[var(--text-3)] uppercase tracking-wider">3rd-Year AI Student · XMUM</p>
+                </div>
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] font-mono-dm text-[10px] text-[var(--accent)] uppercase tracking-widest">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                active
+                Available for 2-Mo Internship
               </span>
-              {' '}on <span className="text-white">KerjaCerdas</span> — leading backend engineering on an enterprise talent AI platform as part of a 4-person team. Most of my shipped work comes from team competitions and hackathons.{' '}
-              <span className="text-white">NeuralVoid</span> is the one I built out of personal curiosity — behavioural analytics meets clinical AI.
-            </p>
-
-            <p>
-              My approach:{' '}
-              <span className="text-white">learn by shipping</span>. I use AI as a force multiplier — to prototype faster, test deeper, and build systems that hold up in production. CI/CD, type-safe APIs, and real test coverage are non-negotiable even in a hackathon.
-            </p>
-
-            <p>
-              <span className="text-[var(--accent)]">Open to a 2-month remote internship.</span>{' '}
-              I work best in teams where the code actually matters.
-            </p>
-
-            <div className="pt-2">
-              <span className="text-[var(--accent)]">david@portfolio</span>
-              <span className="text-white">:</span>
-              <span className="text-[#69b6ff]">~</span>
-              <span className="text-white">$ </span>
-              <span className="terminal-caret" />
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          {/* Right Core Pillars Column */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-8%' }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="md:col-span-5 flex flex-col gap-4"
+          >
+            {[
+              {
+                title: 'Systems Orchestration',
+                desc: 'Integrating vector stores, multi-agent swarms, and type-safe APIs into end-to-end user-facing products.',
+                icon: <Layers size={20} className="text-[var(--accent)]" />,
+              },
+              {
+                title: 'AI-Native Execution',
+                desc: 'Using AI to prototype rapidly, direct agent tasks, enforce Pydantic contracts, and eliminate boilerplate.',
+                icon: <Zap size={20} className="text-[var(--accent)]" />,
+              },
+              {
+                title: 'Competition-Tested',
+                desc: 'Validated under 48-hour hackathon constraints and real-world team environments under tight deadlines.',
+                icon: <Trophy size={20} className="text-[var(--accent)]" />,
+              },
+            ].map((pillar, i) => (
+              <div
+                key={i}
+                className="p-6 rounded-2xl border border-[var(--border)] bg-[#080808] hover:border-[var(--accent)]/30 transition-all duration-300 flex-1 flex flex-col justify-center"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#050505] border border-[var(--border)] flex items-center justify-center">
+                    {pillar.icon}
+                  </div>
+                  <h4 className="font-display font-semibold text-white text-base">{pillar.title}</h4>
+                </div>
+                <p className="text-[var(--text-3)] text-xs md:text-sm leading-relaxed">{pillar.desc}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -1931,7 +1962,7 @@ function CTASection() {
           transition={{ duration: 0.8, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center justify-center gap-5"
         >
-          <LiquidMetalButton
+          <ShimmerButton
             label="Send an Email"
             onClick={() => (window.location.href = 'mailto:davidk.academic@gmail.com')}
           />
