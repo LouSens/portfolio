@@ -100,7 +100,7 @@ const PROJECTS = [
     team: '4-person team',
     isTeam: true,
     year: 'May 2026',
-    context: 'Team One Hit Wonder : Production Pipeline',
+    context: 'UM Hackathon Top 24/100+ Teams : Team One Hit Wonder',
     url: 'https://github.com/LouSens/orion.git',
     liveUrl: null,
     tags: ['LangGraph', 'FastAPI', 'LangSmith', 'Pydantic v2', 'React 19', 'Tailwind CSS v4'],
@@ -187,7 +187,7 @@ const EXPERIENCE = [
   {
     year: 'May 2026',
     role: 'Tech Lead : Orion',
-    company: '4-Person Team (One Hit Wonder)',
+    company: 'UM Hackathon (Top 24/100+ Teams) : One Hit Wonder',
     desc: 'Architected backend infrastructure for a multi-agent LLM expense reimbursement platform. Owned the 6-stage LangGraph workflow, FastAPI type contracts, security rate-limiting middleware, and dual CI/CD pipelines running scheduled regressions against production LLM endpoints.',
   },
   {
@@ -973,7 +973,7 @@ function PersonalSection() {
                 Entering the AI program at <span className="text-white font-normal">Xiamen University Malaysia</span>, I realized my strength wasn't just typing manual syntax—it was seeing the full architectural picture. I treat AI as a force multiplier: directing agent workflows, applying university theoretical concepts directly into hackathon code, and hunting edge cases to guarantee system reliability.
               </p>
               <p>
-                Rather than staying confined to classroom exams and assignments, I push myself into high-pressure competitions and team hackathons (placing <span className="text-white font-medium">Top 24 out of 120+ teams</span> in MyHack AI Agent, <span className="text-white font-medium">3rd Place</span> in DPickleball RL, and <span className="text-white font-medium">Silver Award</span> in SEA-CICSIC 2026).
+                Rather than staying confined to classroom exams and assignments, I push myself into high-pressure competitions and team hackathons (placing <span className="text-white font-medium">Top 24 out of 100+ teams</span> in UM Hackathon with Orion, <span className="text-white font-medium">3rd Place</span> in DPickleball RL, and <span className="text-white font-medium">Silver Award</span> in SEA-CICSIC 2026).
               </p>
               <p>
                 I'm looking for an early <span className="text-[var(--accent)] font-medium">2-month remote internship</span> where I can solve real engineering problems and ship code alongside a team that values speed and execution.
