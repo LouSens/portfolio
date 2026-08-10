@@ -6,7 +6,7 @@ import Lenis from 'lenis';
 import {
   Github, Linkedin, Mail, ArrowUpRight, Code, Database, Server,
   Terminal, X, Menu, Download, ChevronRight, ChevronLeft, Plus, Minus, GraduationCap,
-  Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe,
+  Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe, Sparkles,
 } from 'lucide-react';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 
