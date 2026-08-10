@@ -6,7 +6,7 @@ import Lenis from 'lenis';
 import {
   Github, Linkedin, Mail, ArrowUpRight, Code, Database, Server,
   Terminal, X, Menu, Download, ChevronRight, ChevronLeft, Plus, Minus, GraduationCap,
-  Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe, Sparkles,
+  Trophy, Bot, Brain, Cpu, Layers, ExternalLink, Users, User, Zap, Globe, Sparkles, BookOpen,
 } from 'lucide-react';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 
@@ -131,6 +131,29 @@ const PROJECTS = [
       'Built a responsive React SPA dashboard with interactive heatmaps and radar charts deployed on Vercel with a Railway API gateway.',
     ],
     icon: <Brain size={28} />,
+  },
+  {
+    title: 'Indonesian Legal LLM',
+    category: 'LLM Fine-Tuning & Advanced RAG',
+    role: 'Solo — ML Engineer',
+    team: 'Solo build',
+    isTeam: false,
+    isCourse: true,
+    year: '2026',
+    context: 'Dicoding · LLM Specialisation Course',
+    url: 'https://github.com/LouSens/FineTune-Dicoding',
+    hfUrl: 'https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal',
+    wandbUrl: 'https://wandb.ai/kyzo/legal-llm-finetune',
+    liveUrl: null,
+    tags: ['QLoRA', 'Unsloth', 'GRPO', 'FAISS', 'LangChain', 'Llama 3', 'Gradio'],
+    desc: 'End-to-end LLM fine-tuning and Retrieval-Augmented Generation system for Indonesian Labor Law — fine-tunes Llama 3 8B with 4-bit QLoRA and builds a hybrid ensemble RAG pipeline with GRPO alignment.',
+    bullets: [
+      'Fine-tuned Llama 3 8B using 4-bit QLoRA (NF4 double quantization) via Unsloth — targeting all primary LoRA projection layers with W&B experiment tracking across multiple hyperparameter sweeps.',
+      'Built a Parent-Child Hybrid Ensemble RAG pipeline combining sparse BM25 (0.4) and dense FAISS vector search (0.6) with HyDE hypothesis generation and Cross-Encoder reranking.',
+      'Implemented GRPO alignment training with 4 custom reward functions: <think> formatting, reasoning length, ROUGE-L correctness, and Indonesian language consistency checks.',
+      'Published fine-tuned model to Hugging Face Hub; added DuckDuckGo live web search fallback when reranker confidence drops below 0.3 threshold.',
+    ],
+    icon: <Brain size={26} />,
   },
 ];
 
@@ -1335,6 +1358,12 @@ function ProjectCard({ project, idx }) {
                 {project.team}
               </div>
             )}
+            {project.isCourse && (
+              <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 font-mono-dm text-[9px] text-blue-400 uppercase tracking-widest">
+                <BookOpen size={9} />
+                Course
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col items-end gap-1.5 shrink-0">
@@ -1430,6 +1459,20 @@ function ProjectCard({ project, idx }) {
             <a href={project.url} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
               <Github size={12} />
               Source
+            </a>
+          )}
+
+          {project.hfUrl && (
+            <a href={project.hfUrl} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
+              <ExternalLink size={12} />
+              Hugging Face
+            </a>
+          )}
+
+          {project.wandbUrl && (
+            <a href={project.wandbUrl} target="_blank" rel="noreferrer" data-hover="true" className="btn-outline">
+              <ExternalLink size={12} />
+              W&amp;B Runs
             </a>
           )}
 
