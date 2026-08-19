@@ -344,7 +344,7 @@ const CORE_COMPETENCIES = [
    ═══════════════════════════════════════ */
 const STATUS_ROTATION = [
   'building enterprise AI pipelines',
-  'open to 2-month remote internship',
+  'open to contract & remote AI projects',
   '3rd-year AI Engineering student',
   'shipping multi-agent LLM systems',
   'Silver Award · SEA-CICSIC 2026',
@@ -870,7 +870,7 @@ function Hero() {
           className="font-mono-dm text-[10px] uppercase tracking-widest text-[var(--text-3)] flex items-center gap-2 mt-2"
         >
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          Available · 2-month remote internship
+          Available · Contract & Remote Projects
         </motion.p>
 
         {/* Quick stats row */}
@@ -976,7 +976,7 @@ function PersonalSection() {
                 Rather than staying confined to classroom exams and assignments, I push myself into high-pressure competitions and team hackathons (placing <span className="text-white font-medium">Top 24 out of 100+ teams</span> in UM Hackathon with Orion, <span className="text-white font-medium">3rd Place</span> in DPickleball RL, and <span className="text-white font-medium">Silver Award</span> in SEA-CICSIC 2026).
               </p>
               <p>
-                I'm looking for an early <span className="text-[var(--accent)] font-medium">2-month remote internship</span> where I can solve real engineering problems and ship code alongside a team that values speed and execution.
+                I'm open to <span className="text-[var(--accent)] font-medium">contract-based & milestone-driven remote projects</span> where I can solve real engineering problems, meet deadlines, and ship code without requiring daily in-office attendance.
               </p>
             </div>
 
@@ -992,7 +992,7 @@ function PersonalSection() {
               </div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--accent)]/30 bg-[var(--accent-dim)] font-mono-dm text-[10px] text-[var(--accent)] uppercase tracking-widest">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                Available for 2-Mo Internship
+                Available for Remote / Contract Projects
               </span>
             </div>
           </motion.div>
@@ -1931,7 +1931,7 @@ function CTASection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="font-mono-dm text-[11px] tracking-widest uppercase text-[var(--accent)] mb-5"
         >
-          // available · 2-month remote internship
+          // available · contract & remote projects
         </motion.p>
 
         <motion.h2
@@ -1952,7 +1952,7 @@ function CTASection() {
           transition={{ duration: 0.8, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           className="text-[var(--text-2)] text-base sm:text-lg md:text-xl mb-10 md:mb-12 max-w-[560px] mx-auto leading-relaxed"
         >
-          I'm a 3rd-year AI Engineering student open to 2-month remote internships. If you're building something AI-heavy and want someone who actually ships — reach out.
+          I'm a 3rd-year AI Engineering student available for contract-based, milestone-driven, and flexible remote projects. If you're building something AI-heavy and want someone who actually ships — reach out.
         </motion.p>
 
         <motion.div
