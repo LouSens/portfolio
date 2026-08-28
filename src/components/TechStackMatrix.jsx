@@ -1,21 +1,25 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
   Zap,
   Bot,
   ShieldCheck,
   ArrowUpRight,
-  Database,
+  ArrowRight,
+  CheckCircle2,
+  Cpu,
   Layers,
-  Brain,
-  Workflow,
-  Server,
   Sparkles,
+  Database,
+  Code2,
 } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 
 export default function TechStackMatrix({ onOpenProject }) {
+  const [activeLayer, setActiveLayer] = useState(0);
+  const [selectedTool, setSelectedTool] = useState(null);
+
   const handleProjectClick = (projectName) => {
     const found = PROJECTS_DATA.find(
       (p) =>
@@ -29,240 +33,350 @@ export default function TechStackMatrix({ onOpenProject }) {
     }
   };
 
-  const BENTO_QUADRANTS = [
+  const STACK_LAYERS = [
     {
-      id: 'frontend',
+      id: 'layer-client',
       number: '01',
-      category: 'Frontend & UI Engineering',
-      tagline: 'Modern SPAs, responsive design systems & clean state architecture',
+      name: 'Client & Interface Tier',
+      tagline: 'Modern SPAs, responsive design tokens & predictable reactive client state',
       icon: Globe,
-      accentColor: 'text-[#FF5A36]',
-      borderColor: 'group-hover:border-[#FF5A36]/40',
+      description:
+        'Constructing modular, responsive user interfaces with React 19. Focused on 60fps micro-interactions, clean hook abstractions, and zero layout shift.',
       tools: [
         {
-          name: 'React 19 & JavaScript',
-          detail: 'Single-page applications, custom hooks & modular UI architecture',
-          projects: ['KerjaCerdas', 'Orion', 'NeuralVoid'],
+          name: 'React 19',
+          role: 'Component architecture, custom hooks & optimistic UI updates',
+          connectedTo: 'FastAPI async REST endpoints',
+          project: 'KerjaCerdas',
         },
         {
-          name: 'Tailwind CSS & Framer Motion',
-          detail: 'Curated design tokens, responsive layouts & 60fps micro-interactions',
-          projects: ['All Systems'],
+          name: 'JavaScript (ESNext)',
+          role: 'Asynchronous event handling, WebSocket streams & DOM logic',
+          connectedTo: 'Browser runtime & Web APIs',
+          project: 'NeuralVoid',
         },
         {
-          name: 'Zustand State Management',
-          detail: 'Predictable client-side state for complex multi-role workflows',
-          projects: ['KerjaCerdas'],
+          name: 'Tailwind CSS',
+          role: 'Design tokens, dark-mode glassmorphism & responsive layouts',
+          connectedTo: 'React UI component library',
+          project: 'Orion',
+        },
+        {
+          name: 'Framer Motion',
+          role: 'Hardware-accelerated layout transitions & gesture animations',
+          connectedTo: 'React component lifecycle',
+          project: 'Portfolio',
+        },
+        {
+          name: 'Zustand',
+          role: 'Lightweight reactive global state management',
+          connectedTo: 'Client session & filter caches',
+          project: 'KerjaCerdas',
         },
       ],
+      appliedProjects: ['KerjaCerdas', 'Orion', 'NeuralVoid'],
     },
     {
-      id: 'backend',
+      id: 'layer-api',
       number: '02',
-      category: 'Backend & API Infrastructure',
-      tagline: 'High-throughput async services, type contracts & relational modeling',
+      name: 'API Gateway & Async Core',
+      tagline: 'High-throughput async endpoints, runtime schema enforcement & Redis caching',
       icon: Zap,
-      accentColor: 'text-[#38bdf8]',
-      borderColor: 'group-hover:border-[#38bdf8]/40',
+      description:
+        'Engineering low-latency backend microservices with FastAPI and Python asyncio. Enforcing strict Pydantic v2 data contracts and resilient database indexing.',
       tools: [
         {
-          name: 'FastAPI (Python Async)',
-          detail: 'High-concurrency async REST endpoints with automated OpenAPI specs',
-          projects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
+          name: 'FastAPI',
+          role: 'High-concurrency async REST gateway & automated OpenAPI 3.1 documentation',
+          connectedTo: 'React client & background workers',
+          project: 'KerjaCerdas',
+        },
+        {
+          name: 'Python Async (asyncio)',
+          role: 'Non-blocking I/O event loops for parallel multi-source requests',
+          connectedTo: 'Agent execution threads',
+          project: 'Startup EMP',
+        },
+        {
+          name: 'Pydantic v2',
+          role: 'Type validation, schema coercion & structured LLM JSON repair',
+          connectedTo: 'LangGraph output parsers',
+          project: 'Orion',
         },
         {
           name: 'PostgreSQL + pgvector',
-          detail: 'Relational data modeling, HNSW indexing & vector cosine similarity',
-          projects: ['KerjaCerdas'],
+          role: 'Relational data modeling with HNSW vector index similarity search',
+          connectedTo: 'Hybrid retrieval engine',
+          project: 'KerjaCerdas',
         },
         {
-          name: 'Pydantic v2 & Type Safety',
-          detail: 'Runtime schema validation, typed data contracts & LLM output coercion',
-          projects: ['KerjaCerdas', 'Startup EMP', 'Orion'],
+          name: 'Redis',
+          role: 'Sliding-window token bucket rate limiting & session caching',
+          connectedTo: 'API gateway middleware',
+          project: 'Orion',
         },
       ],
+      appliedProjects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
     },
     {
-      id: 'ai-agents',
+      id: 'layer-agents',
       number: '03',
-      category: 'Multi-Agent AI & Retrieval',
-      tagline: 'Autonomous LangGraph swarms, hybrid search & reranking gates',
+      name: 'Agent Swarms & Machine Learning',
+      tagline: 'LangGraph cyclical supervisor swarms, hybrid vector retrieval & predictive ML',
       icon: Bot,
-      accentColor: 'text-[#a855f7]',
-      borderColor: 'group-hover:border-[#a855f7]/40',
+      description:
+        'Orchestrating autonomous multi-agent state graphs, parent-child hybrid retrieval engines (FAISS + BM25), cross-encoder neural rerankers, and XGBoost models.',
       tools: [
         {
-          name: 'LangGraph & Supervisor Swarms',
-          detail: 'Cyclical state graphs, parallel worker routing & human-in-the-loop validation',
-          projects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
+          name: 'LangGraph',
+          role: 'Cyclical state graphs, supervisor-worker routing & human validation gates',
+          connectedTo: 'FastAPI async pipeline',
+          project: 'Startup EMP',
         },
         {
-          name: 'Hybrid Search (FAISS + BM25)',
-          detail: 'Parent-Child dense vector + sparse keyword search with cross-encoders',
-          projects: ['Indonesian Legal RAG', 'KerjaCerdas'],
+          name: 'FAISS & BM25',
+          role: 'Hybrid dense + sparse parent-child document chunk retrieval with RRF',
+          connectedTo: 'Cross-encoder reranker',
+          project: 'Indonesian Legal RAG',
+        },
+        {
+          name: 'Cross-Encoders',
+          role: 'High-precision transformer reranking on top-K document candidates',
+          connectedTo: 'Context synthesis node',
+          project: 'Indonesian Legal RAG',
         },
         {
           name: 'PyTorch & scikit-learn',
-          detail: 'Ensemble ML classifiers (XGBoost), feature engineering & tabular models',
-          projects: ['NeuralVoid'],
+          role: '25-feature tabular ML classification & XGBoost behavioral models (96.2%)',
+          connectedTo: 'Clinical prediction pipeline',
+          project: 'NeuralVoid',
+        },
+        {
+          name: 'LangSmith',
+          role: 'Full-trajectory agent execution tracing, latency audits & regression evals',
+          connectedTo: 'Production agent swarm',
+          project: 'Startup EMP',
         },
       ],
+      appliedProjects: ['Startup EMP', 'Indonesian Legal RAG', 'NeuralVoid'],
     },
     {
-      id: 'devops',
+      id: 'layer-infra',
       number: '04',
-      category: 'DevOps, Testing & Cloud',
-      tagline: 'Containerized deployment, automated CI/CD test gates & cloud hosting',
+      name: 'DevOps, CI/CD & Cloud Infrastructure',
+      tagline: 'Multi-container Docker isolation, automated PR quality gates & cloud deployments',
       icon: ShieldCheck,
-      accentColor: 'text-[#10b981]',
-      borderColor: 'group-hover:border-[#10b981]/40',
+      description:
+        'Hardening production deployments with Docker multi-stage builds, automated GitHub Actions regression testing (85% coverage), and cloud hosting.',
       tools: [
         {
-          name: 'Docker & Docker Compose',
-          detail: 'Isolated multi-container service packaging & reproducible environments',
-          projects: ['KerjaCerdas', 'Orion'],
+          name: 'Docker & Compose',
+          role: 'Multi-service containerization, isolated environments & volume caching',
+          connectedTo: 'Cloud Run & Railway runtime',
+          project: 'KerjaCerdas',
         },
         {
-          name: 'GitHub Actions CI/CD',
-          detail: 'Automated pull-request quality gates (85% coverage) & nightly regressions',
-          projects: ['Orion', 'KerjaCerdas'],
+          name: 'GitHub Actions',
+          role: 'Automated CI/CD pipelines, linting, type checks & automated test gates',
+          connectedTo: 'Main deployment branch',
+          project: 'Orion',
         },
         {
-          name: 'Cloud Run, Vercel & Railway',
-          detail: 'Serverless microservice deployment, edge routing & cloud hosting',
-          projects: ['Startup EMP', 'NeuralVoid'],
+          name: 'Google Cloud Run & Vercel',
+          role: 'Serverless container orchestration & global edge CDN distribution',
+          connectedTo: 'Production domain ingress',
+          project: 'Startup EMP',
+        },
+        {
+          name: 'Pytest & Coverage',
+          role: 'Automated unit and integration test suites enforcing > 85% test coverage',
+          connectedTo: 'CI/CD pipeline checks',
+          project: 'Orion',
         },
       ],
+      appliedProjects: ['All Production Builds'],
     },
   ];
+
+  const currentLayer = STACK_LAYERS[activeLayer];
 
   return (
     <section
       id="stack"
       className="py-24 md:py-36 px-4 sm:px-6 md:px-8 bg-[#050507] relative border-t border-white/10 overflow-hidden select-none"
     >
-      {/* Background subtle glow */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[var(--accent)]/[0.025] rounded-full blur-[180px]" />
+      {/* Background ambient lighting */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[var(--accent)]/[0.025] rounded-full blur-[190px]" />
 
-      <div className="max-w-[1240px] mx-auto relative z-10">
-        {/* ── SECTION HEADER ── */}
-        <div className="max-w-2xl mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 mb-3"
-          >
-            <span className="w-6 h-px bg-[var(--accent)]" />
-            <span className="font-mono-dm text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
-              // Technical Ecosystem
+      <div className="max-w-[1200px] mx-auto relative z-10">
+        {/* ── EDITORIAL HEADER ── */}
+        <div className="max-w-xl mb-12">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-5 h-px bg-[var(--accent)]" />
+            <span className="font-mono-dm text-xs text-[var(--accent)]">
+              Architecture Stack
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.06 }}
-            className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-3"
-          >
-            Core Tech Stack
-          </motion.h2>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-3">
+            Technical Ecosystem
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.12 }}
-            className="text-white/60 text-sm sm:text-base font-light leading-relaxed"
-          >
-            A cohesive view of production technologies across frontend, backend, agentic AI, and cloud infrastructure.
-          </motion.p>
+          <p className="text-white/60 text-sm sm:text-base font-light leading-relaxed">
+            An interconnected system topology illustrating how client interfaces, async APIs, multi-agent swarms, and cloud infrastructure integrate.
+          </p>
         </div>
 
-        {/* ── 4-QUADRANT BENTO GRID (SPACIOUS & STABLE) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-          {BENTO_QUADRANTS.map((quadrant, idx) => {
-            const Icon = quadrant.icon;
+        {/* ── 4-LAYER INTERACTIVE SPECTRUM CONTROLLER ── */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          {STACK_LAYERS.map((layer, idx) => {
+            const Icon = layer.icon;
+            const isSelected = activeLayer === idx;
+
             return (
-              <motion.div
-                key={quadrant.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-5%' }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className={`group rounded-3xl border border-white/10 bg-[#09090E]/90 backdrop-blur-xl p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between shadow-2xl relative overflow-hidden hover:bg-[#0E0E16] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] cursor-default`}
+              <button
+                key={layer.id}
+                type="button"
+                onClick={() => {
+                  setActiveLayer(idx);
+                  setSelectedTool(null);
+                }}
+                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-200 cursor-pointer relative overflow-hidden ${
+                  isSelected
+                    ? 'border-white/30 bg-[#0E0E15] shadow-xl'
+                    : 'border-white/5 bg-[#08080C] hover:bg-[#0D0D13] hover:border-white/15'
+                }`}
               >
-                {/* Top ambient highlight on hover */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Top subtle highlight */}
+                {isSelected && (
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-[var(--accent)]" />
+                )}
 
-                <div>
-                  {/* Quadrant Header */}
-                  <div className="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-white/10">
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 shadow-md">
-                        <Icon size={20} className={quadrant.accentColor} />
-                      </div>
-                      <div>
-                        <span className="font-mono-dm text-[10px] uppercase tracking-widest text-white/40 block">
-                          Quadrant {quadrant.number}
-                        </span>
-                        <h3 className="font-display font-bold text-lg sm:text-xl text-white group-hover:text-white transition-colors">
-                          {quadrant.category}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
+                <span className="font-mono-dm text-xs text-white/40 block mb-1">
+                  Layer {layer.number}
+                </span>
 
-                  {/* Subtitle / Description */}
-                  <p className="text-white/60 text-xs sm:text-sm font-light leading-relaxed mb-6">
-                    {quadrant.tagline}
-                  </p>
-
-                  {/* Tool Cards List */}
-                  <div className="space-y-4">
-                    {quadrant.tools.map((tool, ti) => (
-                      <div
-                        key={tool.name}
-                        className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-200"
-                      >
-                        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
-                          <h4 className="font-display font-bold text-sm text-white flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-                            {tool.name}
-                          </h4>
-
-                          {/* Applied project links */}
-                          <div className="flex flex-wrap gap-1 mt-1 sm:mt-0">
-                            {tool.projects.map((proj) => (
-                              <button
-                                key={proj}
-                                onClick={() => handleProjectClick(proj)}
-                                className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md bg-white/5 hover:bg-[var(--accent)]/15 border border-white/5 hover:border-[var(--accent)]/30 font-mono-dm text-[9px] text-white/65 hover:text-[var(--accent)] transition-colors"
-                              >
-                                <span>{proj}</span>
-                                <ArrowUpRight size={8} className="opacity-40" />
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <p className="text-white/55 text-xs font-light leading-relaxed">
-                          {tool.detail}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                <div className="flex items-center gap-2">
+                  <Icon
+                    size={15}
+                    className={isSelected ? 'text-[var(--accent)]' : 'text-white/50'}
+                  />
+                  <h3
+                    className={`font-display font-bold text-xs sm:text-sm truncate ${
+                      isSelected ? 'text-white' : 'text-white/70'
+                    }`}
+                  >
+                    {layer.name}
+                  </h3>
                 </div>
-
-                {/* Bottom Metadata bar */}
-                <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-[11px] font-mono-dm text-white/40">
-                  <span>Production Ready</span>
-                  <span className="text-[var(--accent)] font-medium">Verified in Live Builds</span>
-                </div>
-              </motion.div>
+              </button>
             );
           })}
+        </div>
+
+        {/* ── LAYER INSPECTOR WORKBENCH ── */}
+        <div className="rounded-3xl border border-white/10 bg-[#09090E]/95 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left Column: Layer Overview & Verified Projects */}
+            <div className="lg:col-span-5 space-y-6">
+              <div>
+                <span className="font-mono-dm text-xs text-[var(--accent)] block mb-1">
+                  Layer {currentLayer.number} Scope
+                </span>
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight mb-2">
+                  {currentLayer.name}
+                </h3>
+                <p className="font-mono-dm text-xs text-white/45 mb-4">
+                  {currentLayer.tagline}
+                </p>
+                <p className="text-white/70 text-sm font-light leading-relaxed">
+                  {currentLayer.description}
+                </p>
+              </div>
+
+              {/* Verified in Live Builds */}
+              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
+                <span className="font-mono-dm text-xs text-white/40 mr-1">
+                  Proven in live builds:
+                </span>
+                {currentLayer.appliedProjects.map((proj) => (
+                  <button
+                    key={proj}
+                    onClick={() => handleProjectClick(proj)}
+                    className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono-dm text-xs transition-colors"
+                  >
+                    <span>{proj}</span>
+                    <ArrowUpRight size={11} className="text-white/50" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Interactive Tech Node Grid */}
+            <div className="lg:col-span-7 space-y-3">
+              <span className="font-mono-dm text-xs text-white/40 block pb-1 border-b border-white/10">
+                Core Technologies &amp; Architecture Roles (Tap to Inspect)
+              </span>
+
+              <div className="space-y-2.5">
+                {currentLayer.tools.map((tool) => {
+                  const isOpened = selectedTool === tool.name;
+
+                  return (
+                    <div
+                      key={tool.name}
+                      onClick={() => setSelectedTool(isOpened ? null : tool.name)}
+                      className={`p-4 rounded-2xl border transition-all duration-200 cursor-pointer ${
+                        isOpened
+                          ? 'border-[var(--accent)]/50 bg-[#0E0E16] shadow-lg'
+                          : 'border-white/5 bg-[#050508] hover:bg-[#09090E] hover:border-white/15'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                          <h4 className="font-display font-bold text-sm sm:text-base text-white">
+                            {tool.name}
+                          </h4>
+                        </div>
+
+                        <span className="font-mono-dm text-[11px] text-white/40">
+                          {tool.connectedTo}
+                        </span>
+                      </div>
+
+                      <p className="font-mono-dm text-xs text-white/60 mt-1.5 leading-relaxed">
+                        {tool.role}
+                      </p>
+
+                      {/* Expanded Production Link */}
+                      {isOpened && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          className="pt-3 mt-3 border-t border-white/10 flex items-center justify-between"
+                        >
+                          <span className="font-mono-dm text-[11px] text-white/40">
+                            Implemented in: <span className="text-white">{tool.project}</span>
+                          </span>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleProjectClick(tool.project);
+                            }}
+                            className="inline-flex items-center gap-1 text-xs font-mono-dm text-[var(--accent)] hover:underline"
+                          >
+                            <span>Inspect Project</span>
+                            <ArrowRight size={11} />
+                          </button>
+                        </motion.div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
