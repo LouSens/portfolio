@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
   Bot,
@@ -9,13 +9,14 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
-  Cpu,
+  ChevronDown,
   Sparkles,
 } from 'lucide-react';
 import { SERVICES, PROJECTS_DATA, HOW_WE_WORK } from '../data/portfolioData';
 
 export default function ServicesSection({ onOpenProject }) {
-  const [activeTab, setActiveTab] = useState(0);
+  // Default open first capability
+  const [expandedId, setExpandedId] = useState('fullstack-web');
 
   const getIcon = (iconName) => {
     switch (iconName) {
@@ -48,7 +49,9 @@ export default function ServicesSection({ onOpenProject }) {
     }
   };
 
-  const activeService = SERVICES[activeTab];
+  const toggleExpand = (id) => {
+    setExpandedId((prev) => (prev === id ? null : id));
+  };
 
   return (
     <section
@@ -56,9 +59,9 @@ export default function ServicesSection({ onOpenProject }) {
       className="py-24 md:py-36 px-4 sm:px-6 md:px-8 bg-[#060608] relative border-t border-white/10 overflow-hidden select-none"
     >
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[750px] h-[450px] bg-[var(--accent)]/[0.035] rounded-full blur-[180px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[var(--accent)]/[0.035] rounded-full blur-[180px]" />
 
-      <div className="max-w-[1240px] mx-auto relative z-10">
+      <div className="max-w-[1100px] mx-auto relative z-10">
         {/* ── SECTION HEADER ── */}
         <div className="max-w-2xl mb-14">
           <motion.div
@@ -90,131 +93,164 @@ export default function ServicesSection({ onOpenProject }) {
             transition={{ delay: 0.12 }}
             className="text-white/60 text-sm sm:text-base font-light leading-relaxed max-w-xl"
           >
-            Structured architectural specializations for enterprise web platforms, autonomous agent swarms, and high-throughput backend services.
+            Explore technical specializations across responsive web applications, autonomous multi-agent workflows, and production backend services.
           </motion.p>
         </div>
 
-        {/* ── INTERACTIVE BLUEPRINT CONSOLE (EQUAL FIXED CARD HEIGHTS ACROSS ALL TABS) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-          {/* Left Column: Interactive Pillar List */}
-          <div className="lg:col-span-5 flex flex-col justify-between space-y-3">
-            {SERVICES.map((srv, idx) => {
-              const isActive = activeTab === idx;
-              return (
-                <button
-                  key={srv.id}
-                  onClick={() => setActiveTab(idx)}
-                  className={`w-full text-left p-5 sm:p-5.5 rounded-2xl transition-all duration-200 relative border ${
-                    isActive
-                      ? 'border-[var(--accent)]/60 bg-[#0E0E16] shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_25px_rgba(255,90,54,0.18)]'
-                      : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/15 opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  {/* Left accent indicator bar on active selection */}
-                  {isActive && (
-                    <div className="absolute left-0 top-3 bottom-3 w-1.5 bg-[var(--accent)] rounded-r-full shadow-[0_0_12px_var(--accent)]" />
-                  )}
+        {/* ── IN-PLACE EXPANDING ACCORDION STACK (PERFECT ON MOBILE & DESKTOP) ── */}
+        <div className="space-y-4">
+          {SERVICES.map((srv, idx) => {
+            const isExpanded = expandedId === srv.id;
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3.5">
-                      <span className="font-mono-dm text-xs text-[var(--accent)] font-bold">
-                        {srv.number}
-                      </span>
+            return (
+              <motion.div
+                key={srv.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-5%' }}
+                transition={{ duration: 0.35, delay: idx * 0.06 }}
+                className={`rounded-3xl border transition-all duration-300 relative overflow-hidden ${
+                  isExpanded
+                    ? 'border-[var(--accent)]/50 bg-[#0A0A10] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(255,90,54,0.12)]'
+                    : 'border-white/10 bg-[#09090E]/80 hover:bg-[#0E0E15] hover:border-white/20'
+                }`}
+              >
+                {/* Top ambient highlight line when expanded */}
+                {isExpanded && (
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/50 to-transparent" />
+                )}
+
+                {/* Clickable Header Banner */}
+                <button
+                  type="button"
+                  onClick={() => toggleExpand(srv.id)}
+                  aria-expanded={isExpanded}
+                  className="w-full text-left p-6 sm:p-7 md:p-8 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                >
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    {/* Icon Box */}
+                    <div
+                      className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                        isExpanded
+                          ? 'bg-[var(--accent)]/15 border border-[var(--accent)]/40 text-[var(--accent)] shadow-lg'
+                          : 'bg-white/5 border border-white/10 text-white/70'
+                      }`}
+                    >
+                      {getIcon(srv.icon)}
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-mono-dm text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold">
+                          Pillar {srv.number}
+                        </span>
+                        <span className="text-white/20 hidden sm:inline">•</span>
+                        <span className="font-mono-dm text-[10px] uppercase tracking-wider text-white/40 hidden sm:inline">
+                          {srv.tagline}
+                        </span>
+                      </div>
+
                       <h3
-                        className={`font-display font-bold text-sm sm:text-base transition-colors ${
-                          isActive ? 'text-white' : 'text-white/80'
+                        className={`font-display font-bold text-lg sm:text-xl md:text-2xl transition-colors ${
+                          isExpanded ? 'text-white' : 'text-white/90'
                         }`}
                       >
                         {srv.title}
                       </h3>
                     </div>
+                  </div>
 
-                    <ArrowRight
-                      size={15}
-                      className={`transition-all duration-200 ${
-                        isActive
-                          ? 'text-[var(--accent)] translate-x-1 opacity-100'
-                          : 'text-white/30 opacity-0 -translate-x-2'
-                      }`}
-                    />
+                  {/* Expand Chevron Indicator */}
+                  <div
+                    className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${
+                      isExpanded
+                        ? 'border-[var(--accent)]/40 bg-[var(--accent)]/10 text-[var(--accent)] rotate-180'
+                        : 'border-white/10 bg-white/5 text-white/50'
+                    }`}
+                  >
+                    <ChevronDown size={18} />
                   </div>
                 </button>
-              );
-            })}
-          </div>
 
-          {/* Right Column: Hero Focus Canvas (Strictly Locked Height = Zero Discrepancy) */}
-          <div className="lg:col-span-7">
-            <div className="h-[520px] sm:h-[490px] lg:h-[470px] rounded-3xl border border-white/15 bg-[#0A0A10]/95 backdrop-blur-xl p-7 sm:p-9 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-              {/* Top ambient glowing accent line */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/50 to-transparent" />
-
-              {/* Top Section: Header + Title + Description (Locked 160px height) */}
-              <div className="h-[160px] flex flex-col justify-start">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[var(--accent)] shadow-md">
-                    {getIcon(activeService.icon)}
-                  </div>
-
-                  <span className="font-mono-dm text-[11px] uppercase tracking-widest text-white/50 px-3 py-1 rounded-full border border-white/10 bg-white/5">
-                    Pillar {activeService.number}
-                  </span>
-                </div>
-
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-white mb-2 tracking-tight leading-snug truncate">
-                  {activeService.title}
-                </h3>
-                <p className="text-white/75 text-xs sm:text-sm font-light leading-relaxed line-clamp-2">
-                  {activeService.description}
-                </p>
-              </div>
-
-              {/* Middle Section: Deliverables 2x2 Grid (Locked 160px height) */}
-              <div className="h-[165px] flex flex-col justify-center pt-3 border-t border-white/10">
-                <span className="font-mono-dm text-[10px] uppercase tracking-widest text-white/40 block mb-2">
-                  Core Technical Deliverables:
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {activeService.deliverables.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-start gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-white/80 leading-snug"
+                {/* Expandable Content Area (In-Place Smooth Transition) */}
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+                      className="overflow-hidden"
                     >
-                      <CheckCircle2 size={13} className="mt-0.5 text-[var(--accent)] shrink-0" />
-                      <span className="truncate">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                      <div className="px-6 pb-7 sm:px-8 sm:pb-8 md:px-10 md:pb-10 pt-2 border-t border-white/10">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 pt-4 items-start">
+                          {/* Overview & Applied Projects */}
+                          <div className="lg:col-span-6 space-y-5">
+                            <p className="text-white/75 text-xs sm:text-sm font-light leading-relaxed">
+                              {srv.description}
+                            </p>
 
-              {/* Bottom Section: Footer with Project Pills (Locked 48px height) */}
-              <div className="h-[48px] pt-3 border-t border-white/10 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 overflow-hidden">
-                  <span className="font-mono-dm text-xs text-white/40 shrink-0">Verified in:</span>
-                  <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-                    {(activeService.appliedProjects ?? []).map((proj) => (
-                      <button
-                        key={proj}
-                        onClick={() => handleOpenLinkedProject(proj)}
-                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-[var(--accent)]/10 hover:bg-[var(--accent)]/20 border border-[var(--accent)]/30 text-[var(--accent)] font-mono-dm text-[10px] font-semibold transition-colors shrink-0"
-                      >
-                        <span>{proj}</span>
-                        <ArrowUpRight size={10} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                            <div className="pt-3 border-t border-white/10 flex flex-wrap items-center gap-2">
+                              <span className="font-mono-dm text-xs text-white/40 mr-1">
+                                Proven in live builds:
+                              </span>
+                              {(srv.appliedProjects ?? []).map((proj) => (
+                                <button
+                                  key={proj}
+                                  onClick={() => handleOpenLinkedProject(proj)}
+                                  className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[var(--accent)]/10 hover:bg-[var(--accent)]/20 border border-[var(--accent)]/30 text-[var(--accent)] font-mono-dm text-xs font-semibold transition-colors"
+                                >
+                                  <span>{proj}</span>
+                                  <ArrowUpRight size={11} />
+                                </button>
+                              ))}
+                            </div>
+                          </div>
 
-                <button
-                  onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono-dm text-white/60 hover:text-white transition-colors shrink-0 ml-2"
-                >
-                  <span>Explore Systems</span>
-                  <ArrowRight size={11} />
-                </button>
-              </div>
-            </div>
-          </div>
+                          {/* Deliverables Checklist Grid */}
+                          <div className="lg:col-span-6 bg-white/[0.02] border border-white/5 rounded-2xl p-4 sm:p-5 space-y-2.5">
+                            <span className="font-mono-dm text-[10px] uppercase tracking-widest text-white/40 block pb-1 border-b border-white/5">
+                              Core Technical Deliverables:
+                            </span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                              {srv.deliverables.map((item, i) => (
+                                <div
+                                  key={i}
+                                  className="flex items-start gap-2 text-xs text-white/80 leading-snug p-2 rounded-xl bg-white/[0.02] border border-white/5"
+                                >
+                                  <CheckCircle2
+                                    size={14}
+                                    className="mt-0.5 text-[var(--accent)] shrink-0"
+                                  />
+                                  <span>{item}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Direct explore prompt */}
+                        <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-end">
+                          <button
+                            onClick={() =>
+                              document
+                                .getElementById('work')
+                                ?.scrollIntoView({ behavior: 'smooth' })
+                            }
+                            className="inline-flex items-center gap-1.5 text-xs font-mono-dm text-white/60 hover:text-[var(--accent)] transition-colors"
+                          >
+                            <span>Explore Case Studies</span>
+                            <ArrowRight size={12} />
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* ── 4-STEP DELIVERY LIFECYCLE BAR ── */}
@@ -222,9 +258,13 @@ export default function ServicesSection({ onOpenProject }) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
             {HOW_WE_WORK.map((step, i) => (
               <div key={i} className="space-y-1.5">
-                <span className="font-mono-dm text-xs text-[var(--accent)] font-bold">{step.step}.</span>
+                <span className="font-mono-dm text-xs text-[var(--accent)] font-bold">
+                  {step.step}.
+                </span>
                 <h4 className="font-display font-semibold text-sm text-white">{step.title}</h4>
-                <p className="font-mono-dm text-[11px] text-white/45 leading-relaxed">{step.desc}</p>
+                <p className="font-mono-dm text-[11px] text-white/45 leading-relaxed">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
