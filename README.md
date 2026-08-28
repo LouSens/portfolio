@@ -17,7 +17,7 @@ A high-performance, interactive portfolio and AI architecture showcase built wit
 - 🚀 **Featured Project Showcase (KerjaCerdas)** — Enterprise talent matching infrastructure featuring an interactive 16-screenshot gallery slideshow with carousel controls and caption overlays.
 - 🎞️ **Embedded Media & Document Viewer** — Inline auto-playing video player for RL agent gameplay (DPickleball 3rd place) and photo galleries with downloadable pitch decks, proposals, and certificates.
 - 🔄 **Infinite Tech Stack Marquee** — Continuous animated marquee displaying core frameworks (Python, FastAPI, LangChain, PyTorch, TensorFlow, Docker, PostgreSQL, React, etc.).
-- 📊 **Dynamic Education Progress Ring** — SVG progress indicator automatically calculating exact degree completion percentage at Xiamen University Malaysia (GPA 3.83/4.00, Dean's List).
+- 📊 **Dynamic Education Progress Ring** — SVG progress indicator automatically calculating exact degree completion percentage at Xiamen University Malaysia (GPA 3.84/4.00, Dean's List).
 - 🎨 **Glassmorphism & Micro-Interactions** — Custom color tokens, mouse-following card spotlights, border gradient cards, shimmer & liquid-metal buttons, and spring-physics mobile navigation.
 
 ---
@@ -77,7 +77,7 @@ portfolio-website/
 - 🥉 **3rd Place — DPickleball AI Competition** (*Oct 2025*): Unity ML-Agents RL agent with PPO training pipeline & reward shaping.
 - 🥈 **Silver Award — SEA-CICSIC 2026** (*China-ASEAN Innovation Competition*): Omni-QC real-time defect prediction & manufacturing quality control.
 - 🌟 **Top 20% Globally — International Quant Championship** (*Apr 2025*): Quantitative reasoning & analytical problem-solving.
-- 🎓 **Dean's List (3 Consecutive Semesters)** & **Merit Scholarship**: Xiamen University Malaysia (Top 16% of cohort, GPA 3.83 / 4.00).
+- 🎓 **Dean's List (3 Consecutive Semesters)** & **Merit Scholarship**: Xiamen University Malaysia (Top 16% of cohort, GPA 3.84 / 4.00).
 
 ---
 
