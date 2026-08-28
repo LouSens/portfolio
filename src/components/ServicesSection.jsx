@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe,
   Bot,
@@ -9,25 +9,30 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Sparkles,
 } from 'lucide-react';
 import { SERVICES, PROJECTS_DATA, HOW_WE_WORK } from '../data/portfolioData';
 
 export default function ServicesSection({ onOpenProject }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+
   const getIcon = (iconName) => {
     switch (iconName) {
       case 'Globe':
-        return <Globe size={22} />;
+        return <Globe size={26} />;
       case 'Bot':
-        return <Bot size={22} />;
+        return <Bot size={26} />;
       case 'Brain':
-        return <Brain size={22} />;
+        return <Brain size={26} />;
       case 'Layers':
-        return <Layers size={22} />;
+        return <Layers size={26} />;
       case 'Zap':
-        return <Zap size={22} />;
+        return <Zap size={26} />;
       default:
-        return <Zap size={22} />;
+        return <Zap size={26} />;
     }
   };
 
@@ -45,134 +50,190 @@ export default function ServicesSection({ onOpenProject }) {
     }
   };
 
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + SERVICES.length) % SERVICES.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % SERVICES.length);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+    if (diff > 50) {
+      handleNext();
+    } else if (diff < -50) {
+      handlePrev();
+    }
+    setTouchStart(null);
+  };
+
+  const activeService = SERVICES[currentIndex];
+
   return (
     <section
       id="services"
       className="py-24 md:py-36 px-4 sm:px-6 md:px-8 bg-[#060608] relative border-t border-white/10 overflow-hidden select-none"
     >
       {/* Background ambient lighting */}
-      <div className="pointer-events-none absolute top-1/2 left-1/4 -translate-y-1/2 w-[700px] h-[450px] bg-[var(--accent)]/[0.03] rounded-full blur-[170px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[var(--accent)]/[0.035] rounded-full blur-[180px]" />
 
-      <div className="max-w-[1240px] mx-auto relative z-10">
-        {/* ── SECTION HEADER ── */}
-        <div className="max-w-2xl mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 mb-3"
-          >
-            <span className="w-6 h-px bg-[var(--accent)]" />
-            <span className="font-mono-dm text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
-              // Engineering Capabilities
-            </span>
-          </motion.div>
+      <div className="max-w-[1100px] mx-auto relative z-10">
+        {/* ── SECTION HEADER & CONTROLS ── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, x: -15 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-2 mb-3"
+            >
+              <span className="w-6 h-px bg-[var(--accent)]" />
+              <span className="font-mono-dm text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
+                // Engineering Specializations
+              </span>
+            </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.06 }}
-            className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-3"
-          >
-            What I Architect &amp; Build
-          </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.06 }}
+              className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-2"
+            >
+              Capabilities &amp; Services
+            </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.12 }}
-            className="text-white/60 text-sm sm:text-base font-light leading-relaxed max-w-xl"
-          >
-            Full-lifecycle engineering across responsive web applications, autonomous agent workflows, and high-performance backend infrastructure.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 }}
+              className="text-white/60 text-sm sm:text-base font-light leading-relaxed max-w-lg"
+            >
+              Focused architectural capabilities designed for production-scale web and AI software.
+            </motion.p>
+          </div>
+
+          {/* Carousel Arrows & Counter */}
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="font-mono-dm text-xs text-white/50 bg-white/5 border border-white/10 px-3.5 py-2 rounded-full">
+              <span className="text-[var(--accent)] font-bold">{currentIndex + 1}</span>
+              <span className="mx-1.5 text-white/20">/</span>
+              <span>{SERVICES.length}</span>
+            </div>
+
+            <button
+              onClick={handlePrev}
+              aria-label="Previous capability"
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/5 hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white text-white/70 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            <button
+              onClick={handleNext}
+              aria-label="Next capability"
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/5 hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white text-white/70 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
 
-        {/* ── 4-CARD ARCHITECTURAL MATRIX (EFFORTLESS ON MOBILE & DESKTOP) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-          {SERVICES.map((srv, idx) => (
-            <motion.div
-              key={srv.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-5%' }}
-              transition={{ duration: 0.45, delay: idx * 0.08 }}
-              className="group rounded-3xl border border-white/10 bg-[#09090E]/90 backdrop-blur-xl p-7 sm:p-9 md:p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden hover:bg-[#0E0E16] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] transition-all duration-300 cursor-default"
-            >
-              {/* Top ambient highlight on hover */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* ── SPACIOUS HERO SPOTLIGHT STAGE (LIKE PROJECT SECTION) ── */}
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="relative w-full"
+        >
+          <div className="rounded-3xl border border-white/15 bg-[#09090E]/90 backdrop-blur-xl p-8 sm:p-12 md:p-14 shadow-2xl relative overflow-hidden transition-all duration-300">
+            {/* Top ambient glowing accent line */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/50 to-transparent" />
 
-              <div>
-                {/* Header: Icon + Number badge */}
-                <div className="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-white/10">
-                  <div className="flex items-center gap-3.5">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[var(--accent)] group-hover:scale-110 transition-transform duration-300 shadow-md">
-                      {getIcon(srv.icon)}
-                    </div>
-                    <div>
-                      <span className="font-mono-dm text-[10px] uppercase tracking-widest text-white/40 block">
-                        Capability {srv.number}
-                      </span>
-                      <h3 className="font-display font-bold text-lg sm:text-xl text-white group-hover:text-white transition-colors">
-                        {srv.title}
-                      </h3>
-                    </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Column: Icon, Title & Overview */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[var(--accent)] shadow-xl">
+                    {getIcon(activeService.icon)}
+                  </div>
+                  <div>
+                    <span className="font-mono-dm text-[11px] uppercase tracking-widest text-[var(--accent)] font-bold block">
+                      Pillar {activeService.number}
+                    </span>
+                    <span className="font-mono-dm text-[10px] text-white/40 uppercase tracking-widest">
+                      Production Capability
+                    </span>
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-white/70 text-xs sm:text-sm font-light leading-relaxed mb-6">
-                  {srv.description}
-                </p>
+                <div>
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight leading-snug mb-3">
+                    {activeService.title}
+                  </h3>
+                  <p className="text-white/75 text-sm sm:text-base font-light leading-relaxed">
+                    {activeService.description}
+                  </p>
+                </div>
 
-                {/* Key Technical Focus Points */}
-                <div className="space-y-2.5 mb-6">
-                  <span className="font-mono-dm text-[10px] uppercase tracking-widest text-white/40 block">
-                    Core Technical Deliverables:
-                  </span>
-                  <div className="space-y-2">
-                    {srv.deliverables.map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-2.5 p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-white/75 leading-snug"
-                      >
-                        <CheckCircle2 size={14} className="mt-0.5 text-[var(--accent)] shrink-0" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Implemented in project tags */}
+                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
+                  <span className="font-mono-dm text-xs text-white/40 mr-1">Proven in live builds:</span>
+                  {(activeService.appliedProjects ?? []).map((proj) => (
+                    <button
+                      key={proj}
+                      onClick={() => handleOpenLinkedProject(proj)}
+                      className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-[var(--accent)]/10 hover:bg-[var(--accent)]/20 border border-[var(--accent)]/30 text-[var(--accent)] font-mono-dm text-xs font-semibold transition-colors"
+                    >
+                      <span>{proj}</span>
+                      <ArrowUpRight size={11} />
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Card Footer: Implemented in Projects */}
-              <div className="pt-5 mt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono-dm text-[11px] text-white/40">Implemented in:</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {(srv.appliedProjects ?? []).map((proj) => (
-                      <button
-                        key={proj}
-                        onClick={() => handleOpenLinkedProject(proj)}
-                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-[var(--accent)]/10 hover:bg-[var(--accent)]/20 border border-[var(--accent)]/30 text-[var(--accent)] font-mono-dm text-[10px] font-medium transition-colors"
-                      >
-                        <span>{proj}</span>
-                        <ArrowUpRight size={10} />
-                      </button>
-                    ))}
-                  </div>
+              {/* Right Column: Key Technical Deliverables Canvas */}
+              <div className="lg:col-span-5 bg-white/[0.02] border border-white/10 rounded-2xl p-6 sm:p-7 space-y-4">
+                <span className="font-mono-dm text-[11px] uppercase tracking-widest text-white/40 block pb-2 border-b border-white/10">
+                  Key Technical Focus:
+                </span>
+                <div className="space-y-3">
+                  {activeService.deliverables.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-3 text-xs sm:text-sm text-white/80 leading-relaxed"
+                    >
+                      <CheckCircle2 size={16} className="mt-0.5 text-[var(--accent)] shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
-
-                <button
-                  onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono-dm text-white/50 hover:text-white transition-colors ml-auto"
-                >
-                  <span>Explore Build</span>
-                  <ArrowRight size={11} />
-                </button>
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </div>
+
+          {/* Category Switcher Indicator Dots */}
+          <div className="flex items-center justify-center gap-2.5 mt-8">
+            {SERVICES.map((srv, idx) => (
+              <button
+                key={srv.id}
+                onClick={() => setCurrentIndex(idx)}
+                aria-label={`Jump to ${srv.title}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentIndex === idx
+                    ? 'w-8 bg-[var(--accent)] shadow-[0_0_10px_var(--accent)]'
+                    : 'w-2 bg-white/20 hover:bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* ── 4-STEP DELIVERY LIFECYCLE BAR ── */}
