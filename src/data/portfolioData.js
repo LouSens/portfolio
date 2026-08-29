@@ -11,31 +11,30 @@ export const PERSONAL_INFO = {
   gpa: '3.84 / 4.00',
   university: 'Xiamen University Malaysia',
   degree: 'BEng (Hons) in Artificial Intelligence',
-  status: 'Open for full-stack web & AI engineering projects',
+  status: 'Available for Full-Stack & AI Systems Roles',
   resumeUrl: '/CV_DAVID KURNIAWAN.pdf',
 };
 
 export const ROTATING_STATUS = [
-  'Available for Full-Stack & AI Engineering Engagements',
-  'Building Full-Stack Web Applications with React & FastAPI',
+  'Available for Full-Stack & AI Systems Roles',
+  'Building Responsive Web Apps with React 19 & FastAPI',
   'Architecting Multi-Agent Workflows with LangGraph',
-  'Engineering Type-Safe Async Backends & Cloud Systems',
+  'Engineering Type-Safe Async Backends & pgvector Search',
 ];
 
 export const MARQUEE_TOOLS = [
-  { name: 'Python', category: 'Core', svg: 'https://cdn.simpleicons.org/python/white' },
-  { name: 'LangGraph', category: 'Agentic AI', svg: 'https://cdn.simpleicons.org/langchain/white' },
+  { name: 'React 19', category: 'Frontend', svg: 'https://cdn.simpleicons.org/react/white' },
   { name: 'FastAPI', category: 'Backend', svg: 'https://cdn.simpleicons.org/fastapi/white' },
-  { name: 'PyTorch', category: 'Machine Learning', svg: 'https://cdn.simpleicons.org/pytorch/white' },
+  { name: 'LangGraph', category: 'Agentic AI', svg: 'https://cdn.simpleicons.org/langchain/white' },
+  { name: 'Python', category: 'Core', svg: 'https://cdn.simpleicons.org/python/white' },
   { name: 'PostgreSQL', category: 'Database', svg: 'https://cdn.simpleicons.org/postgresql/white' },
+  { name: 'PyTorch', category: 'Machine Learning', svg: 'https://cdn.simpleicons.org/pytorch/white' },
   { name: 'Docker', category: 'DevOps', svg: 'https://cdn.simpleicons.org/docker/white' },
-  { name: 'React', category: 'Frontend', svg: 'https://cdn.simpleicons.org/react/white' },
-  { name: 'TensorFlow', category: 'Machine Learning', svg: 'https://cdn.simpleicons.org/tensorflow/white' },
+  { name: 'Tailwind CSS', category: 'Frontend', svg: 'https://cdn.simpleicons.org/tailwindcss/white' },
   { name: 'scikit-learn', category: 'Machine Learning', svg: 'https://cdn.simpleicons.org/scikitlearn/white' },
-  { name: 'Node.js', category: 'Backend', svg: 'https://cdn.simpleicons.org/nodedotjs/white' },
+  { name: 'Redis', category: 'Infrastructure', svg: 'https://cdn.simpleicons.org/redis/white' },
   { name: 'GitHub Actions', category: 'DevOps', svg: 'https://cdn.simpleicons.org/githubactions/white' },
   { name: 'Vercel', category: 'Cloud', svg: 'https://cdn.simpleicons.org/vercel/white' },
-  { name: 'Tailwind CSS', category: 'Frontend', svg: 'https://cdn.simpleicons.org/tailwindcss/white' },
 ];
 
 export const SERVICES = [
@@ -43,49 +42,49 @@ export const SERVICES = [
     id: 'fullstack-web',
     number: '01',
     title: 'Full-Stack Web Applications',
-    tagline: 'Responsive modern SPAs with React, clean state management, and high-speed APIs.',
+    tagline: 'Modern React single-page applications with modular components and high-speed APIs.',
     icon: 'Globe',
     description:
-      'Building responsive web applications from the ground up using React, Tailwind CSS, Zustand, and FastAPI. Creating intuitive dashboards, user authentication, and interactive data visualization.',
+      'Building responsive, accessible web applications from the ground up using React 19, Tailwind CSS, Zustand, and FastAPI. Creating intuitive dashboards, role-based authentication, and interactive data visualization.',
     deliverables: [
-      'Modern React 19 single-page applications & dashboards',
-      'FastAPI async REST endpoints with 100% Pydantic validation',
-      'Role-based auth, document parsing, and database schemas',
-      'Containerized deployment with Docker and Vercel/Railway',
+      'Modern React 19 single-page applications & interactive dashboards',
+      'FastAPI asynchronous REST endpoints with strict Pydantic v2 validation',
+      'Role-based authentication, document ingestion pipelines & database schemas',
+      'Containerized deployment with Docker, GitHub Actions CI/CD, and Vercel',
     ],
     featuredProject: 'KerjaCerdas',
-    appliedProjects: ['KerjaCerdas', 'NeuralVoid'],
+    appliedProjects: ['KerjaCerdas', 'Personal Portfolio', 'NeuralVoid'],
   },
   {
     id: 'backend-apis',
     number: '02',
-    title: 'Backend Engineering & Databases',
+    title: 'Backend Engineering & Data Infrastructure',
     tagline: 'Type-safe APIs, PostgreSQL data modeling, and vector search indexing.',
     icon: 'Layers',
     description:
-      'Engineering high-throughput backends with FastAPI and PostgreSQL with pgvector. Implementing strict type validation, async task queues, Redis caching, and rate limiting.',
+      'Engineering high-throughput backends with FastAPI and PostgreSQL with pgvector. Implementing strict data validation, async task queues, Redis caching, and rate limiting middleware.',
     deliverables: [
-      'FastAPI REST microservices with automated OpenAPI specs',
-      'PostgreSQL relational modeling + pgvector HNSW similarity search',
-      'Redis caching & rate limiting middleware',
-      'Asynchronous worker pipelines for file & PDF processing',
+      'FastAPI REST microservices with automated OpenAPI 3.1 specifications',
+      'PostgreSQL relational data modeling with pgvector HNSW similarity search',
+      'Redis caching & token-bucket rate limiting middleware',
+      'Asynchronous background worker pipelines for heavy document and PDF processing',
     ],
     featuredProject: 'Orion',
-    appliedProjects: ['KerjaCerdas', 'Orion', 'Startup EMP', 'NeuralVoid'],
+    appliedProjects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
   },
   {
     id: 'ai-workflows',
     number: '03',
-    title: 'Multi-Agent AI & Workflows',
+    title: 'Autonomous Multi-Agent Systems',
     tagline: 'Orchestrating agent workflows that execute multi-step tasks reliably.',
     icon: 'Bot',
     description:
-      'Designing robust agent workflows using LangGraph. Implementing supervisor-worker routing, parallel task execution, human-in-the-loop validation checkpoints, and structured output parsing.',
+      'Designing robust agent workflows using LangGraph. Implementing supervisor-worker routing, parallel task execution, human-in-the-loop validation checkpoints, and structured schema coercion.',
     deliverables: [
-      'LangGraph cyclical graphs & supervisor routing swarms',
-      'Human-in-the-loop approval state machines',
-      'Pydantic v2 runtime output schema coercion',
-      'LangSmith tracing, evaluation & latency monitoring',
+      'LangGraph cyclical state graphs & supervisor-worker routing networks',
+      'Human-in-the-loop approval checkpoints for critical operations',
+      'Pydantic v2 runtime output schema validation and retry heuristics',
+      'LangSmith tracing, evaluation, and latency performance monitoring',
     ],
     featuredProject: 'Startup EMP',
     appliedProjects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
@@ -93,46 +92,46 @@ export const SERVICES = [
   {
     id: 'rag-ml',
     number: '04',
-    title: 'Search & Machine Learning Pipelines',
-    tagline: 'Hybrid retrieval engines (BM25 + vector) and scikit-learn analytics.',
+    title: 'Hybrid Search & Machine Learning',
+    tagline: 'Hybrid retrieval engines (BM25 + vector) and predictive analytics.',
     icon: 'Brain',
     description:
-      'Building hybrid search architectures (sparse BM25 + dense pgvector/FAISS) with cross-encoder rerankers, and developing feature extraction pipelines with scikit-learn and XGBoost.',
+      'Building hybrid search architectures (sparse BM25 + dense pgvector/FAISS) with cross-encoder neural rerankers, and developing feature extraction pipelines with scikit-learn and XGBoost.',
     deliverables: [
-      'Parent-Child document chunking + cross-encoder rerankers',
-      'Dense (pgvector/FAISS) + sparse (BM25) hybrid retrieval',
-      'Feature engineering & tabular ML classification (XGBoost)',
-      'Automated report synthesis & evaluation suites',
+      'Parent-child document chunking with reciprocal rank fusion (RRF)',
+      'Dense (pgvector/FAISS) + sparse (BM25) hybrid retrieval pipelines',
+      'Feature engineering & tabular ML classification models (XGBoost / Random Forest)',
+      'Automated diagnostic reporting & model evaluation suites',
     ],
     featuredProject: 'Indonesian Legal RAG',
-    appliedProjects: ['NeuralVoid', 'Indonesian Legal RAG'],
+    appliedProjects: ['Indonesian Legal RAG', 'NeuralVoid'],
   },
 ];
 
 export const HOW_WE_WORK = [
   {
     step: '01',
-    title: 'Architecture & Scoping',
-    desc: 'Clarifying user workflows, database schemas, and system constraints into a clean technical plan.',
+    title: 'System Architecture',
+    desc: 'Clarifying product workflows, database schemas, and technical constraints into a clear roadmap.',
   },
   {
     step: '02',
     title: 'Interactive Prototype',
-    desc: 'Delivering a working prototype with frontend UI and backend endpoints to validate functionality early.',
+    desc: 'Delivering an interactive working build with modular UI and integrated backend endpoints early on.',
   },
   {
     step: '03',
     title: 'Hardening & Testing',
-    desc: 'Enforcing type contracts, database indexes, security middleware, and unit test suites.',
+    desc: 'Enforcing strict type contracts, database indices, security middleware, and automated test suites.',
   },
   {
     step: '04',
-    title: 'Deployment & Handover',
-    desc: 'Containerized deployment with Docker and CI/CD pipelines, complete with clean documentation.',
+    title: 'Production Handover',
+    desc: 'Containerized deployment via Docker and CI/CD pipelines, supported by thorough documentation.',
   },
 ];
 
-// Main Web & Software Projects (Omni-QC and DPickleball moved to Awards/Competitions)
+// Main Web & Software Projects
 export const PROJECTS_DATA = [
   {
     id: 'kerjacerdas',
@@ -150,11 +149,11 @@ export const PROJECTS_DATA = [
     hasRealUI: true,
     coverImage: '/screenshots/kerjacerdas/01_landing_hero.png',
     synopsis:
-      'Enterprise talent matching web platform featuring a React 19 SPA, FastAPI backend, LangGraph multi-agent swarm, and 5-signal pgvector hybrid search.',
+      'Enterprise talent matching platform featuring a React 19 SPA, FastAPI backend, LangGraph multi-agent swarm, and 5-signal pgvector hybrid search.',
     overview:
-      'KerjaCerdas connects job seekers with employers by combining a modern React SPA with an asynchronous backend. Features a LangGraph supervisor swarm routing tasks in parallel, an asynchronous PDF parsing pipeline with token efficiency gates, and a 5-signal composite ranking engine over PostgreSQL with pgvector.',
+      'KerjaCerdas connects job seekers with employers by combining a modern React 19 SPA with an asynchronous backend. Features a LangGraph supervisor swarm routing tasks in parallel, an asynchronous PDF parsing pipeline with token efficiency gates, and a 5-signal composite ranking engine over PostgreSQL with pgvector.',
     problem:
-      'Traditional job platforms rely on basic keyword matching and manual PDF screening, causing high candidate drop-off and heavy HR screening overhead.',
+      'Traditional talent platforms rely on simplistic keyword filters and manual resume screening, leading to high candidate drop-off and substantial HR overhead.',
     solution:
       'Engineered an end-to-end platform with a LangGraph supervisor swarm routing tasks in parallel, pgvector HNSW indexing, and an Employer Kanban dashboard with automated verification.',
     architectureNodes: [
@@ -173,9 +172,9 @@ export const PROJECTS_DATA = [
     ],
     bullets: [
       'Architected a ReAct Multi-Agent Swarm using LangGraph with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
-      'Engineered a 5-signal composite ranking engine combining vector cosine similarity (50%), skill overlap (30%), regional boost (10%), salary fit (5%), and experience fit (5%) with HNSW pgvector search.',
+      'Engineered a 5-signal composite ranking engine combining vector cosine similarity (50%), skill overlap (30%), regional boost (10%), salary fit (5%), and experience fit (5%) with HNSW pgvector indexing.',
       'Built an asynchronous PDF processing pipeline achieving low-latency CV extraction, Token Efficiency Gates to control LLM compute costs, and PII mitigation middleware.',
-      'Delivered an Employer Kanban pipeline featuring Pay-to-Unlock candidate contact monetization, E-KYC credential verification, closed-loop A/B event tracking, and a 4-phase automated CI/CD pipeline.',
+      'Delivered an Employer Kanban pipeline featuring Pay-to-Unlock candidate monetization, E-KYC credential verification, closed-loop A/B event tracking, and an automated 4-phase CI/CD pipeline.',
     ],
     tags: ['React 19', 'FastAPI', 'PostgreSQL + pgvector', 'LangGraph', 'Zustand', 'Docker Compose'],
     githubUrl: 'https://github.com/LouSens/KerjaCerdas.git',
@@ -289,6 +288,89 @@ async def calculate_5_signal_composite_score(
     ],
   },
   {
+    id: 'portfolio-website',
+    title: 'Personal Engineering Portfolio',
+    slug: 'portfolio-website',
+    type: 'Interactive Full-Stack Web Platform',
+    category: 'High-Performance Developer Portfolio',
+    role: 'Creator & UI Architect',
+    team: 'Solo build',
+    isTeam: false,
+    year: '2026',
+    badge: 'LIVE PLATFORM',
+    themeColor: '#FF5A36',
+    posterAccent: 'from-rose-600/30 to-amber-900/10',
+    hasRealUI: true,
+    coverImage: '/screenshots/portfolio/01_hero_portal.png',
+    synopsis:
+      'Responsive personal developer portfolio featuring Three.js particle graphics, liquid glass design system, smooth scroll choreography, and interactive architecture showcases.',
+    overview:
+      'Designed and engineered from the ground up as a high-craft engineering portfolio. Features a 3D WebGL particle field, Lenis kinetic smooth scrolling, instant direction-aware liquid glass navigation, interactive architecture consoles, and a 3D project showcase.',
+    problem:
+      'Standard developer portfolios rely on static bullet points and generic templates, failing to demonstrate real architectural craft or interactive UI precision.',
+    solution:
+      'Engineered an interactive engineering portfolio combining React 19, Three.js particle dynamics, Framer Motion choreography, and a custom liquid glassmorphism design system.',
+    architectureNodes: [
+      { name: 'WebGL Particle Engine', desc: 'Three.js / React Three Fiber GPU-accelerated field' },
+      { name: 'Kinetic Motion Layer', desc: 'Lenis smooth scrolling with Framer Motion choreographies' },
+      { name: 'Smart Navigation Dock', desc: 'Direction-aware liquid glass floating header with instant scroll memory' },
+      { name: 'Capabilities Console', desc: 'Interactive system solution console with pipeline trace simulation' },
+      { name: '3D Projects Carousel', desc: 'Hardware-accelerated mobile-optimized project showcase' },
+      { name: 'Direct Inquiry Drawer', desc: 'Flexible client intake form with local persistence and confirmation receipt' },
+    ],
+    impactMetrics: [
+      { value: '60 FPS', label: 'Fluid GPU Motion & WebGL' },
+      { value: '100%', label: 'Liquid Glass Design System' },
+      { value: 'Sub-300ms', label: 'Vite Production Bundling' },
+      { value: 'Zero-Jank', label: 'Optimized Mobile Swipes' },
+    ],
+    bullets: [
+      'Architected a Three.js WebGL particle field rendering 2,200 dynamic particles with real-time rotational inertia and depth attenuation.',
+      'Engineered a direction-aware liquid glass navigation bar that automatically slides away on scroll-down and reveals instantly on scroll-up.',
+      'Built an interactive System Capabilities console with consistent height transitions and live pipeline simulation.',
+      'Delivered a GPU-accelerated 3D project carousel with deep-linking support, lightbox media viewing, and an interactive direct scoping drawer.',
+    ],
+    tags: ['React 19', 'Three.js', 'Framer Motion', 'Tailwind CSS', 'Lenis Scroll', 'Vite'],
+    githubUrl: 'https://github.com/LouSens/portfolio-website.git',
+    liveUrl: 'https://davidkurniawan.dev',
+    codeSnippet: {
+      filename: 'src/components/Navbar.jsx',
+      language: 'javascript',
+      code: `// Instant Direction-Aware Liquid Glass Navigation
+useEffect(() => {
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - prevScrollY.current;
+
+    // Instantaneous reveal on any upward scroll (delta < 0) or at the top
+    if (delta < 0 || currentScrollY < 15) {
+      setIsVisible(true);
+    } else if (delta > 3 && currentScrollY > 60 && !isOpen) {
+      setIsVisible(false);
+    }
+    prevScrollY.current = currentScrollY;
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [isOpen]);`,
+    },
+    screenCategories: [
+      {
+        name: 'Platform Views',
+        screens: [
+          { src: '/screenshots/portfolio/01_hero_portal.png', caption: 'Hero Section & 3D WebGL Particle Field' },
+          { src: '/screenshots/portfolio/02_capabilities_workbench.png', caption: 'System Capabilities & Solution Console' },
+          { src: '/screenshots/portfolio/03_featured_systems_carousel.png', caption: '3D Projects Carousel & Specs Viewer' },
+          { src: '/screenshots/portfolio/04_tech_stack_matrix.png', caption: 'Filterable Core Tech Stack Matrix' },
+          { src: '/screenshots/portfolio/05_engineering_timeline.png', caption: 'Engineering Milestones & Interactive Timeline' },
+          { src: '/screenshots/portfolio/06_academic_awards_modal.png', caption: 'Academic Honors & 3.84 GPA Certificate Viewer' },
+          { src: '/screenshots/portfolio/07_direct_scoping_inquiry.png', caption: 'Direct Project Inquiry & Scoping Form' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'orion',
     title: 'Orion',
     slug: 'orion',
@@ -305,7 +387,7 @@ async def calculate_5_signal_composite_score(
     synopsis:
       'An AI expense reimbursement SaaS assistant featuring a 6-stage LangGraph workflow, rapidfuzz duplicate detection, and automated CI/CD testing.',
     overview:
-      'Orion automates corporate expense reconciliation from raw receipts through a 6-stage LangGraph state machine. Developed under 48-hour hackathon constraints and placing in the Top 24 out of 100+ teams, the platform integrates sliding-window rate limiting, anti-hallucination regex pre-passes, and scheduled nightly regression tests.',
+      'Orion automates corporate expense reconciliation from raw receipts through a deterministic 6-stage LangGraph state machine. Developed under 48-hour hackathon constraints and placing in the Top 24 out of 100+ teams, the platform integrates sliding-window rate limiting, anti-hallucination regex pre-passes, and scheduled nightly regression tests.',
     problem:
       'Manual expense reconciliation requires cross-referencing policy limits, detecting duplicate claims, and manually logging transactions to ledgers.',
     solution:
@@ -422,7 +504,7 @@ triage_pipeline = workflow.compile()`,
       'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing, vector mentor matching, and institutional knowledge capture.',
       'Engineered the FastAPI backend using LangGraph orchestration and Pydantic v2 schema coercion to enforce strict LLM output typing.',
       'Implemented human-in-the-loop governance controls where AI recommendations serve as drafts requiring explicit admin approval before state mutation.',
-      'Integrated high-dimensional vector similarity matching with aggressive caching to reduce redundant compute calls.',
+      'Integrated high-dimensional vector similarity matching with aggressive caching to eliminate redundant compute calls.',
     ],
     tags: ['FastAPI', 'LangGraph', 'Pydantic v2', 'Cloud Run', 'Firestore', 'React'],
     githubUrl: 'https://github.com/nerdylive123/Startup-emp.git',
@@ -509,7 +591,7 @@ def extract_session_features(events_df: pd.DataFrame) -> dict:
     overview:
       'Built to provide verifiable, exact statutory article citations in Indonesian Labor Law without hallucinations. Features parent-child document chunking, HyDE hypothesis generation, dual-retriever hybrid search (BM25 + FAISS), and a cross-encoder reranking gate.',
     problem:
-      'Generic search and language models frequently hallucinate Indonesian statutory references and specific labor dispute penalty clauses.',
+      'Generic search engines and language models frequently hallucinate Indonesian statutory references and specific labor dispute penalty clauses.',
     solution:
       'Engineered a Parent-Child Hybrid RAG pipeline combining sparse BM25 and dense FAISS vector search with HyDE generation, Cross-Encoder reranking, and live search fallback.',
     architectureNodes: [
@@ -564,114 +646,19 @@ def rerank_documents(query: str, candidate_docs: list) -> list:
   },
 ];
 
-export const TECH_STACK_MATRIX = [
-  {
-    category: 'Frontend & Full-Stack',
-    skills: [
-      {
-        name: 'React 19 & JavaScript',
-        role: 'Modern SPA development, custom hooks & responsive UI architecture',
-        usedIn: ['KerjaCerdas', 'Orion', 'NeuralVoid'],
-        icon: 'Globe',
-      },
-      {
-        name: 'Tailwind CSS & Motion',
-        role: 'Design systems, responsive interfaces & 60fps micro-animations',
-        usedIn: ['All Projects'],
-        icon: 'Sparkles',
-      },
-      {
-        name: 'Zustand State',
-        role: 'Predictable client-side state management for multi-flow applications',
-        usedIn: ['KerjaCerdas'],
-        icon: 'Layers',
-      },
-    ],
-  },
-  {
-    category: 'Backend & Databases',
-    skills: [
-      {
-        name: 'FastAPI',
-        role: 'High-throughput async REST endpoints with automated OpenAPI & Pydantic v2',
-        usedIn: ['KerjaCerdas', 'Orion', 'Startup EMP', 'NeuralVoid'],
-        icon: 'Zap',
-      },
-      {
-        name: 'PostgreSQL + pgvector',
-        role: 'Relational data modeling, HNSW indexing & vector similarity search',
-        usedIn: ['KerjaCerdas'],
-        icon: 'Database',
-      },
-      {
-        name: 'Python (Async)',
-        role: 'Core backend engineering, data pipelines & ML systems',
-        usedIn: ['All Projects'],
-        icon: 'Code',
-      },
-    ],
-  },
-  {
-    category: 'AI Systems & Workflows',
-    skills: [
-      {
-        name: 'LangGraph',
-        role: 'Cyclical state graphs, supervisor swarms & parallel worker routing',
-        usedIn: ['KerjaCerdas', 'Startup EMP', 'Orion'],
-        icon: 'Bot',
-      },
-      {
-        name: 'Pydantic v2',
-        role: 'Runtime schema validation, typed data contracts & LLM JSON coercion',
-        usedIn: ['KerjaCerdas', 'Startup EMP', 'Orion'],
-        icon: 'ShieldCheck',
-      },
-      {
-        name: 'Hybrid Search (FAISS + BM25)',
-        role: 'Parent-Child dense vector + sparse keyword search with cross-encoders',
-        usedIn: ['Indonesian Legal RAG', 'KerjaCerdas'],
-        icon: 'Database',
-      },
-    ],
-  },
-  {
-    category: 'DevOps & Tooling',
-    skills: [
-      {
-        name: 'Docker & Compose',
-        role: 'Multi-container application packaging & isolated environments',
-        usedIn: ['KerjaCerdas', 'Orion'],
-        icon: 'FolderGit2',
-      },
-      {
-        name: 'GitHub Actions CI/CD',
-        role: 'Automated test gates (85% coverage) & deployment workflows',
-        usedIn: ['Orion', 'KerjaCerdas'],
-        icon: 'Workflow',
-      },
-      {
-        name: 'Vercel / Cloud Run',
-        role: 'Serverless container deployment & cloud hosting',
-        usedIn: ['Startup EMP', 'NeuralVoid'],
-        icon: 'Server',
-      },
-    ],
-  },
-];
-
 export const EXPERIENCE = [
   {
     year: '2026',
     current: true,
     role: 'Lead Systems Engineer @ KerjaCerdas',
     company: '4-Person Team · Engineering Lead',
-    desc: 'Led full-stack engineering of a talent AI platform. Architected a LangGraph multi-agent swarm, 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard, and an automated 4-phase CI/CD pipeline.',
+    desc: 'Led full-stack engineering of an enterprise talent AI platform. Architected a LangGraph multi-agent swarm, 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard, and an automated 4-phase CI/CD pipeline.',
   },
   {
     year: 'June 2026',
     role: 'Silver Award Winner & AI Strategy Lead',
     company: 'China-ASEAN Innovation Competition (SEA-CICSIC)',
-    desc: 'Led technical architecture and proposal for Omni-QC — an industrial manufacturing intelligence platform featuring real-time defect prediction and predictive quality control at the China-ASEAN undergraduate level.',
+    desc: 'Led technical architecture and proposal for Omni-QC — an industrial manufacturing intelligence platform combining real-time computer vision defect detection on conveyor lines with predictive equipment maintenance at the China-ASEAN undergraduate level.',
   },
   {
     year: 'May 2026',
@@ -711,7 +698,6 @@ export const EDUCATION = {
   ],
 };
 
-// Awards, Competitions & Proposals Section Data
 export const AWARDS = [
   {
     place: 'Silver Award',
