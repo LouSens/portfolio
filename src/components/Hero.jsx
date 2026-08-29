@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Play, Layers, Bot, Database, ShieldCheck, Sparkles } from 'lucide-react';
+import {
+  Layers,
+  Bot,
+  Database,
+  ShieldCheck,
+  Play,
+  ArrowRight,
+  Sparkles,
+} from 'lucide-react';
 import { ROTATING_STATUS } from '../data/portfolioData';
 
 export default function Hero() {
@@ -13,65 +21,43 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 260,
-        damping: 24,
-      },
-    },
-  };
+  const CORE_HIGHLIGHTS = [
+    { label: 'Full-Stack Web', desc: 'React 19 & Tailwind' },
+    { label: 'High-Speed APIs', desc: 'FastAPI & Pydantic v2' },
+    { label: 'Autonomous Agents', desc: 'LangGraph Swarms' },
+    { label: 'Hybrid Vector Search', desc: 'PostgreSQL & pgvector' },
+  ];
 
   return (
-    <section className="relative min-h-[85vh] md:min-h-[92vh] flex items-center justify-center px-4 sm:px-6 md:px-8 pt-24 pb-16 overflow-hidden">
-      {/* ── AMBIENT GLOW BACKDROPS ── */}
-      <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[var(--accent)]/[0.07] rounded-full blur-[140px] animate-glow-slow" />
-      <div className="pointer-events-none absolute bottom-10 right-1/4 w-[400px] h-[250px] bg-blue-500/[0.03] rounded-full blur-[120px]" />
+    <section className="relative min-h-[85vh] md:min-h-[88vh] flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 pt-28 pb-14 overflow-hidden select-none">
+      {/* ── AMBIENT LIQUID GLOW BACKDROPS ── */}
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 w-[650px] h-[360px] bg-[var(--accent)]/[0.05] rounded-full blur-[140px] animate-glow-slow" />
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 w-full max-w-[1100px] mx-auto flex flex-col items-center text-center"
-      >
-        {/* ── STATUS PILL ── */}
+      <div className="relative z-10 w-full max-w-[980px] mx-auto flex flex-col items-center text-center">
+        {/* ── CLEAN STATUS BADGE ── */}
         <motion.div
-          variants={itemVariants}
-          whileHover={{ scale: 1.04, borderColor: 'rgba(255,90,54,0.4)' }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/15 bg-[#0e0e14]/90 backdrop-blur-xl mb-6 shadow-2xl max-w-[95vw] overflow-hidden cursor-default transition-colors duration-300"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] backdrop-blur-xl mb-7 shadow-sm cursor-default"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)] shadow-[0_0_6px_var(--accent)]" />
           </span>
 
-          <span className="text-[10px] sm:text-xs font-mono-dm uppercase tracking-widest text-white/50 shrink-0">
+          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-white/50 font-medium shrink-0">
             Focus:
           </span>
 
-          <div className="text-[10px] sm:text-xs font-mono-dm text-white tracking-wide overflow-hidden text-ellipsis whitespace-nowrap min-h-[16px]">
+          <div className="text-[10px] sm:text-xs font-mono text-white tracking-wide overflow-hidden text-ellipsis whitespace-nowrap min-h-[16px]">
             <AnimatePresence mode="wait">
               <motion.span
                 key={statusIdx}
-                initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
+                transition={{ duration: 0.25 }}
                 className="inline-block"
               >
                 {ROTATING_STATUS[statusIdx]}
@@ -80,121 +66,75 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* ── HEADLINE ── */}
+        {/* ── CONFIDENT HEADLINE ── */}
         <motion.h1
-          variants={itemVariants}
-          className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.1] text-white max-w-4xl mb-6"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.08 }}
+          className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[-0.035em] leading-[1.08] text-white max-w-4xl mb-6"
         >
-          Engineering Modern Full-Stack Apps &amp;{' '}
+          Building Modern Full-Stack Web Applications &amp;{' '}
           <span className="text-gradient-accent relative inline-block">
             Intelligent Systems.
           </span>
         </motion.h1>
 
-        {/* ── SUBHEADING ── */}
+        {/* ── SUBTITLE ── */}
         <motion.p
-          variants={itemVariants}
-          className="text-white/70 text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-2xl mb-8 px-2"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.16 }}
+          className="text-white/65 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-2xl mb-8 px-2 tracking-[-0.01em]"
         >
-          I design and build responsive single-page applications, asynchronous backend architectures, and multi-agent workflows — delivering production-ready software with{' '}
-          <span className="text-white font-medium">React</span>,{' '}
-          <span className="text-white font-medium">FastAPI</span>,{' '}
-          <span className="text-white font-medium">LangGraph</span>, and{' '}
-          <span className="text-white font-medium">Python Async</span>.
+          I engineer end-to-end software solutions — combining responsive React user interfaces with scalable asynchronous backends and autonomous multi-agent workflows.
         </motion.p>
 
-        {/* ── ACTION BUTTONS ── */}
+        {/* ── LIQUID ACTION BUTTONS ── */}
         <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.22 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-12"
         >
-          <motion.button
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
+          <button
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-[var(--accent)] hover:bg-[#ff431a] text-white font-mono-dm text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-xl shadow-[var(--accent)]/25 shimmer-sweep-hover group"
+            className="liquid-btn-primary w-full sm:w-auto shimmer-sweep-hover group"
           >
-            <Play size={13} className="fill-current group-hover:scale-115 transition-transform duration-200" />
-            <span>Explore Systems</span>
-          </motion.button>
+            <Play size={12} className="fill-current group-hover:scale-110 transition-transform duration-200" />
+            <span>Explore Projects</span>
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.04, y: -2, borderColor: 'rgba(255,255,255,0.4)', backgroundColor: 'rgba(255,255,255,0.08)' }}
-            whileTap={{ scale: 0.97 }}
+          <button
             onClick={() => document.getElementById('inquire')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-full border border-white/20 bg-white/5 text-white font-mono-dm text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 group"
+            className="liquid-btn-secondary w-full sm:w-auto group"
           >
-            <span>Start Discussion</span>
-            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-200" />
-          </motion.button>
+            <span>Get in Touch</span>
+            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform duration-200 text-white/60 group-hover:text-white" />
+          </button>
         </motion.div>
 
-        {/* ── ARCHITECTURAL CAPABILITIES & SYSTEM SPEC METRICS ── */}
+        {/* ── CLEAN LOW-PROFILE CORE PILL STRIP ── */}
         <motion.div
-          variants={itemVariants}
-          className="w-full max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-8 border-t border-white/10 text-left"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.3 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full max-w-3xl pt-6 border-t border-white/[0.08]"
         >
-          {[
-            {
-              icon: Layers,
-              title: 'Full-Stack Web',
-              sub: 'React 19 & FastAPI',
-              spec: 'Modern SPAs & APIs',
-            },
-            {
-              icon: Bot,
-              title: 'Multi-Agent AI',
-              sub: 'LangGraph Swarms',
-              spec: 'Supervisor Graphs',
-            },
-            {
-              icon: Database,
-              title: 'Hybrid Retrieval',
-              sub: 'FAISS & Cross-Encoders',
-              spec: 'High-Precision RAG',
-            },
-            {
-              icon: ShieldCheck,
-              title: 'Production Core',
-              sub: 'Docker & Pydantic v2',
-              spec: 'Type-Safe Contracts & CI/CD',
-            },
-          ].map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={i}
-                whileHover={{
-                  y: -5,
-                  scale: 1.025,
-                  borderColor: 'rgba(255, 90, 54, 0.4)',
-                  backgroundColor: 'rgba(18, 18, 26, 0.95)',
-                }}
-                transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                className="group p-4 rounded-2xl border border-white/10 bg-[#0C0C12]/80 backdrop-blur-md transition-all duration-300 shadow-lg cursor-default relative overflow-hidden"
-              >
-                {/* Subtle top glow highlight */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-6 h-6 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[var(--accent)] group-hover:scale-110 group-hover:border-[var(--accent)]/40 transition-all duration-200">
-                    <Icon size={13} />
-                  </div>
-                  <span className="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[var(--accent)] transition-colors">
-                    {item.title}
-                  </span>
-                </div>
-                <p className="font-mono-dm text-[10px] sm:text-[11px] text-[var(--accent)] font-medium">
-                  {item.sub}
-                </p>
-                <p className="font-mono-dm text-[9px] text-white/40 uppercase tracking-wider mt-0.5">
-                  {item.spec}
-                </p>
-              </motion.div>
-            );
-          })}
+          {CORE_HIGHLIGHTS.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-3 sm:p-3.5 rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md text-left shadow-sm hover:border-white/[0.18] transition-colors"
+            >
+              <span className="font-display font-semibold text-xs sm:text-sm text-white block leading-snug">
+                {item.label}
+              </span>
+              <span className="font-mono text-[10px] text-white/45 block mt-0.5 font-medium truncate">
+                {item.desc}
+              </span>
+            </div>
+          ))}
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
