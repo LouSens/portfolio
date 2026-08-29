@@ -154,7 +154,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050507] text-[#f2f2f2] font-sans selection:bg-[var(--accent)]/30 selection:text-white">
+    <div className="relative min-h-screen bg-[#070709] text-[#f3f3f6] font-sans selection:bg-[var(--accent)]/30 selection:text-white">
       <ScrollProgress />
 
       {/* 3D WebGL particle field in Hero background */}
