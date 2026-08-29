@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Award,
   GraduationCap,
   FileText,
   ExternalLink,
-  Trophy,
   Medal,
-  Sparkles,
   Eye,
   X,
-  ChevronRight,
-  Download,
 } from 'lucide-react';
-import { EDUCATION, AWARDS } from '../data/portfolioData';
+import { EDUCATION } from '../data/portfolioData';
 
 export default function CredentialsSection() {
-  const [activeMediaModal, setActiveMediaModal] = useState(null); // { type: 'image', src: '', title: '', subtitle: '' }
+  const [activeMediaModal, setActiveMediaModal] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -90,59 +85,51 @@ export default function CredentialsSection() {
   return (
     <section
       id="awards"
-      className="py-20 md:py-28 px-4 sm:px-6 md:px-8 bg-[#050507] relative border-t border-white/10 overflow-hidden select-none"
+      className="py-24 md:py-32 px-4 sm:px-6 md:px-8 bg-[#070709] relative border-t border-white/[0.08] overflow-hidden select-none"
     >
       {/* Subtle background glow */}
       <div className="pointer-events-none absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-[var(--accent)]/[0.025] blur-3xl" />
 
       <div className="max-w-[1240px] mx-auto relative z-10">
         {/* ── SECTION LABEL ── */}
-        <div className="max-w-2xl mb-14">
-          <motion.div
-            initial={{ opacity: 0, x: -15 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 mb-2.5"
-          >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ type: 'spring', stiffness: 220, damping: 24 }}
+          className="max-w-2xl mb-14"
+        >
+          <div className="flex items-center gap-2 mb-2.5">
             <span className="w-6 h-px bg-[var(--accent)]" />
-            <span className="font-mono-dm text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
               // Recognition &amp; Academics
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.06 }}
-            className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight mb-2.5"
-          >
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight mb-2.5">
             Awards &amp; Academic Honors
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.12 }}
-            className="text-white/60 text-xs sm:text-sm font-light leading-relaxed"
-          >
+          <p className="text-white/60 text-xs sm:text-sm font-normal leading-relaxed">
             Verified academic excellence at Xiamen University Malaysia alongside international competition placements.
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
 
-        {/* ── 1. ACADEMIC EXCELLENCE CARD (UNIFIED & SLEEK) ── */}
+        {/* ── 1. ACADEMIC EXCELLENCE LIQUID GLASS CARD ── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
           whileHover={{
-            borderColor: 'rgba(255, 90, 54, 0.35)',
-            boxShadow: '0 25px 60px -15px rgba(0,0,0,0.85)',
+            borderColor: 'rgba(255, 90, 54, 0.4)',
+            boxShadow: '0 25px 60px -15px rgba(0,0,0,0.85), 0 0 30px rgba(255,90,54,0.15)',
           }}
-          transition={{ duration: 0.4 }}
-          className="mb-8 rounded-3xl border border-white/10 bg-[#09090E]/90 backdrop-blur-md p-6 sm:p-8 md:p-10 relative overflow-hidden shadow-2xl transition-colors duration-300"
+          transition={{ duration: 0.35, type: 'spring', stiffness: 240, damping: 24 }}
+          className="mb-8 rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.06] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7),inset_0_1px_1px_0_rgba(255,255,255,0.2)] transition-colors duration-300"
         >
+          {/* Top specular reflection sheen */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+
           {/* Subtle decorative watermark */}
           <div className="pointer-events-none select-none absolute right-8 top-1/2 -translate-y-1/2 font-display font-black text-white/[0.02] text-8xl md:text-9xl leading-none tracking-tighter">
             3.84
@@ -150,40 +137,40 @@ export default function CredentialsSection() {
 
           <div className="relative z-10">
             {/* Header info */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-white/10">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-white/[0.08]">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono-dm text-[10px] uppercase tracking-wider text-white/70">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.1] font-mono text-[10px] uppercase tracking-wider text-white/70">
                   <GraduationCap size={13} className="text-[var(--accent)]" />
                   <span>{EDUCATION.start} – {EDUCATION.expected}</span>
                 </div>
 
-                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white leading-snug">
+                <h3 className="font-display font-bold text-2xl sm:text-3xl text-white leading-snug tracking-tight">
                   {EDUCATION.degree}
                 </h3>
 
-                <p className="font-mono-dm text-xs sm:text-sm text-white/60">
+                <p className="font-mono text-xs sm:text-sm text-white/60">
                   {EDUCATION.school} · {EDUCATION.location}
                 </p>
               </div>
 
               {/* Stats group */}
-              <div className="flex items-center gap-6 sm:gap-10 shrink-0 bg-[#0D0D14] p-4 sm:p-5 rounded-2xl border border-white/5 shadow-inner">
+              <div className="flex items-center gap-6 sm:gap-10 shrink-0 bg-[#0E0F16]/90 p-4 sm:p-5 rounded-2xl border border-white/[0.08] shadow-inner">
                 <div>
                   <span className="block font-display font-black text-3xl sm:text-4xl text-white tracking-tight leading-none">
                     3.84
                   </span>
-                  <span className="font-mono-dm text-[10px] text-white/40 uppercase tracking-wider">
+                  <span className="font-mono text-[10px] text-white/40 uppercase tracking-wider mt-1 block">
                     GPA / 4.00
                   </span>
                 </div>
 
-                <div className="h-10 w-px bg-white/10" />
+                <div className="h-10 w-px bg-white/[0.08]" />
 
                 <div>
                   <span className="block font-display font-bold text-2xl sm:text-3xl text-[var(--accent)] leading-none">
                     Top 16%
                   </span>
-                  <span className="font-mono-dm text-[10px] text-white/40 uppercase tracking-wider">
+                  <span className="font-mono text-[10px] text-white/40 uppercase tracking-wider mt-1 block">
                     AI &amp; Robotics Cohort
                   </span>
                 </div>
@@ -194,7 +181,7 @@ export default function CredentialsSection() {
             <div className="pt-6">
               <div className="flex items-center gap-2 mb-3.5">
                 <Medal size={14} className="text-[var(--accent)]" />
-                <span className="font-mono-dm text-xs uppercase tracking-wider text-white/80 font-semibold">
+                <span className="font-mono text-xs uppercase tracking-wider text-white/80 font-semibold">
                   Dean's List Awardee (3 Consecutive Semesters):
                 </span>
               </div>
@@ -204,7 +191,7 @@ export default function CredentialsSection() {
                   <motion.button
                     key={idx}
                     type="button"
-                    whileHover={{ scale: 1.025, y: -3, borderColor: 'rgba(255,90,54,0.45)', backgroundColor: 'rgba(255,255,255,0.06)' }}
+                    whileHover={{ scale: 1.02, y: -2, borderColor: 'rgba(255,90,54,0.4)', backgroundColor: 'rgba(255,255,255,0.06)' }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() =>
                       setActiveMediaModal({
@@ -213,15 +200,15 @@ export default function CredentialsSection() {
                         subtitle: `${EDUCATION.school} · Top Academic Standing`,
                       })
                     }
-                    className="group flex items-center justify-between p-4 rounded-2xl border border-white/10 bg-white/[0.02] transition-all duration-200 text-left shadow-sm cursor-pointer"
+                    className="group flex items-center justify-between p-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-all duration-200 text-left shadow-sm cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] group-hover:scale-125 transition-transform" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] group-hover:scale-125 transition-transform shadow-[0_0_8px_var(--accent)]" />
                       <div>
-                        <span className="font-mono-dm text-xs font-medium text-white block group-hover:text-[var(--accent)] transition-colors">
+                        <span className="font-mono text-xs font-medium text-white block group-hover:text-[var(--accent)] transition-colors">
                           {item.label}
                         </span>
-                        <span className="font-mono-dm text-[10px] text-white/40 block">
+                        <span className="font-mono text-[10px] text-white/40 block mt-0.5">
                           {item.note}
                         </span>
                       </div>
@@ -235,56 +222,58 @@ export default function CredentialsSection() {
           </div>
         </motion.div>
 
-        {/* ── 2. COMPETITIONS & AWARDS LIST (BALANCED & HARMONIOUS) ── */}
+        {/* ── 2. COMPETITIONS & AWARDS LIST (LIQUID GLASS CARDS) ── */}
         <div className="space-y-4">
           {COMPETITION_AWARDS.map((award, idx) => (
             <motion.div
               key={award.title}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.08 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ delay: idx * 0.08, type: 'spring', stiffness: 220, damping: 24 }}
               whileHover={{
-                y: -4,
-                borderColor: 'rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 20px 40px -10px rgba(0,0,0,0.85)',
+                y: -3,
+                borderColor: 'rgba(255, 255, 255, 0.24)',
+                boxShadow: '0 20px 45px -10px rgba(0,0,0,0.85), inset 0 1px 1px 0 rgba(255,255,255,0.2)',
               }}
-              className="rounded-3xl border border-white/10 bg-[#09090E]/90 backdrop-blur-md p-6 sm:p-8 transition-all duration-300 shadow-xl"
+              className="rounded-3xl border border-white/[0.1] bg-gradient-to-br from-white/[0.04] via-[#0A0B10]/95 to-[#07070A]/95 backdrop-blur-xl p-6 sm:p-8 transition-all duration-300 shadow-xl relative overflow-hidden"
             >
+              <div className="liquid-specular-bar opacity-0 hover:opacity-100 transition-opacity" />
+
               <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
                 {/* Left meta & info */}
                 <div className="flex-1 space-y-3">
                   <div className="flex flex-wrap items-center gap-3">
                     <span
-                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-dm text-[11px] font-bold uppercase tracking-wider border ${award.badgeColor}`}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider border ${award.badgeColor}`}
                     >
                       <span className={`w-1.5 h-1.5 rounded-full ${award.dotColor}`} />
                       {award.place}
                     </span>
 
-                    <span className="font-mono-dm text-xs text-white/40">
+                    <span className="font-mono text-xs text-white/40">
                       {award.date}
                     </span>
 
-                    <span className="font-mono-dm text-xs text-white/30 hidden sm:inline">
+                    <span className="font-mono text-xs text-white/30 hidden sm:inline">
                       •
                     </span>
 
-                    <span className="font-mono-dm text-xs text-white/50">
+                    <span className="font-mono text-xs text-white/50">
                       {award.division}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white mb-1">
+                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white mb-1 tracking-tight">
                       {award.title}
                     </h3>
-                    <p className="font-mono-dm text-xs text-[var(--accent)]">
+                    <p className="font-mono text-xs text-[var(--accent)] font-medium">
                       {award.category}
                     </p>
                   </div>
 
-                  <p className="text-white/70 text-xs sm:text-sm font-light leading-relaxed max-w-3xl">
+                  <p className="text-white/70 text-xs sm:text-sm font-normal leading-relaxed max-w-3xl">
                     {award.desc}
                   </p>
                 </div>
@@ -297,12 +286,12 @@ export default function CredentialsSection() {
                       {award.links.map((lnk, i) => (
                         <motion.a
                           key={i}
-                          whileHover={{ scale: 1.04, y: -1 }}
+                          whileHover={{ scale: 1.03, y: -1 }}
                           whileTap={{ scale: 0.97 }}
                           href={lnk.href}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/30 text-white font-mono-dm text-xs transition-colors shadow-md"
+                          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.14] bg-white/[0.04] hover:bg-white/[0.09] hover:border-white/[0.28] text-white font-mono text-xs transition-colors shadow-md"
                         >
                           <FileText size={13} className="text-[var(--accent)]" />
                           <span>{lnk.label}</span>
@@ -312,14 +301,14 @@ export default function CredentialsSection() {
                     </div>
                   )}
 
-                  {/* Photo thumbnails (e.g. DPickleball trophy & group photo) */}
+                  {/* Photo thumbnails */}
                   {award.media && award.media.length > 0 && (
                     <div className="flex items-center gap-2.5">
                       {award.media.map((med, i) => (
                         <motion.button
                           key={i}
                           type="button"
-                          whileHover={{ scale: 1.06 }}
+                          whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.96 }}
                           onClick={() =>
                             setActiveMediaModal({
@@ -328,7 +317,7 @@ export default function CredentialsSection() {
                               subtitle: `${award.title} · ${award.place}`,
                             })
                           }
-                          className="group relative w-24 h-16 rounded-xl overflow-hidden border border-white/15 hover:border-[var(--accent)] transition-all duration-200 shadow-md cursor-pointer"
+                          className="group relative w-24 h-16 rounded-xl overflow-hidden border border-white/[0.14] hover:border-[var(--accent)] transition-all duration-200 shadow-md cursor-pointer"
                         >
                           <img
                             src={med.src}
@@ -360,20 +349,20 @@ export default function CredentialsSection() {
             className="fixed inset-0 z-[120] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
           >
             <motion.div
-              initial={{ scale: 0.92, opacity: 0, y: 15 }}
+              initial={{ scale: 0.94, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.94, opacity: 0, y: 10 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-3xl w-full bg-[#0D0D14] border border-white/20 rounded-3xl overflow-hidden shadow-2xl"
+              className="relative max-w-3xl w-full bg-[#0D0E16] border border-white/[0.18] rounded-3xl overflow-hidden shadow-2xl"
             >
               {/* Modal Top Bar */}
-              <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between">
+              <div className="p-4 sm:p-5 border-b border-white/[0.08] flex items-center justify-between">
                 <div>
                   <h4 className="font-display font-bold text-base sm:text-lg text-white">
                     {activeMediaModal.title}
                   </h4>
-                  <p className="font-mono-dm text-xs text-white/50">
+                  <p className="font-mono text-xs text-white/50">
                     {activeMediaModal.subtitle}
                   </p>
                 </div>
@@ -382,7 +371,7 @@ export default function CredentialsSection() {
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setActiveMediaModal(null)}
-                  className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 text-white flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/[0.05] hover:bg-white/[0.15] text-white flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <X size={18} />
                 </motion.button>
@@ -398,7 +387,7 @@ export default function CredentialsSection() {
               </div>
 
               {/* Modal Footer */}
-              <div className="p-4 border-t border-white/10 flex items-center justify-between text-xs font-mono-dm text-white/50">
+              <div className="p-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-white/50">
                 <span>Verified Academic &amp; Competition Record</span>
                 <a
                   href={activeMediaModal.src}
