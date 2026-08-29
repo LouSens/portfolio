@@ -7,19 +7,22 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                display: ['Syne', 'system-ui', 'sans-serif'],
-                sans: ['DM Sans', 'system-ui', '-apple-system', 'sans-serif'],
-                mono: ['DM Mono', 'monospace'],
+                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                display: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
             },
             colors: {
                 surface: {
-                    DEFAULT: '#0C0C0C',
-                    1: '#141414',
-                    2: '#1A1A1A',
-                    3: '#222222',
+                    DEFAULT: '#070709',
+                    1: '#0D0E12',
+                    2: '#12141B',
+                    3: '#181A24',
                 },
                 accent: {
-                    DEFAULT: '#D4644A',
+                    DEFAULT: '#FF5A36',
+                    hover: '#FF431A',
+                    light: '#FF8C69',
+                    glow: 'rgba(255, 90, 54, 0.15)',
                 },
             },
         },
