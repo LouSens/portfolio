@@ -380,7 +380,7 @@ export default function ScopeInquiryDrawer() {
         </div>
       </div>
 
-      {/* ── 1. POP-UP CONFIRMATION RECEIPT CARD ── */}
+      {/* ── 1. CLEAN MODERN CONFIRMATION MODAL ── */}
       <AnimatePresence>
         {submissionReceipt && (
           <motion.div
@@ -388,89 +388,54 @@ export default function ScopeInquiryDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSubmissionReceipt(null)}
-            className="fixed inset-0 z-[130] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-text"
+            className="fixed inset-0 z-[130] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-text"
           >
             <motion.div
               initial={{ scale: 0.94, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-xl w-full bg-[#0A0B10]/95 border border-white/[0.18] rounded-3xl p-6 sm:p-8 shadow-[0_30px_90px_rgba(0,0,0,0.95),inset_0_1px_1px_0_rgba(255,255,255,0.22)] overflow-hidden"
+              className="relative max-w-md w-full bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.15)] overflow-hidden"
             >
-              {/* Top highlight bar */}
-              <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent pointer-events-none" />
-
               {/* Close Button */}
               <button
                 onClick={() => setSubmissionReceipt(null)}
-                className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white/70 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/[0.12] text-white/60 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
-                <X size={16} />
+                <X size={15} />
               </button>
 
-              {/* Header Status */}
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
-                  <CheckCircle2 size={22} />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-xl text-white">
-                    Message Sent Successfully
-                  </h3>
-                  <span className="font-mono text-xs text-emerald-400">
-                    Submission #{submissionReceipt.submissionIndex} · Ref: {submissionReceipt.id}
-                  </span>
-                </div>
+              {/* Status Icon */}
+              <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 mb-4 shadow-[0_0_24px_rgba(16,185,129,0.2)]">
+                <Check size={26} strokeWidth={2.5} />
               </div>
 
-              <p className="text-white/75 text-sm font-normal leading-relaxed mb-5">
-                Thank you, <strong className="text-white font-semibold">{submissionReceipt.name}</strong>. Your inquiry has been received and dispatched directly to{' '}
-                <strong className="text-white font-semibold">{PERSONAL_INFO.email}</strong>. I will review your requirements and follow up within 24 hours.
+              {/* Headings */}
+              <h3 className="font-display font-bold text-2xl text-white mb-2">
+                Message Sent
+              </h3>
+
+              <p className="text-white/70 text-sm font-normal leading-relaxed mb-6">
+                Thank you for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your inquiry regarding <span className="text-white font-medium">"{submissionReceipt.objective}"</span> has been received. I will review it and get back to you at <span className="text-white font-medium">{submissionReceipt.email}</span> within 24 hours.
               </p>
 
-              {/* Structured Submission Summary */}
-              <div className="p-4 rounded-2xl bg-[#06070A] border border-white/[0.08] space-y-3 font-sans text-xs mb-6">
-                <div>
-                  <span className="text-white/40 block text-[11px] font-medium uppercase tracking-wider mb-0.5">Project Focus</span>
-                  <span className="text-white font-semibold">{submissionReceipt.objective}</span>
-                </div>
-
-                <div>
-                  <span className="text-white/40 block text-[11px] font-medium uppercase tracking-wider mb-0.5">Scope &amp; Details</span>
-                  <p className="text-white/80 line-clamp-3 font-normal leading-relaxed">{submissionReceipt.scope}</p>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t border-white/[0.06] text-xs">
-                  <div>
-                    <span className="text-white/40 block text-[10px] uppercase tracking-wider">Timeline</span>
-                    <span className="text-[var(--accent)] font-medium">{submissionReceipt.timeline}</span>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="text-white/40 block text-[10px] uppercase tracking-wider">Contact Email</span>
-                    <span className="text-white/90 font-mono">{submissionReceipt.email}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex flex-col sm:flex-row gap-2.5">
+              {/* Action Buttons */}
+              <div className="space-y-3">
                 <button
                   type="button"
-                  onClick={handleOpenMailBackup}
-                  className="liquid-btn-primary flex-1 justify-center !py-3 font-mono text-xs font-bold"
+                  onClick={() => setSubmissionReceipt(null)}
+                  className="w-full py-3.5 px-6 rounded-2xl bg-white text-black font-semibold text-sm hover:bg-white/90 transition-all cursor-pointer shadow-lg active:scale-[0.98]"
                 >
-                  <Mail size={13} />
-                  <span>Open Email Client Backup</span>
+                  Done
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => setSubmissionReceipt(null)}
-                  className="liquid-btn-secondary flex-1 justify-center !py-3 font-mono text-xs"
+                  onClick={handleOpenMailBackup}
+                  className="text-xs text-white/45 hover:text-white transition-colors block mx-auto underline cursor-pointer py-1"
                 >
-                  <span>Done</span>
+                  Open in your email app instead
                 </button>
               </div>
             </motion.div>
@@ -478,7 +443,7 @@ export default function ScopeInquiryDrawer() {
         )}
       </AnimatePresence>
 
-      {/* ── 2. ADMIN INBOX VIEWER MODAL (FOR DAVID) ── */}
+      {/* ── 2. CLEAN INBOX VIEWER MODAL (FOR DAVID) ── */}
       <AnimatePresence>
         {showAdminInbox && (
           <motion.div
@@ -486,7 +451,7 @@ export default function ScopeInquiryDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowAdminInbox(false)}
-            className="fixed inset-0 z-[140] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-text"
+            className="fixed inset-0 z-[140] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-text"
           >
             <motion.div
               initial={{ scale: 0.94, opacity: 0, y: 15 }}
@@ -494,18 +459,20 @@ export default function ScopeInquiryDrawer() {
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-3xl w-full max-h-[85vh] bg-[#0A0B10] border border-white/[0.18] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
+              className="relative max-w-2xl w-full max-h-[80vh] bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-4">
                 <div className="flex items-center gap-2.5">
-                  <Inbox size={18} className="text-[var(--accent)]" />
+                  <div className="w-8 h-8 rounded-xl bg-[var(--accent)]/15 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)]">
+                    <Inbox size={16} />
+                  </div>
                   <div>
                     <h3 className="font-display font-bold text-lg text-white">
-                      Inquiry Submissions Inbox
+                      Inquiries Inbox
                     </h3>
-                    <span className="font-mono text-xs text-white/50">
-                      {storedInquiries.length} total saved inquiries (Local Session Cache)
+                    <span className="text-xs text-white/50 font-normal">
+                      {storedInquiries.length} saved message(s) in this browser
                     </span>
                   </div>
                 </div>
@@ -513,59 +480,57 @@ export default function ScopeInquiryDrawer() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={clearInquiries}
-                    className="px-3 py-1 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 font-mono text-[11px] transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 text-xs transition-colors cursor-pointer"
                   >
-                    Clear All
+                    Clear
                   </button>
 
                   <button
                     onClick={() => setShowAdminInbox(false)}
                     className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white flex items-center justify-center transition-colors cursor-pointer"
                   >
-                    <X size={16} />
+                    <X size={15} />
                   </button>
                 </div>
               </div>
 
               {/* Inquiries list */}
-              <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+              <div className="flex-1 overflow-y-auto space-y-3.5 pr-1">
                 {storedInquiries.length === 0 ? (
-                  <p className="font-mono text-xs text-white/40 py-8 text-center">
-                    No inquiries recorded in this browser session.
+                  <p className="text-xs text-white/40 py-8 text-center">
+                    No inquiries recorded in this browser yet.
                   </p>
                 ) : (
                   storedInquiries.map((inq) => (
                     <div
                       key={inq.id}
-                      className="p-5 rounded-2xl border border-white/[0.1] bg-[#07070A] space-y-2.5 font-sans text-xs"
+                      className="p-5 rounded-2xl border border-white/[0.08] bg-white/[0.02] space-y-2.5 text-xs font-sans"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] pb-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-[var(--accent)] font-mono font-bold">{inq.id}</span>
-                          <span className="text-white/30">•</span>
-                          <span className="text-white font-semibold">{inq.name}</span>
-                          <span className="text-white/50">({inq.email})</span>
+                          <span className="text-white font-semibold text-sm">{inq.name}</span>
+                          <span className="text-white/40">({inq.email})</span>
                         </div>
-                        <span className="text-white/40 text-[10px] font-mono">{inq.formattedDate}</span>
+                        <span className="text-white/40 text-xs">{inq.formattedDate}</span>
                       </div>
 
                       <div>
-                        <span className="text-white/40 text-[11px] block font-medium uppercase tracking-wider mb-0.5">Objective</span>
-                        <p className="text-white font-semibold">{inq.objective}</p>
+                        <span className="text-white/40 text-xs font-medium block mb-0.5">Project</span>
+                        <p className="text-white font-medium text-sm">{inq.objective}</p>
                       </div>
 
                       <div>
-                        <span className="text-white/40 text-[11px] block font-medium uppercase tracking-wider mb-0.5">Scope &amp; Context</span>
+                        <span className="text-white/40 text-xs font-medium block mb-0.5">Details</span>
                         <p className="text-white/80 whitespace-pre-wrap font-normal leading-relaxed">{inq.scope}</p>
                       </div>
 
                       <div className="pt-2 flex items-center justify-between text-xs text-white/50 border-t border-white/[0.04]">
                         <span>Timeline: <strong className="text-white">{inq.timeline}</strong></span>
                         <a
-                          href={`mailto:${inq.email}?subject=Re: Project Inquiry [${inq.id}]`}
-                          className="text-[var(--accent)] hover:underline flex items-center gap-1 font-mono text-[11px]"
+                          href={`mailto:${inq.email}?subject=Re: Project Inquiry — ${inq.objective}`}
+                          className="text-[var(--accent)] hover:underline flex items-center gap-1 font-medium text-xs"
                         >
-                          <span>Reply via Email</span>
+                          <span>Reply</span>
                           <ExternalLink size={11} />
                         </a>
                       </div>
