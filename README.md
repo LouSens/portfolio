@@ -1,83 +1,117 @@
-# David Kurniawan — Interactive AI Engineering Portfolio
+# David Kurniawan — Full-Stack & AI Systems Portfolio
 
-A high-performance, interactive portfolio and AI architecture showcase built with **React 18**, **Three.js / React Three Fiber**, **Framer Motion 12**, **Lenis**, and **TailwindCSS**. Highlights multi-agent LLM systems, machine learning pipelines, competitive AI awards, and production backend infrastructure.
+A high-performance, interactive portfolio and system architecture platform built with **React 19**, **Three.js / WebGL**, **Framer Motion**, **Tailwind CSS**, and **Cloudflare Workers**. Engineered to present both client-oriented finished solutions and deep technical architecture specifications.
 
-![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5.1-646CFF?logo=vite&logoColor=white)
+![React 19](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=white)
+![Vite 5](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-0.183-black?logo=three.js&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.36-ff0055?logo=framer&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-KV_Storage-F38020?logo=cloudflare&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4-ff0055?logo=framer&logoColor=white)
 
 ---
 
-## ✨ Highlights & Key Features
+## ✨ Key Architectural Highlights & Features
 
-- 🌌 **3D Particle Field & Physics Effects** — Interactive 3D particle sphere header powered by Three.js & `@react-three/fiber` with continuous rotation, mouse cursor ring tracking, and smooth scroll parallax.
-- ⚡ **Lenis Smooth Scrolling & Progress Tracking** — Smooth, friction-based inertial scrolling integrated with Lenis and a top scroll progress bar.
-- 🚀 **Featured Project Showcase (KerjaCerdas)** — Enterprise talent matching infrastructure featuring an interactive 16-screenshot gallery slideshow with carousel controls and caption overlays.
-- 🎞️ **Embedded Media & Document Viewer** — Inline auto-playing video player for RL agent gameplay (DPickleball 3rd place) and photo galleries with downloadable pitch decks, proposals, and certificates.
-- 🔄 **Infinite Tech Stack Marquee** — Continuous animated marquee displaying core frameworks (Python, FastAPI, LangChain, PyTorch, TensorFlow, Docker, PostgreSQL, React, etc.).
-- 📊 **Dynamic Education Progress Ring** — SVG progress indicator automatically calculating exact degree completion percentage at Xiamen University Malaysia (GPA 3.84/4.00, Dean's List).
-- 🎨 **Glassmorphism & Micro-Interactions** — Custom color tokens, mouse-following card spotlights, border gradient cards, shimmer & liquid-metal buttons, and spring-physics mobile navigation.
-
----
-
-## 🛠 Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| **Core Framework** | React 18 / Vite 5 |
-| **Styling & Design** | TailwindCSS 3, Custom Glassmorphism, CSS Variables |
-| **3D & Visuals** | Three.js, `@react-three/fiber`, `@react-three/drei`, `@paper-design/shaders` |
-| **Animation & Motion** | Framer Motion 12, GSAP, Lenis Smooth Scroll |
-| **Icons & UI** | Lucide React, Custom Shimmer & Liquid Metal Buttons |
-| **Fonts** | Outfit (Display Headers), Inter & DM Mono (Body / Technical) |
+- 🌌 **GPU-Accelerated 3D Particle Field** — WebGL particle dynamics field rendering 2,200 dynamic particles with real-time rotational inertia, depth attenuation, and cursor parallax tracking via Three.js.
+- ⚡ **Kinetic Motion & Smooth Scrolling** — Friction-based inertial scrolling integrated with **Lenis** and top scroll progress indicator.
+- 🛸 **Smart Direction-Aware Liquid Glass Navigation** — Floating header dock that detects directional scroll momentum, auto-hiding on scroll-down and instantly revealing on scroll-up.
+- 🎠 **3D Orbital Projects Carousel** — Hardware-accelerated 3D carousel with swipe gesture support on mobile, deep-linking (`#project=id`), and expanded engineering dossiers.
+- 📑 **Comprehensive System Dossier Modals** — Multi-tab project inspector featuring:
+  - **The Business Challenge & Finished Solution** bento breakdown
+  - **Key Outcomes Delivered** metrics
+  - **Interactive 16-Screen UI Flow Gallery** with slideshow controls
+  - **6-Node Interactive System Architecture Pipelines**
+  - **Verified Code Implementation Snippets** with syntax highlighting & instant copy
+- 🛠 **Finished Solutions Workbench** — Interactive service matrix breaking down the business problem, delivered outcomes, and technical specifications across Full-Stack Web Apps, Scalable Backends, Autonomous AI Agents, and Enterprise Search.
+- 📬 **Serverless Global Inquiry Engine** — Real-time cross-device global tracking powered by a **Cloudflare Worker** + **KV Storage** backend with automated **Web3Forms** email dispatch and client-side confirmation receipts.
+- 🎓 **Credentials & Academic Honors Showcase** — Visual certificate viewer and video showcase for Dean's List (3 consecutive semesters, 3.84/4.00 GPA) and competition awards (SEA-CICSIC Silver Award, DPickleball RL 3rd Place).
 
 ---
 
-## 📁 Project Structure
+## 🛠 Technology Stack
+
+| Domain | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Frontend Framework** | React 19 & Vite 5 | Fast component rendering, state hooks & sub-300ms builds |
+| **Styling & Design System** | Tailwind CSS 3 & Vanilla CSS | Liquid glassmorphism, HSL color tokens & CSS specular effects |
+| **3D & WebGL Graphics** | Three.js | GPU-accelerated particle fields and spatial depth attenuation |
+| **Animations & Motion** | Framer Motion & Lenis | 60 FPS micro-interactions, layout transitions & inertial scroll |
+| **Serverless Backend** | Cloudflare Workers & KV | Cross-device global inquiry counter & serverless API endpoints |
+| **Email Dispatch** | Web3Forms API | Direct form email notification transmission |
+| **Typography** | Outfit, Inter & DM Mono | Clean hierarchy balancing modern display typography and monospace technical data |
+| **Deployment** | Vercel / Cloudflare Edge | Production CDN caching, automated CI/CD and edge delivery |
+
+---
+
+## 📁 Repository Structure
 
 ```
 portfolio-website/
-├── index.html              # HTML entry point with font preloads
-├── package.json            # Scripts and dependencies
-├── vite.config.js          # Vite build configuration & aliases (@/ -> src/)
-├── tailwind.config.js      # Custom theme, colors & font family definitions
-├── postcss.config.js       # PostCSS with Tailwind & Autoprefixer
-├── README.md               # Project documentation
-├── static/                 # Static assets (PDFs, media videos, screenshots, certificates)
+├── index.html                  # HTML entry point with meta preloads & font declarations
+├── package.json                # Dependencies and npm scripts
+├── vite.config.js              # Vite build setup with code-splitting chunks
+├── tailwind.config.js          # Design system color tokens, keyframes & font families
+├── postcss.config.js           # PostCSS Tailwind engine
+├── static/                     # High-resolution assets, documents, and screenshots
 │   ├── CV_DAVID KURNIAWAN.pdf
-│   ├── docs/               # Omni-QC pitch decks & merit scholarship letters
-│   ├── media/              # Competition videos & photos (DPickleball RL)
-│   └── screenshots/        # Project screenshot slideshows (KerjaCerdas)
+│   ├── docs/                   # Business proposals, pitch decks & Dean's List certificates
+│   ├── media/                  # Competition photos and RL agent trophies
+│   └── screenshots/            # Real platform screenshot suites (KerjaCerdas & Portfolio)
 └── src/
-    ├── main.jsx            # React mounting root
-    ├── App.jsx             # Comprehensive single-page app layout & components
-    ├── index.css           # Global directives, CSS variables & keyframe animations
+    ├── main.jsx                # Application mounting root
+    ├── App.jsx                 # Main layout shell with modal & drawer state orchestrators
+    ├── index.css               # Core design system tokens, liquid glass utilities & animations
+    ├── data/
+    │   └── portfolioData.js    # Data store (projects, services, metrics, awards, timeline)
     └── components/
-        └── ui/
-            ├── liquid-metal-button.tsx  # WebGL shader-inspired button component
-            └── shimmer-button.jsx       # Animated shimmering CTA button
+        ├── Hero.jsx            # Confident headline, value proposition & highlights strip
+        ├── Navbar.jsx          # Direction-aware floating liquid glass header
+        ├── ServicesSection.jsx # Finished solutions matrix with dual business/technical framing
+        ├── NetflixProjectsHub.jsx # 3D orbital hardware-accelerated project carousel
+        ├── ProjectDetailModal.jsx # Multi-tab engineering dossier (problem, solution, code, UI gallery)
+        ├── TechStackMatrix.jsx # Filterable interactive technology & framework matrix
+        ├── ExperienceTimeline.jsx # Interactive vertical timeline spine
+        ├── CredentialsSection.jsx # Academic honors, 3.84 GPA verification & competition awards
+        ├── ScopeInquiryDrawer.jsx # Direct inquiry form synced with Cloudflare Worker + KV
+        └── Footer.jsx          # Terminal-inspired footer with live timezone & quick links
 ```
 
 ---
 
-## 💻 Projects Featured
+## 💻 Featured Systems & Case Studies
 
-1. **KerjaCerdas** (*Lead Engineer · 2026*) — Enterprise Talent AI Infrastructure. ReAct Multi-Agent Swarm with LangGraph (Supervisor + parallel worker nodes), 5-signal `pgvector` hybrid search, low-latency PDF extraction, Employer Kanban & E-KYC credential verification.
-2. **Startup EMP** (*Backend & AI Engineer · May 2026*) — AI Chief of Staff accelerator platform. 4-phase LangGraph pipeline, FastAPI, Pydantic v2 typing coercion, Cloud Run, vector mentor matching & human-in-the-loop governance.
-3. **Orion** (*Tech Lead & Backend · May 2026*) — AI-powered SaaS expense reimbursement platform. 6-stage LangGraph workflow, sliding-window rate limiting, policy evaluation engines, and dual CI/CD pipelines. *UM Hackathon Top 24 / 100+ Teams*.
-4. **NeuralVoid** (*Full-Stack Engineer · Jan 2026*) — Clinical-grade behavioural analytics platform. 25-feature ML model (~96% accuracy), XGBoost/scikit-learn, LLM report synthesis, Node.js & FastAPI backend.
-5. **Indonesian Legal LLM** (*Solo ML Engineer · 2026*) — Fine-tuning Llama 3 8B with 4-bit QLoRA & Unsloth, GRPO alignment with 4 custom reward functions, Parent-Child BM25 + FAISS RAG system with HyDE reranking. Published on Hugging Face.
+1. **[KerjaCerdas](https://github.com/LouSens/KerjaCerdas.git)** (*Lead Systems Engineer · 2026*)
+   - Enterprise Talent AI & Multi-Agent Matching Platform.
+   - ReAct Multi-Agent Swarm with LangGraph (Supervisor + parallel worker agents), 5-signal `pgvector` hybrid search, low-latency Gemini multimodal PDF parsing with Token Efficiency Gates, and an Employer Kanban dashboard with E-KYC verification.
+
+2. **[Personal Engineering Portfolio](https://github.com/LouSens/portfolio-website.git)** (*Creator & UI Architect · 2026*)
+   - High-performance interactive platform with Three.js particle dynamics, direction-aware liquid glass navigation, 3D project carousel, and Cloudflare Worker + KV global inquiry tracking.
+
+3. **[Orion](https://github.com/LouSens/orion.git)** (*Tech Lead & Backend Architect · May 2026*)
+   - AI Expense SaaS & Reimbursement Automation.
+   - 6-stage LangGraph state machine, sliding-window rate limiting, deterministic policy evaluation with rapidfuzz duplicate detection, and 85% test coverage across 120 unit tests (*UM Hackathon Top 24 / 100+ Teams*).
+
+4. **[Startup EMP](https://github.com/nerdylive123/Startup-emp.git)** (*Backend & AI Systems Engineer · May 2026*)
+   - AI Chief of Staff & Accelerator Cohort Triage Platform.
+   - 4-phase LangGraph agent pipeline, FastAPI backend, Pydantic v2 schema coercion, Cloud Run serverless deployment, and vector mentor matching with human-in-the-loop governance.
+
+5. **[NeuralVoid](https://github.com/LouSens/neural-void.git)** (*Full-Stack & ML Engineer · Jan 2026*)
+   - Clinical Behavioral Analytics & Machine Learning Platform.
+   - 25-feature ML extraction pipeline calculating session velocity, streak entropy, and binge probability feeding an XGBoost / Random Forest ensemble (~96% accuracy) with automated narrative report synthesis.
+
+6. **[Indonesian Legal RAG](https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal)** (*ML & Search Engineer · 2026*)
+   - Hybrid Statutory Search & Document Retrieval Engine.
+   - Parent-Child Hybrid Ensemble RAG (sparse BM25 + dense FAISS) with HyDE hypothesis generation, Cross-Encoder reranking, and exact article citation synthesis published on Hugging Face.
 
 ---
 
-## 🏆 Competitions & Recognition
+## 🏆 Honors & Recognition
 
-- 🥉 **3rd Place — DPickleball AI Competition** (*Oct 2025*): Unity ML-Agents RL agent with PPO training pipeline & reward shaping.
-- 🥈 **Silver Award — SEA-CICSIC 2026** (*China-ASEAN Innovation Competition*): Omni-QC real-time defect prediction & manufacturing quality control.
-- 🌟 **Top 20% Globally — International Quant Championship** (*Apr 2025*): Quantitative reasoning & analytical problem-solving.
-- 🎓 **Dean's List (3 Consecutive Semesters)** & **Merit Scholarship**: Xiamen University Malaysia (Top 16% of cohort, GPA 3.84 / 4.00).
+- 🥈 **Silver Award — SEA-CICSIC 2026**: China-ASEAN Innovation Competition (Omni-QC industrial defect detection proposal).
+- 🥉 **3rd Place — DPickleball AI Tournament** (*Oct 2025*): Unity ML-Agents continuous control reinforcement learning agent (PPO).
+- 🌟 **Top 20% Globally — International Quant Championship** (*Apr 2025*): Quantitative problem solving & algorithmic modeling.
+- 🎓 **Dean's List (Three Consecutive Semesters)**: Xiamen University Malaysia (Top 16% of cohort, 3.84 / 4.00 GPA).
 
 ---
 
@@ -85,7 +119,7 @@ portfolio-website/
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
 - `npm` or `yarn`
 
 ### Installation
@@ -98,16 +132,23 @@ cd resume
 # Install dependencies
 npm install
 
-# Start the development server
+# Run local development server
 npm run dev
 ```
 
-The application will start at `http://localhost:5173`.
+### Environment Variables
 
-### Production Build
+Create a `.env` file in the project root:
+
+```env
+VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key_here
+VITE_CLOUDFLARE_WORKER_URL=https://portfolio-inquiries.your-subdomain.workers.dev
+```
+
+### Building for Production
 
 ```bash
-# Build for production
+# Generate optimized production bundle
 npm run build
 
 # Preview production build locally
@@ -118,4 +159,4 @@ npm run preview
 
 ## 📄 License
 
-This project is open-source under the [MIT License](LICENSE).
+This project is open source and available under the [MIT License](LICENSE).
