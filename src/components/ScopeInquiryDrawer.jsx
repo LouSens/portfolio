@@ -28,19 +28,41 @@ export default function ScopeInquiryDrawer() {
   const [storedInquiries, setStoredInquiries] = useState([]);
   const [submissionCount, setSubmissionCount] = useState(0);
 
-  // Initialize automated tracking from persistent records on mount
+  const CLOUDFLARE_WORKER_URL =
+    import.meta.env?.VITE_CLOUDFLARE_WORKER_URL ||
+    'https://portfolio-inquiries.davidk-academic.workers.dev';
+
+  // 1. Fetch real-time global inquiries count across all devices on mount
   useEffect(() => {
+    let isMounted = true;
+
+    // Fast initial load from local storage
     try {
       const saved = JSON.parse(localStorage.getItem('portfolio_inquiries') || '[]');
       const savedCount = parseInt(localStorage.getItem('portfolio_submission_count') || '0', 10);
-      const actualCount = Math.max(saved.length, savedCount);
       setStoredInquiries(saved);
-      setSubmissionCount(actualCount);
+      setSubmissionCount(Math.max(saved.length, savedCount));
     } catch {
       setStoredInquiries([]);
-      setSubmissionCount(0);
     }
-  }, []);
+
+    // Fetch live global count from Cloudflare Worker
+    fetch(CLOUDFLARE_WORKER_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && typeof data.count === 'number') {
+          setSubmissionCount(data.count);
+          localStorage.setItem('portfolio_submission_count', data.count.toString());
+        }
+      })
+      .catch((err) => {
+        console.info('Live worker count notice (using local fallback):', err.message);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [CLOUDFLARE_WORKER_URL]);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email).then(() => {
@@ -53,11 +75,11 @@ export default function ScopeInquiryDrawer() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const newCount = submissionCount + 1;
+    let nextCount = submissionCount + 1;
 
     const inquiryRecord = {
       id: 'INQ-' + Math.random().toString(36).substring(2, 8).toUpperCase(),
-      submissionIndex: newCount,
+      submissionIndex: nextCount,
       timestamp: new Date().toISOString(),
       formattedDate: new Date().toLocaleDateString('en-US', {
         month: 'short',
@@ -73,25 +95,38 @@ export default function ScopeInquiryDrawer() {
       timeline: timeline.trim() || 'Flexible / To be discussed',
     };
 
-    // 1. Automatic persistent storage & real-time metric increment
+    // 1. Send to Cloudflare Worker to increment global counter across all devices
+    try {
+      const workerRes = await fetch(CLOUDFLARE_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(inquiryRecord),
+      });
+      const workerData = await workerRes.json();
+      if (workerData.count) {
+        nextCount = workerData.count;
+        inquiryRecord.submissionIndex = nextCount;
+        setSubmissionCount(nextCount);
+        localStorage.setItem('portfolio_submission_count', nextCount.toString());
+      }
+    } catch (workerErr) {
+      console.warn('Cloudflare Worker transmission notice:', workerErr);
+    }
+
+    // 2. Persistent local record storage
     try {
       const existing = JSON.parse(localStorage.getItem('portfolio_inquiries') || '[]');
       const updated = [inquiryRecord, ...existing];
       localStorage.setItem('portfolio_inquiries', JSON.stringify(updated));
-      localStorage.setItem('portfolio_submission_count', newCount.toString());
+      localStorage.setItem('portfolio_submission_count', nextCount.toString());
       setStoredInquiries(updated);
-      setSubmissionCount(newCount);
+      setSubmissionCount(nextCount);
     } catch (err) {
       console.warn('LocalStorage save warning:', err);
     }
 
-    // 2. Web3Forms Live Email Dispatch to davidk.academic@gmail.com
+    // 3. Web3Forms Live Email Dispatch to davidk.academic@gmail.com
     const web3AccessKey = import.meta.env?.VITE_WEB3FORMS_ACCESS_KEY || null;
-
-    const workerUrl =
-      import.meta.env?.VITE_CLOUDFLARE_WORKER_URL ||
-      import.meta.env?.VITE_FORM_WEBHOOK_URL ||
-      null;
 
     const payload = {
       access_key: web3AccessKey,
@@ -104,15 +139,14 @@ export default function ScopeInquiryDrawer() {
       project_timeline: inquiryRecord.timeline,
       project_scope: inquiryRecord.scope,
       reference_id: inquiryRecord.id,
-      submission_number: `#${newCount}`,
+      submission_number: `#${nextCount}`,
       submission_time: inquiryRecord.formattedDate,
-      message: `=================================================\nNEW INQUIRY VIA PORTFOLIO DIRECT TRANSMISSION\n=================================================\n\nReference ID: ${inquiryRecord.id}\nSubmission: #${newCount}\nDate: ${inquiryRecord.formattedDate}\n\nClient Name: ${inquiryRecord.name}\nEmail: ${inquiryRecord.email}\nObjective: ${inquiryRecord.objective}\nTimeline: ${inquiryRecord.timeline}\n\nTechnical Scope & Requirements:\n-------------------------------------------------\n${inquiryRecord.scope}\n-------------------------------------------------`,
+      message: `=================================================\nNEW INQUIRY VIA PORTFOLIO DIRECT TRANSMISSION\n=================================================\n\nReference ID: ${inquiryRecord.id}\nSubmission: #${nextCount}\nDate: ${inquiryRecord.formattedDate}\n\nClient Name: ${inquiryRecord.name}\nEmail: ${inquiryRecord.email}\nObjective: ${inquiryRecord.objective}\nTimeline: ${inquiryRecord.timeline}\n\nTechnical Scope & Requirements:\n-------------------------------------------------\n${inquiryRecord.scope}\n-------------------------------------------------`,
     };
 
     try {
-      // Send directly to Web3Forms if access key is present
       if (web3AccessKey) {
-        const response = await fetch('https://api.web3forms.com/submit', {
+        await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -120,20 +154,9 @@ export default function ScopeInquiryDrawer() {
           },
           body: JSON.stringify(payload),
         });
-        const data = await response.json();
-        console.log('Web3Forms dispatch response:', data);
-      }
-
-      // If optional custom webhook is also configured, mirror to it
-      if (workerUrl) {
-        await fetch(workerUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(inquiryRecord),
-        }).catch(() => {});
       }
     } catch (networkErr) {
-      console.warn('Network transmission notice:', networkErr);
+      console.warn('Web3Forms dispatch notice:', networkErr);
     }
 
     // UX Feedback confirmation
