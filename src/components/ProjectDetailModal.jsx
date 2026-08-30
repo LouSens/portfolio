@@ -334,37 +334,55 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
                     </div>
                   )}
 
-                  {/* Problem & Architectural Solution Bento */}
+                  {/* Problem & Finished Solution Bento */}
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-6 rounded-2xl border border-white/[0.1] bg-[#0C0D14]/90 shadow-sm relative overflow-hidden">
+                    <div className="p-6 rounded-2xl border border-rose-500/20 bg-rose-500/[0.03] shadow-sm relative overflow-hidden">
                       <div className="flex items-center gap-2 mb-2.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                        <h4 className="font-mono text-xs font-semibold text-white/90 uppercase tracking-wider">
-                          The System Challenge
+                        <h4 className="font-mono text-xs font-semibold text-rose-300 uppercase tracking-wider">
+                          The Business Challenge
                         </h4>
                       </div>
-                      <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                      <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-normal">
                         {project.problem}
                       </p>
                     </div>
 
-                    <div className="p-6 rounded-2xl border border-white/[0.1] bg-[#0C0D14]/90 shadow-sm relative overflow-hidden">
+                    <div className="p-6 rounded-2xl border border-[var(--accent)]/30 bg-[var(--accent)]/[0.03] shadow-sm relative overflow-hidden">
                       <div className="flex items-center gap-2 mb-2.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_6px_var(--accent)]" />
                         <h4 className="font-mono text-xs font-semibold text-[var(--accent)] uppercase tracking-wider">
-                          Architectural Solution
+                          The Finished Solution
                         </h4>
                       </div>
-                      <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                      <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-normal">
                         {project.solution}
                       </p>
                     </div>
                   </div>
 
+                  {/* Business Outcomes Delivered */}
+                  {project.businessOutcomes && (
+                    <div className="p-5 rounded-2xl border border-white/[0.1] bg-[#0C0D14]/90 shadow-sm space-y-3">
+                      <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-semibold uppercase tracking-wider">
+                        <Check size={14} className="text-emerald-400" />
+                        <span>Key Outcomes &amp; Value Delivered</span>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-2.5">
+                        {project.businessOutcomes.map((outcome, idx) => (
+                          <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-white/85 leading-snug">
+                            <span className="text-emerald-400 font-mono mt-0.5">•</span>
+                            <span>{outcome}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Integrated Tech Stack */}
                   <div>
                     <h4 className="font-mono text-[11px] uppercase tracking-wider text-white/40 mb-2.5 font-medium">
-                      Integrated Technology Stack
+                      Technical Stack &amp; Infrastructure
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((t) => (

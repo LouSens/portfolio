@@ -192,7 +192,7 @@ export default function ScopeInquiryDrawer() {
           </h2>
 
           <p className="text-white/65 text-sm sm:text-base font-normal leading-relaxed">
-            Have a project in mind, an architectural challenge, or looking to collaborate? Send a message and I'll get back to you within 24 hours.
+            Have a project in mind, a business challenge to solve, or looking to collaborate? Send a message and I'll get back to you within 24 hours.
           </p>
         </div>
 
@@ -253,13 +253,13 @@ export default function ScopeInquiryDrawer() {
             {/* Row 2: Project Focus */}
             <div>
               <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                Project Focus / Objective
+                Project Objective / Finished Solution Needed
               </label>
               <input
                 type="text"
                 value={objective}
                 onChange={(e) => setObjective(e.target.value)}
-                placeholder="e.g. Full-Stack Web App, Multi-Agent Swarm, Vector Search RAG, Backend API..."
+                placeholder="e.g. Full-Stack Web App, Automated AI Workflow, Client Dashboard, Backend API..."
                 required
                 className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-3.5 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
               />
@@ -268,13 +268,13 @@ export default function ScopeInquiryDrawer() {
             {/* Row 3: Technical Details & Requirements */}
             <div>
               <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                Scope &amp; Technical Requirements
+                Scope &amp; Requirements / Business Challenge
               </label>
               <textarea
                 rows={4}
                 value={scope}
                 onChange={(e) => setScope(e.target.value)}
-                placeholder="Tell me about what you're building, key features needed, performance constraints, or target timeline..."
+                placeholder="Tell me about what you're building, the business challenge to solve, key features needed, or target timeline..."
                 required
                 className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl p-4 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans resize-none leading-relaxed focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
               />

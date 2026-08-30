@@ -61,7 +61,7 @@ export default function ExperienceTimeline() {
                 {exp.current && (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--accent)]/15 border border-[var(--accent)]/30 font-mono text-[9px] text-[var(--accent)] uppercase tracking-widest font-semibold shadow-[0_0_10px_rgba(255,90,54,0.2)]">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                    Current Focus
+                    Active Lead
                   </span>
                 )}
 

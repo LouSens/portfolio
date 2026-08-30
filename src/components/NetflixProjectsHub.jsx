@@ -122,11 +122,11 @@ export default function NetflixProjectsHub({ onOpenProject }) {
             </div>
 
             <h2 className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight mb-2">
-              Featured Systems &amp; Builds
+              Featured Systems &amp; Case Studies
             </h2>
 
-            <p className="text-white/60 text-xs sm:text-sm font-normal leading-relaxed">
-              Full-stack applications, LangGraph multi-agent workflows, and high-throughput backends. Click the center card or side items to rotate and expand full technical specifications.
+            <p className="text-white/65 text-xs sm:text-sm font-normal leading-relaxed">
+              End-to-end web applications, autonomous AI workflows, and high-throughput systems. Select any project to explore the business problem solved, delivered outcomes, and full technical architecture.
             </p>
           </div>
 
@@ -276,7 +276,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                         className="liquid-btn-primary w-full justify-center !py-2.5 text-xs font-bold"
                       >
                         <Maximize2 size={12} />
-                        <span>Expand Technical Specs</span>
+                        <span>Explore Solution &amp; Specs</span>
                       </button>
                     ) : (
                       <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-white/40">
@@ -358,8 +358,8 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                 }}
                 className={`absolute top-0 bottom-0 w-[290px] sm:w-[360px] md:w-[410px] my-auto h-[480px] sm:h-[510px] md:h-[540px] rounded-3xl overflow-hidden cursor-pointer transition-shadow duration-300 ${
                   isCenter
-                    ? 'border-2 border-[var(--accent)]/70 shadow-[0_25px_60px_-15px_rgba(255,90,54,0.3),0_0_40px_rgba(0,0,0,0.9)] ring-1 ring-white/20'
-                    : 'border border-white/[0.08] shadow-[0_20px_45px_rgba(0,0,0,0.85)] hover:border-white/[0.22] hover:opacity-75'
+                    ? 'border-2 border-[var(--accent)]/70 shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,90,54,0.3)]'
+                    : 'border border-white/[0.1] opacity-50 shadow-2xl hover:border-white/[0.25]'
                 } bg-[#0A0B10] flex flex-col justify-between select-none`}
               >
                 {/* Background Poster Cover */}
@@ -368,9 +368,9 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                     <img
                       src={project.coverImage}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top opacity-55 transition-transform duration-700 hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover object-top opacity-50"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/80 to-black/60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/85 to-black/65" />
                   </>
                 ) : (
                   <>
@@ -397,7 +397,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                 <div className="relative z-10 px-6 flex-1 flex flex-col items-center justify-center">
                   {!isCenter && (
                     <div className="px-4 py-1.5 rounded-full bg-[#12131C]/90 border border-white/[0.2] text-white font-mono text-[11px] uppercase tracking-wider flex items-center gap-1.5 shadow-xl hover:border-[var(--accent)]/60 transition-colors">
-                      <span>Click to Focus</span>
+                      <span>Click to View</span>
                       <ArrowRight size={12} className="text-[var(--accent)]" />
                     </div>
                   )}
@@ -441,7 +441,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                       className="liquid-btn-primary w-full justify-center !py-3 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 group/btn cursor-pointer"
                     >
                       <Maximize2 size={13} className="group-hover/btn:scale-110 transition-transform" />
-                      <span>Expand Technical Specs</span>
+                      <span>Explore Solution &amp; Specs</span>
                     </button>
                   ) : (
                     <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-white/40">
