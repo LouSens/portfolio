@@ -20,16 +20,17 @@ import Footer from './components/Footer';
 import { PROJECTS_DATA } from './data/portfolioData';
 
 /* ═══════════════════════════════════════
-   THREE.JS PARTICLE FIELD
+   THREE.JS HERO PARTICLE FIELD
    ═══════════════════════════════════════ */
 function ParticleField() {
   const ref = useRef();
 
   const positions = React.useMemo(() => {
-    const count = 2200;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const count = isMobile ? 800 : 2000;
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const r = 14 * Math.cbrt(Math.random());
+      const r = (isMobile ? 13 : 15) * Math.cbrt(Math.random());
       const theta = Math.random() * 2 * Math.PI;
       const phi = Math.acos(2 * Math.random() - 1);
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
@@ -39,7 +40,7 @@ function ParticleField() {
     return pos;
   }, []);
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.y -= delta * 0.035;
       ref.current.rotation.x -= delta * 0.012;
@@ -51,10 +52,10 @@ function ParticleField() {
       <PointMaterial
         transparent
         color="#FF5A36"
-        size={0.04}
+        size={0.045}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.3}
+        opacity={0.35}
       />
     </Points>
   );
@@ -121,7 +122,7 @@ export default function App() {
     }
   }, [activeModalProject]);
 
-  // Deep linking: Open modal on URL hash #project=<id>
+  // Sync modal with URL hash
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash;
@@ -154,21 +155,23 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#070709] text-[#f3f3f6] font-sans selection:bg-[var(--accent)]/30 selection:text-white">
+    <div className="relative min-h-screen bg-[#050508] text-[#f3f3f6] font-sans selection:bg-[var(--accent)]/30 selection:text-white overflow-x-hidden">
       <ScrollProgress />
 
-      {/* 3D WebGL particle field in Hero background */}
+      {/* ── 3D WEBGL PARTICLE SPHERE (HERO ISOLATED CENTERPIECE) ── */}
       <div
-        className="absolute top-0 left-0 w-full pointer-events-none"
+        className="absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden"
         style={{
-          height: '110vh',
-          zIndex: 0,
-          maskImage: 'linear-gradient(to bottom, black 35%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 35%, transparent 100%)',
-          opacity: 0.7,
+          height: '100vh',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
         }}
       >
-        <Canvas camera={{ position: [0, 0, 15] }}>
+        <Canvas
+          camera={{ position: [0, 0, 15] }}
+          dpr={[1, 1.5]}
+          gl={{ powerPreference: 'high-performance', antialias: false }}
+        >
           <ParticleField />
         </Canvas>
       </div>

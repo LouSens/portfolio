@@ -5,8 +5,8 @@ export default function Marquee() {
   const repeated = [...MARQUEE_TOOLS, ...MARQUEE_TOOLS, ...MARQUEE_TOOLS];
 
   return (
-    <section className="py-7 border-y border-white/[0.08] bg-[#050507] overflow-hidden select-none">
-      <div className="ticker-wrap-new w-full">
+    <section className="py-8 bg-transparent overflow-hidden select-none relative">
+      <div className="ticker-wrap-new w-full [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
         <div className="ticker-track-new">
           {repeated.map((tool, idx) => (
             <div

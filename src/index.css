@@ -139,80 +139,86 @@ body.is-scrolling * {
   pointer-events: none;
 }
 
-/* Liquid button styles */
+/* ═══════════════════════════════════════════
+   OPTION 1: PHYSICAL PRECISION KEY BUTTONS
+   ═══════════════════════════════════════════ */
 .liquid-btn-primary {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 11px 24px;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, #FF6644 0%, #FF431A 100%);
+  padding: 12px 26px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #FF6644 0%, #FF431A 50%, #E6350E 100%);
   border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 8px 24px rgba(255, 90, 54, 0.32),
-              inset 0 1px 1px 0 rgba(255, 255, 255, 0.42),
-              inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px -2px rgba(255, 90, 54, 0.42),
+              0 2px 6px rgba(0, 0, 0, 0.3),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.48),
+              inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3);
   color: #ffffff;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.02em;
   font-weight: 700;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.25s ease,
-              filter 0.25s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s ease,
+              filter 0.2s ease;
   will-change: transform;
 }
 .liquid-btn-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(255, 90, 54, 0.45),
-              inset 0 1px 1px 0 rgba(255, 255, 255, 0.55);
-  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -2px rgba(255, 90, 54, 0.52),
+              0 4px 10px rgba(0, 0, 0, 0.35),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  filter: brightness(1.06);
 }
 .liquid-btn-primary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 3px 10px rgba(255, 90, 54, 0.3),
+              inset 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .liquid-btn-secondary {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 11px 24px;
-  border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(12, 13, 18, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  padding: 12px 26px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(11, 12, 18, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
-              inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
   color: rgba(255, 255, 255, 0.9);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.02em;
   font-weight: 600;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.25s ease,
-              background 0.25s ease,
-              color 0.25s ease,
-              box-shadow 0.25s ease;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              background 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease;
   will-change: transform;
 }
 .liquid-btn-secondary:hover {
-  transform: translateY(-2px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.32);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%), rgba(18, 19, 26, 0.85);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(16, 17, 24, 0.95);
   color: #ffffff;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55),
-              inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.32);
 }
 .liquid-btn-secondary:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(1px) scale(0.98);
 }
 
 /* Liquid input fields */
@@ -309,12 +315,33 @@ body.is-scrolling * {
 }
 
 /* ═══════════════════════════════════════════
-   MOBILE PERFORMANCE HELPERS
-═══════════════════════════════════════════ */
+   MOBILE PERFORMANCE & TOUCH OPTIMIZATIONS
+   ═══════════════════════════════════════════ */
+button, a, input, select, textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media (max-width: 768px) {
+  /* Prevent iOS zoom on input focus by guaranteeing 16px font */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  /* Optimize blur filters for 60/120fps mobile scrolling */
   .liquid-glass-card,
-  .liquid-glass {
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  .liquid-glass,
+  .backdrop-blur-2xl,
+  .backdrop-blur-xl {
+    backdrop-filter: blur(10px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(140%) !important;
+  }
+
+  /* GPU layer promotion for smooth touch inertia */
+  .liquid-btn-primary,
+  .liquid-btn-secondary,
+  .liquid-glass-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 }

@@ -209,7 +209,7 @@ export const PROJECTS_DATA = [
     ],
     tags: ['React 19', 'FastAPI', 'PostgreSQL + pgvector', 'LangGraph', 'Zustand', 'Docker Compose'],
     githubUrl: 'https://github.com/LouSens/KerjaCerdas.git',
-    liveUrl: null,
+    liveUrl: 'http://kerja-cerdas.replit.app/',
     codeSnippet: {
       filename: 'backend/services/matching_engine.py',
       language: 'python',

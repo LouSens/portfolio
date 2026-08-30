@@ -170,10 +170,19 @@ export default function TechStackMatrix() {
   return (
     <section
       id="stack"
-      className="py-24 md:py-32 px-4 sm:px-6 md:px-8 bg-[#070709] relative border-t border-white/[0.08] overflow-hidden select-none"
+      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative overflow-hidden select-none bg-gradient-to-b from-[#050508] via-[#060D0C] to-[#050508]"
     >
-      {/* Ambient liquid lighting */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[var(--accent)]/[0.025] rounded-full blur-[190px]" />
+      {/* ── CYBER MATRIX GRID BACKDROP ── */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(16,185,129,0.12)_1px,transparent_1px)] [background-size:24px_24px]"
+        style={{
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 25%, transparent 75%)',
+        }}
+      />
+
+      {/* Ambient cyber emerald lighting */}
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-emerald-500/[0.05] rounded-full blur-[190px]" />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         {/* ── SECTION HEADER & FILTER PILLS ── */}
@@ -181,19 +190,15 @@ export default function TechStackMatrix() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14"
         >
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-5 h-px bg-[var(--accent)]" />
-              <span className="font-mono text-xs text-[var(--accent)] font-semibold uppercase tracking-widest">
-                Core Stack
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] mb-3">
+              Tools &amp; Frameworks{' '}
+              <span className="text-emerald-400 relative inline-block whitespace-nowrap after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-emerald-400/80 after:rounded-full after:shadow-[0_0_8px_rgba(16,185,129,0.8)]">
+                Built to Scale
               </span>
-            </div>
-
-            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-2">
-              Technologies &amp; Frameworks
             </h2>
 
             <p className="text-white/60 text-sm sm:text-base font-normal leading-relaxed">
@@ -202,15 +207,15 @@ export default function TechStackMatrix() {
           </div>
 
           {/* Liquid Glass Filter Pills with Spring Indicator */}
-          <div className="flex flex-wrap gap-1 p-1 rounded-2xl bg-white/[0.04] border border-white/[0.1] backdrop-blur-xl shadow-md shrink-0 relative">
+          <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.1] backdrop-blur-xl shadow-md shrink-0 relative max-w-full">
             {TECH_CATEGORIES.map((cat) => {
               const isSelected = activeCategory === cat.id;
               return (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-xl font-mono text-xs transition-colors duration-200 cursor-pointer relative z-10 ${
-                    isSelected ? 'text-white font-semibold' : 'text-white/60 hover:text-white'
+                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl font-display text-xs transition-colors duration-200 cursor-pointer relative z-10 ${
+                    isSelected ? 'text-white font-bold' : 'text-white/60 hover:text-white'
                   }`}
                 >
                   {isSelected && (

@@ -130,15 +130,15 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
           {/* ── TOP CONTROL & ACTION HEADER ── */}
           <div className="px-6 py-4 sm:px-8 sm:py-5 bg-gradient-to-b from-white/[0.05] to-transparent border-b border-white/[0.08] flex items-center justify-between gap-4 shrink-0">
             {/* Left project meta */}
-            <div className="flex items-center gap-3 min-w-0">
-              <span className="px-3 py-1 rounded-full bg-[var(--accent)]/15 border border-[var(--accent)]/35 text-[10px] font-mono uppercase tracking-wider text-[var(--accent)] font-semibold flex items-center gap-1.5 shrink-0 shadow-[0_0_10px_rgba(255,90,54,0.15)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="font-display font-semibold text-xs text-white/95 tracking-tight flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.06] border border-white/[0.1] shadow-sm">
+                <span className="text-[var(--accent)] text-xs">✦</span>
                 {project.badge}
               </span>
 
-              <span className="text-white/30 font-mono text-xs hidden sm:inline">•</span>
+              <span className="text-white/30 text-xs hidden sm:inline">•</span>
 
-              <span className="text-white/60 font-mono text-xs truncate hidden sm:inline">
+              <span className="text-white/60 font-display font-medium text-xs truncate hidden sm:inline">
                 {project.category}
               </span>
             </div>

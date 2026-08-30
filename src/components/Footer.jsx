@@ -8,9 +8,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="pt-16 pb-12 px-4 sm:px-6 md:px-8 bg-[#050507] relative z-20 border-t border-white/[0.08] text-white/70">
+    <footer className="pt-20 pb-12 px-4 sm:px-6 md:px-8 relative z-20 text-white/70 bg-gradient-to-b from-transparent via-[#040406]/80 to-[#020204]">
       <div className="max-w-[1240px] mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/[0.08]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/[0.06]">
           {/* Col 1 */}
           <div className="md:col-span-6 space-y-3.5">
             <div className="flex items-center gap-2.5">

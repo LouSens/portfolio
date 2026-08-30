@@ -85,47 +85,40 @@ export default function CredentialsSection() {
   return (
     <section
       id="awards"
-      className="py-24 md:py-32 px-4 sm:px-6 md:px-8 bg-[#070709] relative border-t border-white/[0.08] overflow-hidden select-none"
+      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative overflow-hidden select-none bg-gradient-to-b from-[#050508] via-[#100D06] to-[#050508]"
     >
-      {/* Subtle background glow */}
-      <div className="pointer-events-none absolute top-1/3 -right-40 w-[600px] h-[600px] rounded-full bg-[var(--accent)]/[0.025] blur-3xl" />
+      {/* ── RADIANT GOLDEN TROPHY & HONORS NEBULA ── */}
+      <div className="pointer-events-none absolute top-1/3 right-10 w-[850px] h-[650px] rounded-full bg-amber-400/[0.075] blur-[200px]" />
+      <div className="pointer-events-none absolute top-10 left-1/3 w-[600px] h-[400px] rounded-full bg-yellow-500/[0.055] blur-[170px]" />
+      <div className="pointer-events-none absolute bottom-10 left-10 w-[550px] h-[450px] bg-amber-600/[0.045] rounded-full blur-[180px]" />
 
       <div className="max-w-[1240px] mx-auto relative z-10">
-        {/* ── SECTION LABEL ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="max-w-2xl mb-14"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-2xl mb-16"
         >
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="w-6 h-px bg-[var(--accent)]" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] font-semibold">
-              // Recognition &amp; Academics
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] mb-3.5">
+            Verified Awards &amp;{' '}
+            <span className="bg-gradient-to-br from-yellow-100 via-amber-300 to-amber-600 bg-clip-text text-transparent inline-block whitespace-nowrap">
+              Academic Honors
             </span>
-          </div>
-
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-white tracking-tight leading-tight mb-2.5">
-            Awards &amp; Academic Honors
           </h2>
 
-          <p className="text-white/60 text-xs sm:text-sm font-normal leading-relaxed">
-            Verified academic excellence at Xiamen University Malaysia alongside international competition placements.
+          <p className="text-white/60 text-xs sm:text-sm md:text-base font-normal leading-relaxed">
+            Verified academic excellence at Xiamen University Malaysia (Top 16%, 3.84 GPA) alongside international competition placements.
           </p>
         </motion.div>
 
         {/* ── 1. ACADEMIC EXCELLENCE LIQUID GLASS CARD ── */}
         <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          whileHover={{
-            borderColor: 'rgba(255, 90, 54, 0.4)',
-            boxShadow: '0 25px 60px -15px rgba(0,0,0,0.85), 0 0 30px rgba(255,90,54,0.15)',
-          }}
-          transition={{ duration: 0.35, type: 'spring', stiffness: 240, damping: 24 }}
-          className="mb-8 rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.06] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7),inset_0_1px_1px_0_rgba(255,255,255,0.2)] transition-colors duration-300"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-8 rounded-3xl border border-white/[0.12] hover:border-[var(--accent)]/40 bg-gradient-to-br from-white/[0.06] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-8 md:p-10 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.7),inset_0_1px_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85),0_0_30px_rgba(255,90,54,0.15)] transition-all duration-150 ease-out"
         >
           {/* Top specular reflection sheen */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
@@ -188,11 +181,9 @@ export default function CredentialsSection() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                 {DEANS_LIST.map((item, idx) => (
-                  <motion.button
+                  <button
                     key={idx}
                     type="button"
-                    whileHover={{ scale: 1.02, y: -2, borderColor: 'rgba(255,90,54,0.4)', backgroundColor: 'rgba(255,255,255,0.06)' }}
-                    whileTap={{ scale: 0.98 }}
                     onClick={() =>
                       setActiveMediaModal({
                         src: item.src,
@@ -200,7 +191,7 @@ export default function CredentialsSection() {
                         subtitle: `${EDUCATION.school} · Top Academic Standing`,
                       })
                     }
-                    className="group flex items-center justify-between p-4 rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-all duration-200 text-left shadow-sm cursor-pointer"
+                    className="group flex items-center justify-between p-4 rounded-2xl border border-white/[0.08] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.06] hover:-translate-y-0.5 transition-all duration-150 text-left shadow-sm cursor-pointer active:scale-[0.98]"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] group-hover:scale-125 transition-transform shadow-[0_0_8px_var(--accent)]" />
@@ -215,7 +206,7 @@ export default function CredentialsSection() {
                     </div>
 
                     <Eye size={14} className="text-white/40 group-hover:text-white transition-colors shrink-0" />
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             </div>
@@ -230,13 +221,8 @@ export default function CredentialsSection() {
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ delay: idx * 0.08, type: 'spring', stiffness: 220, damping: 24 }}
-              whileHover={{
-                y: -3,
-                borderColor: 'rgba(255, 255, 255, 0.24)',
-                boxShadow: '0 20px 45px -10px rgba(0,0,0,0.85), inset 0 1px 1px 0 rgba(255,255,255,0.2)',
-              }}
-              className="rounded-3xl border border-white/[0.1] bg-gradient-to-br from-white/[0.04] via-[#0A0B10]/95 to-[#07070A]/95 backdrop-blur-xl p-6 sm:p-8 transition-all duration-300 shadow-xl relative overflow-hidden"
+              transition={{ duration: 0.4, delay: idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-3xl border border-white/[0.1] hover:border-white/[0.24] hover:-translate-y-1 bg-gradient-to-br from-white/[0.04] via-[#0A0B10]/95 to-[#07070A]/95 backdrop-blur-xl p-6 sm:p-8 transition-all duration-150 ease-out shadow-xl hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85),inset_0_1px_1px_0_rgba(255,255,255,0.2)] relative overflow-hidden"
             >
               <div className="liquid-specular-bar opacity-0 hover:opacity-100 transition-opacity" />
 
@@ -304,12 +290,10 @@ export default function CredentialsSection() {
                   {/* Photo thumbnails */}
                   {award.media && award.media.length > 0 && (
                     <div className="flex items-center gap-2.5">
-                      {award.media.map((med, i) => (
-                        <motion.button
-                          key={i}
+                      {award.media.map((med, mIdx) => (
+                        <button
+                          key={mIdx}
                           type="button"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.96 }}
                           onClick={() =>
                             setActiveMediaModal({
                               src: med.src,
@@ -317,17 +301,17 @@ export default function CredentialsSection() {
                               subtitle: `${award.title} · ${award.place}`,
                             })
                           }
-                          className="group relative w-24 h-16 rounded-xl overflow-hidden border border-white/[0.14] hover:border-[var(--accent)] transition-all duration-200 shadow-md cursor-pointer"
+                          className="group relative w-24 h-16 rounded-xl overflow-hidden border border-white/[0.14] hover:border-[var(--accent)] transition-all duration-150 hover:scale-105 active:scale-95 shadow-md cursor-pointer"
                         >
                           <img
                             src={med.src}
                             alt={med.alt}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-200"
                           />
                           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                             <Eye size={14} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
-                        </motion.button>
+                        </button>
                       ))}
                     </div>
                   )}

@@ -75,11 +75,11 @@ export default function Navbar() {
             {/* ── BESPOKE LIQUID BRAND IDENTITY ── */}
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="flex items-center gap-3 text-white transition-all duration-300 group text-left cursor-pointer select-none"
+              className="flex items-center gap-3 text-white transition-all duration-200 group text-left cursor-pointer select-none"
             >
               {/* Custom Liquid Glass DK Monogram Emblem */}
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-white/[0.14] via-[#101118]/90 to-[#0A0B10]/95 border border-white/[0.2] group-hover:border-[var(--accent)]/60 flex items-center justify-center font-display font-black text-[13px] tracking-tight text-white group-hover:shadow-[0_0_22px_rgba(255,90,54,0.35)] transition-all duration-300 shadow-md">
-                <span className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent group-hover:to-[var(--accent)] transition-all">
+              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-white/[0.16] via-[#0E1018]/90 to-[#07080D]/95 border border-white/[0.22] group-hover:border-[var(--accent)]/70 flex items-center justify-center font-display font-extrabold text-[13px] tracking-tight text-white group-hover:shadow-[0_0_20px_rgba(255,90,54,0.35)] transition-all duration-200 shadow-md">
+                <span className="bg-gradient-to-r from-white via-white to-white/75 bg-clip-text text-transparent group-hover:to-[var(--accent)] transition-all">
                   DK
                 </span>
                 <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[var(--accent)] ring-2 ring-[#070709] shadow-[0_0_6px_var(--accent)]" />
@@ -89,44 +89,43 @@ export default function Navbar() {
                 <span className="font-display font-bold text-sm sm:text-base text-white block leading-none tracking-tight group-hover:text-[var(--accent)] transition-colors">
                   David Kurniawan
                 </span>
-                <span className="font-mono text-[9px] text-white/45 uppercase tracking-widest block mt-0.5 font-medium">
+                <span className="font-mono text-[9px] text-white/50 uppercase tracking-widest block mt-0.5 font-medium">
                   Full-Stack &amp; AI Systems
                 </span>
               </div>
             </button>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-6 lg:gap-7">
+            <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] p-1 rounded-full border border-white/[0.06]">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollTo(link.id)}
-                  className="relative text-white/65 hover:text-white transition-colors text-[11px] uppercase tracking-[0.14em] font-mono py-1 group cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/[0.06] transition-all text-xs font-display font-medium tracking-wide cursor-pointer"
                 >
                   {link.label}
-                  <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-[var(--accent)] group-hover:w-full transition-all duration-200" />
                 </button>
               ))}
             </nav>
 
-            {/* Action Buttons */}
-            <div className="hidden sm:flex items-center gap-2.5">
+            {/* Remodeled Action Buttons */}
+            <div className="hidden sm:flex items-center gap-2">
               <a
                 href={PERSONAL_INFO.resumeUrl}
                 download="CV_David_Kurniawan.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/[0.14] text-white/85 hover:text-white hover:border-white/[0.3] font-mono text-xs transition-all bg-white/[0.04] hover:bg-white/[0.08] shadow-sm cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/[0.12] text-white/80 hover:text-white hover:border-white/[0.28] font-display font-medium text-xs transition-all bg-white/[0.03] hover:bg-white/[0.08] shadow-sm cursor-pointer"
               >
-                <Download size={12} />
+                <Download size={13} />
                 <span>Resume</span>
               </a>
 
               <button
                 onClick={() => scrollTo('inquire')}
-                className="liquid-btn-primary !py-2 !px-4 text-xs font-semibold uppercase tracking-wider transition-all"
+                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FF6644] to-[#FF431A] hover:from-[#ff7555] hover:to-[#ff522b] text-white font-display font-bold text-xs tracking-wide shadow-[0_4px_16px_rgba(255,90,54,0.35),inset_0_1px_1px_rgba(255,255,255,0.4)] border border-white/20 transition-all cursor-pointer active:scale-95"
               >
-                Get in Touch
+                Let's Talk
               </button>
             </div>
 
@@ -187,9 +186,9 @@ export default function Navbar() {
             <div className="flex flex-col w-full gap-2.5 pt-4 border-t border-white/[0.08]">
               <button
                 onClick={() => scrollTo('inquire')}
-                className="liquid-btn-primary w-full justify-center !py-3 font-mono text-xs uppercase font-bold tracking-wider"
+                className="liquid-btn-primary w-full justify-center !py-3.5 font-display text-sm font-bold tracking-wide"
               >
-                Get in Touch
+                Let's Talk
               </button>
 
               <a
@@ -197,9 +196,9 @@ export default function Navbar() {
                 download="CV_David_Kurniawan.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="liquid-btn-secondary w-full justify-center !py-3 font-mono text-xs uppercase tracking-wider text-center flex items-center gap-2"
+                className="liquid-btn-secondary w-full justify-center !py-3.5 font-display text-sm font-semibold tracking-wide text-center flex items-center gap-2"
               >
-                <Download size={13} />
+                <Download size={15} />
                 <span>Download Resume</span>
               </a>
             </div>

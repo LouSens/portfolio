@@ -194,28 +194,30 @@ export default function ScopeInquiryDrawer() {
   return (
     <section
       id="inquire"
-      className="py-24 md:py-32 px-4 sm:px-6 md:px-8 bg-[#070709] relative border-t border-white/[0.08] select-none overflow-hidden"
+      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative select-none overflow-hidden bg-gradient-to-b from-[#050508] via-[#120816] to-[#040406]"
     >
-      {/* Ambient lighting backdrop */}
-      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[750px] h-[420px] bg-[var(--accent)]/[0.04] rounded-full blur-[180px]" />
+      {/* ── RADIANT WARM SUNSET & VIOLET AURORA BACKDROP ── */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-gradient-to-tr from-[#FF5A36]/16 via-rose-600/12 to-indigo-600/10 rounded-full blur-[220px]" />
+      <div className="pointer-events-none absolute top-10 left-1/4 w-[600px] h-[400px] bg-amber-500/[0.06] rounded-full blur-[170px]" />
 
       <div className="max-w-[880px] mx-auto relative z-10">
         {/* ── SECTION HEADER ── */}
-        <div className="text-center max-w-xl mx-auto mb-10">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <span className="w-5 h-px bg-[var(--accent)]" />
-            <span className="font-mono text-xs text-[var(--accent)] font-semibold uppercase tracking-widest">
-              Contact
-            </span>
-            <span className="w-5 h-px bg-[var(--accent)]" />
-          </div>
-
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-3">
-            Let's Build Something Together.
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-4">
+            <span className="bg-gradient-to-r from-[#FF5A36] via-rose-500 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(255,90,54,0.35)] inline-block whitespace-nowrap">
+              Let's Build Something
+            </span>{' '}
+            Exceptional.
           </h2>
 
-          <p className="text-white/65 text-sm sm:text-base font-normal leading-relaxed">
-            Have a project in mind, a business challenge to solve, or looking to collaborate? Send a message and I'll get back to you within 24 hours.
+          <p className="text-white/70 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-xl mx-auto">
+            {submissionCount > 0 ? (
+              <>
+                Have a project in mind or looking to collaborate? Drop an inquiry below — <span className="text-white font-medium">{submissionCount} project {submissionCount === 1 ? 'discussion' : 'discussions'} initiated so far</span>.
+              </>
+            ) : (
+              'Have a project in mind, a business workflow to automate, or looking to collaborate? Drop an inquiry below to get started.'
+            )}
           </p>
         </div>
 
@@ -223,23 +225,6 @@ export default function ScopeInquiryDrawer() {
         <div className="rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.05] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-10 md:p-12 shadow-[0_30px_70px_rgba(0,0,0,0.85),inset_0_1px_1px_0_rgba(255,255,255,0.18)] relative overflow-hidden">
           {/* Top specular reflection sheen */}
           <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/50 to-transparent pointer-events-none" />
-
-          {/* Minimalist Live Tracking Bar */}
-          <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/[0.08]">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-              <span className="font-mono text-xs uppercase tracking-wider text-white/60 font-medium">
-                Direct Inquiries Pipeline
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="text-white/40">Total Inquiries:</span>
-              <span className="px-2.5 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-white font-bold text-xs">
-                {submissionCount}
-              </span>
-            </div>
-          </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 select-text">
             {/* Row 1: Name and Email */}
@@ -349,7 +334,7 @@ export default function ScopeInquiryDrawer() {
                 <span>{isSubmitting ? 'Sending Message...' : 'Send Inquiry'}</span>
               </button>
 
-              <div className="flex items-center justify-center sm:justify-end gap-3 text-xs font-mono text-white/60">
+              <div className="flex items-center justify-center sm:justify-end gap-3.5 text-xs font-display font-medium text-white/70">
                 <button
                   type="button"
                   onClick={handleCopyEmail}

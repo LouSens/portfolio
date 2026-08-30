@@ -7,9 +7,10 @@ import {
   Layers,
   ArrowUpRight,
   CheckCircle2,
-  AlertCircle,
-  Cpu,
-  Sparkles,
+  Check,
+  ShieldCheck,
+  ExternalLink,
+  Code2,
 } from 'lucide-react';
 import { PROJECTS_DATA, HOW_WE_WORK } from '../data/portfolioData';
 
@@ -33,16 +34,30 @@ export default function ServicesSection({ onOpenProject }) {
         'Secure user login and role-based permissions out of the box',
         '100% responsive layouts optimized for mobile, tablet, and desktop',
       ],
-      technicalCapabilities: [
-        { title: 'Client Architecture', detail: 'React 19 & Tailwind CSS SPA', badge: '<16ms Render' },
-        { title: 'State Synchronization', detail: 'Unidirectional Zustand store', badge: 'Deterministic' },
-        { title: 'API Integration', detail: 'Asynchronous fetch with type contracts', badge: '60 FPS' },
-      ],
-      specs: [
-        { label: 'Client Framework', value: 'React 19 & Vite' },
-        { label: 'State Model', value: 'Zustand Store' },
-        { label: 'Type Contracts', value: 'Pydantic v2' },
-      ],
+      scopePackage: {
+        windowTitle: 'Scope & Deliverables — Web Application',
+        liveProject: 'KerjaCerdas',
+        liveUrl: 'http://kerja-cerdas.replit.app/',
+        deliverables: [
+          {
+            title: 'Interactive Frontend Application',
+            desc: 'Single-page application with responsive layouts, smooth micro-interactions, and instant navigation.',
+          },
+          {
+            title: 'Authentication & Session Security',
+            desc: 'Secure user onboarding, role-based permissions, and password-protected admin dashboards.',
+          },
+          {
+            title: 'Client Dashboard & Workflow Portal',
+            desc: 'Intuitive data tables, forms, kanban boards, and status tracking tailored to your workflow.',
+          },
+          {
+            title: 'Cloud Deployment & Documentation',
+            desc: 'Automated CI/CD deployment, custom domain setup, and complete handover documentation.',
+          },
+        ],
+        frameworks: ['React 19', 'Tailwind CSS', 'FastAPI', 'Vercel / Cloud'],
+      },
       provenBuilds: ['KerjaCerdas', 'Portfolio', 'NeuralVoid'],
     },
     {
@@ -61,16 +76,30 @@ export default function ServicesSection({ onOpenProject }) {
         'Sub-second database queries and instant data retrieval for end users',
         'Automated background processing so users never wait on heavy tasks',
       ],
-      technicalCapabilities: [
-        { title: 'API Gateway', detail: 'FastAPI async routing & OpenAPI specs', badge: 'Async Core' },
-        { title: 'Vector Store', detail: 'PostgreSQL pgvector HNSW similarity', badge: 'Sub-second' },
-        { title: 'Cache Strategy', detail: 'Redis session & sliding-window limiting', badge: 'In-Memory' },
-      ],
-      specs: [
-        { label: 'Protocol', value: 'REST & OpenAPI 3.1' },
-        { label: 'Vector Index', value: 'pgvector HNSW' },
-        { label: 'Rate Limiter', value: 'Sliding-Window' },
-      ],
+      scopePackage: {
+        windowTitle: 'Scope & Deliverables — Cloud Backend & DB',
+        liveProject: 'Orion',
+        liveUrl: null,
+        deliverables: [
+          {
+            title: 'RESTful API Services',
+            desc: 'Asynchronous API endpoints with strict data validation contracts and auto-generated documentation.',
+          },
+          {
+            title: 'High-Throughput Database Architecture',
+            desc: 'Optimized relational and vector database schemas (PostgreSQL / Redis) built for fast queries.',
+          },
+          {
+            title: 'Rate Limiting & DDoS Defense',
+            desc: 'In-memory sliding-window request throttling to protect your platform from abuse and bots.',
+          },
+          {
+            title: 'Automated Background Processing',
+            desc: 'Async worker pipelines so users never experience delays while heavy tasks run behind the scenes.',
+          },
+        ],
+        frameworks: ['FastAPI', 'PostgreSQL', 'Redis', 'Docker'],
+      },
       provenBuilds: ['KerjaCerdas', 'Orion', 'Startup EMP'],
     },
     {
@@ -80,25 +109,39 @@ export default function ServicesSection({ onOpenProject }) {
       tagline: 'Multi-Step AI Automation & Document Processing',
       icon: Bot,
       problem:
-        'Teams waste hundreds of hours each month on repetitive manual tasks—reading PDFs, triaging applications, and cross-checking compliance rules.',
+        'Teams drown in repetitive manual tasks—reading PDFs, sorting leads, and copying data—costing hundreds of wasted employee hours every month.',
       solution:
-        'Autonomous AI agent networks that execute complex multi-step workflows from start to finish, while keeping human administrators in control for final approvals.',
+        'Autonomous AI agent pipelines that automatically extract data from documents, route tasks across multi-step workflows, and deliver structured results directly to your databases.',
       businessOutcomes: [
-        'Over 40% reduction in compute and operational processing costs',
-        '10x faster document triage and applicant screening with zero fatigue',
-        'Human-in-the-loop approval checkpoints ensuring zero rogue actions',
-        'Consistent, audit-ready structured outputs without manual data entry',
+        '10x faster document analysis by automating resume and invoice parsing',
+        '40%+ savings on AI operational costs via intelligent Token Efficiency Gates',
+        'Zero manual data entry errors with strict JSON output schema validation',
+        'Continuous automated workflows operating 24/7 without fatigue',
       ],
-      technicalCapabilities: [
-        { title: 'Supervisor Node', detail: 'Intent classification & parallel dispatch', badge: 'Supervisor' },
-        { title: 'Worker Swarm', detail: 'Parallel extractors & evaluation graphs', badge: 'Concurrent' },
-        { title: 'Governance Gate', detail: 'Human checkpoint approval state', badge: 'Checkpoint' },
-      ],
-      specs: [
-        { label: 'Graph Framework', value: 'LangGraph State' },
-        { label: 'Validation', value: 'Strict Pydantic v2' },
-        { label: 'Observability', value: 'LangSmith Traced' },
-      ],
+      scopePackage: {
+        windowTitle: 'Scope & Deliverables — AI Agent Pipeline',
+        liveProject: 'KerjaCerdas',
+        liveUrl: 'http://kerja-cerdas.replit.app/',
+        deliverables: [
+          {
+            title: 'Multi-Agent Workflow Orchestrator',
+            desc: 'Autonomous supervisor state machines routing complex multi-step tasks across worker agents.',
+          },
+          {
+            title: 'Multimodal Document Ingestion',
+            desc: 'Automated PDF, document, and image data extraction directly into structured database records.',
+          },
+          {
+            title: 'Token Efficiency & Cost Gates',
+            desc: 'Intelligent caching and token control middleware reducing monthly LLM compute expenses.',
+          },
+          {
+            title: 'Strict Output Schema Enforcement',
+            desc: 'Guaranteed structured JSON output formatting with zero unvalidated text or hallucinations.',
+          },
+        ],
+        frameworks: ['LangGraph', 'Gemini Multimodal', 'Pydantic v2', 'Python'],
+      },
       provenBuilds: ['Startup EMP', 'KerjaCerdas', 'Orion'],
     },
     {
@@ -117,16 +160,30 @@ export default function ServicesSection({ onOpenProject }) {
         '96%+ accuracy predictive analytics models to anticipate user behavior',
         'Automated executive reports generated in seconds instead of hours',
       ],
-      technicalCapabilities: [
-        { title: 'Hybrid Retrieval', detail: 'Dense vector (0.6) + BM25 sparse (0.4)', badge: 'RRF Fusion' },
-        { title: 'Neural Reranker', detail: 'Cross-encoder scoring with threshold gate', badge: 'High-Precision' },
-        { title: 'Predictive ML', detail: 'XGBoost & Random Forest ensembles', badge: '96.2% Accuracy' },
-      ],
-      specs: [
-        { label: 'Retrieval Model', value: 'Dense + BM25 RRF' },
-        { label: 'Reranker Gate', value: 'Cross-Encoder' },
-        { label: 'ML Analytics', value: 'XGBoost Ensembles' },
-      ],
+      scopePackage: {
+        windowTitle: 'Scope & Deliverables — Search & Knowledge RAG',
+        liveProject: 'Indonesian Legal RAG',
+        liveUrl: 'https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal',
+        deliverables: [
+          {
+            title: 'Hybrid Knowledge Retrieval Engine',
+            desc: 'Combines dense vector embeddings with sparse keyword search for pinpoint accuracy.',
+          },
+          {
+            title: 'Verifiable Direct Source Citations',
+            desc: 'Every answer includes exact document and article citations, eliminating hallucinations.',
+          },
+          {
+            title: 'Neural Cross-Encoder Reranking',
+            desc: 'Two-stage retrieval pipeline ranking the highest-relevance answers first for users.',
+          },
+          {
+            title: 'Predictive Machine Learning Ensembles',
+            desc: 'Custom regression and classification models extracting behavioral patterns and trends.',
+          },
+        ],
+        frameworks: ['pgvector HNSW', 'BM25 RRF', 'Cross-Encoder', 'scikit-learn'],
+      },
       provenBuilds: ['Indonesian Legal RAG', 'NeuralVoid', 'KerjaCerdas'],
     },
   ];
@@ -150,37 +207,39 @@ export default function ServicesSection({ onOpenProject }) {
   return (
     <section
       id="services"
-      className="py-24 md:py-32 px-4 sm:px-6 md:px-8 bg-[#070709] relative border-t border-white/[0.08] overflow-hidden select-none"
+      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative overflow-hidden select-none bg-gradient-to-b from-[#050508] via-[#090B14] to-[#050508]"
     >
-      {/* Ambient lighting */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[var(--accent)]/[0.025] rounded-full blur-[190px]" />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
+        style={{
+          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%)',
+        }}
+      />
+
+      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-indigo-500/[0.07] rounded-full blur-[180px]" />
+      <div className="pointer-events-none absolute bottom-10 right-10 w-[500px] h-[350px] bg-[var(--accent)]/[0.04] rounded-full blur-[150px]" />
 
       <div className="max-w-[1240px] mx-auto relative z-10">
-        {/* ── SECTION HEADER ── */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 24 }}
-          className="max-w-2xl mb-12"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl mb-14"
         >
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-5 h-px bg-[var(--accent)]" />
-            <span className="font-mono text-xs text-[var(--accent)] font-semibold uppercase tracking-widest">
-              Capabilities &amp; Solutions
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-4">
+            Transforming Real Problems into{' '}
+            <span className="bg-gradient-to-tr from-[#FF5A36] via-[#FF8C69] to-amber-300 bg-clip-text text-transparent inline-block whitespace-nowrap">
+              Finished Solutions
             </span>
-          </div>
-
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight mb-3">
-            Finished Solutions &amp; Engineering Services
           </h2>
 
-          <p className="text-white/65 text-sm sm:text-base font-normal leading-relaxed">
-            Full-stack web applications, autonomous AI agent workflows, scalable cloud backends, and knowledge search engines built to solve real business challenges.
+          <p className="text-white/65 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-2xl">
+            Full-stack web applications, autonomous AI agent workflows, scalable cloud backends, and knowledge search engines built for production reliability.
           </p>
         </motion.div>
 
-        {/* ── SERVICE TAB SWITCHER ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
           {SERVICES_LIST.map((srv, idx) => {
             const isSelected = activeTab === idx;
@@ -226,9 +285,7 @@ export default function ServicesSection({ onOpenProject }) {
           })}
         </div>
 
-        {/* ── STABLE-HEIGHT CAPABILITY CONTAINER ── */}
-        <div className="rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.05] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-8 md:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.85),inset_0_1px_1px_0_rgba(255,255,255,0.18)] relative overflow-hidden min-h-[530px] flex flex-col justify-center">
-          {/* Top specular reflection sheen */}
+        <div className="rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.05] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-8 md:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.85),inset_0_1px_1px_0_rgba(255,255,255,0.18)] relative overflow-hidden min-h-[500px] flex flex-col justify-center">
           <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
 
           <AnimatePresence mode="wait">
@@ -238,37 +295,32 @@ export default function ServicesSection({ onOpenProject }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch"
             >
-              {/* Left Column: The Finished Solution & Business Impact */}
+              {/* Left Column: Solution & Business Deliverables */}
               <div className="lg:col-span-6 flex flex-col justify-between space-y-5">
                 <div>
-                  <span className="font-mono text-xs text-[var(--accent)] block mb-1 font-semibold">
+                  <span className="font-mono text-xs text-[var(--accent)] block mb-1.5 font-semibold">
                     {current.tagline}
                   </span>
-                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight mb-2.5">
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white tracking-tight mb-3">
                     {current.title}
                   </h3>
                   
-                  {/* The Problem / Challenge */}
-                  <div className="p-3.5 rounded-xl border border-rose-500/20 bg-rose-500/[0.04] mb-3">
-                    <div className="flex items-center gap-2 mb-1 text-rose-400 font-mono text-[11px] font-semibold uppercase tracking-wider">
-                      <AlertCircle size={13} />
-                      <span>The Business Challenge</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                  <p className="text-white/80 text-xs sm:text-sm font-normal leading-relaxed mb-4">
+                    {current.solution}
+                  </p>
+
+                  <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02]">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-white/50 block mb-1 font-semibold">
+                      Client Problem Solved
+                    </span>
+                    <p className="text-xs sm:text-sm text-white/65 leading-relaxed font-normal">
                       {current.problem}
                     </p>
                   </div>
-
-                  {/* The Finished Solution */}
-                  <p className="text-white/80 text-xs sm:text-sm font-normal leading-relaxed">
-                    <strong className="text-white font-semibold">The Finished Solution: </strong>
-                    {current.solution}
-                  </p>
                 </div>
 
-                {/* Core Business Deliverables & Outcomes */}
                 <div className="space-y-2 pt-3 border-t border-white/[0.08]">
                   <span className="font-mono text-xs text-white/50 block mb-1 uppercase tracking-wider font-semibold">
                     Key Outcomes Delivered
@@ -284,10 +336,9 @@ export default function ServicesSection({ onOpenProject }) {
                   ))}
                 </div>
 
-                {/* Verified in Live Systems */}
                 <div className="pt-3 border-t border-white/[0.08] flex items-center gap-2">
                   <span className="font-mono text-xs text-white/40 mr-1 uppercase tracking-wider shrink-0">
-                    Proven in builds:
+                    Proven in live builds:
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {current.provenBuilds.map((proj) => (
@@ -304,70 +355,133 @@ export default function ServicesSection({ onOpenProject }) {
                 </div>
               </div>
 
-              {/* Right Column: Architectural Highlights & Specs */}
-              <div className="lg:col-span-6 bg-[#050609]/95 border border-white/[0.08] rounded-2xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-inner">
-                <div className="flex items-center justify-between pb-2.5 border-b border-white/[0.08]">
-                  <div className="flex items-center gap-2">
-                    <Cpu size={14} className="text-[var(--accent)]" />
-                    <span className="font-mono text-xs text-white/80 uppercase tracking-wider font-semibold">
-                      Technical Architecture
+              {/* Right Column: Honest Deliverables & Scope Checklist */}
+              <div className="lg:col-span-6 bg-[#040508]/95 border border-white/[0.1] rounded-2xl flex flex-col justify-between overflow-hidden shadow-2xl">
+                {/* Window Header */}
+                <div className="px-4 py-3 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="font-mono text-xs text-white/70 font-medium ml-2 truncate">
+                      {current.scopePackage.windowTitle}
                     </span>
                   </div>
-                  <span className="font-mono text-[11px] text-[var(--accent)]">
-                    Production Standard
+
+                  <span className="font-display text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold uppercase tracking-wider">
+                    Full Scope
                   </span>
                 </div>
 
-                {/* 3 Technical Capability Nodes */}
-                <div className="space-y-2.5">
-                  {current.technicalCapabilities.map((cap, i) => (
+                {/* 4 Concrete Deliverable Items */}
+                <div className="p-4 sm:p-5 space-y-3 flex-1 flex flex-col justify-center">
+                  {current.scopePackage.deliverables.map((deliv, dIdx) => (
                     <div
-                      key={i}
-                      className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-between font-mono text-xs"
+                      key={dIdx}
+                      className="p-3 rounded-xl border border-white/[0.06] bg-white/[0.015] flex items-start gap-3 transition-colors hover:bg-white/[0.03]"
                     >
-                      <div className="min-w-0 pr-2">
-                        <span className="text-white font-medium block truncate">
-                          {cap.title}
-                        </span>
-                        <span className="text-white/45 text-[11px] block mt-0.5 font-normal truncate">
-                          {cap.detail}
-                        </span>
+                      <div className="w-5 h-5 rounded-md bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)] shrink-0 mt-0.5 shadow-sm">
+                        <Check size={12} className="stroke-[2.5]" />
                       </div>
-                      <span className="text-[10px] px-2.5 py-1 rounded-md bg-white/[0.06] text-white/80 border border-white/[0.08] shrink-0 font-medium">
-                        {cap.badge}
-                      </span>
+                      <div className="min-w-0">
+                        <h4 className="font-display font-semibold text-xs sm:text-sm text-white leading-snug">
+                          {deliv.title}
+                        </h4>
+                        <p className="font-sans text-xs text-white/55 leading-relaxed mt-0.5">
+                          {deliv.desc}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Specs Grid */}
-                <div className="pt-3 border-t border-white/[0.08] grid grid-cols-3 gap-2 font-mono">
-                  {current.specs.map((s, i) => (
-                    <div key={i}>
-                      <span className="text-[10px] text-white/40 block uppercase tracking-wider">{s.label}</span>
-                      <span className="text-xs text-white mt-0.5 block font-medium truncate">
-                        {s.value}
+                {/* Window Footer: Live Link & Frameworks */}
+                <div className="px-4 py-3 border-t border-white/[0.08] bg-white/[0.015] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {current.scopePackage.frameworks.map((fw, fIdx) => (
+                      <span
+                        key={fIdx}
+                        className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-white/70 font-display text-[11px] font-medium"
+                      >
+                        {fw}
                       </span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  {current.scopePackage.liveUrl ? (
+                    <a
+                      href={current.scopePackage.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--accent)] hover:bg-[#ff4015] text-white font-display font-bold text-xs transition-all shadow-md active:scale-95 shrink-0"
+                    >
+                      <span>Try Live App</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() => handleOpenLinkedProject(current.scopePackage.liveProject)}
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] text-white font-display font-bold text-xs transition-all shadow-sm active:scale-95 shrink-0 cursor-pointer"
+                    >
+                      <span>Explore {current.scopePackage.liveProject}</span>
+                      <ArrowUpRight size={12} />
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* ── 4-STEP DELIVERY LIFECYCLE BAR ── */}
-        <div className="mt-16 pt-12 border-t border-white/[0.08]">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+        {/* ── EXECUTION STANDARD & DELIVERY LIFECYCLE ── */}
+        <div className="mt-10 rounded-3xl border border-white/[0.08] bg-[#07080E]/80 backdrop-blur-xl p-6 sm:p-8 md:p-10 shadow-xl relative overflow-hidden">
+          {/* Top specular highlight */}
+          <div className="absolute top-0 left-10 right-10 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-6 mb-8 border-b border-white/[0.06]">
+            <div>
+              <h3 className="font-display font-bold text-base sm:text-lg text-white tracking-tight">
+                Execution Standard &amp; Delivery Lifecycle
+              </h3>
+              <p className="text-white/50 text-xs sm:text-sm font-normal mt-0.5">
+                Structured 4-Phase Progression from Initial Scope to Live Handover
+              </p>
+            </div>
+            <span className="font-display font-medium text-xs text-white/40 hidden sm:inline">
+              Phases 01 ➔ 04
+            </span>
+          </div>
+
+          {/* Connected Steps Progression Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 relative">
             {HOW_WE_WORK.map((step, i) => (
-              <div key={i} className="space-y-1.5">
-                <span className="font-mono text-xs text-[var(--accent)] font-bold">
-                  {step.step}.
-                </span>
-                <h4 className="font-display font-semibold text-sm text-white">{step.title}</h4>
-                <p className="font-mono text-[11px] text-white/50 leading-relaxed">
-                  {step.desc}
-                </p>
+              <div
+                key={i}
+                className="group p-5 sm:p-6 rounded-2xl border border-white/[0.06] hover:border-white/[0.2] bg-white/[0.015] hover:bg-white/[0.04] transition-all duration-200 relative flex flex-col justify-between"
+              >
+                {/* Step Top Specular Accent */}
+                <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-display font-black text-2xl sm:text-3xl text-white/20 group-hover:text-[var(--accent)] transition-colors leading-none">
+                      0{i + 1}
+                    </span>
+                    <span className="font-display font-semibold text-[11px] text-[var(--accent)] px-2 py-0.5 rounded-md bg-[var(--accent)]/10 border border-[var(--accent)]/20">
+                      Step 0{i + 1}
+                    </span>
+                  </div>
+
+                  <h4 className="font-display font-bold text-sm sm:text-base text-white mb-2 group-hover:text-white transition-colors tracking-tight">
+                    {step.title}
+                  </h4>
+
+                  <p className="font-sans text-xs sm:text-sm text-white/60 leading-relaxed font-normal">
+                    {step.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
