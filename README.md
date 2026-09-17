@@ -1,13 +1,20 @@
-# David Kurniawan — Full-Stack & AI Systems Portfolio
+<div align="center">
 
-A high-performance, interactive portfolio and system architecture platform built with **React 19**, **Three.js / WebGL**, **Framer Motion**, **Tailwind CSS**, and **Cloudflare Workers**. Engineered to present both client-oriented finished solutions and deep technical architecture specifications.
+# 🌌 David Kurniawan — Portfolio
 
-![React 19](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=white)
-![Vite 5](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-0.183-black?logo=three.js&logoColor=white)
-![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-KV_Storage-F38020?logo=cloudflare&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4-ff0055?logo=framer&logoColor=white)
+**Full-Stack & AI Systems Portfolio**
+
+[![React](https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-0.183-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
+[![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12-0055FF?logo=framer&logoColor=white)](https://motion.dev/)
+[![GSAP](https://img.shields.io/badge/GSAP-3-0AE448?logo=greensock&logoColor=black)](https://gsap.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Cloudflare Workers](https://img.shields.io/badge/Cloudflare%20Workers-KV-F38020?logo=cloudflareworkers&logoColor=white)](https://workers.cloudflare.com/)
+
+</div>
+
+A high-performance, interactive portfolio and system architecture platform built with **React**, **Three.js / WebGL**, **Framer Motion**, **Tailwind CSS**, and **Cloudflare Workers**. Engineered to present both client-oriented finished solutions and deep technical architecture specifications.
 
 ---
 
