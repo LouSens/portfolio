@@ -96,6 +96,16 @@ body.is-scrolling * {
   font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
 }
 
+/* Fluid type scale — scales continuously with viewport width instead of
+   jumping at fixed breakpoints. Bounds chosen to match the old min/max
+   sizes so nothing changes at the extremes, just the path between them. */
+.text-fluid-h1 {
+  font-size: clamp(1.875rem, 1.2rem + 4vw, 4.5rem);
+}
+.text-fluid-h2 {
+  font-size: clamp(1.875rem, 1.3rem + 2.6vw, 3.75rem);
+}
+
 /* ═══════════════════════════════════════════
    LIQUID GLASS DESIGN SUITE
 ═══════════════════════════════════════════ */
@@ -344,4 +354,79 @@ button, a, input, select, textarea {
     transform: translateZ(0);
     backface-visibility: hidden;
   }
+}
+
+/* ═══════════════════════════════════════════
+   RESPECT REDUCED-MOTION PREFERENCES
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ticker-track-new {
+    animation: none;
+  }
+
+  .animate-glow-slow {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .shimmer-sweep-hover::after {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ═══════════════════════════════════════════
+   PAGE TEXTURE — one dot grid + one accent glow per section
+═══════════════════════════════════════════ */
+.bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 460px;
+  background: radial-gradient(55% 100% at 50% 0%, rgba(255, 90, 54, 0.075), transparent 70%);
+  pointer-events: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ═══ Case study cover entrance (CSS, not JS, so it never stalls behind a busy page) ═══ */
+@keyframes cs-rise {
+  from { opacity: 0; transform: translateY(110%); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes cs-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.cs-rise    { animation: cs-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.cs-fade-up { animation: cs-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .cs-rise, .cs-fade-up { animation: none; }
 }

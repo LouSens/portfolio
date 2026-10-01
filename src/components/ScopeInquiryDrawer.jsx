@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Send,
@@ -11,14 +12,16 @@ import {
   Mail,
   Inbox,
   ExternalLink,
-  Sparkles,
+  ArrowUpRight,
+  Download,
+  Loader2,
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export default function ScopeInquiryDrawer() {
   const [objective, setObjective] = useState('');
   const [scope, setScope] = useState('');
-  const [timeline, setTimeline] = useState('');
+  const [opportunityType, setOpportunityType] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -90,9 +93,9 @@ export default function ScopeInquiryDrawer() {
       }),
       name: name.trim(),
       email: email.trim(),
-      objective: objective.trim() || 'General Project Inquiry',
+      objective: objective.trim() || 'General Inquiry',
       scope: scope.trim(),
-      timeline: timeline.trim() || 'Flexible / To be discussed',
+      opportunityType: opportunityType.trim() || 'Not specified',
     };
 
     // 1. Send to Cloudflare Worker to increment global counter across all devices
@@ -130,18 +133,18 @@ export default function ScopeInquiryDrawer() {
 
     const payload = {
       access_key: web3AccessKey,
-      subject: `[${inquiryRecord.id}] New Inquiry: ${inquiryRecord.objective} — ${inquiryRecord.name}`,
-      from_name: `${inquiryRecord.name} (Portfolio Direct)`,
+      subject: `[${inquiryRecord.id}] New Message: ${inquiryRecord.objective} | ${inquiryRecord.name}`,
+      from_name: `${inquiryRecord.name} (Portfolio Contact Form)`,
       replyto: inquiryRecord.email,
       name: inquiryRecord.name,
       email: inquiryRecord.email,
-      project_objective: inquiryRecord.objective,
-      project_timeline: inquiryRecord.timeline,
-      project_scope: inquiryRecord.scope,
+      objective: inquiryRecord.objective,
+      opportunity_type: inquiryRecord.opportunityType,
+      message_body: inquiryRecord.scope,
       reference_id: inquiryRecord.id,
       submission_number: `#${nextCount}`,
       submission_time: inquiryRecord.formattedDate,
-      message: `=================================================\nNEW INQUIRY VIA PORTFOLIO DIRECT TRANSMISSION\n=================================================\n\nReference ID: ${inquiryRecord.id}\nSubmission: #${nextCount}\nDate: ${inquiryRecord.formattedDate}\n\nClient Name: ${inquiryRecord.name}\nEmail: ${inquiryRecord.email}\nObjective: ${inquiryRecord.objective}\nTimeline: ${inquiryRecord.timeline}\n\nTechnical Scope & Requirements:\n-------------------------------------------------\n${inquiryRecord.scope}\n-------------------------------------------------`,
+      message: `=================================================\nNEW MESSAGE VIA PORTFOLIO CONTACT FORM\n=================================================\n\nReference ID: ${inquiryRecord.id}\nSubmission: #${nextCount}\nDate: ${inquiryRecord.formattedDate}\n\nName: ${inquiryRecord.name}\nEmail: ${inquiryRecord.email}\nRegarding: ${inquiryRecord.objective}\nOpportunity Type: ${inquiryRecord.opportunityType}\n\nMessage:\n-------------------------------------------------\n${inquiryRecord.scope}\n-------------------------------------------------`,
     };
 
     try {
@@ -169,17 +172,17 @@ export default function ScopeInquiryDrawer() {
   const handleOpenMailBackup = () => {
     if (!submissionReceipt) return;
     const subject = encodeURIComponent(
-      `Project Inquiry [${submissionReceipt.id}]: ${submissionReceipt.objective} — ${submissionReceipt.name}`
+      `Message [${submissionReceipt.id}]: ${submissionReceipt.objective} | ${submissionReceipt.name}`
     );
     const body = encodeURIComponent(
-      `Hello David,\n\nI have submitted a project inquiry through your website:\n\n` +
+      `Hi David,\n\nI submitted a message through your website:\n\n` +
         `Reference ID: ${submissionReceipt.id}\n` +
         `Submission Number: #${submissionReceipt.submissionIndex}\n` +
         `Name: ${submissionReceipt.name}\n` +
         `Email: ${submissionReceipt.email}\n` +
-        `Project / Goal: ${submissionReceipt.objective}\n` +
-        `Timeline: ${submissionReceipt.timeline}\n\n` +
-        `Scope & Details:\n${submissionReceipt.scope}\n`
+        `Regarding: ${submissionReceipt.objective}\n` +
+        `Opportunity Type: ${submissionReceipt.opportunityType}\n\n` +
+        `Message:\n${submissionReceipt.scope}\n`
     );
     window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
   };
@@ -194,198 +197,203 @@ export default function ScopeInquiryDrawer() {
   return (
     <section
       id="inquire"
-      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative select-none overflow-hidden bg-gradient-to-b from-[#050508] via-[#120816] to-[#040406]"
+      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
     >
-      {/* ── RADIANT WARM SUNSET & VIOLET AURORA BACKDROP ── */}
-      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] h-[650px] bg-gradient-to-tr from-[#FF5A36]/16 via-rose-600/12 to-indigo-600/10 rounded-full blur-[220px]" />
-      <div className="pointer-events-none absolute top-10 left-1/4 w-[600px] h-[400px] bg-amber-500/[0.06] rounded-full blur-[170px]" />
-
-      <div className="max-w-[880px] mx-auto relative z-10">
-        {/* ── SECTION HEADER ── */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.12] mb-4">
-            <span className="bg-gradient-to-r from-[#FF5A36] via-rose-500 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(255,90,54,0.35)] inline-block whitespace-nowrap">
-              Let's Build Something
-            </span>{' '}
-            Exceptional.
+      <div className="max-w-[1100px] mx-auto relative z-10">
+        {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-2xl mb-8 md:mb-12"
+        >
+          <SectionLabel label="Contact" />
+          <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.12] mb-4">
+            Let's <span className="text-[var(--accent)]">talk.</span>
           </h2>
-
-          <p className="text-white/70 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-xl mx-auto">
-            {submissionCount > 0 ? (
-              <>
-                Have a project in mind or looking to collaborate? Drop an inquiry below — <span className="text-white font-medium">{submissionCount} project {submissionCount === 1 ? 'discussion' : 'discussions'} initiated so far</span>.
-              </>
-            ) : (
-              'Have a project in mind, a business workflow to automate, or looking to collaborate? Drop an inquiry below to get started.'
-            )}
+          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
+            I'm looking for an internship in backend, full-stack or AI engineering, and I'm open to remote part-time work.
+            If you've read my CV and want the story behind a project, ask away.
           </p>
-        </div>
+          <p className="mt-5 inline-flex items-center gap-2.5 text-sm text-white/70">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+            </span>
+            {PERSONAL_INFO.status}
+          </p>
+        </motion.div>
 
-        {/* ── CLEAN LIQUID GLASS INTAKE FORM ── */}
-        <div className="rounded-3xl border border-white/[0.12] bg-gradient-to-br from-white/[0.05] via-[#0A0B10]/95 to-[#07070A]/98 backdrop-blur-2xl p-6 sm:p-10 md:p-12 shadow-[0_30px_70px_rgba(0,0,0,0.85),inset_0_1px_1px_0_rgba(255,255,255,0.18)] relative overflow-hidden">
-          {/* Top specular reflection sheen */}
-          <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/50 to-transparent pointer-events-none" />
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6 select-text">
-            {/* Row 1: Name and Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                  Your Name / Organization
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Alex Chen or Acme Labs"
-                  required
-                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-3.5 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
-                />
-              </div>
-
-              <div>
-                <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. alex@company.com"
-                  required
-                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-3.5 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
-                />
-              </div>
-            </div>
-
-            {/* Row 2: Project Focus */}
-            <div>
-              <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                Project Objective / Finished Solution Needed
-              </label>
-              <input
-                type="text"
-                value={objective}
-                onChange={(e) => setObjective(e.target.value)}
-                placeholder="e.g. Full-Stack Web App, Automated AI Workflow, Client Dashboard, Backend API..."
-                required
-                className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-3.5 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
-              />
-            </div>
-
-            {/* Row 3: Technical Details & Requirements */}
-            <div>
-              <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                Scope &amp; Requirements / Business Challenge
-              </label>
-              <textarea
-                rows={4}
-                value={scope}
-                onChange={(e) => setScope(e.target.value)}
-                placeholder="Tell me about what you're building, the business challenge to solve, key features needed, or target timeline..."
-                required
-                className="w-full bg-white/[0.03] border border-white/[0.1] rounded-2xl p-4 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans resize-none leading-relaxed focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-all shadow-inner"
-              />
-            </div>
-
-            {/* Row 4: Timeline & Quick Select Tags */}
-            <div>
-              <label className="block font-display font-semibold text-xs sm:text-sm text-white/90 mb-2">
-                Estimated Timeline (Optional)
-              </label>
-              <div className="flex flex-col sm:flex-row gap-2.5">
-                <input
-                  type="text"
-                  value={timeline}
-                  onChange={(e) => setTimeline(e.target.value)}
-                  placeholder="e.g. MVP in 3-4 weeks, Q3 Launch, or Flexible"
-                  className="flex-1 bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-white/30 font-sans focus:outline-none focus:border-[var(--accent)] transition-all"
-                />
-                <div className="flex gap-1.5 overflow-x-auto shrink-0">
-                  {['2-4 Weeks', '1-3 Months', 'Contract'].map((quickTag) => (
-                    <button
-                      key={quickTag}
-                      type="button"
-                      onClick={() => setTimeline(quickTag)}
-                      className={`px-3.5 py-2 rounded-xl border font-sans text-xs transition-all cursor-pointer whitespace-nowrap ${
-                        timeline === quickTag
-                          ? 'bg-[var(--accent)] text-white border-[var(--accent)] font-semibold shadow-sm'
-                          : 'bg-white/[0.03] border-white/[0.08] text-white/65 hover:text-white hover:bg-white/[0.08]'
-                      }`}
-                    >
-                      {quickTag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Action Bar */}
-            <div className="pt-4 border-t border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="liquid-btn-primary !py-3.5 !px-8 text-xs font-bold uppercase tracking-wider shimmer-sweep-hover group cursor-pointer disabled:opacity-50"
+        {/* ── 2. FASTEST WAYS TO REACH ME: one tap, no typing ── */}
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 mb-8 md:mb-14">
+          {[
+            { label: 'Email', value: PERSONAL_INFO.email, href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail, copy: true },
+            { label: 'LinkedIn', value: 'in/davidkurniawan13', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
+            { label: 'GitHub', value: 'LouSens', href: PERSONAL_INFO.github, Icon: Github, external: true },
+            { label: 'CV', value: 'Download PDF', href: PERSONAL_INFO.resumeUrl, Icon: Download, download: 'CV_David_Kurniawan.pdf', external: true },
+          ].map(({ label, value, href, Icon, copy, external, download }) => (
+            <motion.li
+              key={label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className={`relative group rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-200 sm:min-h-[128px]`}
+            >
+              <a
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noreferrer' : undefined}
+                download={download}
+                className="flex h-full flex-row items-center sm:flex-col sm:items-start sm:justify-between gap-4 sm:gap-5 p-3.5 sm:p-5"
               >
-                <Send
-                  size={13}
-                  className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200"
-                />
-                <span>{isSubmitting ? 'Sending Message...' : 'Send Inquiry'}</span>
-              </button>
-
-              <div className="flex items-center justify-center sm:justify-end gap-3.5 text-xs font-display font-medium text-white/70">
+                <span className="shrink-0 w-10 h-10 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/25 flex items-center justify-center text-[var(--accent)] group-hover:scale-105 transition-transform">
+                  <Icon size={18} />
+                </span>
+                <span className="min-w-0">
+                  <span className="flex items-center gap-1 text-xs text-white/45 mb-0.5">
+                    {label}
+                    {!copy && <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
+                  </span>
+                  <span className="block text-sm sm:text-[15px] text-white break-words leading-snug">{value}</span>
+                </span>
+              </a>
+              {copy && (
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="hover:text-white transition-colors flex items-center gap-1.5 text-white/70 hover:underline cursor-pointer"
+                  aria-label="Copy email address"
+                  className="absolute top-1/2 -translate-y-1/2 right-2 sm:top-2.5 sm:translate-y-0 sm:right-2.5 inline-flex items-center gap-1.5 h-10 px-3 rounded-lg text-xs text-white/60 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
                 >
-                  {copiedEmail ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
-                  <span>{copiedEmail ? 'Copied!' : 'Copy Email'}</span>
+                  {copiedEmail ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
                 </button>
+              )}
+            </motion.li>
+          ))}
+        </ul>
 
-                <span className="text-white/20">•</span>
+        {/* ── 3. MESSAGE FORM: pick what it is about, then three fields ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-white/[0.02] p-4 sm:p-8 lg:p-10 grid lg:grid-cols-12 gap-7 lg:gap-14"
+        >
+          <div className="lg:col-span-4">
+            <h3 className="font-display font-bold text-2xl text-white tracking-tight">Send a message</h3>
+            <p className="mt-2 text-sm text-white/55 leading-relaxed">Goes straight to my inbox. I usually reply within 24 hours.</p>
 
-                <a
-                  href={PERSONAL_INFO.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1 text-white/70 hover:underline"
-                >
-                  <Linkedin size={13} />
-                  <span>LinkedIn</span>
-                </a>
+            <fieldset className="mt-6">
+              <legend className="text-sm text-white/80 mb-3">What is it about?</legend>
+              <div className="grid sm:grid-cols-3 lg:grid-cols-1 gap-2.5">
+                {[
+                  { label: 'Internship', hint: 'Backend, full-stack or AI' },
+                  { label: 'Remote part-time', hint: 'Flexible hours' },
+                  { label: 'Just saying hi', hint: 'A question or an idea' },
+                ].map((opt) => {
+                  const on = opportunityType === opt.label;
+                  return (
+                    <button
+                      key={opt.label}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => {
+                        setOpportunityType(on ? '' : opt.label);
+                        setObjective(on ? '' : opt.label);
+                      }}
+                      className={`text-left rounded-xl border px-4 py-3 min-h-[56px] transition-colors cursor-pointer ${
+                        on
+                          ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-white'
+                          : 'border-white/[0.1] bg-white/[0.03] text-white/70 hover:text-white hover:border-white/[0.25]'
+                      }`}
+                    >
+                      <span className="block text-sm font-semibold">{opt.label}</span>
+                      <span className={`block text-xs mt-0.5 ${on ? 'text-white/70' : 'text-white/40'}`}>{opt.hint}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+          </div>
 
-                <span className="text-white/20">•</span>
-
-                <a
-                  href={PERSONAL_INFO.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1 text-white/70 hover:underline"
-                >
-                  <Github size={13} />
-                  <span>GitHub</span>
-                </a>
+          <form onSubmit={handleSubmit} className="lg:col-span-8 flex flex-col gap-5 select-text">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="contact-name" className="block text-sm text-white/80 mb-2">Name or company</label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Alex Chen or Acme Corp"
+                  required
+                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="block text-sm text-white/80 mb-2">Email</label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="alex@company.com"
+                  required
+                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
+                />
               </div>
             </div>
-          </form>
 
-          {/* Admin Inquiries Viewer Toggle for David */}
-          {storedInquiries.length > 0 && (
-            <div className="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-white/40">
-              <span>Saved Inquiries: {storedInquiries.length} recorded</span>
-              <button
-                type="button"
-                onClick={() => setShowAdminInbox(true)}
-                className="text-[var(--accent)] hover:underline flex items-center gap-1 cursor-pointer"
-              >
-                <Inbox size={12} />
-                <span>Open Inquiries Inbox</span>
-              </button>
+            <div>
+              <label htmlFor="contact-message" className="block text-sm text-white/80 mb-2">Message</label>
+              <textarea
+                id="contact-message"
+                rows={6}
+                value={scope}
+                onChange={(e) => setScope(e.target.value)}
+                placeholder="A few lines on the role or what you'd like to discuss."
+                required
+                className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl p-4 text-base sm:text-sm text-white placeholder:text-white/30 resize-none leading-relaxed focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
+              />
             </div>
-          )}
-        </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between pt-1">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="liquid-btn-primary w-full sm:w-auto justify-center !py-3.5 !px-8 text-sm font-bold group cursor-pointer disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <Loader2 size={15} className="animate-spin" />
+                ) : (
+                  <Send size={15} className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                )}
+                <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>
+              </button>
+              <p className="text-xs text-white/40 leading-relaxed sm:max-w-[16rem]">Your details are only used to reply to you.</p>
+            </div>
+          </form>
+        </motion.div>
+
+        {/* Admin Messages Viewer Toggle for David */}
+        {storedInquiries.length > 0 && (
+          <div className="mt-6 flex items-center justify-between text-xs text-white/40">
+            <span>Saved Messages: {storedInquiries.length} recorded</span>
+            <button
+              type="button"
+              onClick={() => setShowAdminInbox(true)}
+              className="text-[var(--accent)] hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <Inbox size={12} />
+              <span>Open Messages Inbox</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ── 1. CLEAN MODERN CONFIRMATION MODAL ── */}
@@ -415,9 +423,14 @@ export default function ScopeInquiryDrawer() {
               </button>
 
               {/* Status Icon */}
-              <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 mb-4 shadow-[0_0_24px_rgba(16,185,129,0.2)]">
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15, delay: 0.1 }}
+                className="w-14 h-14 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 mb-4 shadow-[0_0_24px_rgba(16,185,129,0.2)]"
+              >
                 <Check size={26} strokeWidth={2.5} />
-              </div>
+              </motion.div>
 
               {/* Headings */}
               <h3 className="font-display font-bold text-2xl text-white mb-2">
@@ -425,7 +438,7 @@ export default function ScopeInquiryDrawer() {
               </h3>
 
               <p className="text-white/70 text-sm font-normal leading-relaxed mb-6">
-                Thank you for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your inquiry regarding <span className="text-white font-medium">"{submissionReceipt.objective}"</span> has been received. I will review it and get back to you at <span className="text-white font-medium">{submissionReceipt.email}</span> within 24 hours.
+                Thanks for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your message regarding <span className="text-white font-medium">"{submissionReceipt.objective}"</span> has been received. I'll get back to you at <span className="text-white font-medium">{submissionReceipt.email}</span> within 24 hours.
               </p>
 
               {/* Action Buttons */}
@@ -477,7 +490,7 @@ export default function ScopeInquiryDrawer() {
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-lg text-white">
-                      Inquiries Inbox
+                      Messages Inbox
                     </h3>
                     <span className="text-xs text-white/50 font-normal">
                       {storedInquiries.length} saved message(s) in this browser
@@ -502,11 +515,11 @@ export default function ScopeInquiryDrawer() {
                 </div>
               </div>
 
-              {/* Inquiries list */}
+              {/* Messages list */}
               <div className="flex-1 overflow-y-auto space-y-3.5 pr-1">
                 {storedInquiries.length === 0 ? (
                   <p className="text-xs text-white/40 py-8 text-center">
-                    No inquiries recorded in this browser yet.
+                    No messages recorded in this browser yet.
                   </p>
                 ) : (
                   storedInquiries.map((inq) => (
@@ -523,19 +536,19 @@ export default function ScopeInquiryDrawer() {
                       </div>
 
                       <div>
-                        <span className="text-white/40 text-xs font-medium block mb-0.5">Project</span>
+                        <span className="text-white/40 text-xs font-medium block mb-0.5">Regarding</span>
                         <p className="text-white font-medium text-sm">{inq.objective}</p>
                       </div>
 
                       <div>
-                        <span className="text-white/40 text-xs font-medium block mb-0.5">Details</span>
+                        <span className="text-white/40 text-xs font-medium block mb-0.5">Message</span>
                         <p className="text-white/80 whitespace-pre-wrap font-normal leading-relaxed">{inq.scope}</p>
                       </div>
 
                       <div className="pt-2 flex items-center justify-between text-xs text-white/50 border-t border-white/[0.04]">
-                        <span>Timeline: <strong className="text-white">{inq.timeline}</strong></span>
+                        <span>Type: <strong className="text-white">{inq.opportunityType}</strong></span>
                         <a
-                          href={`mailto:${inq.email}?subject=Re: Project Inquiry — ${inq.objective}`}
+                          href={`mailto:${inq.email}?subject=Re: ${inq.objective}`}
                           className="text-[var(--accent)] hover:underline flex items-center gap-1 font-medium text-xs"
                         >
                           <span>Reply</span>

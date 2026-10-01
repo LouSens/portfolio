@@ -1,4 +1,4 @@
-// Portfolio Data Store — Full-Stack & AI Systems Focus
+// Portfolio data store: full-stack and AI systems focus
 
 export const PERSONAL_INFO = {
   name: 'David Kurniawan',
@@ -11,7 +11,7 @@ export const PERSONAL_INFO = {
   gpa: '3.84 / 4.00',
   university: 'Xiamen University Malaysia',
   degree: 'BEng (Hons) in Artificial Intelligence',
-  status: 'Available for Full-Stack & AI Systems Roles',
+  status: 'Open to internships and remote part-time roles',
   resumeUrl: '/CV_DAVID KURNIAWAN.pdf',
 };
 
@@ -30,132 +30,6 @@ export const MARQUEE_TOOLS = [
   { name: 'Vercel', category: 'Cloud', svg: 'https://cdn.simpleicons.org/vercel/white' },
 ];
 
-export const SERVICES = [
-  {
-    id: 'fullstack-web',
-    number: '01',
-    title: 'Full-Stack Web Applications & Portals',
-    tagline: 'Modern Web Apps, Client Dashboards & SaaS Platforms',
-    icon: 'Globe',
-    problem:
-      'Businesses lose potential customers and slow down daily operations when relying on outdated, slow websites or fragmented spreadsheets.',
-    solution:
-      'I engineer complete, production-ready web applications with modern user interfaces, client portals, and lightning-fast loading speeds on all devices.',
-    businessImpact: [
-      'Sub-second page load times for higher conversion and retention',
-      'Intuitive client dashboards reducing user confusion and support tickets',
-      'Secure user login and permission controls out of the box',
-      'Fully responsive layouts optimized for mobile, tablet, and desktop',
-    ],
-    technicalHighlights: [
-      'React 19 & Tailwind CSS single-page applications with smooth 60fps micro-interactions',
-      'Predictable client state synchronization with Zustand store persistence',
-      'FastAPI asynchronous REST endpoints with strict Pydantic v2 validation contracts',
-      'Containerized deployment via Docker, GitHub Actions CI/CD, and Vercel',
-    ],
-    featuredProject: 'KerjaCerdas',
-    appliedProjects: ['KerjaCerdas', 'Personal Portfolio', 'NeuralVoid'],
-  },
-  {
-    id: 'backend-apis',
-    number: '02',
-    title: 'Scalable Backends & Data Infrastructure',
-    tagline: 'High-Speed APIs, Secure Databases & Cloud Reliability',
-    icon: 'Layers',
-    problem:
-      'System slowdowns, database bottlenecks, and data security risks cause lost revenue and frustrate paying customers during high traffic.',
-    solution:
-      'I build scalable cloud backends and high-speed databases designed to handle high concurrency, protect client data, and process complex operations in milliseconds.',
-    businessImpact: [
-      '99.9% uptime architecture ready for traffic spikes without crashing',
-      'Built-in rate limiting defense protecting against spam and abuse',
-      'Sub-second database queries and instant data retrieval for end users',
-      'Automated background processing so users never wait on heavy calculations',
-    ],
-    technicalHighlights: [
-      'FastAPI async REST microservices with automated OpenAPI 3.1 specifications',
-      'PostgreSQL relational data modeling with pgvector HNSW similarity indexing',
-      'Redis in-memory caching & sliding-window rate limiting middleware',
-      'Asynchronous task worker pipelines for heavy PDF and document ingestion',
-    ],
-    featuredProject: 'Orion',
-    appliedProjects: ['KerjaCerdas', 'Orion', 'Startup EMP'],
-  },
-  {
-    id: 'ai-workflows',
-    number: '03',
-    title: 'Autonomous AI Agents & Workflow Automation',
-    tagline: 'Multi-Step AI Workflows, Document Processing & Operations',
-    icon: 'Bot',
-    problem:
-      'Teams waste hundreds of hours each month on repetitive manual tasks—reading PDFs, triaging applications, and cross-checking policy compliance.',
-    solution:
-      'I develop autonomous AI agent networks that execute complex multi-step workflows from start to finish, while keeping human administrators in control for final approvals.',
-    businessImpact: [
-      'Over 40% reduction in compute and operational processing costs',
-      '10x faster document triage and applicant screening with zero fatigue',
-      'Human-in-the-loop approval checkpoints ensuring zero rogue actions',
-      'Consistent, audit-ready structured outputs without manual data entry',
-    ],
-    technicalHighlights: [
-      'LangGraph cyclical state graphs & supervisor-worker task delegation swarms',
-      'Human-in-the-loop approval checkpoints for critical operations and mutations',
-      'Pydantic v2 runtime output schema coercion with automated retry heuristics',
-      'LangSmith end-to-end tracing, evaluation, and latency monitoring',
-    ],
-    featuredProject: 'Startup EMP',
-    appliedProjects: ['Startup EMP', 'KerjaCerdas', 'Orion'],
-  },
-  {
-    id: 'rag-ml',
-    number: '04',
-    title: 'Intelligent Enterprise Search & Predictive Analytics',
-    tagline: 'Hallucination-Free Document Search & Machine Learning Models',
-    icon: 'Brain',
-    problem:
-      'Critical corporate knowledge, contracts, and legal regulations are buried across documents, causing costly compliance mistakes and AI hallucinations.',
-    solution:
-      'I implement high-accuracy hybrid search engines that pinpoint exact answers with direct source citations, alongside predictive analytics models that uncover hidden operational insights.',
-    businessImpact: [
-      'Verifiable source citations that eliminate AI hallucinations in compliance',
-      'Instant search across thousands of pages of company knowledge and policies',
-      '96%+ accuracy predictive analytics models to anticipate user behavior',
-      'Automated executive reports generated in seconds instead of hours',
-    ],
-    technicalHighlights: [
-      'Parent-child document chunking with reciprocal rank fusion (RRF)',
-      'Dense (pgvector/FAISS) + sparse (BM25) hybrid retrieval pipelines',
-      'Cross-encoder neural rerankers with dynamic confidence scoring thresholds',
-      'Machine learning classification pipelines with scikit-learn and XGBoost',
-    ],
-    featuredProject: 'Indonesian Legal RAG',
-    appliedProjects: ['Indonesian Legal RAG', 'NeuralVoid', 'KerjaCerdas'],
-  },
-];
-
-export const HOW_WE_WORK = [
-  {
-    step: '01',
-    title: 'Discovery & Architecture',
-    desc: 'Clarifying your core business objectives, user flows, and technical requirements into an actionable solution blueprint.',
-  },
-  {
-    step: '02',
-    title: 'Interactive Working Prototype',
-    desc: 'Delivering a functional, interactive build early so you can test features, validate user experience, and give real feedback.',
-  },
-  {
-    step: '03',
-    title: 'Hardening & Quality Assurance',
-    desc: 'Enforcing strict data security, database indexing, automated unit tests, and performance optimization for heavy loads.',
-  },
-  {
-    step: '04',
-    title: 'Production Launch & Handover',
-    desc: 'Containerized cloud deployment with automated CI/CD pipelines, complete documentation, and seamless handover.',
-  },
-];
-
 // Main Web & Software Projects
 export const PROJECTS_DATA = [
   {
@@ -163,246 +37,150 @@ export const PROJECTS_DATA = [
     title: 'KerjaCerdas',
     slug: 'kerjacerdas',
     type: 'Full-Stack & AI Matching Platform',
-    category: 'Enterprise Talent AI & Multi-Agent Platform',
-    role: 'Lead Systems Engineer',
+    category: 'AI-Powered Talent Matching Platform',
+    role: 'Backend & AI',
     team: '4-person team',
     isTeam: true,
     year: '2026',
     badge: 'FEATURED BUILD',
-    themeColor: '#FF5A36',
-    posterAccent: 'from-orange-600/30 to-amber-900/10',
+    highlight: 'Finalist and Tier 3 Award, PIDI Digdaya x Hackathon 2026',
+    posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
-    coverImage: '/screenshots/kerjacerdas/01_landing_hero.png',
+    coverImage: '/screenshots/kerjacerdas-v2/mobile-landing.webp',
+    coverPosition: 'top',
+    heroImage: '/screenshots/kerjacerdas-v2/seeker-dashboard.webp',
     synopsis:
-      'Enterprise talent matching platform combining a modern web portal, automated candidate screening, and 5-signal AI matching that cuts hiring overhead.',
+      'An AI career platform that ranks candidates on skills they can prove, shows what is missing for a target job, and points to the courses that close the gap.',
     overview:
-      'KerjaCerdas solves the high friction and overhead of manual hiring by delivering an end-to-end recruitment platform. It combines a responsive candidate portal with an automated AI resume evaluation pipeline and an Employer Kanban dashboard, scoring candidates across skills, experience, salary fit, and location in real time.',
+      'Job seekers send dozens of applications and hear nothing back. Recruiters spend hours on candidates who were never a fit. KerjaCerdas matches people to jobs on what they can actually do, not the keywords on their CV, and tells them exactly what to learn next.',
     problem:
-      'Recruitment teams spend hundreds of hours manually screening unqualified resumes, while traditional job boards use rigid keyword filters that miss exceptional candidates.',
+      'Job seekers send dozens of applications and get silence or a generic rejection, with no idea what to improve. Recruiters spend hours screening candidates who were never a good fit.',
     solution:
-      'Engineered a complete recruitment solution featuring automated multimodal CV parsing, a 5-signal composite matching engine (semantic match, skills, location, salary, experience), and an interactive Employer Kanban dashboard with candidate verification.',
+      'Rank on proven skills instead of keywords. Show the candidate which skills are missing for the job they want, recommend courses to close the gap, and give employers one ranked list of better-fit applicants.',
     businessOutcomes: [
-      '10x faster candidate screening by automating resume extraction and ranking',
-      'Over 40% reduction in AI compute costs via intelligent token efficiency gates',
-      'Sub-second candidate recommendation search across thousands of active job postings',
-      'Pay-to-Unlock candidate monetization and E-KYC company verification ready for business',
+      'Finalist and Tier 3 Award at PIDI Digdaya x Hackathon 2026 by Bank Indonesia, top 80 of 2,000+ teams',
+      'Demoed at FEKDI x IFSE 2026 at JICC Jakarta to recruiters, educators and founders',
     ],
     architectureNodes: [
-      { name: 'Candidate Portal', desc: 'React 19 + Zustand SPA for job seekers & employer dashboard' },
-      { name: 'API Gateway', desc: 'FastAPI with Pydantic v2 validation & rate limiting' },
-      { name: 'Supervisor Agent', desc: 'LangGraph orchestrator routing tasks in parallel' },
-      { name: 'Worker Swarm', desc: 'SearchJobs, ResumeReview & SkillGap agents' },
-      { name: 'Vector DB', desc: 'PostgreSQL + pgvector HNSW indexing (5-signal ranker)' },
-      { name: 'Document Ingestion', desc: 'Gemini multimodal PDF parser with Token Gates' },
+      { name: 'Candidate & Employer Portal', desc: 'React 18 and Zustand app for job seekers and employers' },
+      { name: 'FastAPI Backend', desc: 'Pydantic v2 validation, per-route rate limits and async CV extraction' },
+      { name: 'Matching Engine', desc: 'Four-factor, proof-weighted score over 768-dim pgvector embeddings with HNSW indexing' },
+      { name: 'Skill Gap & Courses', desc: 'Gap against a target job, study-time estimate and course recommendations' },
+      { name: 'Career Advisor', desc: 'LangGraph conversational advisor' },
+      { name: 'Privacy & Guardrails', desc: 'PII redaction before any model call, hallucination guards, 3-model fallback with a circuit breaker' },
     ],
     impactMetrics: [
-      { value: '5-Signal', label: 'Composite Match Score' },
-      { value: '40%+', label: 'Compute Cost Savings' },
-      { value: 'Sub-second', label: 'Instant Search Latency' },
-      { value: '4-Phase', label: 'Automated CI/CD Quality' },
+      { value: '4-Factor', label: 'Proof-weighted match score' },
+      { value: '163', label: 'Skills with quiz banks' },
+      { value: '768-dim', label: 'MRL-truncated embeddings' },
+      { value: 'Tier 3', label: 'PIDI Digdaya x Hackathon 2026' },
     ],
-    bullets: [
-      'Architected a ReAct Multi-Agent Swarm using LangGraph with a Supervisor node routing tasks in parallel to SearchJobs (pgvector), ResumeReview (multimodal PDF), and SkillGap worker agents.',
-      'Engineered a 5-signal composite ranking engine combining vector cosine similarity (50%), skill overlap (30%), regional boost (10%), salary fit (5%), and experience fit (5%) with HNSW pgvector indexing.',
-      'Built an asynchronous PDF processing pipeline achieving low-latency CV extraction, Token Efficiency Gates to control LLM compute costs, and PII mitigation middleware.',
-      'Delivered an Employer Kanban pipeline featuring Pay-to-Unlock candidate monetization, E-KYC credential verification, closed-loop A/B event tracking, and an automated 4-phase CI/CD pipeline.',
+    parts: [
+      {
+        title: 'Matching engine',
+        text: 'A four-factor ranking over pgvector embeddings: 35% semantic fit, 40% skills weighted by proof, 15% experience, 10% education. Location and salary are hard filters.',
+      },
+      {
+        title: 'Skill gap and courses',
+        text: 'Shows which skills are missing for a target job, estimates study time and recommends courses to close each gap.',
+      },
+      {
+        title: 'Career advisor',
+        text: 'A conversational career advisor built on LangGraph, running behind the same API as matching.',
+      },
+      {
+        title: 'Responsible AI',
+        text: 'Emails, phone numbers and 16-digit IDs are stripped by fixed rules before text reaches Gemini. Prompt-injection defences, hallucination guards, and a 3-model fallback keep it reliable.',
+      },
+      {
+        title: 'CV intake',
+        text: 'Gemini turns PDF CVs into skills, experience and education, processed asynchronously so uploads stay fast.',
+      },
+      {
+        title: 'Shipping',
+        text: 'A 4-phase GitHub Actions pipeline: lint, unit tests, database integration tests on a live pgvector container, and a latency benchmark.',
+      },
     ],
-    tags: ['React 19', 'FastAPI', 'PostgreSQL + pgvector', 'LangGraph', 'Zustand', 'Docker Compose'],
+    flow: {
+      title: 'How KerjaCerdas works',
+      steps: [
+        { name: 'Pick a target job', icon: 'Target', desc: 'Jobs that fit your profile, ranked on skills you can prove.' },
+        { name: 'See what is missing', icon: 'Search', desc: 'A skill-gap view specific to that job, not a generic list.' },
+        { name: 'Learn', icon: 'BookOpen', desc: 'Course recommendations for each missing skill. Pass a short quiz to earn a Proven badge.' },
+        { name: 'Apply', icon: 'Send', desc: 'Every applicant lands in one ranked list for the employer.' },
+        { name: 'Get HR feedback', icon: 'MessageSquare', desc: 'Rejection reasons and confirmed skills from the interview feed the next round.' },
+      ],
+      loopNote: 'Not selected? The reason from HR sends you back to step 2.',
+    },
+    demo: 'proof-score',
+    process: [
+      {
+        decision: 'Why rank on proven skills instead of CV keywords?',
+        reasoning:
+          'A claim on a CV costs nothing to write, so stuffing keywords used to win. The skill part of the score now weights evidence: a claimed skill counts 0.30, a passed quiz 0.85, and a skill confirmed by HR after an interview 1.00. The evidence is stored on the server and cannot be set from the client.',
+      },
+      {
+        decision: 'Why hard filters for location and salary instead of folding them into the score?',
+        reasoning:
+          "A softly weighted location or salary term would let a great semantic match in the wrong city, or outside the budget, outrank a job that actually fits. That is confusing for a candidate and impossible to explain. Filtering them out first means every job that shows up can be explained by the four remaining factors.",
+      },
+      {
+        decision: 'Why remove the recency factor from the score?',
+        reasoning:
+          "It added 5% to the score, but it was the same value for every candidate, so it carried no signal. Taking it out made the score more honest rather than less accurate.",
+      },
+      {
+        decision: 'Why spend so much time on how results are shown, not just how they are computed?',
+        reasoning:
+          "I expected the engine to be the hard part, but a lot of my time went into UX. A model can produce a perfect score, but if a job seeker cannot understand or trust it, it helps no one. Showing the factor breakdown and the exact missing skills mattered as much as the ranking itself. The product is not the model, it is the decision it helps someone make.",
+      },
+      {
+        decision: 'Why a regex filter for PII redaction instead of asking an LLM to strip sensitive data?',
+        reasoning:
+          "Using an LLM to scrub personal data adds latency and cost to every request, and it is not guaranteed to catch everything consistently. A deterministic pass over known patterns (emails, phone numbers, 16-digit IDs) runs before any external model call and behaves the same way every time, which matters more for compliance than a filter that can drift.",
+      },
+      {
+        decision: 'Why add a token-efficiency gate instead of always generating a narrative explanation?',
+        reasoning:
+          "Early on, the agent called the LLM to write an explanation for every match, including weak ones nobody would act on. That pays for latency and tokens to explain an obvious non-fit. A threshold check that skips the narrative when every match scores below it cut wasted calls without touching ranking quality.",
+      },
+    ],
+    tags: ['React 18', 'FastAPI', 'PostgreSQL + pgvector', 'LangGraph', 'Gemini', 'Zustand', 'Docker Compose'],
     githubUrl: 'https://github.com/LouSens/KerjaCerdas.git',
     liveUrl: 'http://kerja-cerdas.replit.app/',
-    codeSnippet: {
-      filename: 'backend/services/matching_engine.py',
-      language: 'python',
-      code: `import numpy as np
-from sqlalchemy import text
-from typing import List, Dict, Any
-
-async def calculate_5_signal_composite_score(
-    db_session,
-    candidate_vector: List[float],
-    candidate_skills: List[str],
-    salary_expectation: float,
-    experience_years: int,
-    preferred_region: str,
-    top_k: int = 20
-) -> List[Dict[str, Any]]:
-    """
-    5-Signal Composite Match:
-    1. Vector Cosine Similarity (50%) via pgvector HNSW
-    2. Exact & Semantic Skill Overlap (30%)
-    3. Regional Location Boost (10%)
-    4. Salary Range Compatibility (5%)
-    5. Seniority & Experience Alignment (5%)
-    """
-    query = text("""
-        SELECT 
-            j.id, j.title, j.company_name, j.skills_required, j.region,
-            j.min_salary, j.max_salary, j.min_exp_years,
-            1 - (j.embedding <=> :candidate_vector::vector) AS vector_similarity
-        FROM job_postings j
-        WHERE j.is_active = TRUE
-        ORDER BY j.embedding <=> :candidate_vector::vector
-        LIMIT :top_k;
-    """)
-    
-    results = await db_session.execute(query, {
-        "candidate_vector": str(candidate_vector),
-        "top_k": top_k
-    })
-    
-    scored_jobs = []
-    for job in results.mappings():
-        req_skills = set(job["skills_required"])
-        cand_skills = set(candidate_skills)
-        skill_score = len(cand_skills & req_skills) / max(len(req_skills), 1)
-        
-        region_score = 1.0 if job["region"].lower() == preferred_region.lower() else 0.4
-        salary_score = 1.0 if job["min_salary"] <= salary_expectation <= job["max_salary"] else 0.5
-        exp_score = min(experience_years / max(job["min_exp_years"], 1), 1.0)
-        
-        composite_score = (
-            0.50 * job["vector_similarity"] +
-            0.30 * skill_score +
-            0.10 * region_score +
-            0.05 * salary_score +
-            0.05 * exp_score
-        )
-        
-        scored_jobs.append({
-            "job_id": job["id"],
-            "title": job["title"],
-            "composite_score": round(float(composite_score), 4),
-            "match_breakdown": {
-                "vector_semantic": round(float(job["vector_similarity"]), 3),
-                "skill_overlap": round(float(skill_score), 3),
-                "region_fit": region_score
-            }
-        })
-        
-    return sorted(scored_jobs, key=lambda x: x["composite_score"], reverse=True)`,
-    },
     screenCategories: [
       {
-        name: 'Candidate Portal',
+        name: 'Landing',
         screens: [
-          { src: '/screenshots/kerjacerdas/01_landing_hero.png', caption: 'Landing Page Hero & Value Proposition' },
-          { src: '/screenshots/kerjacerdas/06_seeker_dashboard.png', caption: 'Candidate Dashboard with AI Recommendations' },
-          { src: '/screenshots/kerjacerdas/07_seeker_job_match.png', caption: '5-Signal Vector Job Match Results' },
-          { src: '/screenshots/kerjacerdas/08_job_detail_modal.png', caption: 'Job Detail & Semantic Breakdown Modal' },
-          { src: '/screenshots/kerjacerdas/09_seeker_skill_gap.png', caption: 'AI Skill Gap Analyzer & Learning Roadmap' },
-          { src: '/screenshots/kerjacerdas/10_seeker_search.png', caption: 'Job Search & Filter Interface' },
-          { src: '/screenshots/kerjacerdas/14_seeker_cv_upload.png', caption: 'AI Resume Upload & Automated Parsing' },
-          { src: '/screenshots/kerjacerdas/22_ai_career_advisor.png', caption: 'Interactive AI Career Advisor Chat' },
+          { src: '/screenshots/kerjacerdas-v2/landing.webp', caption: 'Landing: know which skills you lack before you apply' },
+          { src: '/screenshots/kerjacerdas-v2/landing-loop.webp', caption: 'The loop: pick a target, learn what is missing, then apply' },
         ],
       },
       {
-        name: 'Employer Portal',
+        name: 'Job seeker',
         screens: [
-          { src: '/screenshots/kerjacerdas/15_employer_dashboard.png', caption: 'Employer Portal: HR Pipeline Overview' },
-          { src: '/screenshots/kerjacerdas/16_employer_jobs.png', caption: 'Active Job Listings & Applicant Count' },
-          { src: '/screenshots/kerjacerdas/17_employer_post_job.png', caption: 'Post Job Wizard with AI Skill Tagging' },
-          { src: '/screenshots/kerjacerdas/19_employer_candidates.png', caption: 'Employer Candidate Kanban & Shortlist' },
-          { src: '/screenshots/kerjacerdas/20_employer_verification.png', caption: 'Company Verification & KYC Screen' },
-          { src: '/screenshots/kerjacerdas/21_employer_profile.png', caption: 'Employer Profile & Branding Settings' },
+          { src: '/screenshots/kerjacerdas-v2/seeker-dashboard.webp', caption: 'Dashboard with ranked matches and a skill-gap summary' },
+          { src: '/screenshots/kerjacerdas-v2/seeker-match.webp', caption: 'Matches ranked on proven skills, with the missing ones flagged' },
+          { src: '/screenshots/kerjacerdas-v2/seeker-learning-plan.webp', caption: 'Learning plan: the skills missing for the chosen target job' },
+          { src: '/screenshots/kerjacerdas-v2/seeker-applications.webp', caption: 'Applications with HR feedback and the reason behind a rejection' },
+          { src: '/screenshots/kerjacerdas-v2/seeker-interview.webp', caption: 'Interview stage, with skills confirmed by HR' },
         ],
       },
       {
-        name: 'Auth & Pricing',
+        name: 'Employer',
         screens: [
-          { src: '/screenshots/kerjacerdas/02_landing_features.png', caption: 'Platform Features & Capability Overview' },
-          { src: '/screenshots/kerjacerdas/03_pricing_plans.png', caption: 'Pay-to-Unlock & Subscription Pricing' },
-          { src: '/screenshots/kerjacerdas/04_auth_modal_login.png', caption: 'Authentication & Sign-in Modal' },
-          { src: '/screenshots/kerjacerdas/05_auth_modal_register.png', caption: 'Role-based Account Registration' },
-          { src: '/screenshots/kerjacerdas/13_seeker_verification.png', caption: 'Candidate ID & Document Verification' },
+          { src: '/screenshots/kerjacerdas-v2/employer-dashboard.webp', caption: 'Employer dashboard' },
+          { src: '/screenshots/kerjacerdas-v2/employer-applicants.webp', caption: 'Ranked applicants with a skill map for the job' },
+          { src: '/screenshots/kerjacerdas-v2/employer-trust.webp', caption: 'Trust and verification for employers' },
         ],
       },
-    ],
-  },
-  {
-    id: 'portfolio-website',
-    title: 'Personal Engineering Portfolio',
-    slug: 'portfolio-website',
-    type: 'Interactive Full-Stack Web Platform',
-    category: 'High-Performance Developer Portfolio',
-    role: 'Creator & UI Architect',
-    team: 'Solo build',
-    isTeam: false,
-    year: '2026',
-    badge: 'LIVE PLATFORM',
-    themeColor: '#FF5A36',
-    posterAccent: 'from-rose-600/30 to-amber-900/10',
-    hasRealUI: true,
-    coverImage: '/screenshots/portfolio/01_hero_portal.png',
-    synopsis:
-      'Interactive web application featuring WebGL particle graphics, liquid glass design system, smooth scroll choreography, and a direct inquiry pipeline.',
-    overview:
-      'Built from the ground up as a premier interactive showcase of engineering craft and customer-oriented solutions. Demonstrates high-performance UI engineering, WebGL rendering, seamless mobile gestures, and an automated inquiry intake system.',
-    problem:
-      'Standard portfolio templates are static and generic, failing to demonstrate real product craft, responsive interactivity, or clean intake workflows to prospective clients.',
-    solution:
-      'Engineered an interactive web platform combining React 19, GPU-accelerated Three.js particle graphics, Framer Motion choreography, and a custom liquid glassmorphism design system with direct email dispatch.',
-    businessOutcomes: [
-      '60 FPS buttery-smooth performance across mobile and desktop devices',
-      'Direction-aware navigation that maximizes screen real estate for content',
-      'Automated client project inquiry pipeline with local persistence and email notification',
-      'Sub-300ms lightning-fast production asset bundle load times',
-    ],
-    architectureNodes: [
-      { name: 'WebGL Particle Engine', desc: 'Three.js GPU-accelerated 2,200 particle dynamics field' },
-      { name: 'Kinetic Motion Layer', desc: 'Lenis smooth scrolling with Framer Motion choreographies' },
-      { name: 'Smart Navigation Dock', desc: 'Direction-aware liquid glass floating header with instant scroll memory' },
-      { name: '3D Projects Carousel', desc: 'Hardware-accelerated orbital 3D project showcase with deep-linking' },
-      { name: 'Solutions Console', desc: 'Interactive capabilities workbench with business problem & technical specs' },
-      { name: 'Global Inquiry Engine', desc: 'Cloudflare Worker + KV serverless counter & Web3Forms live email dispatch' },
-    ],
-    impactMetrics: [
-      { value: '60 FPS', label: 'Fluid GPU Motion & WebGL' },
-      { value: 'Cloudflare', label: 'Worker + KV Global Sync' },
-      { value: 'Sub-300ms', label: 'Fast Production Bundles' },
-      { value: 'Zero-Jank', label: 'Optimized Mobile Swipes' },
-    ],
-    bullets: [
-      'Architected a Three.js WebGL particle field rendering 2,200 dynamic particles with real-time rotational inertia and depth attenuation.',
-      'Engineered a direction-aware liquid glass navigation bar that automatically slides away on scroll-down and reveals instantly on scroll-up.',
-      'Built a serverless inquiry pipeline powered by a Cloudflare Worker and KV storage for real-time global inquiry tracking across all devices.',
-      'Delivered a GPU-accelerated 3D project carousel with deep-linking support, lightbox media viewing, and an interactive direct scoping drawer.',
-    ],
-    tags: ['React 19', 'Cloudflare Workers', 'Three.js', 'Framer Motion', 'Tailwind CSS', 'Vite'],
-    githubUrl: 'https://github.com/LouSens/portfolio-website.git',
-    liveUrl: 'https://davidkurniawan.dev',
-    codeSnippet: {
-      filename: 'src/components/Navbar.jsx',
-      language: 'javascript',
-      code: `// Instant Direction-Aware Liquid Glass Navigation
-useEffect(() => {
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const delta = currentScrollY - prevScrollY.current;
-
-    // Instantaneous reveal on any upward scroll (delta < 0) or at the top
-    if (delta < 0 || currentScrollY < 15) {
-      setIsVisible(true);
-    } else if (delta > 3 && currentScrollY > 60 && !isOpen) {
-      setIsVisible(false);
-    }
-    prevScrollY.current = currentScrollY;
-  };
-
-  window.addEventListener('scroll', handleScroll, { passive: true });
-  return () => window.removeEventListener('scroll', handleScroll);
-}, [isOpen]);`,
-    },
-    screenCategories: [
       {
-        name: 'Platform Views',
+        name: 'On mobile',
         screens: [
-          { src: '/screenshots/portfolio/01_hero_portal.png', caption: 'Hero Section & 3D WebGL Particle Field' },
-          { src: '/screenshots/portfolio/02_capabilities_workbench.png', caption: 'System Capabilities & Solution Console' },
-          { src: '/screenshots/portfolio/03_featured_systems_carousel.png', caption: '3D Projects Carousel & Specs Viewer' },
-          { src: '/screenshots/portfolio/04_tech_stack_matrix.png', caption: 'Filterable Core Tech Stack Matrix' },
-          { src: '/screenshots/portfolio/05_engineering_timeline.png', caption: 'Engineering Milestones & Interactive Timeline' },
-          { src: '/screenshots/portfolio/06_academic_awards_modal.png', caption: 'Academic Honors & 3.84 GPA Certificate Viewer' },
-          { src: '/screenshots/portfolio/07_direct_scoping_inquiry.png', caption: 'Direct Project Inquiry & Scoping Form' },
+          { src: '/screenshots/kerjacerdas-v2/mobile-landing.webp', caption: 'Landing on a phone' },
+          { src: '/screenshots/kerjacerdas-v2/mobile-dashboard.webp', caption: 'Dashboard on a phone' },
+          { src: '/screenshots/kerjacerdas-v2/mobile-match.webp', caption: 'Matches on a phone' },
+          { src: '/screenshots/kerjacerdas-v2/mobile-learning-plan.webp', caption: 'Learning plan on a phone' },
         ],
       },
     ],
@@ -418,9 +196,38 @@ useEffect(() => {
     isTeam: true,
     year: 'May 2026',
     badge: 'TOP 24 HACKATHON',
-    themeColor: '#38bdf8',
-    posterAccent: 'from-sky-600/30 to-blue-900/10',
-    hasRealUI: false,
+    highlight: 'Top 24 of 100+ teams, UM Hackathon 2026',
+    posterAccent: 'from-white/[0.08] to-black/30',
+    hasRealUI: true,
+    coverImage: '/media/orion/07-manager-approvals.jpg',
+    coverPosition: '22% top',
+    heroImage: '/media/orion/02-employee-dashboard.jpg',
+    screenCategories: [
+      {
+        name: 'Employee',
+        screens: [
+          { src: '/media/orion/02-employee-dashboard.jpg', caption: 'Employee dashboard: live claim progress, budget and an AI-flagged duplicate warning' },
+          { src: '/media/orion/03-new-claim.jpg', caption: 'New claim written in plain language, parsed and categorized by the agents' },
+          { src: '/media/orion/08-claim-history.jpg', caption: 'Claim history with auto-approve, escalate and reject outcomes' },
+        ],
+      },
+      {
+        name: 'Manager & Finance',
+        screens: [
+          { src: '/media/orion/07-manager-approvals.jpg', caption: 'Manager view: pending approvals, team velocity and category outliers' },
+          { src: '/media/orion/06-finance-control.jpg', caption: 'Finance control: audit coverage, duplicates caught and the policy engine' },
+          { src: '/media/orion/05-audit-trail.jpg', caption: 'Audit trail with duplicate detection, escalation and ledger verification' },
+        ],
+      },
+      {
+        name: 'Entry',
+        screens: [
+          { src: '/media/orion/01-splash.jpg', caption: 'Orion intelligent workflow engine' },
+          { src: '/media/orion/09-role-select.jpg', caption: 'Sign in as employee, manager or finance' },
+          { src: '/media/orion/04-finance-signin.jpg', caption: 'Finance sign-in' },
+        ],
+      },
+    ],
     synopsis:
       'Automated corporate expense reimbursement platform that eliminates manual receipt audits, duplicate claims, and policy violations in seconds.',
     overview:
@@ -433,135 +240,58 @@ useEffect(() => {
       'Top 24 finish out of 100+ competing teams at UM Hackathon 2026',
       'Automated duplicate detection stopping accidental double-reimbursements',
       'Audit-ready structured JSON ledgers for effortless accounting exports',
-      '85% test coverage across 120 unit tests ensuring bank-grade reliability',
+      '85% code coverage across unit and integration tests, with nightly regressions against production LLM APIs',
     ],
     architectureNodes: [
       { name: 'Intake Node', desc: 'Receipt parsing & prompt-injection sanitization' },
       { name: 'Policy Engine', desc: 'Deterministic policy evaluation with rapidfuzz duplicate check' },
-      { name: 'Validation Swarm', desc: 'LangGraph multi-step verification graph' },
+      { name: 'Validation Stage', desc: 'LangGraph multi-step verification graph' },
       { name: 'Rate Limiter', desc: 'Sliding-window memory rate limiting middleware' },
       { name: 'Ledger Node', desc: 'Immutable structured transaction ledger' },
     ],
-    codeSnippet: {
-      filename: 'backend/graph/expense_workflow.py',
-      language: 'python',
-      code: `from langgraph.graph import StateGraph, END
-from rapidfuzz import fuzz
-
-def policy_validation_node(state: ExpenseState) -> ExpenseState:
-    # Deterministic duplicate receipt detection
-    for prev_claim in state.existing_ledger:
-        sim = fuzz.ratio(state.current_claim.merchant, prev_claim.merchant)
-        if sim > 90 and abs(state.current_claim.amount - prev_claim.amount) < 0.01:
-            state.flags.append("POTENTIAL_DUPLICATE_RECEIPT")
-            state.requires_manual_audit = True
-
-    # Check policy threshold rules
-    if state.current_claim.amount > state.policy_limits[state.current_claim.category]:
-        state.flags.append("EXCEEDS_CATEGORY_LIMIT")
-        state.requires_manual_audit = True
-
-    return state`,
-    },
     impactMetrics: [
       { value: 'Top 24', label: 'Out of 100+ Teams (Hackathon)' },
+      { value: '~80%', label: 'Faster Claim Processing' },
       { value: '6-Stage', label: 'Automated State Machine' },
-      { value: '85%', label: 'Test Coverage Across 120 Units' },
-      { value: 'FastAPI', label: 'Type-Safe API Contracts' },
+      { value: '85%', label: 'Code Coverage (Unit + Integration)' },
     ],
     bullets: [
-      'Architected a 6-stage agentic workflow in LangGraph routing claims through Intake, Intelligence, Policy, Validation, Approval, and Recorder nodes.',
-      'Implemented sliding-window rate limiting, anti-hallucination regex pre-passes, and prompt-injection sanitization across API endpoints.',
-      'Built deterministic policy evaluation tools with rapidfuzz duplicate detection, subscription catalog lookup, and JSON-backed ledger storage.',
-      'Established dual CI/CD workflows via GitHub Actions: a PR quality gate with 85% coverage across 120 unit tests and scheduled nightly regressions.',
+      'Built a 6-stage autonomous LLM workflow using LangGraph and FastAPI to automate end-to-end expense claim processing, parsing natural language submissions to extract, validate, and auto-approve claims, reducing processing time by roughly 80%.',
+      'Integrated LangSmith observability and type-safe Pydantic contracts, establishing real-time tracing, token cost monitoring, and execution state debugging across all agent stages.',
+      'Engineered deterministic document parsing and policy engines (Python, rapidfuzz, pypdf) for duplicate claim detection via fuzzy string matching and persistent audit logging.',
+      'Established a dual-tier CI/CD testing architecture in GitHub Actions: PR gates enforcing unit/integration tests at 85% code coverage, alongside nightly cron regression suites running live against production LLM APIs.',
     ],
     tags: ['React 19', 'FastAPI', 'LangGraph', 'LangSmith', 'Pydantic v2', 'GitHub Actions'],
+    process: [
+      {
+        decision: 'Why fuzzy string matching for duplicate detection instead of exact match?',
+        reasoning:
+          "Receipt data is messy. The same merchant can come through as \"Starbucks Coffee,\" \"STARBUCKS #4521,\" or \"Starbucks Coff.\" depending on how it was scanned. Exact matching would miss all of those as duplicates. Fuzzy matching catches near-identical merchant names and amounts even when the formatting differs, which is what actually happens with real receipts.",
+      },
+      {
+        decision: 'Why run nightly regression tests against production LLM APIs on top of the normal PR test gate?',
+        reasoning:
+          "LLM outputs aren't fully deterministic, and the model on the provider's end can change without any signal to us. A suite that only runs against mocked responses can pass every single time while real production behavior quietly drifts underneath it. Running a live regression suite overnight was the only way we'd actually catch that kind of drift before a user did.",
+      },
+      {
+        decision: 'Why split expense processing into 6 discrete stages instead of one end-to-end LLM call?',
+        reasoning:
+          "A single prompt asking a model to 'process this expense claim' gives you no point to intervene if something looks wrong partway through. Breaking it into intake, intelligence, policy, validation, approval, and recording stages meant each one could be tested and audited on its own, and a claim that failed a policy check never made it to auto-approval.",
+      },
+    ],
+    parts: [
+      { title: '6-stage workflow', text: 'A LangGraph state machine: intake, intelligence, policy, validation, approval and recording. Each stage can be tested and audited on its own.' },
+      { title: 'Policy and duplicates', text: 'A deterministic policy engine with rapidfuzz fuzzy matching catches duplicate receipts and over-limit claims.' },
+      { title: 'Observability', text: 'LangSmith tracing, Pydantic v2 contracts and token-cost monitoring across every agent stage.' },
+      { title: 'Two-tier CI', text: 'PR gates enforce 85% coverage, and nightly regression runs hit the live LLM APIs to catch silent drift.' },
+    ],
     githubUrl: 'https://github.com/LouSens/orion.git',
-    liveUrl: null,
-  },
-  {
-    id: 'startup-emp',
-    title: 'Startup EMP',
-    slug: 'startup-emp',
-    type: 'Full-Stack Accelerator Platform',
-    category: 'AI Chief of Staff & Accelerator Systems',
-    role: 'Backend & AI Systems Engineer',
-    team: '4-person team',
-    isTeam: true,
-    year: 'May 2026',
-    badge: 'HACKATHON BUILD',
-    themeColor: '#a855f7',
-    posterAccent: 'from-purple-600/30 to-indigo-900/10',
-    hasRealUI: false,
-    synopsis:
-      'AI Chief of Staff platform for startup accelerators that replaces spreadsheet chaos with automated pitch deck evaluation and mentor matching.',
-    overview:
-      'Startup EMP solves cohort intake bottlenecks for venture accelerators and incubators. It automatically ingests pitch decks, extracts traction and market size metrics, and pairs founders with the most relevant domain mentors while requiring program managers to approve scores before state changes.',
-    problem:
-      'Startup accelerators receive hundreds of unstructured pitch deck PDFs per cohort, leading to disorganized spreadsheets, slow evaluation cycles, and mismatched mentors.',
-    solution:
-      'Built an end-to-end management platform featuring automated multimodal pitch deck parsing, structured traction scoring, semantic mentor matching, and a human-in-the-loop admin review dashboard.',
-    businessOutcomes: [
-      'Eliminated spreadsheet chaos with a single centralized cohort evaluation platform',
-      'Automated pitch deck analysis saving hours of manual review per applicant',
-      'Instant semantic mentor pairing based on founder industry and traction needs',
-      'Built-in human review gates ensuring managers maintain final decision authority',
-    ],
-    architectureNodes: [
-      { name: 'Deck Parsing Node', desc: 'Gemini multimodal PDF parser extracting traction metrics' },
-      { name: 'Schema Coercion', desc: 'Pydantic v2 validation enforcing strict typed outputs' },
-      { name: 'LangGraph Pipeline', desc: '4-stage agent graph for scoring, triage, and ranking' },
-      { name: 'Vector Mentor Match', desc: 'Cosine similarity matching with Redis caching' },
-      { name: 'Storage Layer', desc: 'Firestore & Google Cloud Run service deployment' },
-    ],
-    codeSnippet: {
-      filename: 'backend/agents/triage_graph.py',
-      language: 'python',
-      code: `from langgraph.graph import StateGraph, END
-from pydantic import BaseModel, Field
-from typing import List, Optional
-
-class PitchDeckEvaluation(BaseModel):
-    problem_clarity_score: float = Field(ge=0, le=10)
-    market_size_tam_sam: str
-    traction_mrr: Optional[float] = None
-    founder_market_fit: float = Field(ge=0, le=10)
-    mentor_tags: List[str] = Field(default_factory=list)
-
-# Define 4-phase LangGraph agentic triage workflow
-workflow = StateGraph(TriageState)
-workflow.add_node("parse_multimodal_deck", parse_deck_node)
-workflow.add_node("evaluate_metrics", evaluate_metrics_node)
-workflow.add_node("vector_mentor_match", match_mentors_node)
-workflow.add_node("human_review_draft", prepare_admin_draft_node)
-
-workflow.set_entry_point("parse_multimodal_deck")
-workflow.add_edge("parse_multimodal_deck", "evaluate_metrics")
-workflow.add_edge("evaluate_metrics", "vector_mentor_match")
-workflow.add_edge("vector_mentor_match", "human_review_draft")
-workflow.add_edge("human_review_draft", END)
-
-triage_pipeline = workflow.compile()`,
-    },
-    impactMetrics: [
-      { value: '4-Phase', label: 'Automated Agent Pipeline' },
-      { value: '100%', label: 'Schema Validation Safety' },
-      { value: 'Human-in-Loop', label: 'Admin Approval Controls' },
-      { value: 'Cloud Run', label: 'Scalable Serverless Cloud' },
-    ],
-    bullets: [
-      'Designed a 4-phase agentic pipeline covering application triage, multimodal pitch deck parsing, vector mentor matching, and institutional knowledge capture.',
-      'Engineered the FastAPI backend using LangGraph orchestration and Pydantic v2 schema coercion to enforce strict LLM output typing.',
-      'Implemented human-in-the-loop governance controls where AI recommendations serve as drafts requiring explicit admin approval before state mutation.',
-      'Integrated high-dimensional vector similarity matching with aggressive caching to eliminate redundant compute calls.',
-    ],
-    tags: ['FastAPI', 'LangGraph', 'Pydantic v2', 'Cloud Run', 'Firestore', 'React'],
-    githubUrl: 'https://github.com/nerdylive123/Startup-emp.git',
     liveUrl: null,
   },
   {
     id: 'neuralvoid',
     title: 'NeuralVoid',
+    image: '/screenshots/concepts/neuralvoid-dashboard.webp',
     slug: 'neuralvoid',
     type: 'Full-Stack Analytics Web App',
     category: 'Behavioral Analytics & Machine Learning SPA',
@@ -570,9 +300,22 @@ triage_pipeline = workflow.compile()`,
     isTeam: false,
     year: 'Jan 2026',
     badge: 'RESEARCH BUILD',
-    themeColor: '#10b981',
-    posterAccent: 'from-emerald-600/30 to-teal-900/10',
-    hasRealUI: false,
+    highlight: 'Solo build',
+    posterAccent: 'from-white/[0.08] to-black/30',
+    hasRealUI: true,
+    concept: true,
+    coverImage: '/screenshots/concepts/neuralvoid-poster.webp',
+    coverPosition: 'top',
+    heroImage: '/screenshots/concepts/neuralvoid-dashboard.webp',
+    screenCategories: [
+      {
+        name: 'Concept',
+        screens: [
+          { src: '/screenshots/concepts/neuralvoid-dashboard.webp', caption: 'Dashboard: session velocity, the features that drove the score, and the ensemble vote behind it' },
+          { src: '/screenshots/concepts/neuralvoid-report.webp', caption: 'Clinical report: the automatically written summary and the trend behind it' },
+        ],
+      },
+    ],
     synopsis:
       'Full-stack digital wellness analytics platform that detects compulsive app usage and generates structured diagnostic reports with 96% accuracy.',
     overview:
@@ -590,28 +333,10 @@ triage_pipeline = workflow.compile()`,
     architectureNodes: [
       { name: 'Event Ingestion', desc: 'Raw session timestamp and interaction stream' },
       { name: 'Feature Pipeline', desc: '25 engineered behavioral features (velocity, streak, entropy)' },
-      { name: 'ML Classifier', desc: 'XGBoost & Random Forest ensemble (~96% accuracy)' },
+      { name: 'ML Classifier', desc: 'Soft-voting ensemble: XGBoost, Random Forest, Logistic Regression (~96% accuracy)' },
       { name: 'FastAPI Gateway', desc: 'Async endpoints with clinical narrative generator' },
       { name: 'React SPA', desc: 'Hosted on Vercel with Railway API gateway' },
     ],
-    codeSnippet: {
-      filename: 'ml/feature_extractor.py',
-      language: 'python',
-      code: `import numpy as np
-import pandas as pd
-
-def extract_session_features(events_df: pd.DataFrame) -> dict:
-    events_df['latency'] = events_df['timestamp'].diff().dt.total_seconds().fillna(0)
-    
-    features = {
-        'mean_session_duration': events_df['duration'].mean(),
-        'session_velocity': len(events_df) / (events_df['timestamp'].max() - events_df['timestamp'].min()).total_seconds(),
-        'streak_entropy': -np.sum(p * np.log2(p + 1e-9) for p in events_df['action_type'].value_counts(normalize=True)),
-        'late_night_ratio': (events_df['timestamp'].dt.hour.between(0, 5)).mean(),
-        'rapid_switch_rate': (events_df['latency'] < 3.0).mean()
-    }
-    return features`,
-    },
     impactMetrics: [
       { value: '96%', label: 'Classification Accuracy' },
       { value: '25', label: 'Behavioral Metrics Tracked' },
@@ -623,7 +348,25 @@ def extract_session_features(events_df: pd.DataFrame) -> dict:
       'Integrated automated clinical report synthesis served through a high-throughput FastAPI backend.',
       'Built a responsive web application deployed on Vercel with a Railway API gateway.',
     ],
-    tags: ['React', 'FastAPI', 'scikit-learn', 'XGBoost', 'Python', 'Vercel'],
+    tags: ['React', 'Node.js', 'FastAPI', 'scikit-learn', 'XGBoost', 'Railway', 'Vercel'],
+    process: [
+      {
+        decision: 'Why a soft-voting ensemble (XGBoost + Random Forest + Logistic Regression) instead of a single model?',
+        reasoning:
+          "Each of these tends to make different kinds of mistakes: XGBoost can overfit to noise, a single Random Forest can be unstable on a smaller dataset, and logistic regression is too simple on its own for behavior that isn't linearly separable. Averaging their votes smooths out any one model's blind spots, which mattered more here than squeezing out marginal accuracy from one more complex model on a dataset this size.",
+      },
+      {
+        decision: 'Why 25 hand-engineered features instead of feeding raw session logs into a deep learning model?',
+        reasoning:
+          "The dataset wasn't large enough to train a deep model without overfitting, and just as importantly, the output needed to make sense to a clinician reading the report, \"late-night usage ratio\" and \"rapid app-switch rate\" are things a person can reason about and question, a learned embedding isn't. Hand-engineered features traded away some theoretical ceiling on accuracy for something interpretable enough to actually be useful in a clinical narrative.",
+      },
+    ],
+    parts: [
+      { title: '25-feature pipeline', text: 'Session velocity, streak entropy, late-night ratio, rapid app-switch rate and more, all explainable to a clinician.' },
+      { title: 'Ensemble classifier', text: 'Soft-voting XGBoost, Random Forest and Logistic Regression at about 96% accuracy.' },
+      { title: 'Clinical narrative', text: 'An automatically generated diagnostic report served by an async FastAPI backend.' },
+      { title: 'Deployed', text: 'A React app on Vercel talking to a Railway API gateway.' },
+    ],
     githubUrl: 'https://github.com/LouSens/neural-void.git',
     liveUrl: null,
   },
@@ -638,9 +381,22 @@ def extract_session_features(events_df: pd.DataFrame) -> dict:
     isTeam: false,
     year: '2026',
     badge: 'BENCHMARK BUILD',
-    themeColor: '#eab308',
-    posterAccent: 'from-amber-600/30 to-yellow-900/10',
-    hasRealUI: false,
+    highlight: 'Solo build, model published on Hugging Face',
+    posterAccent: 'from-white/[0.08] to-black/30',
+    hasRealUI: true,
+    concept: true,
+    coverImage: '/screenshots/concepts/legal-rag-poster.webp',
+    coverPosition: 'top',
+    heroImage: '/screenshots/concepts/legal-rag-search.webp',
+    screenCategories: [
+      {
+        name: 'Concept',
+        screens: [
+          { src: '/screenshots/concepts/legal-rag-search.webp', caption: 'Hybrid search: keyword and vector scores side by side, then reranked' },
+          { src: '/screenshots/concepts/legal-rag-answer.webp', caption: 'Cited answer: tied to exact articles, with the confidence gate visible' },
+        ],
+      },
+    ],
     synopsis:
       'High-precision legal search engine providing verifiable Indonesian labor law citations with zero hallucinations and exact statutory references.',
     overview:
@@ -661,31 +417,6 @@ def extract_session_features(events_df: pd.DataFrame) -> dict:
       { name: 'Reranker Gate', desc: 'Cross-Encoder reranker with 0.3 confidence threshold' },
       { name: 'Synthesis Layer', desc: 'Verifiable statutory citation generator with exact article references' },
     ],
-    codeSnippet: {
-      filename: 'retrieval/hybrid_rag.py',
-      language: 'python',
-      code: `from langchain.retrievers import EnsembleRetriever
-from langchain_community.retrievers import BM25Retriever
-from langchain_community.vectorstores import FAISS
-
-# Parent-Child hybrid ensemble combining BM25 keyword search (0.4) and dense FAISS (0.6)
-bm25_retriever = BM25Retriever.from_documents(parent_docs)
-bm25_retriever.k = 10
-
-faiss_retriever = faiss_vectorstore.as_retriever(search_kwargs={"k": 10})
-
-ensemble_retriever = EnsembleRetriever(
-    retrievers=[bm25_retriever, faiss_retriever],
-    weights=[0.4, 0.6]
-)
-
-# Cross-encoder reranking over candidate chunks
-def rerank_documents(query: str, candidate_docs: list) -> list:
-    pairs = [[query, doc.page_content] for doc in candidate_docs]
-    scores = reranker_model.predict(pairs)
-    ranked = sorted(zip(scores, candidate_docs), key=lambda x: x[0], reverse=True)
-    return [doc for score, doc in ranked if score > 0.3]`,
-    },
     impactMetrics: [
       { value: '0.92+', label: 'Retrieval Precision Score' },
       { value: 'Hybrid', label: 'BM25 + FAISS Vector Fusion' },
@@ -697,6 +428,11 @@ def rerank_documents(query: str, candidate_docs: list) -> list:
       'Published open-weights model to Hugging Face Hub; added DuckDuckGo live web search fallback when reranker confidence drops below 0.3 threshold.',
     ],
     tags: ['LangChain', 'FAISS', 'BM25', 'FastAPI', 'Python', 'Weights & Biases'],
+    parts: [
+      { title: 'Hybrid retrieval', text: 'Parent-child chunks searched with BM25 (0.4) and FAISS dense vectors (0.6), with HyDE query expansion.' },
+      { title: 'Reranking and gate', text: 'A cross-encoder reranks candidates. Below a 0.3 confidence threshold it falls back to live web search.' },
+      { title: 'Fine-tuning', text: 'Llama-3-8B fine-tuned on a domain dataset with Weights & Biases tracking, published to Hugging Face.' },
+    ],
     colabUrls: [
       { label: 'RAG Notebook', url: 'https://colab.research.google.com/drive/1wzslBMXBo9QL4-ToEDmWl3amLrcVWpRP?usp=sharing' },
       { label: 'Fine-Tuning Notebook', url: 'https://colab.research.google.com/drive/1xwqQl8i3gc5g4ZgAf-uv6q94mst3U6uK?usp=sharing' },
@@ -704,40 +440,6 @@ def rerank_documents(query: str, candidate_docs: list) -> list:
     hfUrl: 'https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal',
     wandbUrl: 'https://wandb.ai/kyzo/legal-llm-finetune',
     liveUrl: null,
-  },
-];
-
-export const EXPERIENCE = [
-  {
-    year: '2026',
-    current: true,
-    role: 'Lead Systems Engineer @ KerjaCerdas',
-    company: '4-Person Team · Engineering Lead',
-    desc: 'Led full-stack engineering of an enterprise talent AI platform. Architected a LangGraph multi-agent swarm, 5-signal pgvector hybrid ranking engine, low-latency Gemini PDF extraction, Token Efficiency Gates, Employer Kanban dashboard, and an automated 4-phase CI/CD pipeline.',
-  },
-  {
-    year: 'June 2026',
-    role: 'Silver Award Winner & AI Strategy Lead',
-    company: 'China-ASEAN Innovation Competition (SEA-CICSIC)',
-    desc: 'Led technical architecture and proposal for Omni-QC — an industrial manufacturing intelligence platform combining real-time computer vision defect detection on conveyor lines with predictive equipment maintenance at the China-ASEAN undergraduate level.',
-  },
-  {
-    year: 'May 2026',
-    role: 'Tech Lead · Orion',
-    company: 'UM Hackathon (Top 24 / 100+ Teams) · One Hit Wonder',
-    desc: 'Architected backend infrastructure for an AI expense reimbursement platform. Owned the 6-stage LangGraph workflow, FastAPI type contracts, rate-limiting middleware, and dual CI/CD regression test workflows.',
-  },
-  {
-    year: 'May 2026',
-    role: 'Backend & AI Engineer · Startup EMP',
-    company: '4-Person Team · MyHack 2025',
-    desc: 'Built the backend and agent systems for an accelerator management platform. Designed the FastAPI/LangGraph triage pipeline, Pydantic v2 multimodal ingestion, and semantic mentor matching via vector embeddings.',
-  },
-  {
-    year: 'Oct 2025',
-    role: 'Lead Developer · DPickleball RL Agent',
-    company: '3-Person Engineering Team',
-    desc: 'Architected Unity ML-Agents environment, reward shaping, and PPO training loops for a competition-graded reinforcement learning agent, achieving a 3rd place finish.',
   },
 ];
 
@@ -749,7 +451,7 @@ export const EDUCATION = {
   start: 'Sept 2024',
   expected: 'Sept 2028',
   highlights: [
-    "Dean's List Awardee — three consecutive semesters",
+    "Dean's List Awardee, three consecutive semesters",
     'Top 16% of cohort across College of Artificial Intelligence & Robotics',
   ],
   learning: [
@@ -759,50 +461,132 @@ export const EDUCATION = {
   ],
 };
 
-export const AWARDS = [
+
+// About section, written to complement the CV, not repeat it
+export const ABOUT = {
+  heading: "Hi, I'm David.",
+  intro: [
+    "I'm an AI undergraduate at Xiamen University Malaysia, originally from Indonesia. I build the backend and AI side of products: APIs, retrieval and ranking, agent workflows, and the CI that keeps them honest.",
+    "Most of my work started in a team or a hackathon, and I usually end up owning the backend. If you found me through my CV, the Projects section has what a one-page résumé can't fit: the problem, the architecture, and the decisions I'd defend or change.",
+  ],
+  facts: [
+    { label: 'Based in', value: 'Selangor, Malaysia' },
+    { label: 'From', value: 'Indonesia' },
+    { label: 'Studying', value: 'BEng (Hons) Artificial Intelligence, 2024 to 2028' },
+    { label: 'Looking for', value: 'Internships, and remote part-time work' },
+  ],
+  focus: [
+    {
+      title: 'Backend & APIs',
+      body: 'FastAPI services, PostgreSQL with pgvector, typed contracts in Pydantic, and CI/CD pipelines that run real integration tests.',
+      projects: ['kerjacerdas', 'orion'],
+    },
+    {
+      title: 'AI agents & retrieval',
+      body: 'LangGraph workflows, hybrid search that combines BM25, dense vectors and a cross-encoder reranker, and keeping LLM calls cheap and checkable.',
+      projects: ['orion', 'legal-rag'],
+    },
+    {
+      title: 'Applied ML & RL',
+      body: 'Hand-built feature pipelines and ensembles when the result has to be explained, and PPO agents in Unity ML-Agents for competition.',
+      projects: ['neuralvoid'],
+    },
+  ],
+};
+
+// Awards & academics. The Digdaya feature is photo-led; everything else is a quiet ledger.
+const DIGDAYA_DIR = '/media/digdaya/';
+export const DIGDAYA = {
+  title: 'PIDI Digdaya x Hackathon 2026',
+  organizer: 'Bank Indonesia',
+  date: 'Sep 2026',
+  projectId: 'kerjacerdas',
+  stats: [
+    { prefix: 'Top ', value: 80, suffix: '', label: 'finalist teams' },
+    { prefix: 'of ', value: 2000, suffix: '+', label: 'teams that entered' },
+    { prefix: 'Tier ', value: 3, suffix: '', label: 'award' },
+  ],
+  summary:
+    'KerjaCerdas was selected as a finalist and received a Tier 3 Award, one of the top 80 teams out of more than 2,000. We then took it to FEKDI x IFSE 2026 at JICC Jakarta (24 to 26 September), where we demoed the platform and heard directly from recruiters, educators and founders about the problem we were trying to solve. Those conversations were worth as much as the award.',
+  lead: { src: DIGDAYA_DIR + 'team-booth.webp', w: 1800, h: 1200, caption: 'The KerjaCerdas team at our booth' },
+  photos: [
+    { src: DIGDAYA_DIR + 'fekdi-display.webp', w: 1350, h: 1800, caption: 'KerjaCerdas on the FEKDI x IFSE display' },
+    { src: DIGDAYA_DIR + 'expo-hall.webp', w: 1800, h: 1200, caption: 'Digitalent Expo 2026, finalists and attendees' },
+    { src: DIGDAYA_DIR + 'demo-tablet.webp', w: 1800, h: 1200, caption: 'Demoing KerjaCerdas on the booth tablet' },
+    { src: DIGDAYA_DIR + 'booth-sign.webp', w: 1350, h: 1800, caption: 'The Digdaya x Hackathon booth' },
+    { src: DIGDAYA_DIR + 'team-group.webp', w: 1800, h: 1200, caption: 'The team with fellow finalists' },
+    { src: DIGDAYA_DIR + 'visitors-talk.webp', w: 1800, h: 1013, caption: 'Talking through the platform with visitors' },
+    { src: DIGDAYA_DIR + 'tier-announcement.webp', w: 1013, h: 1800, caption: 'Results announced by tier' },
+    { src: DIGDAYA_DIR + 'visitors-booth.webp', w: 1800, h: 1013, caption: 'Visitors at the booth' },
+  ],
+};
+
+export const COMPETITIONS = [
   {
-    place: 'Silver Award',
-    title: 'SEA-CICSIC 2026',
-    category: 'Industrial AI Proposal',
-    org: 'China-ASEAN Innovation Competition · Undergraduate Division',
-    date: '2026',
-    note: 'Led AI strategy and technical architecture proposal for Omni-QC — a manufacturing intelligence platform combining real-time computer vision defect detection on conveyor lines with predictive equipment maintenance.',
-    docs: [
-      { label: 'Pitch Deck (PDF)', url: '/docs/omni-qc/Omni-QC Pitch Deck.pdf' },
-      { label: 'Business Proposal (PDF)', url: '/docs/omni-qc/Omni-QC Business Proposal.pdf' },
-    ],
-  },
-  {
-    place: '3rd Place',
-    title: 'DPickleball AI Tournament',
-    category: 'Deep Reinforcement Learning (PPO)',
-    org: 'Unity ML-Agents · Continuous Control Tournament',
-    date: 'Oct 2025',
-    note: 'Lead developer on a 3-person team. Architected the Unity ML-Agents 3D physics environment, reward shaping logic, and PPO multi-agent training loops — placing 3rd out of all competing teams.',
-    photos: [
-      { src: '/media/dpickleball/IMG_8700.png', caption: '3rd Place Award Trophy & Certificate' },
-      { src: '/media/dpickleball/IMG_8724.png', caption: 'Competition Group Photo — Teams & Organizers' },
-    ],
-  },
-  {
-    place: 'Top 20% Globally',
-    title: 'Intl. Quant Championship',
-    category: 'Quantitative Problem Solving',
-    org: 'Quantitative Reasoning · Stage 1',
-    date: 'Apr 2025',
-    note: 'Placed top 20% globally against international competitors in data-driven analytical reasoning and quantitative problem-solving.',
-  },
-  {
-    place: "Dean's List",
-    title: 'Three Consecutive Semesters',
-    category: 'Academic Honors',
-    org: 'Xiamen University Malaysia · Top 16% of Cohort',
-    date: '2024 – 2026',
-    note: "Placed on the Dean's List for three consecutive semesters, ranking in the top 16% of the cohort across the College of Artificial Intelligence & Robotics with a 3.84 / 4.00 GPA.",
-    photos: [
-      { src: "/docs/deans-list/2409 Dean's List.jpeg", caption: 'Sem 1 — Sep 2024' },
-      { src: "/docs/deans-list/2504 Dean's List.jpeg", caption: 'Sem 2 — Apr 2025' },
-      { src: "/docs/deans-list/2509 Dean's List.jpeg", caption: 'Sem 3 — Sep 2025' },
-    ],
+    year: 'Apr 2025',
+    result: 'Top 20% globally',
+    title: 'International Quant Championship',
+    detail: 'Stage 1 of a global invitational on quantitative reasoning, algorithmic problem-solving and statistical analysis.',
+    links: [],
+    media: [],
   },
 ];
+
+export const DEANS_LIST = [
+  { label: 'Sep 2024', src: "/docs/deans-list/2409 Dean's List.jpeg" },
+  { label: 'Apr 2025', src: "/docs/deans-list/2504 Dean's List.jpeg" },
+  { label: 'Sep 2025', src: "/docs/deans-list/2509 Dean's List.jpeg" },
+];
+
+const OMNI = '/media/omni-qc/';
+const DP = '/media/dpickleball-web/';
+
+export const OMNIQC = {
+  id: 'omni-qc',
+  date: 'Jun 2026',
+  organizer: 'SEA-CICSIC 2026 · China-ASEAN Innovation Competition',
+  title: 'Omni-QC',
+  stats: [
+    { text: 'Silver', label: 'award, undergraduate division' },
+    { value: 50, suffix: '', label: 'slides in the pitch deck' },
+    { value: 155, suffix: '', label: 'pages in the business proposal' },
+  ],
+  summary:
+    'Omni-QC is an AI quality-control platform for PCB manufacturing. It predicts defects before inspection, explains each prediction, and recommends what to do through a co-pilot. I led the AI strategy and the technical architecture for our proposal, and we took the Silver Award in the undergraduate division.',
+  links: [
+    { label: 'Pitch deck (PDF)', href: '/docs/omni-qc/Omni-QC Pitch Deck.pdf' },
+    { label: 'Business proposal (PDF)', href: '/docs/omni-qc/Omni-QC Business Proposal.pdf' },
+  ],
+  lead: { src: OMNI + 'dashboard.webp', w: 1600, h: 900, caption: 'Production stream dashboard from the pitch deck' },
+  photos: [
+    { src: OMNI + 'title.webp', w: 1600, h: 900, caption: 'The pitch deck: AI-driven dynamic defect prediction' },
+    { src: OMNI + 'problem.webp', w: 1600, h: 900, caption: 'The problem: where inspection wastes time and money' },
+    { src: OMNI + 'copilot.webp', w: 1600, h: 900, caption: 'Co-pilot advisory with a human in the loop' },
+    { src: OMNI + 'explainable-ai.webp', w: 1600, h: 900, caption: 'Explainable AI: why a board was flagged' },
+    { src: OMNI + 'ai-core.webp', w: 1600, h: 900, caption: 'The predictive mechanism behind the score' },
+    { src: OMNI + 'integration.webp', w: 1600, h: 900, caption: 'Integration topology with the manufacturing line' },
+    { src: OMNI + 'team.webp', w: 1600, h: 900, caption: 'The team' },
+  ],
+};
+
+export const DPICKLEBALL = {
+  id: 'dpickleball',
+  date: 'Oct 2025',
+  organizer: 'DPickleball AI Tournament · Unity ML-Agents',
+  title: 'Teaching an agent to play pickleball',
+  stats: [
+    { text: '3rd', label: 'place, AI category' },
+    { value: 3, suffix: '', label: 'person team, I led development' },
+    { text: 'PPO', label: 'multi-agent training' },
+  ],
+  summary:
+    'Reinforcement learning for a competition: I led development on a team of three. I built the Unity 3D physics environment, the reward shaping and the PPO multi-agent training loops, and our agent finished third overall.',
+  links: [],
+  lead: { src: DP + 'trophy.webp', w: 1800, h: 1199, caption: 'Third place, AI category' },
+  photos: [
+    { type: 'video', src: DP + 'match.mp4', poster: DP + 'match-poster.webp', w: 464, h: 832, caption: 'The agents playing on the tournament projector' },
+    { src: DP + 'group.webp', w: 1800, h: 1199, caption: 'All the teams after the tournament' },
+  ],
+};
+
+export const AWARD_FEATURES = [DIGDAYA, OMNIQC, DPICKLEBALL];

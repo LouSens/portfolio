@@ -22,7 +22,7 @@ export default function Marquee() {
               <span className="font-display font-medium text-sm sm:text-base text-white whitespace-nowrap">
                 {tool.name}
               </span>
-              <span className="text-white/20 text-xs font-mono px-2">/</span>
+              <span className="text-white/20 text-xs px-2">/</span>
             </div>
           ))}
         </div>
@@ -42,7 +42,7 @@ export default function Marquee() {
               <span className="font-display font-medium text-sm sm:text-base text-white whitespace-nowrap">
                 {tool.name}
               </span>
-              <span className="text-white/20 text-xs font-mono px-2">/</span>
+              <span className="text-white/20 text-xs px-2">/</span>
             </div>
           ))}
         </div>

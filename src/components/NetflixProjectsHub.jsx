@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronLeft,
@@ -9,18 +10,19 @@ import {
   Layers,
   Bot,
   Brain,
-  Zap,
   ArrowRight,
-  Sparkles,
 } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 
-export default function NetflixProjectsHub({ onOpenProject }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [isHovered, setIsHovered] = useState(false);
   const [touchStartX, setTouchStartX] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadedCovers, setLoadedCovers] = useState({});
   const total = PROJECTS_DATA.length;
+
+  const markCoverLoaded = (id) => setLoadedCovers((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -75,22 +77,25 @@ export default function NetflixProjectsHub({ onOpenProject }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isHovered, activeIndex, handlePrev, handleNext, onOpenProject]);
 
+  // Slow auto-advance on desktop while nobody is interacting with the section
+  useEffect(() => {
+    if (isHovered || isMobile || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(handleNext, 6500);
+    return () => clearInterval(t);
+  }, [isHovered, isMobile, handleNext]);
+
   const getProjectIcon = (id) => {
     switch (id) {
       case 'kerjacerdas':
-        return <Globe size={17} className="text-[#FF5A36]" />;
-      case 'portfolio-os':
-        return <Sparkles size={17} className="text-[#FF7250]" />;
+        return <Globe size={17} className="text-[var(--accent)]" />;
       case 'orion':
-        return <Bot size={17} className="text-[#38bdf8]" />;
-      case 'startup-emp':
-        return <Zap size={17} className="text-[#a855f7]" />;
+        return <Bot size={17} className="text-[var(--accent)]" />;
       case 'neuralvoid':
-        return <Layers size={17} className="text-[#10b981]" />;
+        return <Layers size={17} className="text-[var(--accent)]" />;
       case 'legal-rag':
-        return <Brain size={17} className="text-[#eab308]" />;
+        return <Brain size={17} className="text-[var(--accent)]" />;
       default:
-        return <Code size={17} className="text-white" />;
+        return <Code size={17} className="text-[var(--accent)]" />;
     }
   };
 
@@ -99,11 +104,8 @@ export default function NetflixProjectsHub({ onOpenProject }) {
       id="work"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="py-28 md:py-36 px-4 sm:px-6 md:px-8 relative overflow-hidden select-none bg-gradient-to-b from-[#050508] via-[#070B16] to-[#050508]"
+      className="section-glow py-14 md:py-36 px-4 sm:px-6 md:px-8 relative overflow-hidden select-none border-t border-white/[0.06]"
     >
-      {/* ── AMBIENT ELECTRIC SKY & DEEP CYAN NEBULA ── */}
-      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-sky-500/[0.06] rounded-full blur-[190px]" />
-      <div className="pointer-events-none absolute top-10 left-10 w-[500px] h-[350px] bg-[var(--accent)]/[0.035] rounded-full blur-[160px]" />
 
       <div className="max-w-[1280px] mx-auto relative z-10">
         {/* ── SECTION HEADER (INTRO ANIMATION) ── */}
@@ -112,18 +114,17 @@ export default function NetflixProjectsHub({ onOpenProject }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 md:mb-14"
         >
           <div className="max-w-3xl">
-            <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12] mb-3">
-              Proven Systems &amp;{' '}
-              <span className="bg-gradient-to-b from-white via-sky-200 to-cyan-400 bg-clip-text text-transparent inline-block whitespace-nowrap">
-                Live Platforms
-              </span>
+            <SectionLabel label="Projects" />
+            <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.12] mb-3">
+              Things I've{' '}
+              <span className="text-[var(--accent)]">Actually Built</span>
             </h2>
 
-            <p className="text-white/65 text-xs sm:text-sm md:text-base font-normal leading-relaxed">
-              End-to-end web applications, autonomous AI workflows, and high-throughput systems. Select any project to explore the real-world problem solved, delivered business outcomes, and full technical architecture.
+            <p className="text-white/65 text-sm md:text-base font-normal leading-relaxed">
+              Web apps, AI agents, and backend systems I've shipped. Click into any of them to see the problem, how I solved it, and the code behind it.
             </p>
           </div>
         </motion.div>
@@ -132,7 +133,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
         <div
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
-          className="relative w-full h-[520px] sm:h-[560px] md:h-[600px] flex items-center justify-center"
+          className="relative w-full h-[500px] sm:h-[560px] md:h-[600px] flex items-center justify-center"
           style={!isMobile ? { perspective: '1200px' } : undefined}
         >
           {/* ── ILLUMINATED CAROUSEL STAGE PEDESTAL ── */}
@@ -179,7 +180,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                   }}
                   className={`absolute top-0 bottom-0 w-[88vw] max-w-[340px] my-auto h-[490px] rounded-3xl overflow-hidden cursor-pointer ${
                     isCenter
-                      ? 'border-2 border-[var(--accent)]/70 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_30px_rgba(255,90,54,0.25)]'
+                      ? 'border-2 border-[var(--accent)]/70 shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_18px_rgba(255,90,54,0.12)]'
                       : 'border border-white/[0.1] opacity-40 shadow-xl'
                   } bg-[#0A0B10] flex flex-col justify-between select-none`}
                 >
@@ -189,23 +190,24 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                       <img
                         src={project.coverImage}
                         alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                        onLoad={() => markCoverLoaded(project.id)}
+                        style={{ objectPosition: project.coverPosition || 'top' }}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-100 ${
+                          loadedCovers[project.id] ? 'opacity-85' : 'opacity-0'
+                        }`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/85 via-40% to-black/30" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/92 via-50% to-black/20" />
                     </>
                   ) : (
                     <>
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-b ${project.posterAccent} opacity-45`}
-                      />
+                      <div className={`absolute inset-0 bg-gradient-to-b ${project.posterAccent} opacity-45`} />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/90 via-45% to-transparent" />
                     </>
                   )}
 
                   {/* Top Integrated Glass Header Ribbon */}
                   <div className="relative z-10 px-5 py-3 border-b border-white/[0.1] bg-[#0A0B12]/90 backdrop-blur-xl flex items-center justify-between">
-                    <span className="font-display font-semibold text-xs text-white tracking-tight flex items-center gap-1.5">
-                      <span className="text-[var(--accent)] text-xs">✦</span>
+                    <span className="font-display font-semibold text-xs text-white tracking-tight">
                       {project.badge}
                     </span>
 
@@ -250,12 +252,12 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                         className="liquid-btn-primary w-full justify-center !py-2.5 text-xs font-bold"
                       >
                         <Maximize2 size={12} />
-                        <span>Explore Solution &amp; Specs</span>
+                        <span>Take a Look Inside</span>
                       </button>
                     ) : (
-                      <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-white/40">
-                        <span>Tap to select</span>
-                        <span className="text-[var(--accent)] font-medium">View Project →</span>
+                      <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-white/40">
+                        <span>Tap to bring forward</span>
+                        <span className="text-[var(--accent)] font-medium">See it up close →</span>
                       </div>
                     )}
                   </div>
@@ -310,12 +312,14 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                   rotateY: rotateY,
                   scale: scale,
                   opacity: opacity,
+                  y: isCenter ? [0, -10, 0] : 0,
                 }}
                 transition={{
                   type: 'spring',
                   stiffness: 270,
                   damping: 27,
                   mass: 0.85,
+                  y: isCenter ? { duration: 4.5, repeat: Infinity, ease: 'easeInOut' } : { type: 'spring', stiffness: 200, damping: 25 },
                 }}
                 onClick={() => {
                   if (isCenter) {
@@ -332,7 +336,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                 }}
                 className={`absolute top-0 bottom-0 w-[290px] sm:w-[360px] md:w-[410px] my-auto h-[480px] sm:h-[510px] md:h-[540px] rounded-3xl overflow-hidden cursor-pointer transition-shadow duration-300 ${
                   isCenter
-                    ? 'border-2 border-[var(--accent)]/70 shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_40px_rgba(255,90,54,0.3)]'
+                    ? 'border-2 border-[var(--accent)]/70 shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_20px_rgba(255,90,54,0.14)]'
                     : 'border border-white/[0.1] opacity-50 shadow-2xl hover:border-white/[0.25]'
                 } bg-[#0A0B10] flex flex-col justify-between select-none`}
               >
@@ -342,23 +346,24 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                     <img
                       src={project.coverImage}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+                      onLoad={() => markCoverLoaded(project.id)}
+                      style={{ objectPosition: project.coverPosition || 'top' }}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-100 ${
+                        loadedCovers[project.id] ? 'opacity-85' : 'opacity-0'
+                      }`}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/85 via-40% to-black/30" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/92 via-50% to-black/20" />
                   </>
                 ) : (
                   <>
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-b ${project.posterAccent} opacity-45`}
-                    />
+                    <div className={`absolute inset-0 bg-gradient-to-b ${project.posterAccent} opacity-45`} />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-[#08080C]/90 via-45% to-transparent" />
                   </>
                 )}
 
                 {/* Top Integrated Glass Header Ribbon */}
                 <div className="relative z-10 px-6 py-3.5 border-b border-white/[0.1] bg-[#0A0B12]/90 backdrop-blur-xl flex items-center justify-between">
-                  <span className="font-display font-semibold text-xs text-white tracking-tight flex items-center gap-1.5">
-                    <span className="text-[var(--accent)] text-xs">✦</span>
+                  <span className="font-display font-semibold text-xs text-white tracking-tight">
                     {project.badge}
                   </span>
 
@@ -371,7 +376,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                 <div className="relative z-10 px-6 flex-1 flex flex-col items-center justify-center">
                   {!isCenter && (
                     <div className="px-4 py-1.5 rounded-full bg-[#12131C]/90 border border-white/[0.2] text-white font-display font-medium text-xs flex items-center gap-1.5 shadow-xl hover:border-[var(--accent)]/60 transition-colors">
-                      <span>Click to View</span>
+                      <span>Bring to front</span>
                       <ArrowRight size={12} className="text-[var(--accent)]" />
                     </div>
                   )}
@@ -411,15 +416,15 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                         e.stopPropagation();
                         onOpenProject(project);
                       }}
-                      className="liquid-btn-primary w-full justify-center !py-3 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 group/btn cursor-pointer"
+                      className="liquid-btn-primary w-full justify-center !py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 group/btn cursor-pointer"
                     >
                       <Maximize2 size={13} className="group-hover/btn:scale-110 transition-transform" />
-                      <span>Explore Solution &amp; Specs</span>
+                      <span>Take a Look Inside</span>
                     </button>
                   ) : (
-                    <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-white/40">
-                      <span>Click to select</span>
-                      <span className="text-[var(--accent)] font-medium">Rotate to Center →</span>
+                    <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-white/40">
+                      <span>Click to bring forward</span>
+                      <span className="text-[var(--accent)] font-medium">See it up close →</span>
                     </div>
                   )}
                 </div>
@@ -429,12 +434,12 @@ export default function NetflixProjectsHub({ onOpenProject }) {
         </div>
 
         {/* ── INTEGRATED BOTTOM CONTROLLER DOCK ── */}
-        <div className="flex items-center justify-center gap-3 mt-8">
+        <div className="flex items-center justify-center gap-3 mt-5 md:mt-8">
           {/* Previous Project Button */}
           <button
             onClick={handlePrev}
             aria-label="Previous project"
-            className="w-10 h-10 rounded-full border border-white/[0.14] hover:border-[var(--accent)]/60 bg-white/[0.04] hover:bg-[#0E0F18] text-white/70 hover:text-white backdrop-blur-xl flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_16px_rgba(255,90,54,0.35)] cursor-pointer group"
+            className="w-10 h-10 rounded-full border border-white/[0.14] hover:border-[var(--accent)]/60 bg-white/[0.04] hover:bg-[#0E0F18] text-white/70 hover:text-white backdrop-blur-xl flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] cursor-pointer group"
           >
             <ChevronLeft size={18} className="group-hover:-translate-x-0.5 group-hover:text-[var(--accent)] transition-all" />
           </button>
@@ -448,7 +453,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
                 aria-label={`Jump to ${proj.title}`}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                   activeIndex === i
-                    ? 'w-7 h-2 bg-gradient-to-r from-[#FF6644] to-[#FF431A] shadow-[0_0_10px_rgba(255,90,54,0.7)]'
+                    ? 'w-7 h-2 bg-[var(--accent)]'
                     : 'w-2 h-2 bg-white/20 hover:bg-white/50'
                 }`}
               />
@@ -459,7 +464,7 @@ export default function NetflixProjectsHub({ onOpenProject }) {
           <button
             onClick={handleNext}
             aria-label="Next project"
-            className="w-10 h-10 rounded-full border border-white/[0.14] hover:border-[var(--accent)]/60 bg-white/[0.04] hover:bg-[#0E0F18] text-white/70 hover:text-white backdrop-blur-xl flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_16px_rgba(255,90,54,0.35)] cursor-pointer group"
+            className="w-10 h-10 rounded-full border border-white/[0.14] hover:border-[var(--accent)]/60 bg-white/[0.04] hover:bg-[#0E0F18] text-white/70 hover:text-white backdrop-blur-xl flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 shadow-[0_4px_16px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.2)] cursor-pointer group"
           >
             <ChevronRight size={18} className="group-hover:translate-x-0.5 group-hover:text-[var(--accent)] transition-all" />
           </button>
