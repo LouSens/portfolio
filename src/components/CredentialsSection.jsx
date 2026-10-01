@@ -54,6 +54,95 @@ function LoopVideo({ src, poster, className }) {
   return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="metadata" className={className} />;
 }
 
+/* Horizontal media band. Touch and trackpads scroll it natively; mouse users get arrow buttons
+   and click-and-drag, since a mouse wheel cannot scroll sideways. */
+function MediaBand({ label, children }) {
+  const ref = useRef(null);
+  const drag = useRef({ down: false, moved: false, x: 0, left: 0 });
+  const [can, setCan] = useState({ left: false, right: false });
+
+  const update = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setCan({ left: el.scrollLeft > 4, right: el.scrollLeft < el.scrollWidth - el.clientWidth - 4 });
+  }, []);
+
+  useEffect(() => {
+    update();
+    const t = setTimeout(update, 600);
+    window.addEventListener('resize', update);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', update);
+    };
+  }, [update]);
+
+  const page = (dir) => {
+    const el = ref.current;
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.7, behavior: 'smooth' });
+  };
+
+  const onPointerDown = (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag.current = { down: true, moved: false, x: e.clientX, left: ref.current.scrollLeft };
+  };
+  const onPointerMove = (e) => {
+    const d = drag.current;
+    if (!d.down) return;
+    const dx = e.clientX - d.x;
+    if (!d.moved && Math.abs(dx) > 6) {
+      d.moved = true;
+      ref.current.style.scrollSnapType = 'none';
+    }
+    if (d.moved) ref.current.scrollLeft = d.left - dx;
+  };
+  const endDrag = () => {
+    const d = drag.current;
+    if (!d.down) return;
+    d.down = false;
+    if (d.moved) ref.current.style.scrollSnapType = '';
+  };
+  // a drag must not open the photo underneath
+  const onClickCapture = (e) => {
+    if (drag.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      drag.current.moved = false;
+    }
+  };
+
+  const arrow = 'hidden md:flex absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/70 hover:bg-black/90 border border-white/[0.2] hover:border-white/50 text-white items-center justify-center backdrop-blur transition-colors cursor-pointer';
+
+  return (
+    <div className="relative mt-6 md:mt-10">
+      <div
+        ref={ref}
+        onScroll={update}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerLeave={endDrag}
+        onClickCapture={onClickCapture}
+        className="no-scrollbar flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory md:snap-none pb-2 pr-4 md:cursor-grab md:active:cursor-grabbing select-none"
+        style={{ paddingLeft: EDGE, scrollPaddingLeft: EDGE }}
+        aria-label={label}
+      >
+        {children}
+      </div>
+      {can.left && (
+        <button type="button" onClick={() => page(-1)} aria-label="Scroll left" className={`${arrow} left-4 lg:left-6`}>
+          <ChevronLeft size={22} />
+        </button>
+      )}
+      {can.right && (
+        <button type="button" onClick={() => page(1)} aria-label="Scroll right" className={`${arrow} right-4 lg:right-16`}>
+          <ChevronRight size={22} />
+        </button>
+      )}
+    </div>
+  );
+}
+
 /* One award with real material behind it: a lead visual, the numbers, a short account, and a
    band of everything else (photos, slides or a clip) that runs to the screen edge. */
 function AwardFeature({ feature, reverse, onOpen }) {
@@ -153,7 +242,7 @@ function AwardFeature({ feature, reverse, onOpen }) {
       </div>
 
       {/* The rest of the material, running to the screen edge */}
-      <div className="no-scrollbar mt-6 md:mt-10 flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory pb-2 pr-4" style={{ paddingLeft: EDGE, scrollPaddingLeft: EDGE }} aria-label={`${feature.title} media`}>
+      <MediaBand label={`${feature.title} media`}>
         {feature.photos.map((photo, i) => {
           const sizeClass = 'h-[220px] sm:h-[280px] lg:h-[340px]';
           if (photo.type === 'video') {
@@ -193,7 +282,7 @@ function AwardFeature({ feature, reverse, onOpen }) {
             </motion.button>
           );
         })}
-      </div>
+      </MediaBand>
     </article>
   );
 }
