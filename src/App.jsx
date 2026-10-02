@@ -52,7 +52,7 @@ export default function App() {
   const [show3D, setShow3D] = useState(false);
   useEffect(() => {
     // Phones skip the 3D background entirely: no three.js download, no GPU work. The hero keeps its CSS glow.
-    if (window.matchMedia('(max-width: 767px), (pointer: coarse)').matches) return undefined;
+    if (window.matchMedia('(max-width: 767px)').matches) return undefined;
     const start = () => setShow3D(true);
     const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
     return () => ('requestIdleCallback' in window ? window.cancelIdleCallback(id) : clearTimeout(id));
@@ -61,7 +61,7 @@ export default function App() {
   // Initialize Lenis Smooth Scroll (skipped for users who prefer reduced motion)
   useEffect(() => {
     // Touch devices already scroll smoothly; running Lenis there only costs frames.
-    if (window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 767px)').matches) {
       return;
     }
 

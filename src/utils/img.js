@@ -4,4 +4,4 @@ export const small = (src) => (/\.webp$/.test(src) && !src.includes('-sm.') ? sr
 // srcSet so the browser picks the small copy on phones and the full one on large screens.
 export const srcSet = (src, fullWidth = 1800) => (small(src) !== src ? `${small(src)} 800w, ${src} ${fullWidth}w` : undefined);
 
-export const isTouch = () => typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+export const isTouch = () => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;

@@ -433,7 +433,7 @@ button, a, input, select, textarea {
 
 
 /* ═══ Phones: drop the effects that are expensive to paint ═══ */
-@media (max-width: 767px), (pointer: coarse) {
+@media (max-width: 767px) {
   /* a full-screen fixed layer with a mask repaints on every scroll frame */
   .bg-dots { display: none; }
   /* huge blurred glows: keep the colour, lose the blur radius cost */

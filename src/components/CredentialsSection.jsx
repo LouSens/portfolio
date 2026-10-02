@@ -248,8 +248,6 @@ function AwardFeature({ feature, reverse, onOpen }) {
                 srcSet={srcSet(feature.lead.src, feature.lead.w)}
                 sizes="(max-width: 1024px) 100vw, 640px"
                 alt={feature.lead.caption}
-                loading="lazy"
-                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
               <span className="absolute inset-x-0 bottom-0 p-4 pt-12 text-left text-sm text-white/90 bg-gradient-to-t from-black/75 to-transparent">

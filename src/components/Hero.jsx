@@ -42,7 +42,7 @@ export default function Hero() {
   }, []);
 
   const { word, Icon } = BUILDS[i];
-  const lite = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
+  const lite = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
 
   return (
     <section className="relative min-h-[84svh] md:min-h-[92vh] flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 pt-24 md:pt-28 pb-20 md:pb-16 overflow-hidden select-none">
