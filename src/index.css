@@ -436,6 +436,20 @@ button, a, input, select, textarea {
 @media (max-width: 767px) {
   /* a full-screen fixed layer with a mask repaints on every scroll frame */
   .bg-dots { display: none; }
-  /* huge blurred glows: keep the colour, lose the blur radius cost */
-  [class*="blur-[1"] { filter: blur(60px); }
+  /* huge blurred glows: a plain gradient gives the same soft light with no filter to rasterise */
+  [class*="blur-[1"] {
+    filter: none !important;
+    background: radial-gradient(closest-side, rgba(255, 90, 54, 0.1), transparent) !important;
+  }
+  /* blurring whatever is behind a layer is redone on every scroll frame: use solid surfaces instead */
+  [class*="backdrop-blur"],
+  .liquid-glass,
+  .liquid-glass-card,
+  .liquid-btn-secondary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .nav-dock {
+    background: rgba(11, 12, 18, 0.94) !important;
+  }
 }

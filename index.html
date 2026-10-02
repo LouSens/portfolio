@@ -14,9 +14,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without holding up the first paint; text shows in the system font until they arrive. -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400;600&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <style>html,body{margin:0;background:#050508}</style>
 </head>
 
 <body class="bg-[#070709] text-[#f2f2f5] antialiased">

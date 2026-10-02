@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll, PresenceContext } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Modular Components
@@ -9,8 +9,6 @@ import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import About from './components/About';
 import NetflixProjectsHub from './components/NetflixProjectsHub';
-import CredentialsSection from './components/CredentialsSection';
-import ScopeInquiryDrawer from './components/ScopeInquiryDrawer';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 
@@ -19,6 +17,14 @@ import { PROJECTS_DATA } from './data/portfolioData';
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
 const ParticleCanvas = lazy(() => import('./components/ParticleCanvas'));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
+// Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
+const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
+const ScopeInquiryDrawer = lazy(() => import('./components/ScopeInquiryDrawer'));
+
+const IS_PHONE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+// On a phone's first load, entrance animations are skipped: content that waits on a JS animation
+// stays invisible for as long as the phone is busy, which reads as a black page.
+const NO_INTRO = { id: 'no-intro', isPresent: true, initial: false, register: () => () => {}, onExitComplete: () => {} };
 
 /* ═══════════════════════════════════════
    SCROLL PROGRESS BAR
@@ -150,26 +156,27 @@ export default function App() {
       <div className="fixed inset-0 z-0 pointer-events-none bg-dots" aria-hidden="true" />
 
       {/* ── 3D WEBGL PARTICLE SPHERE (HERO ISOLATED CENTERPIECE) ── */}
-      <div
-        className="absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden"
-        style={{
-          height: '100vh',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
-        }}
-      >
-        {show3D && (
+      {show3D && (
+        <div
+          className="absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden"
+          style={{
+            height: '100vh',
+            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
+          }}
+        >
           <Suspense fallback={null}>
             <ParticleCanvas paused={!!activeModalProject} />
           </Suspense>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Navigation */}
       <Navbar />
       <SectionNav />
 
       {/* Main Content Flow */}
+      <PresenceContext.Provider value={IS_PHONE && homeKey === 0 ? NO_INTRO : null}>
       <main key={homeKey} className="relative z-10 w-full overflow-hidden">
         {/* 1. Hero Section */}
         <Hero />
@@ -184,11 +191,14 @@ export default function App() {
         <NetflixProjectsHub onOpenProject={handleOpenProject} initialIndex={lastIndex} />
 
         {/* 6. Education & Awards */}
-        <CredentialsSection />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <CredentialsSection />
 
-        {/* 7. Flexible Contact & Inquiry */}
-        <ScopeInquiryDrawer />
+          {/* 7. Flexible Contact & Inquiry */}
+          <ScopeInquiryDrawer />
+        </Suspense>
       </main>
+      </PresenceContext.Provider>
 
       {/* Footer */}
       <Footer />
