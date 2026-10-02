@@ -29,6 +29,35 @@
             <p style="margin:1.25rem 0 0;color:rgba(255,255,255,0.6);font-size:1rem">David Kurniawan</p>
         </div>
     </div>
+    <script>
+        /* Load-time readout, only when the address ends in ?debug. Shows where the seconds go on a real device. */
+        if (location.search.indexOf('debug') > -1) (function () {
+            var long = 0, fcp = 0, mount = 0;
+            try { new PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { long += e.duration; }); }).observe({ type: 'longtask', buffered: true }); } catch (e) {}
+            try { new PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { if (e.name === 'first-contentful-paint') fcp = e.startTime; }); }).observe({ type: 'paint', buffered: true }); } catch (e) {}
+            var mo = new MutationObserver(function () { if (document.querySelector('header')) { mount = performance.now(); mo.disconnect(); } });
+            mo.observe(document.getElementById('root'), { childList: true, subtree: true });
+            function show() {
+                var n = performance.getEntriesByType('navigation')[0] || {}, c = navigator.connection || {}, r = Math.round;
+                var res = performance.getEntriesByType('resource').filter(function (e) { return /assets\/(index|react)/.test(e.name); })
+                    .map(function (e) { return e.name.split('/').pop().slice(0, 12) + ' ' + r(e.startTime) + '-' + r(e.responseEnd); });
+                var lines = [
+                    'dns ' + r(n.domainLookupEnd - n.domainLookupStart) + '  connect ' + r(n.connectEnd - n.connectStart),
+                    'html first byte ' + r(n.responseStart) + '  html done ' + r(n.responseEnd),
+                    'first paint ' + r(fcp) + '  app on screen ' + r(mount),
+                    'page load ' + r(n.loadEventEnd) + '  busy ' + r(long),
+                    res.join(' | '),
+                    'net ' + (c.effectiveType || '?') + ' ' + (c.downlink || '?') + 'Mb rtt ' + (c.rtt || '?') + '  mem ' + (navigator.deviceMemory || '?') + 'GB  cpu ' + (navigator.hardwareConcurrency || '?'),
+                    screen.width + 'x' + screen.height + ' @' + devicePixelRatio + '  ' + navigator.userAgent
+                ];
+                var d = document.getElementById('dbg') || document.body.appendChild(document.createElement('pre'));
+                d.id = 'dbg';
+                d.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;margin:0;padding:10px;background:#fff;color:#000;font:11px/1.5 monospace;white-space:pre-wrap;word-break:break-all;border-radius:8px';
+                d.textContent = lines.join('\n');
+            }
+            addEventListener('load', function () { setTimeout(show, 3000); setTimeout(show, 12000); });
+        })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
     <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "268996a6fe9042c8b3759a8e7ecc6fef"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
