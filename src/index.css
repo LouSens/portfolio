@@ -452,4 +452,34 @@ button, a, input, select, textarea {
   .nav-dock {
     background: rgba(11, 12, 18, 0.94) !important;
   }
+  /* Safari redraws a masked, animated strip on every frame and starves the rest of the page:
+     fade the edges with two plain overlays instead, and let the strip be an ordinary layer. */
+  .ticker-wrap-new {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    position: relative;
+  }
+  .ticker-wrap-new::before,
+  .ticker-wrap-new::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .ticker-wrap-new::before { left: 0; background: linear-gradient(to right, #050508, transparent); }
+  .ticker-wrap-new::after { right: 0; background: linear-gradient(to left, #050508, transparent); }
+  .ticker-track-new { will-change: auto; }
+  /* the logos are already white, so the grayscale filter only costs a layer per icon */
+  .ticker-track-new img { filter: none !important; }
+  /* no forced GPU layers: each one is memory Safari has to juggle while scrolling */
+  .liquid-btn-primary,
+  .liquid-btn-secondary,
+  .liquid-glass-card {
+    transform: none;
+    backface-visibility: visible;
+    will-change: auto;
+  }
 }
