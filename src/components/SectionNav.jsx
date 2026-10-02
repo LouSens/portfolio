@@ -11,21 +11,31 @@ export default function SectionNav() {
   const [active, setActive] = useState(SECTIONS[0].id);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
-    );
+    // Sections are looked up on every pass: Awards and Contact load after the first render, and the
+    // whole page is rebuilt when a case study closes, so elements captured once would go stale.
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const middle = window.innerHeight / 2;
+      let current = SECTIONS[0].id;
+      SECTIONS.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= middle) current = id;
+      });
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
 
-    const elements = SECTIONS.map(({ id }) => document.getElementById(id)).filter(Boolean);
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   const scrollTo = (id) => {
