@@ -42,6 +42,7 @@ export default function Hero() {
   }, []);
 
   const { word, Icon } = BUILDS[i];
+  const lite = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
 
   return (
     <section className="relative min-h-[84svh] md:min-h-[92vh] flex flex-col justify-center items-center px-4 sm:px-6 md:px-8 pt-24 md:pt-28 pb-20 md:pb-16 overflow-hidden select-none">
@@ -49,7 +50,7 @@ export default function Hero() {
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-[var(--accent)]/[0.07] rounded-full blur-[170px]"
-        animate={{ x: [-60, 60, -60], y: [-20, 25, -20], scale: [1, 1.08, 1] }}
+        animate={lite ? undefined : { x: [-60, 60, -60], y: [-20, 25, -20], scale: [1, 1.08, 1] }}
         transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
       />
 
@@ -77,9 +78,9 @@ export default function Hero() {
             <AnimatePresence mode="wait">
               <motion.span
                 key={word}
-                initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -14, filter: 'blur(4px)' }}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.35, ease }}
                 className="inline-flex items-center gap-2.5 text-[var(--accent)] font-display font-bold"
               >

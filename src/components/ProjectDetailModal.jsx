@@ -35,6 +35,7 @@ import {
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
+import { small, srcSet } from '../utils/img';
 
 const ease = [0.22, 1, 0.36, 1];
 const pad2 = (n) => String(n).padStart(2, '0');
@@ -146,12 +147,14 @@ function ScreensViewer({ categories, onOpen }) {
       <Tilt max={3} glare={false} className="rounded-2xl">
         <div className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-2xl border border-white/[0.12] bg-black">
           {/* blurred copy fills the letterbox so portrait photos still feel full-bleed */}
-          <img src={shot.src} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-40" />
+          <img src={small(shot.src)} alt="" aria-hidden="true" className="hidden md:block absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-40" />
           <AnimatePresence mode="popLayout" custom={dir} initial={false}>
             <motion.img
               key={shot.src}
               custom={dir}
               src={shot.src}
+              srcSet={srcSet(shot.src, 1600)}
+              sizes="(max-width: 768px) 100vw, 1100px"
               alt={shot.caption}
               draggable={false}
               variants={{
@@ -210,7 +213,7 @@ function ScreensViewer({ categories, onOpen }) {
                 ti === i ? 'border-[var(--accent)]' : 'border-transparent opacity-50 hover:opacity-90'
               }`}
             >
-              <img src={s.src} alt="" loading="lazy" draggable={false} className="w-full h-full object-cover" />
+              <img src={small(s.src)} alt="" loading="lazy" decoding="async" draggable={false} className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
@@ -502,7 +505,7 @@ function HeroVisual({ project }) {
   return (
     <div style={{ animationDelay: '0.5s' }} className="cs-fade-up lg:col-span-5 min-w-0">
       <div className="rounded-xl overflow-hidden border border-white/[0.14] bg-[#07080D] shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
-        <img src={project.heroImage} alt={`${project.title} interface`} className="block w-full h-auto" />
+        <img src={project.heroImage} srcSet={srcSet(project.heroImage, 1600)} sizes="(max-width: 1024px) 100vw, 440px" alt={`${project.title} interface`} className="block w-full h-auto" />
       </div>
       {project.concept && <p className="mt-3 text-xs text-white/40">Concept design with sample data, not a screenshot of the deployed app.</p>}
     </div>

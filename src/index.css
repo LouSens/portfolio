@@ -430,3 +430,12 @@ button, a, input, select, textarea {
 @media (prefers-reduced-motion: reduce) {
   .cs-rise, .cs-fade-up { animation: none; }
 }
+
+
+/* ═══ Phones: drop the effects that are expensive to paint ═══ */
+@media (max-width: 767px), (pointer: coarse) {
+  /* a full-screen fixed layer with a mask repaints on every scroll frame */
+  .bg-dots { display: none; }
+  /* huge blurred glows: keep the colour, lose the blur radius cost */
+  [class*="blur-[1"] { filter: blur(60px); }
+}

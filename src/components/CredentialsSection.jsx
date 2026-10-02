@@ -4,6 +4,8 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, FileText, Trophy, Medal, Award
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
+import { Play } from 'lucide-react';
+import { srcSet, isTouch } from '../utils/img';
 import { AWARD_FEATURES, COMPETITIONS, DEANS_LIST, EDUCATION, PROJECTS_DATA } from '../data/portfolioData';
 
 const ease = [0.22, 1, 0.36, 1];
@@ -43,15 +45,28 @@ function CountUp({ to }) {
 function LoopVideo({ src, poster, className }) {
   const ref = useRef(null);
   const inView = useInView(ref, { amount: 0.4 });
+  const [tapToPlay, setTapToPlay] = useState(() => isTouch());
 
   useEffect(() => {
     const v = ref.current;
-    if (!v) return;
+    if (!v || tapToPlay) return;
     if (inView && !prefersReducedMotion()) v.play().catch(() => {});
     else v.pause();
-  }, [inView]);
+  }, [inView, tapToPlay]);
 
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none" className={className} />;
+  if (tapToPlay) {
+    return (
+      <button type="button" onClick={() => setTapToPlay(false)} aria-label="Play clip" className="relative block w-full h-full cursor-pointer">
+        <img src={poster} alt="" loading="lazy" decoding="async" className={className} />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="w-14 h-14 rounded-full bg-black/70 border border-white/30 flex items-center justify-center text-white">
+            <Play size={22} className="ml-0.5" />
+          </span>
+        </span>
+      </button>
+    );
+  }
+  return <video ref={ref} src={src} poster={poster} muted loop playsInline autoPlay preload="none" className={className} />;
 }
 
 /* Horizontal media band. Touch and trackpads scroll it natively; mouse users get arrow buttons
@@ -230,6 +245,8 @@ function AwardFeature({ feature, reverse, onOpen }) {
             >
               <img
                 src={feature.lead.src}
+                srcSet={srcSet(feature.lead.src, feature.lead.w)}
+                sizes="(max-width: 1024px) 100vw, 640px"
                 alt={feature.lead.caption}
                 loading="lazy"
                 decoding="async"
@@ -277,7 +294,7 @@ function AwardFeature({ feature, reverse, onOpen }) {
               className={`group relative shrink-0 snap-start overflow-hidden rounded-xl border border-white/[0.1] cursor-zoom-in ${sizeClass}`}
               style={{ aspectRatio: `${photo.w} / ${photo.h}` }}
             >
-              <img src={photo.src} alt={photo.caption} loading="lazy" draggable={false} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" />
+              <img src={photo.src} srcSet={srcSet(photo.src, photo.w)} sizes="(max-width: 768px) 85vw, 520px" alt={photo.caption} loading="lazy" decoding="async" draggable={false} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" />
               <span className="absolute inset-x-0 bottom-0 p-3 pt-10 text-left text-xs sm:text-sm text-white/90 bg-gradient-to-t from-black/75 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
                 {photo.caption}
               </span>

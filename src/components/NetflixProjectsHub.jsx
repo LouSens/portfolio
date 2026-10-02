@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
+import { small } from '../utils/img';
 
 export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
@@ -188,7 +189,7 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
                   {project.hasRealUI ? (
                     <>
                       <img
-                        src={project.coverImage}
+                        src={small(project.coverImage)}
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
@@ -346,7 +347,7 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
                 {project.hasRealUI ? (
                   <>
                     <img
-                      src={project.coverImage}
+                      src={small(project.coverImage)}
                       alt={project.title}
                         loading="lazy"
                         decoding="async"
