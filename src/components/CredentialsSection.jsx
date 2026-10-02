@@ -51,7 +51,7 @@ function LoopVideo({ src, poster, className }) {
     else v.pause();
   }, [inView]);
 
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="metadata" className={className} />;
+  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none" className={className} />;
 }
 
 /* Horizontal media band. Touch and trackpads scroll it natively; mouse users get arrow buttons
@@ -231,6 +231,8 @@ function AwardFeature({ feature, reverse, onOpen }) {
               <img
                 src={feature.lead.src}
                 alt={feature.lead.caption}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
               <span className="absolute inset-x-0 bottom-0 p-4 pt-12 text-left text-sm text-white/90 bg-gradient-to-t from-black/75 to-transparent">

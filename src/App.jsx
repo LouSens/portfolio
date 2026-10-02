@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
 import { motion, useScroll } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
 import Lenis from 'lenis';
 
 // Modular Components
@@ -11,7 +9,6 @@ import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import About from './components/About';
 import NetflixProjectsHub from './components/NetflixProjectsHub';
-import ProjectDetailModal from './components/ProjectDetailModal';
 import CredentialsSection from './components/CredentialsSection';
 import ScopeInquiryDrawer from './components/ScopeInquiryDrawer';
 import Footer from './components/Footer';
@@ -19,66 +16,9 @@ import CursorGlow from './components/CursorGlow';
 
 import { PROJECTS_DATA } from './data/portfolioData';
 
-/* ═══════════════════════════════════════
-   THREE.JS HERO PARTICLE FIELD
-   ═══════════════════════════════════════ */
-function ParticleField() {
-  const ref = useRef();
-  const prefersReducedMotion = React.useMemo(
-    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
-
-  const positions = React.useMemo(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const count = isMobile ? 800 : 2000;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = (isMobile ? 13 : 15) * Math.cbrt(Math.random());
-      const theta = Math.random() * 2 * Math.PI;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
-    }
-    return pos;
-  }, []);
-
-  // Pointer position (-1..1) so the sphere leans toward the cursor. The canvas wrapper ignores
-  // pointer events, so listen on the window instead.
-  const pointer = useRef({ x: 0, y: 0 });
-  useEffect(() => {
-    const move = (e) => {
-      pointer.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointer.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-    };
-    window.addEventListener('pointermove', move, { passive: true });
-    return () => window.removeEventListener('pointermove', move);
-  }, []);
-
-  useFrame((state, delta) => {
-    if (ref.current && !prefersReducedMotion) {
-      ref.current.rotation.y -= delta * 0.035;
-      ref.current.rotation.x -= delta * 0.012;
-      // ease toward the cursor for a slight 3D parallax
-      ref.current.position.x += (pointer.current.x * 1.1 - ref.current.position.x) * Math.min(1, delta * 2);
-      ref.current.position.y += (-pointer.current.y * 0.7 - ref.current.position.y) * Math.min(1, delta * 2);
-    }
-  });
-
-  return (
-    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
-      <PointMaterial
-        transparent
-        color="#FF5A36"
-        size={0.045}
-        sizeAttenuation={true}
-        depthWrite={false}
-        opacity={0.35}
-      />
-    </Points>
-  );
-}
+// Heavy pieces load after the first paint: three.js for the background, and the case study view.
+const ParticleCanvas = lazy(() => import('./components/ParticleCanvas'));
+const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 
 /* ═══════════════════════════════════════
    SCROLL PROGRESS BAR
@@ -108,10 +48,20 @@ export default function App() {
   const [lastIndex, setLastIndex] = useState(0);
   // Where the visitor was on the page when a case study opened, so closing it returns them there.
   const savedScroll = useRef(0);
+  // Mount the 3D background only once the browser is idle, so it never delays the hero.
+  const [show3D, setShow3D] = useState(false);
+  useEffect(() => {
+    // Phones skip the 3D background entirely: no three.js download, no GPU work. The hero keeps its CSS glow.
+    if (window.matchMedia('(max-width: 767px), (pointer: coarse)').matches) return undefined;
+    const start = () => setShow3D(true);
+    const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
+    return () => ('requestIdleCallback' in window ? window.cancelIdleCallback(id) : clearTimeout(id));
+  }, []);
 
   // Initialize Lenis Smooth Scroll (skipped for users who prefer reduced motion)
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Touch devices already scroll smoothly; running Lenis there only costs frames.
+    if (window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)').matches) {
       return;
     }
 
@@ -208,14 +158,11 @@ export default function App() {
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
         }}
       >
-        <Canvas
-          frameloop={activeModalProject ? 'never' : 'always'}
-          camera={{ position: [0, 0, 15] }}
-          dpr={[1, 1.5]}
-          gl={{ powerPreference: 'high-performance', antialias: false }}
-        >
-          <ParticleField />
-        </Canvas>
+        {show3D && (
+          <Suspense fallback={null}>
+            <ParticleCanvas paused={!!activeModalProject} />
+          </Suspense>
+        )}
       </div>
 
       {/* Navigation */}
@@ -248,12 +195,14 @@ export default function App() {
 
       {/* ── PROJECT DETAIL MODAL ── */}
       {activeModalProject && (
+        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-[#050508]" />}>
         <ProjectDetailModal
           project={activeModalProject}
           projects={PROJECTS_DATA}
           onClose={handleCloseProject}
           onSelectProject={handleOpenProject}
         />
+        </Suspense>
       )}
     </div>
   );

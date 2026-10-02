@@ -15,12 +15,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400;600&display=swap"
         rel="stylesheet" />
 </head>
 
 <body class="bg-[#070709] text-[#f2f2f5] antialiased">
-    <div id="root"></div>
+    <div id="root">
+        <!-- Shown instantly while the app loads; React replaces it. -->
+        <div style="min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1rem;text-align:center;background:#050508;font-family:Inter,system-ui,sans-serif">
+            <p style="margin:0;font-weight:800;letter-spacing:-0.03em;line-height:1.08;color:#fff;font-size:clamp(1.875rem,1.2rem + 4vw,4.5rem)">Full-Stack Web Applications &amp;<br /><span style="color:#FF5A36">Intelligent Systems.</span></p>
+            <p style="margin:1.25rem 0 0;color:rgba(255,255,255,0.6);font-size:1rem">David Kurniawan</p>
+        </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
     <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "268996a6fe9042c8b3759a8e7ecc6fef"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

@@ -190,6 +190,8 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
                       <img
                         src={project.coverImage}
                         alt={project.title}
+                        loading="lazy"
+                        decoding="async"
                         onLoad={() => markCoverLoaded(project.id)}
                         style={{ objectPosition: project.coverPosition || 'top' }}
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-100 ${
@@ -346,6 +348,8 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
                     <img
                       src={project.coverImage}
                       alt={project.title}
+                        loading="lazy"
+                        decoding="async"
                       onLoad={() => markCoverLoaded(project.id)}
                       style={{ objectPosition: project.coverPosition || 'top' }}
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-100 ${
