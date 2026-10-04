@@ -8,31 +8,25 @@
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Three.js](https://img.shields.io/badge/Three.js-0.183-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
 [![Framer Motion](https://img.shields.io/badge/Framer%20Motion-12-0055FF?logo=framer&logoColor=white)](https://motion.dev/)
-[![GSAP](https://img.shields.io/badge/GSAP-3-0AE448?logo=greensock&logoColor=black)](https://gsap.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare%20Workers-KV-F38020?logo=cloudflareworkers&logoColor=white)](https://workers.cloudflare.com/)
+[![HyperFrames](https://img.shields.io/badge/HyperFrames-demo%20videos-FF5A36)](https://hyperframes.heygen.com/)
 
 </div>
 
-A high-performance, interactive portfolio and system architecture platform built with **React**, **Three.js / WebGL**, **Framer Motion**, **Tailwind CSS**, and **Cloudflare Workers**. Engineered to present both client-oriented finished solutions and deep technical architecture specifications.
+A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind CSS**. The home page carries the highlights; dedicated pages go deeper on projects, awards and contact, and each project opens into a full case study.
 
 ---
 
-## ✨ Key Architectural Highlights & Features
+## ✨ What is on the site
 
-- 🌌 **GPU-Accelerated 3D Particle Field**: WebGL particle dynamics field rendering 2,200 dynamic particles with real-time rotational inertia, depth attenuation, and cursor parallax tracking via Three.js.
-- ⚡ **Kinetic Motion & Smooth Scrolling**: Friction-based inertial scrolling integrated with **Lenis** and top scroll progress indicator.
-- 🛸 **Smart Direction-Aware Liquid Glass Navigation**: Floating header dock that detects directional scroll momentum, auto-hiding on scroll-down and instantly revealing on scroll-up.
-- 🎠 **3D Orbital Projects Carousel**: Hardware-accelerated 3D carousel with swipe gesture support on mobile, deep-linking (`#project=id`), and expanded engineering dossiers.
-- 📑 **Comprehensive System Dossier Modals**: Multi-tab project inspector featuring:
-  - **The Business Challenge & Finished Solution** bento breakdown
-  - **Key Outcomes Delivered** metrics
-  - **Interactive 16-Screen UI Flow Gallery** with slideshow controls
-  - **6-Node Interactive System Architecture Pipelines**
-  - **Verified Code Implementation Snippets** with syntax highlighting & instant copy
-- 🛠 **Finished Solutions Workbench**: Interactive service matrix breaking down the business problem, delivered outcomes, and technical specifications across Full-Stack Web Apps, Scalable Backends, Autonomous AI Agents, and Enterprise Search.
-- 📬 **Serverless Global Inquiry Engine**: Real-time cross-device global tracking powered by a **Cloudflare Worker** + **KV Storage** backend with automated **Web3Forms** email dispatch and client-side confirmation receipts.
-- 🎓 **Credentials & Academic Honors Showcase**: Visual certificate viewer and video showcase for Dean's List (3 consecutive semesters, 3.84/4.00 GPA) and competition awards (SEA-CICSIC Silver Award, DPickleball RL 3rd Place).
+- 🏠 **Home page as the highlights**: hero, about, a 3D project carousel, the three headline awards, and one-tap contact links.
+- 📄 **Dedicated pages**: Projects, Awards and Contact each have their own page (`/#/projects`, `/#/awards`, `/#/contact`), reachable from the navbar and the mobile menu. Pages live behind the hash, so they work on any static host without server rewrites.
+- 🎬 **App demos that play in place**: on the Projects page, each card plays a short silent walkthrough of the real app while it is on screen, and pauses when it scrolls away.
+- 📑 **Case studies**: every project opens a full-screen write-up (`#project=<id>`) with real screens, how it is built, what I built, and the decisions behind it. The back button closes it and returns to where you were.
+- 🏆 **Achievements timeline**: every competition and academic result in date order on the Awards page, each with its certificate one tap away, followed by the featured awards with photos, slides and a clip.
+- 📬 **Contact**: a message form backed by a **Cloudflare Worker + KV** counter and **Web3Forms** email dispatch.
+- 🌌 **Motion**: a WebGL particle field behind the hero (desktop only), **Lenis** smooth scrolling, a scroll progress bar and a floating navbar that hides on scroll-down. Phones skip the heavy effects.
 
 ---
 
@@ -40,14 +34,15 @@ A high-performance, interactive portfolio and system architecture platform built
 
 | Domain | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Frontend Framework** | React 19 & Vite 5 | Fast component rendering, state hooks & sub-300ms builds |
-| **Styling & Design System** | Tailwind CSS 3 & Vanilla CSS | Liquid glassmorphism, HSL color tokens & CSS specular effects |
-| **3D & WebGL Graphics** | Three.js | GPU-accelerated particle fields and spatial depth attenuation |
-| **Animations & Motion** | Framer Motion & Lenis | 60 FPS micro-interactions, layout transitions & inertial scroll |
-| **Serverless Backend** | Cloudflare Workers & KV | Cross-device global inquiry counter & serverless API endpoints |
-| **Email Dispatch** | Web3Forms API | Direct form email notification transmission |
-| **Typography** | Outfit, Inter & DM Mono | Clean hierarchy balancing modern display typography and monospace technical data |
-| **Deployment** | Vercel / Cloudflare Edge | Production CDN caching, automated CI/CD and edge delivery |
+| **Frontend Framework** | React 18 & Vite 5 | Components and fast builds |
+| **Styling** | Tailwind CSS 3 & plain CSS | Layout, glass surfaces and shared tokens |
+| **3D Graphics** | Three.js (React Three Fiber) | Particle field behind the hero |
+| **Animation** | Framer Motion & Lenis | Entrance motion, transitions and smooth scroll |
+| **Routing** | A small hash router (`src/utils/route.js`) | Pages without a router dependency or server rewrites |
+| **Serverless Backend** | Cloudflare Workers & KV | Inquiry counter and API endpoint |
+| **Email Dispatch** | Web3Forms API | Contact form notifications |
+| **Demo Videos** | HyperFrames, Playwright | Walkthroughs rendered from real captures of each app |
+| **Typography** | Inter & JetBrains Mono | Text and code |
 
 ---
 
@@ -55,70 +50,107 @@ A high-performance, interactive portfolio and system architecture platform built
 
 ```
 portfolio-website/
-├── index.html                  # HTML entry point with meta preloads & font declarations
-├── package.json                # Dependencies and npm scripts
-├── vite.config.js              # Vite build setup with code-splitting chunks
-├── tailwind.config.js          # Design system color tokens, keyframes & font families
-├── postcss.config.js           # PostCSS Tailwind engine
-├── static/                     # High-resolution assets, documents, and screenshots
+├── index.html                  # HTML entry point
+├── vite.config.js              # Vite build setup
+├── tailwind.config.js          # Design tokens and fonts
+├── static/                     # Published assets
 │   ├── CV_DAVID KURNIAWAN.pdf
-│   ├── docs/                   # Business proposals, pitch decks & Dean's List certificates
-│   ├── media/                  # Competition photos and RL agent trophies
-│   └── screenshots/            # Real platform screenshot suites (KerjaCerdas & Portfolio)
+│   ├── docs/                   # Pitch decks, proposals, Dean's List certificates
+│   ├── media/                  # Award photos, certificates, demo videos (media/demos)
+│   └── screenshots/            # App screens used in the case studies
+├── design/
+│   ├── previews/               # Concept designs rendered to images (see design/README.md)
+│   └── neuralvoid-ui/          # Storyboard for NeuralVoid's interface
+├── videos/                     # Demo video sources
+│   ├── build-videos.py         # One plan → the three HyperFrames compositions
+│   ├── build-storyboards.py    # Storyboard sheets for review
+│   ├── kerjacerdas-demo/       # Composition, captures, brief and storyboard
+│   ├── orion-demo/             # Same, plus the script that captures the running app
+│   ├── neuralvoid-demo/
+│   └── neuralvoid-demo-sample/ # Made-up watch history and capture scripts
 └── src/
-    ├── main.jsx                # Application mounting root
-    ├── App.jsx                 # Main layout shell with modal & drawer state orchestrators
-    ├── index.css               # Core design system tokens, liquid glass utilities & animations
+    ├── main.jsx
+    ├── App.jsx                 # Page switching, smooth scroll, case study state
+    ├── index.css               # Tokens, glass utilities, animations
     ├── data/
-    │   └── portfolioData.js    # Data store (projects, services, metrics, awards, timeline)
+    │   └── portfolioData.js    # Projects, awards, achievements timeline, education
+    ├── utils/
+    │   ├── route.js            # Hash routes for the dedicated pages
+    │   └── img.js              # Small-image helpers
     └── components/
-        ├── Hero.jsx            # Confident headline, value proposition & highlights strip
-        ├── Navbar.jsx          # Direction-aware floating liquid glass header
-        ├── ServicesSection.jsx # Finished solutions matrix with dual business/technical framing
-        ├── NetflixProjectsHub.jsx # 3D orbital hardware-accelerated project carousel
-        ├── ProjectDetailModal.jsx # Multi-tab engineering dossier (problem, solution, code, UI gallery)
-        ├── TechStackMatrix.jsx # Filterable interactive technology & framework matrix
-        ├── ExperienceTimeline.jsx # Interactive vertical timeline spine
-        ├── CredentialsSection.jsx # Academic honors, 3.84 GPA verification & competition awards
-        ├── ScopeInquiryDrawer.jsx # Direct inquiry form synced with Cloudflare Worker + KV
-        └── Footer.jsx          # Terminal-inspired footer with live timezone & quick links
+        ├── Navbar.jsx              # Floating navbar and mobile menu
+        ├── SectionNav.jsx          # Side dots on the home page
+        ├── Hero.jsx
+        ├── Marquee.jsx             # Tool strip
+        ├── About.jsx
+        ├── NetflixProjectsHub.jsx  # Home page project carousel
+        ├── ProjectsPage.jsx        # Projects page: cards with autoplaying demos
+        ├── ProjectDetailModal.jsx  # Full-screen case study
+        ├── CredentialsSection.jsx  # Awards: timeline, featured awards, academics
+        ├── ScopeInquiryDrawer.jsx  # Contact links and message form
+        ├── PageNav.jsx             # "Back to home" and "Next" at the foot of a page
+        ├── Lightbox.jsx            # Image viewer
+        ├── ParticleCanvas.jsx      # WebGL background
+        └── Footer.jsx
 ```
+
+---
+
+## 🎬 Demo videos
+
+The walkthroughs on the Projects page are silent, captioned videos of about 26 to 31 seconds, built with [HyperFrames](https://hyperframes.heygen.com/) from captures of each app:
+
+| Project | Source of the screens |
+|---|---|
+| **KerjaCerdas** | Real screenshots of the app |
+| **Orion** | The front end run locally and driven with Playwright |
+| **NeuralVoid** | The app run locally on a made-up watch history |
+
+To change one, edit the plan in `videos/build-videos.py`, then:
+
+```bash
+python videos/build-videos.py          # regenerate the compositions
+cd videos/orion-demo
+npx hyperframes check                  # lint, layout and contrast checks
+npx hyperframes render                 # needs FFmpeg on PATH
+```
+
+The web copies in `static/media/demos/` are 720p re-encodes of the renders. Renders and snapshots are not committed.
 
 ---
 
 ## 💻 Featured Systems & Case Studies
 
-1. **[KerjaCerdas](https://github.com/LouSens/KerjaCerdas.git)** (*Lead Systems Engineer · 2026*)
-   - Enterprise Talent AI & Multi-Agent Matching Platform.
-   - Proof-weighted four-factor ranking over `pgvector` embeddings, skill-gap analysis with course recommendations, a LangGraph career advisor, and Gemini CV parsing with PII redaction and Token Efficiency Gates. Finalist and Tier 3 Award at PIDI Digdaya x Hackathon 2026.
+1. **[KerjaCerdas](https://github.com/LouSens/KerjaCerdas.git)** (*Backend & AI · 2026*)
+   - AI talent-matching platform that ranks candidates on skills they can prove.
+   - Proof-weighted four-factor ranking over `pgvector` embeddings, skill-gap analysis with course recommendations, a LangGraph career advisor, and Gemini CV parsing with PII redaction. Finalist and Tier 3 Award at PIDI Digdaya x Hackathon 2026.
 
-2. **[Personal Engineering Portfolio](https://github.com/LouSens/portfolio-website.git)** (*Creator & UI Architect · 2026*)
-   - High-performance interactive platform with Three.js particle dynamics, direction-aware liquid glass navigation, 3D project carousel, and Cloudflare Worker + KV global inquiry tracking.
+2. **[Orion](https://github.com/LouSens/orion.git)** (*Tech Lead & Backend Architect · 2026*)
+   - AI expense reimbursement automation.
+   - Six-agent LangGraph workflow, deterministic policy evaluation with duplicate detection, rate limiting, and 85% test coverage. Top 24 of 100+ teams at UMHackathon 2026.
 
-3. **[Orion](https://github.com/LouSens/orion.git)** (*Tech Lead & Backend Architect · May 2026*)
-   - AI Expense SaaS & Reimbursement Automation.
-   - 6-stage LangGraph state machine, sliding-window rate limiting, deterministic policy evaluation with rapidfuzz duplicate detection, and 85% test coverage across 120 unit tests (*UM Hackathon Top 24 / 100+ Teams*).
+3. **[NeuralVoid](https://github.com/LouSens/neural-void.git)** (*Full-Stack & ML Engineer · Jan 2026*)
+   - TikTok habit analytics written for non-technical people.
+   - A 25-feature pipeline feeding an XGBoost, Random Forest and Logistic Regression ensemble (~96% accuracy), shown as plain-language numbers, a habit level, and a plan with the hours each change would give back.
 
-4. **[Startup EMP](https://github.com/nerdylive123/Startup-emp.git)** (*Backend & AI Systems Engineer · May 2026*)
-   - AI Chief of Staff & Accelerator Cohort Triage Platform.
-   - 4-phase LangGraph agent pipeline, FastAPI backend, Pydantic v2 schema coercion, Cloud Run serverless deployment, and vector mentor matching with human-in-the-loop governance.
+4. **[Indonesian Legal RAG](https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal)** (*ML & Search Engineer · 2026*)
+   - Hybrid statutory search and retrieval.
+   - BM25 plus dense retrieval with HyDE, cross-encoder reranking and exact article citations; model published on Hugging Face.
 
-5. **[NeuralVoid](https://github.com/LouSens/neural-void.git)** (*Full-Stack & ML Engineer · Jan 2026*)
-   - Clinical Behavioral Analytics & Machine Learning Platform.
-   - 25-feature ML extraction pipeline calculating session velocity, streak entropy, and binge probability feeding an XGBoost / Random Forest ensemble (~96% accuracy) with automated narrative report synthesis.
-
-6. **[Indonesian Legal RAG](https://huggingface.co/HuangYiYang/Llama-3-8B-Indonesian-Legal)** (*ML & Search Engineer · 2026*)
-   - Hybrid Statutory Search & Document Retrieval Engine.
-   - Parent-Child Hybrid Ensemble RAG (sparse BM25 + dense FAISS) with HyDE hypothesis generation, Cross-Encoder reranking, and exact article citation synthesis published on Hugging Face.
+Also on GitHub, not shown on the site: **[Startup EMP](https://github.com/nerdylive123/Startup-emp.git)**, an accelerator triage platform with a four-phase LangGraph pipeline.
 
 ---
 
 ## 🏆 Honors & Recognition
 
-- 🥈 **Silver Award: SEA-CICSIC 2026**: China-ASEAN Innovation Competition (Omni-QC industrial defect detection proposal).
-- 🥉 **3rd Place: DPickleball AI Tournament** (*Oct 2025*): Unity ML-Agents continuous control reinforcement learning agent (PPO).
-- 🌟 **Top 20% Globally: International Quant Championship** (*Apr 2025*): Quantitative problem solving & algorithmic modeling.
-- 🎓 **Dean's List (Three Consecutive Semesters)**: Xiamen University Malaysia (Top 16% of cohort, 3.84 / 4.00 GPA).
+- 🏅 **Finalist, Tier 3 Award: PIDI Digdaya x Hackathon 2026** (*Sep 2026*): Bank Indonesia. Top 80 of more than 2,000 teams with KerjaCerdas.
+- 🥈 **Silver Award: SEA-CICSIC 2026** (*Jun 2026*): China-ASEAN Innovation Competition (Omni-QC).
+- 🏅 **Top 24 of 100+ teams: UMHackathon 2026** (*Apr 2026*): Universiti Malaya, with Orion.
+- 🥉 **3rd Place: DPickleball AI Tournament** (*Oct 2025*): Unity ML-Agents reinforcement learning agent (PPO).
+- 🌟 **Top 20% Globally: International Quant Championship** (*Apr 2025*): WorldQuant, Stage 1; Bronze level in the WorldQuant Challenge.
+- 🎓 **Dean's List, three consecutive semesters**: Xiamen University Malaysia (top 16% of cohort, 3.84 / 4.00 GPA).
+- 🥇 **Gold medal, Physics: ONSK 2023**: Olimpiade Nasional Sains dan Kedokteran.
+- 🏅 **Top 13, Physics: OSN provincial round** (*2023*).
 
 ---
 
@@ -127,19 +159,15 @@ portfolio-website/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- `npm` or `yarn`
+- `npm`
 
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/LouSens/resume.git
-cd resume
+git clone https://github.com/LouSens/portfolio.git
+cd portfolio
 
-# Install dependencies
 npm install
-
-# Run local development server
 npm run dev
 ```
 
@@ -155,10 +183,7 @@ VITE_CLOUDFLARE_WORKER_URL=https://portfolio-inquiries.your-subdomain.workers.de
 ### Building for Production
 
 ```bash
-# Generate optimized production bundle
 npm run build
-
-# Preview production build locally
 npm run preview
 ```
 
