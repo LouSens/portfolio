@@ -148,7 +148,7 @@ export const PROJECTS_DATA = [
     ],
     tags: ['React 18', 'FastAPI', 'PostgreSQL + pgvector', 'LangGraph', 'Gemini', 'Zustand', 'Docker Compose'],
     githubUrl: 'https://github.com/LouSens/KerjaCerdas.git',
-    liveUrl: 'http://kerja-cerdas.replit.app/',
+    liveUrl: 'https://kerjacerdas.tech',
     screenCategories: [
       {
         name: 'Landing',
@@ -380,7 +380,7 @@ export const PROJECTS_DATA = [
       { title: 'Deployed', text: 'A React app on Vercel talking to a Railway API gateway.' },
     ],
     githubUrl: 'https://github.com/LouSens/neural-void.git',
-    liveUrl: null,
+    liveUrl: 'https://neural-void.davidk-academic.workers.dev',
   },
   {
     id: 'legal-rag',

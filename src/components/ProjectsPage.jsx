@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight, Trophy } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Trophy } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { small } from '../utils/img';
@@ -65,11 +65,8 @@ export default function ProjectsPage({ onOpenProject }) {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease }}
             >
-              <button
-                type="button"
-                onClick={() => onOpenProject(project)}
-                className="group flex flex-col w-full h-full text-left rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.1] hover:border-[var(--accent)]/50 bg-[#0A0B10] transition-colors cursor-pointer"
-              >
+              {/* The whole card opens the write-up (the button below stretches over it); the live link sits above that. */}
+              <div className="group relative flex flex-col w-full h-full text-left rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.1] hover:border-[var(--accent)]/50 bg-[#0A0B10] transition-colors">
                 <div className="relative w-full aspect-video overflow-hidden bg-white/[0.03]">
                   {project.walkthrough ? (
                     <Walkthrough video={project.walkthrough} title={project.title} />
@@ -134,12 +131,33 @@ export default function ProjectsPage({ onOpenProject }) {
                     ))}
                   </div>
 
-                  <span className="mt-auto inline-flex items-center gap-1 text-sm text-[var(--accent)] group-hover:text-white transition-colors">
-                    <span>Read the write-up</span>
-                    <ArrowUpRight size={15} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
+                  <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-1">
+                    <button
+                      type="button"
+                      onClick={() => onOpenProject(project)}
+                      className="inline-flex items-center gap-1 py-2 text-sm text-[var(--accent)] group-hover:text-white transition-colors cursor-pointer after:absolute after:inset-0 after:content-['']"
+                    >
+                      <span>Read the write-up</span>
+                      <ArrowUpRight size={15} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </button>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="relative z-10 inline-flex items-center gap-1.5 py-2 text-sm text-white/80 hover:text-white transition-colors"
+                      >
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                        </span>
+                        <span>Try it live</span>
+                        <ExternalLink size={13} />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </button>
+              </div>
             </motion.li>
           ))}
         </ul>
