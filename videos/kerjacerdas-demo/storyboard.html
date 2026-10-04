@@ -1,0 +1,117 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KerjaCerdas demo storyboard v2</title><style>
+:root{--bg:#050508;--panel:#0d0e14;--line:rgba(255,255,255,.1);--text:#f3f3f6;--mute:rgba(243,243,246,.58);--accent:#FF5A36}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1500px;margin:0 auto;padding:40px 24px 80px}
+header h1{font-size:34px;letter-spacing:-.02em;margin:0 0 6px}
+header h1 span{color:var(--accent)}
+header p{margin:0;color:var(--mute);max-width:70ch}
+.tag{display:inline-block;margin-top:14px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 22px;margin-top:34px}
+@media (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}
+.cell{aspect-ratio:16/9;container-type:inline-size;position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--line);
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,90,54,.13),transparent 60%),var(--bg)}
+.win{position:absolute;left:50%;top:4.5%;height:70%;transform:translateX(-50%);border-radius:1.1cqw;overflow:hidden;border:.12cqw solid rgba(255,255,255,.16);
+  box-shadow:0 2cqw 5cqw rgba(0,0,0,.6);background:#111}
+.bar{height:7%;background:#14151c;display:flex;align-items:center;gap:.5cqw;padding:0 1.1cqw}
+.bar i{width:.8cqw;height:.8cqw;border-radius:50%;background:rgba(255,255,255,.18)}
+.bar b{margin-left:1cqw;font-weight:500;font-size:.95cqw;color:rgba(255,255,255,.45)}
+.shot{position:relative;height:93%}
+.shot img{display:block;height:100%;width:auto}
+.focus{position:absolute;width:26%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:.14cqw dashed rgba(255,90,54,.75)}
+.cur{position:absolute;width:2.6cqw;transform:translate(-12%,-8%);filter:drop-shadow(0 .3cqw .5cqw rgba(0,0,0,.6))}
+.ring{position:absolute;width:4.4cqw;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:.22cqw solid var(--accent)}
+.cap{position:absolute;left:6%;right:6%;bottom:4.2%;display:flex;flex-direction:column;gap:.35cqw}
+.kick{align-self:flex-start;font-size:1.4cqw;font-weight:600;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
+.line{font-size:3.6cqw;font-weight:800;letter-spacing:-.025em;line-height:1.08}
+.sub{font-size:1.8cqw;color:var(--mute)}
+.signoff .win{opacity:.22;top:9%;height:64%}
+.signoff .cap{bottom:auto;top:36%;align-items:center;text-align:center}
+.signoff .line{font-size:7cqw}
+.signoff .sub{font-size:1.9cqw;color:var(--text)}
+.signoff .rule{width:6cqw;height:.35cqw;border-radius:9px;background:var(--accent);margin-bottom:1cqw}
+.label{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:13px}
+.label b{font-weight:700}
+.label span{color:var(--mute);font-variant-numeric:tabular-nums}
+.note{margin:6px 0 0;font-size:13px;color:var(--mute)}
+.note b{color:var(--text)}
+.chip{display:inline-block;margin-top:8px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;font-size:11px;color:var(--mute)}
+.extra{aspect-ratio:16/9;border-radius:10px;border:1px solid var(--line);background:var(--panel);padding:18px 20px;font-size:13px;overflow:hidden}
+.extra h3{margin:0 0 10px;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.extra ol,.extra ul{margin:0;padding-left:18px;color:var(--mute)}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+footer{margin-top:34px;color:var(--mute);font-size:13px;max-width:80ch}
+</style></head><body><div class="wrap">
+<header><h1>KerjaCerdas demo <span>storyboard v2</span></h1><p>KerjaCerdas shows you which skills you are missing before you apply, then helps you close the gap.</p><span class="tag">1920×1080 · 26s · 7 beats · silent, captions on screen</span></header>
+<div class="grid"><section>
+  <div class="cell" id="frame-01">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/landing.webp" alt=""></div></div>
+    <div class="cap"><span class="line">Stop applying blind.</span><span class="sub">KerjaCerdas shows what you are missing before you apply.</span></div>
+  </div>
+  <div class="label"><b>01 · PROMISE</b><span>01-promise · 0.0–3.5s</span></div>
+  <p class="note"><b>Moves:</b> The window rises into place and settles. The headline lands with it; the second line follows.</p>
+  <span class="chip">in: cut in</span>
+</section>
+<section>
+  <div class="cell" id="frame-02">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/seeker-dashboard.webp" alt=""><span class="focus" style="left:72.9%;top:53.3%"></span><span class="ring" style="left:90.3%;top:65.8%"></span><svg class="cur" style="left:90.3%;top:65.8%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">01 · Pick a target</span><span class="line">Ranked on what you can prove.</span><span class="sub">A skill counts for more once a quiz or an employer has backed it up.</span></div>
+  </div>
+  <div class="label"><b>02 · PICK A TARGET</b><span>02-target · 3.5–7.5s</span></div>
+  <p class="note"><b>Moves:</b> Slow push toward the ranked list. The cursor glides to &quot;Lihat detail &amp; jadikan target&quot; and clicks.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-03">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/seeker-match.webp" alt=""><span class="focus" style="left:44.4%;top:62.2%"></span><span class="ring" style="left:54.9%;top:74.2%"></span><svg class="cur" style="left:54.9%;top:74.2%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">02 · See the gap</span><span class="line">You have 2 of 3 required skills.</span><span class="sub">The missing one is named, not buried in a score.</span></div>
+  </div>
+  <div class="label"><b>03 · SEE THE GAP</b><span>03-gap · 7.5–12.0s</span></div>
+  <p class="note"><b>Moves:</b> Punch in on the job card until the red &quot;Kasir · Belum ada&quot; chip is readable, hold for a full second, then the cursor clicks &quot;Lihat rencana belajar&quot;.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-04">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/seeker-learning-plan.webp" alt=""><span class="focus" style="left:69.4%;top:48.9%"></span><span class="ring" style="left:83.0%;top:56.9%"></span><svg class="cur" style="left:83.0%;top:56.9%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">03 · Close it</span><span class="line">A learning plan for exactly that skill.</span><span class="sub">Courses for each gap. Add the skill once you have it.</span></div>
+  </div>
+  <div class="label"><b>04 · CLOSE IT</b><span>04-close · 12.0–16.0s</span></div>
+  <p class="note"><b>Moves:</b> Slow push toward the two skills to learn. The cursor moves to &quot;Sudah saya kuasai&quot; on the Kasir row and clicks.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-05">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/seeker-interview.webp" alt=""><span class="focus" style="left:58.3%;top:36.7%"></span><span class="ring" style="left:58.9%;top:43.3%"></span><svg class="cur" style="left:58.9%;top:43.3%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">04 · Apply</span><span class="line">Then apply, and follow every stage.</span><span class="sub">HR feedback lands on the application itself.</span></div>
+  </div>
+  <div class="label"><b>05 · APPLY</b><span>05-apply · 16.0–19.5s</span></div>
+  <p class="note"><b>Moves:</b> Slow push toward the stage tracker at &quot;Wawancara&quot;. The cursor comes to rest on the note from the employer.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-06">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/employer-applicants.webp" alt=""><span class="focus" style="left:68.1%;top:57.8%"></span><span class="ring" style="left:74.0%;top:73.0%"></span><svg class="cur" style="left:74.0%;top:73.0%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">For employers</span><span class="line">One ranked shortlist, with a skill map.</span><span class="sub">Confirm a skill at interview and it counts in full.</span></div>
+  </div>
+  <div class="label"><b>06 · EMPLOYER SIDE</b><span>06-employer · 19.5–23.5s</span></div>
+  <p class="note"><b>Moves:</b> Slow push from the skill map down to candidate #1. The cursor clicks &quot;Wawancara &amp; konfirmasi skill&quot;.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell signoff" id="frame-07">
+    <div class="win" style="width:58.59%"><div class="bar"><i></i><i></i><i></i><b>kerjacerdas</b></div><div class="shot"><img src="public/shots/landing.webp" alt=""></div></div>
+    <div class="cap"><span class="rule"></span><span class="line">KerjaCerdas</span><span class="sub">Finalist, Tier 3 Award · PIDI Digdaya x Hackathon 2026</span></div>
+  </div>
+  <div class="label"><b>07 · SIGN-OFF</b><span>07-signoff · 23.5–26.0s</span></div>
+  <p class="note"><b>Moves:</b> The window eases back and dims behind the title. One move, then still.</p>
+  <span class="chip">in: crossfade</span>
+</section><section><div class="extra"><h3>Seams</h3><ol><li>Promise → Pick a target: crossfade inside the window</li><li>Pick a target → See the gap: crossfade inside the window</li><li>See the gap → Close it: crossfade inside the window</li><li>Close it → Apply: crossfade inside the window</li><li>Apply → Employer side: crossfade inside the window</li><li>Employer side → Sign-off: crossfade</li></ol></div><div class="label"><b>SEAM MAP</b><span>the window never leaves</span></div></section>
+<section><div class="extra"><h3>Tokens and rules</h3><ul>
+<li><span class="sw" style="background:#050508"></span>Stage #050508 · <span class="sw" style="background:#FF5A36"></span>Accent #FF5A36 · <span class="sw" style="background:#F3F3F6"></span>Text #F3F3F6</li>
+<li>Type: Inter. Step label 600 uppercase, headline 800, supporting line 400.</li>
+<li>Dashed circle = where the camera pushes. Solid ring + arrow = where the cursor clicks.</li>
+<li>Real captures only. No invented UI, no glow, no slideshow.</li>
+<li>Held frame: frame 3, the missing-skill flag.</li></ul></div><div class="label"><b>TOKENS</b><span>shared by both videos</span></div></section></div>
+<footer>Every screen is a real capture of the app, signed in as the seeded demo seeker Maya Sari and the demo employer Klinik Sehat Keluarga. The cursor only points at controls that really exist and lead where the next screen shows. Nothing is rebuilt.</footer></div></body></html>

@@ -1,0 +1,126 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Orion demo storyboard v2</title><style>
+:root{--bg:#050508;--panel:#0d0e14;--line:rgba(255,255,255,.1);--text:#f3f3f6;--mute:rgba(243,243,246,.58);--accent:#FF5A36}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1500px;margin:0 auto;padding:40px 24px 80px}
+header h1{font-size:34px;letter-spacing:-.02em;margin:0 0 6px}
+header h1 span{color:var(--accent)}
+header p{margin:0;color:var(--mute);max-width:70ch}
+.tag{display:inline-block;margin-top:14px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 22px;margin-top:34px}
+@media (max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}
+.cell{aspect-ratio:16/9;container-type:inline-size;position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--line);
+  background:radial-gradient(120% 90% at 50% 0%,rgba(255,90,54,.13),transparent 60%),var(--bg)}
+.win{position:absolute;left:50%;top:4.5%;height:70%;transform:translateX(-50%);border-radius:1.1cqw;overflow:hidden;border:.12cqw solid rgba(255,255,255,.16);
+  box-shadow:0 2cqw 5cqw rgba(0,0,0,.6);background:#111}
+.bar{height:7%;background:#14151c;display:flex;align-items:center;gap:.5cqw;padding:0 1.1cqw}
+.bar i{width:.8cqw;height:.8cqw;border-radius:50%;background:rgba(255,255,255,.18)}
+.bar b{margin-left:1cqw;font-weight:500;font-size:.95cqw;color:rgba(255,255,255,.45)}
+.shot{position:relative;height:93%}
+.shot img{display:block;height:100%;width:auto}
+.focus{position:absolute;width:26%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:.14cqw dashed rgba(255,90,54,.75)}
+.cur{position:absolute;width:2.6cqw;transform:translate(-12%,-8%);filter:drop-shadow(0 .3cqw .5cqw rgba(0,0,0,.6))}
+.ring{position:absolute;width:4.4cqw;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);border:.22cqw solid var(--accent)}
+.cap{position:absolute;left:6%;right:6%;bottom:4.2%;display:flex;flex-direction:column;gap:.35cqw}
+.kick{align-self:flex-start;font-size:1.4cqw;font-weight:600;letter-spacing:.04em;color:var(--accent);text-transform:uppercase}
+.line{font-size:3.6cqw;font-weight:800;letter-spacing:-.025em;line-height:1.08}
+.sub{font-size:1.8cqw;color:var(--mute)}
+.signoff .win{opacity:.22;top:9%;height:64%}
+.signoff .cap{bottom:auto;top:36%;align-items:center;text-align:center}
+.signoff .line{font-size:7cqw}
+.signoff .sub{font-size:1.9cqw;color:var(--text)}
+.signoff .rule{width:6cqw;height:.35cqw;border-radius:9px;background:var(--accent);margin-bottom:1cqw}
+.label{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:13px}
+.label b{font-weight:700}
+.label span{color:var(--mute);font-variant-numeric:tabular-nums}
+.note{margin:6px 0 0;font-size:13px;color:var(--mute)}
+.note b{color:var(--text)}
+.chip{display:inline-block;margin-top:8px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;font-size:11px;color:var(--mute)}
+.extra{aspect-ratio:16/9;border-radius:10px;border:1px solid var(--line);background:var(--panel);padding:18px 20px;font-size:13px;overflow:hidden}
+.extra h3{margin:0 0 10px;font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.extra ol,.extra ul{margin:0;padding-left:18px;color:var(--mute)}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+footer{margin-top:34px;color:var(--mute);font-size:13px;max-width:80ch}
+</style></head><body><div class="wrap">
+<header><h1>Orion demo <span>storyboard v2</span></h1><p>Orion turns a plain-language expense claim into an audited decision, and only sends people the ones that need them.</p><span class="tag">1920×1080 · 29.5s · 8 beats · silent, captions on screen</span></header>
+<div class="grid"><section>
+  <div class="cell" id="frame-01">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/01-splash.png" alt=""></div></div>
+    <div class="cap"><span class="line">Expense claims that audit themselves.</span><span class="sub">Six AI agents take a claim from one sentence to a decision.</span></div>
+  </div>
+  <div class="label"><b>01 · PROMISE</b><span>01-promise · 0.0–3.0s</span></div>
+  <p class="note"><b>Moves:</b> The window rises into place on the real splash screen. Headline, then the second line.</p>
+  <span class="chip">in: cut in</span>
+</section>
+<section>
+  <div class="cell" id="frame-02">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/02-role-select.png" alt=""><span class="focus" style="left:50.0%;top:44.4%"></span><span class="ring" style="left:50.0%;top:40.6%"></span><svg class="cur" style="left:50.0%;top:40.6%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">Three roles, one workflow</span><span class="line">Employee, manager, finance.</span></div>
+  </div>
+  <div class="label"><b>02 · SIGN IN</b><span>02-signin · 3.0–5.5s</span></div>
+  <p class="note"><b>Moves:</b> The cursor travels to &quot;Sign in as Employee&quot; and clicks. A short hand-off beat.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-03">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/06-claim-typed.png" alt=""><span class="focus" style="left:50.0%;top:51.9%"></span><span class="ring" style="left:67.8%;top:82.3%"></span><svg class="cur" style="left:67.8%;top:82.3%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">01 · Submit</span><span class="line">Just describe the expense.</span><span class="sub">No form to fill in. The agents pull out vendor, amount and category.</span></div>
+  </div>
+  <div class="label"><b>03 · SUBMIT</b><span>03-submit · 5.5–10.5s</span></div>
+  <p class="note"><b>Moves:</b> The cursor clicks the &quot;+&quot; button, the claim dialog opens, the description types in line by line, then the cursor moves to &quot;Continue&quot;.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-04">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/04-employee-dashboard.png" alt=""><span class="focus" style="left:61.5%;top:51.9%"></span></div></div>
+    <div class="cap"><span class="kick">02 · Agents work</span><span class="line">It caught a duplicate Canva Pro seat.</span><span class="sub">Parsed, checked against policy, and compared with existing licences.</span></div>
+  </div>
+  <div class="label"><b>04 · AGENTS WORK</b><span>04-agents · 10.5–15.0s</span></div>
+  <p class="note"><b>Moves:</b> The claim&#x27;s progress steps light up in order, then a push toward the Agent Intelligence card. Hold for a full second.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-05">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/07b-manager-dragging.png" alt=""><span class="focus" style="left:36.5%;top:51.9%"></span><span class="ring" style="left:42.7%;top:51.9%"></span><svg class="cur" style="left:42.7%;top:51.9%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">03 · Decide</span><span class="line">Managers swipe only the edge cases.</span><span class="sub">Every card carries the agent&#x27;s reasoning.</span></div>
+  </div>
+  <div class="label"><b>05 · MANAGER DECIDES</b><span>05-manager · 15.0–19.5s</span></div>
+  <p class="note"><b>Moves:</b> The cursor grabs the top card and drags it right. The card tilts, leaves, and the real &quot;Claim Approved Digitally&quot; toast appears.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-06">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/08-finance.png" alt=""><span class="focus" style="left:50.0%;top:64.8%"></span><span class="ring" style="left:49.7%;top:70.4%"></span><svg class="cur" style="left:49.7%;top:70.4%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">04 · Govern</span><span class="line">Finance writes the rules.</span><span class="sub">Eight policies drive every automatic decision.</span></div>
+  </div>
+  <div class="label"><b>06 · FINANCE GOVERNS</b><span>06-finance · 19.5–23.0s</span></div>
+  <p class="note"><b>Moves:</b> Slow push from the four headline numbers down to the policy cards. The cursor rests on &quot;Business justification required&quot;.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell" id="frame-07">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/10-audit-expanded.png" alt=""><span class="focus" style="left:41.7%;top:38.9%"></span><span class="ring" style="left:48.7%;top:58.5%"></span><svg class="cur" style="left:48.7%;top:58.5%" viewBox="0 0 24 24"><path d="M4 2l15 9-7 1.6L9.5 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></div></div>
+    <div class="cap"><span class="kick">05 · Prove</span><span class="line">Every decision leaves a ledger record.</span><span class="sub">Which agent decided, who was notified, and when.</span></div>
+  </div>
+  <div class="label"><b>07 · AUDIT PROVES</b><span>07-audit · 23.0–27.0s</span></div>
+  <p class="note"><b>Moves:</b> The cursor clicks claim CLM-2024-047, the record opens to its audit analysis, and the cursor moves to &quot;Verify on Ledger&quot;.</p>
+  <span class="chip">in: crossfade inside the window</span>
+</section>
+<section>
+  <div class="cell signoff" id="frame-08">
+    <div class="win" style="width:65.10%"><div class="bar"><i></i><i></i><i></i><b>orion</b></div><div class="shot"><img src="public/shots/01-splash.png" alt=""></div></div>
+    <div class="cap"><span class="rule"></span><span class="line">Orion</span><span class="sub">Top 24 of 100+ teams · UMHackathon 2026</span></div>
+  </div>
+  <div class="label"><b>08 · SIGN-OFF</b><span>08-signoff · 27.0–29.5s</span></div>
+  <p class="note"><b>Moves:</b> The window eases back and dims behind the title. One move, then still.</p>
+  <span class="chip">in: crossfade</span>
+</section><section><div class="extra"><h3>Seams</h3><ol><li>Promise → Sign in: crossfade inside the window</li><li>Sign in → Submit: crossfade inside the window</li><li>Submit → Agents work: crossfade inside the window</li><li>Agents work → Manager decides: crossfade inside the window</li><li>Manager decides → Finance governs: crossfade inside the window</li><li>Finance governs → Audit proves: crossfade inside the window</li><li>Audit proves → Sign-off: crossfade</li></ol></div><div class="label"><b>SEAM MAP</b><span>the window never leaves</span></div></section>
+<section><div class="extra"><h3>Tokens and rules</h3><ul>
+<li><span class="sw" style="background:#050508"></span>Stage #050508 · <span class="sw" style="background:#FF5A36"></span>Accent #FF5A36 · <span class="sw" style="background:#F3F3F6"></span>Text #F3F3F6</li>
+<li>Type: Inter. Step label 600 uppercase, headline 800, supporting line 400.</li>
+<li>Dashed circle = where the camera pushes. Solid ring + arrow = where the cursor clicks.</li>
+<li>Real captures only. No invented UI, no glow, no slideshow.</li>
+<li>Held frame: frame 4, the duplicate the agents caught.</li></ul></div><div class="label"><b>TOKENS</b><span>shared by both videos</span></div></section></div>
+<footer>Every screen is a fresh capture of the real front end running locally (videos/orion-demo/capture-orion.mjs), using the demo data it ships with. The approval swipe and the opened audit record are real state changes in the app. The claim text is typed into the real form but not submitted, so no AI call is made.</footer></div></body></html>

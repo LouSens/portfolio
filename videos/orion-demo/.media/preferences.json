@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preferences": {
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "orion-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:50.129Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "orion-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:50.202Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "orion-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:50.277Z"
+    }
+  },
+  "sightings": {}
+}

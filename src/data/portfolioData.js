@@ -49,6 +49,7 @@ export const PROJECTS_DATA = [
     coverImage: '/screenshots/kerjacerdas-v2/mobile-landing.webp',
     coverPosition: 'top',
     heroImage: '/screenshots/kerjacerdas-v2/seeker-dashboard.webp',
+    walkthrough: { src: '/media/demos/kerjacerdas-demo.mp4', poster: '/media/demos/kerjacerdas-demo-poster.webp', seconds: 26 },
     synopsis:
       'An AI career platform that ranks candidates on skills they can prove, shows what is missing for a target job, and points to the courses that close the gap.',
     overview:
@@ -202,6 +203,7 @@ export const PROJECTS_DATA = [
     coverImage: '/media/orion/07-manager-approvals.jpg',
     coverPosition: '22% top',
     heroImage: '/media/orion/02-employee-dashboard.jpg',
+    walkthrough: { src: '/media/demos/orion-demo.mp4', poster: '/media/demos/orion-demo-poster.webp', seconds: 31 },
     screenCategories: [
       {
         name: 'Employee',
@@ -291,7 +293,7 @@ export const PROJECTS_DATA = [
   {
     id: 'neuralvoid',
     title: 'NeuralVoid',
-    image: '/screenshots/concepts/neuralvoid-dashboard.webp',
+    image: '/screenshots/neuralvoid/summary.webp',
     slug: 'neuralvoid',
     type: 'Full-Stack Analytics Web App',
     category: 'Behavioral Analytics & Machine Learning SPA',
@@ -303,16 +305,26 @@ export const PROJECTS_DATA = [
     highlight: 'Solo build',
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
-    concept: true,
-    coverImage: '/screenshots/concepts/neuralvoid-poster.webp',
-    coverPosition: 'top',
-    heroImage: '/screenshots/concepts/neuralvoid-dashboard.webp',
+    coverImage: '/screenshots/neuralvoid/summary-detail.webp',
+    coverPosition: '12% top',
+    heroImage: '/screenshots/neuralvoid/summary.webp',
+    walkthrough: { src: '/media/demos/neuralvoid-demo.mp4', poster: '/media/demos/neuralvoid-demo-poster.webp', seconds: 27 },
     screenCategories: [
       {
-        name: 'Concept',
+        name: 'Results',
         screens: [
-          { src: '/screenshots/concepts/neuralvoid-dashboard.webp', caption: 'Dashboard: session velocity, the features that drove the score, and the ensemble vote behind it' },
-          { src: '/screenshots/concepts/neuralvoid-report.webp', caption: 'Clinical report: the automatically written summary and the trend behind it' },
+          { src: '/screenshots/neuralvoid/summary.webp', caption: 'Summary: the answer in one sentence, then a habit level in words' },
+          { src: '/screenshots/neuralvoid/summary-detail.webp', caption: 'What the hours add up to, and the three things that stand out' },
+          { src: '/screenshots/neuralvoid/when.webp', caption: 'When you watch: the week, hour by hour' },
+          { src: '/screenshots/neuralvoid/plan.webp', caption: 'Your plan: pick one change and see the hours it gives back' },
+        ],
+      },
+      {
+        name: 'Getting started',
+        screens: [
+          { src: '/screenshots/neuralvoid/welcome.webp', caption: 'Welcome: what you get, and how to find the file' },
+          { src: '/screenshots/neuralvoid/add-file.webp', caption: 'Add your watch history: it confirms what it found before starting' },
+          { src: '/screenshots/neuralvoid/reading.webp', caption: 'Reading your history, step by step, in plain words' },
         ],
       },
     ],
@@ -497,6 +509,7 @@ export const ABOUT = {
 // Awards & academics. The Digdaya feature is photo-led; everything else is a quiet ledger.
 const DIGDAYA_DIR = '/media/digdaya/';
 export const DIGDAYA = {
+  id: 'digdaya',
   title: 'PIDI Digdaya x Hackathon 2026',
   organizer: 'Bank Indonesia',
   date: 'Sep 2026',
@@ -507,9 +520,11 @@ export const DIGDAYA = {
     { prefix: 'Tier ', value: 3, suffix: '', label: 'award' },
   ],
   summary:
-    'KerjaCerdas was selected as a finalist and received a Tier 3 Award, one of the top 80 teams out of more than 2,000. We then took it to FEKDI x IFSE 2026 at JICC Jakarta (24 to 26 September), where we demoed the platform and heard directly from recruiters, educators and founders about the problem we were trying to solve. Those conversations were worth as much as the award.',
+    'KerjaCerdas was selected as a finalist and received a Tier 3 Award, one of the top 80 teams out of more than 2,000. Before the expo, the finalist programme put us through an online mentoring session and an offtaker session with potential adopters. We then took it to FEKDI x IFSE 2026 at JICC Jakarta (24 to 26 September), where we demoed the platform and heard directly from recruiters, educators and founders about the problem we were trying to solve. Those conversations were worth as much as the award.',
   lead: { src: DIGDAYA_DIR + 'team-booth.webp', w: 1800, h: 1200, caption: 'The KerjaCerdas team at our booth' },
   photos: [
+    { src: DIGDAYA_DIR + 'mentor-session.webp', w: 1600, h: 999, caption: 'Mentoring session, online, before the expo' },
+    { src: DIGDAYA_DIR + 'offtaker-session.webp', w: 1600, h: 999, caption: 'Offtaker session, online, before the expo' },
     { src: DIGDAYA_DIR + 'fekdi-display.webp', w: 1350, h: 1800, caption: 'KerjaCerdas on the FEKDI x IFSE display' },
     { src: DIGDAYA_DIR + 'expo-hall.webp', w: 1800, h: 1200, caption: 'Digitalent Expo 2026, finalists and attendees' },
     { src: DIGDAYA_DIR + 'demo-tablet.webp', w: 1800, h: 1200, caption: 'Demoing KerjaCerdas on the booth tablet' },
@@ -521,21 +536,95 @@ export const DIGDAYA = {
   ],
 };
 
-export const COMPETITIONS = [
-  {
-    year: 'Apr 2025',
-    result: 'Top 20% globally',
-    title: 'International Quant Championship',
-    detail: 'Stage 1 of a global invitational on quantitative reasoning, algorithmic problem-solving and statistical analysis.',
-    links: [],
-    media: [],
-  },
-];
-
 export const DEANS_LIST = [
   { label: 'Sep 2024', src: "/docs/deans-list/2409 Dean's List.jpeg" },
   { label: 'Apr 2025', src: "/docs/deans-list/2504 Dean's List.jpeg" },
   { label: 'Sep 2025', src: "/docs/deans-list/2509 Dean's List.jpeg" },
+];
+
+// The full record for the Awards page, newest first. `proofs` open in the lightbox; `feature` points
+// at the longer account (with photos) further down the same page.
+const CERT = '/media/certificates/';
+export const ACHIEVEMENTS = [
+  {
+    year: '2026',
+    date: 'Sep 2026',
+    result: 'Finalist, Tier 3 Award',
+    title: 'PIDI Digdaya x Hackathon 2026',
+    organizer: 'Bank Indonesia',
+    detail: 'Top 80 of more than 2,000 teams with KerjaCerdas. Mentoring and offtaker sessions online, then a booth demo at FEKDI x IFSE 2026 at JICC Jakarta.',
+    projectId: 'kerjacerdas',
+    feature: 'digdaya',
+  },
+  {
+    year: '2026',
+    date: 'Jun 2026',
+    result: 'Silver Award',
+    title: 'SEA-CICSIC 2026',
+    organizer: 'China-ASEAN Innovation Competition, undergraduate division',
+    detail: 'Omni-QC, an AI quality-control platform for PCB manufacturing. I led the AI strategy and technical architecture.',
+    feature: 'omni-qc',
+  },
+  {
+    year: '2026',
+    date: 'Apr 2026',
+    result: 'Top 24 of 100+ teams',
+    title: 'UMHackathon 2026',
+    organizer: 'Universiti Malaya',
+    detail: "Built Orion with team One Hit Wonder in the 'AI Systems & Agentic Workflow Automation' domain. The judges called out the multi-agent architecture and the mix of deterministic policy checks with LLM reasoning.",
+    projectId: 'orion',
+    proofs: [{ label: 'Certificate', src: CERT + 'umhackathon-certificate.webp', caption: 'UMHackathon 2026 certificate of appreciation' }],
+  },
+  {
+    year: '2025',
+    date: 'Oct 2025',
+    result: '3rd place, AI category',
+    title: 'DPickleball AI Tournament',
+    organizer: 'Unity ML-Agents',
+    detail: 'Led development on a team of three: the Unity physics environment, reward shaping and PPO multi-agent training.',
+    feature: 'dpickleball',
+  },
+  {
+    year: '2025',
+    date: 'Sep 2024 to Sep 2025',
+    result: "Dean's List",
+    title: 'Three consecutive semesters',
+    organizer: EDUCATION.school,
+    detail: 'GPA 3.84 out of 4.00, top 16% of the AI & Robotics cohort.',
+    proofs: DEANS_LIST.map((d) => ({ label: d.label, src: d.src, caption: `Dean's List certificate, ${d.label}` })),
+  },
+  {
+    year: '2025',
+    date: 'Apr 2025',
+    result: 'Top 20% globally',
+    title: 'International Quant Championship',
+    organizer: 'WorldQuant',
+    detail: 'Stage 1 of the global quant competition, finishing in the top 20% of teams worldwide. Also reached Bronze level in the WorldQuant Challenge.',
+    proofs: [
+      { label: 'Stage 1 certificate', src: CERT + 'iqc-stage1.webp', caption: 'WorldQuant IQC 2025, Stage 1: top 20% of teams globally' },
+      { label: 'Bronze certificate', src: CERT + 'iqc-bronze.webp', caption: 'WorldQuant Challenge, Bronze level' },
+    ],
+  },
+  {
+    year: '2023',
+    date: 'Mar 2023',
+    result: 'Gold medal, Physics',
+    title: 'ONSK 2023',
+    organizer: 'Olimpiade Nasional Sains dan Kedokteran · Braindicator',
+    detail: 'Gold medal in the physics category of the National Science and Medicine Olympiad, a national-level competition for high school students.',
+    proofs: [
+      { label: 'Result', src: CERT + 'onsk-gold.webp', caption: 'ONSK 2023 Physics result: gold medal' },
+      { label: 'Certificate', src: CERT + 'onsk-certificate.webp', caption: 'ONSK 2023 certificate' },
+    ],
+  },
+  {
+    year: '2023',
+    date: '2023',
+    result: 'Top 13, Physics',
+    title: 'OSN, provincial round',
+    organizer: 'Olimpiade Sains Nasional',
+    detail: "Ranked 13th in physics at the provincial round of Indonesia's national science olympiad.",
+  },
 ];
 
 const OMNI = '/media/omni-qc/';

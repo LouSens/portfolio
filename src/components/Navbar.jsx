@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { HOME, PAGES, navigate, routeUrl } from '../utils/route';
 
-export default function Navbar() {
+export default function Navbar({ route = HOME }) {
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,16 +45,15 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const navLinks = [
-    { label: 'About', id: 'about' },
-    { label: 'Projects', id: 'work' },
-    { label: 'Awards', id: 'awards' },
-    { label: 'Contact', id: 'inquire' },
-  ];
+  // Projects, Awards and Contact open their own page; About is a section of the home page.
+  const navLinks = [{ route: HOME, section: 'about', label: 'About' }, ...PAGES];
 
-  const scrollTo = (id) => {
+  const go = (target, section) => (e) => {
+    e.preventDefault();
     setIsOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    // Release the menu's scroll lock now, so the new page can be scrolled into place as it renders.
+    document.body.style.overflow = '';
+    navigate(target, section);
   };
 
   return (
@@ -81,7 +81,7 @@ export default function Navbar() {
           >
             {/* ── BESPOKE LIQUID BRAND IDENTITY ── */}
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={go(HOME)}
               className="flex items-center gap-3 text-white transition-all duration-200 group text-left cursor-pointer select-none"
             >
               {/* Custom Liquid Glass DK Monogram Emblem */}
@@ -104,13 +104,17 @@ export default function Navbar() {
             {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] p-1 rounded-full border border-white/[0.06]">
               {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollTo(link.id)}
-                  className="px-3.5 py-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/[0.06] transition-all text-xs font-display font-medium tracking-wide cursor-pointer"
+                <a
+                  key={link.label}
+                  href={routeUrl(link.route)}
+                  onClick={go(link.route, link.section)}
+                  aria-current={route === link.route && !link.section ? 'page' : undefined}
+                  className={`px-3.5 py-1.5 rounded-full hover:text-white transition-all text-xs font-display font-medium tracking-wide cursor-pointer ${
+                    route === link.route && !link.section ? 'text-white bg-white/[0.1]' : 'text-white/70 hover:bg-white/[0.06]'
+                  }`}
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
             </nav>
 
@@ -128,7 +132,7 @@ export default function Navbar() {
               </a>
 
               <button
-                onClick={() => scrollTo('inquire')}
+                onClick={go('contact')}
                 className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FF6644] to-[#FF431A] hover:from-[#ff7555] hover:to-[#ff522b] text-white font-display font-bold text-xs tracking-wide shadow-[0_4px_14px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.4)] border border-white/20 transition-all cursor-pointer active:scale-95"
               >
                 Contact
@@ -182,20 +186,28 @@ export default function Navbar() {
               className="fixed top-[68px] left-4 right-4 z-40 p-6 rounded-3xl bg-[#090A10]/95 backdrop-blur-2xl border border-white/[0.14] shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.2)] flex flex-col items-center gap-4 lg:hidden select-none"
             >
               <div className="w-full flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => scrollTo(link.id)}
-                    className="w-full py-3 px-4 rounded-xl text-left font-display text-base font-semibold text-white/80 hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all cursor-pointer"
+                {[{ route: HOME, label: 'Home' }, ...navLinks].map((link) => {
+                  const current = route === link.route && !link.section;
+                  return (
+                  <a
+                    key={link.label}
+                    href={routeUrl(link.route)}
+                    onClick={go(link.route, link.section)}
+                    aria-current={current ? 'page' : undefined}
+                    className={`flex items-center justify-between w-full py-3 px-4 rounded-xl font-display text-base font-semibold hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all cursor-pointer ${
+                      current ? 'text-white bg-white/[0.06]' : 'text-white/80'
+                    }`}
                   >
                     {link.label}
-                  </button>
-                ))}
+                    {current && <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" aria-hidden="true" />}
+                  </a>
+                  );
+                })}
               </div>
 
               <div className="flex flex-col w-full gap-2.5 pt-4 border-t border-white/[0.08]">
                 <button
-                  onClick={() => scrollTo('inquire')}
+                  onClick={go('contact')}
                   className="liquid-btn-primary w-full justify-center !py-3.5 font-display text-sm font-bold tracking-wide"
                 >
                   Contact

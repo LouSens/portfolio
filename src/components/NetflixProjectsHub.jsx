@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { small } from '../utils/img';
+import { navigate, routeUrl } from '../utils/route';
 
 export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
@@ -469,6 +470,21 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
           >
             <ChevronRight size={18} className="group-hover:translate-x-0.5 group-hover:text-[var(--accent)] transition-all" />
           </button>
+        </div>
+
+        {/* The Projects page lists them all side by side, with results and numbers */}
+        <div className="flex justify-center mt-6 md:mt-8">
+          <a
+            href={routeUrl('projects')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('projects');
+            }}
+            className="group inline-flex items-center gap-2 py-2.5 text-sm text-[var(--accent)] hover:text-white transition-colors"
+          >
+            <span>Watch the app demos on the Projects page</span>
+            <ArrowRight size={15} className="transition-transform duration-150 group-hover:translate-x-0.5" />
+          </a>
         </div>
       </div>
     </section>

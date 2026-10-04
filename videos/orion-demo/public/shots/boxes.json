@@ -1,0 +1,92 @@
+{
+  "role-employee": {
+    "x": 650,
+    "y": 396,
+    "w": 621,
+    "h": 84
+  },
+  "signin-continue": {
+    "x": 650,
+    "y": 740,
+    "w": 621,
+    "h": 84
+  },
+  "agent-intelligence": {
+    "x": 1322,
+    "y": 680,
+    "w": 223,
+    "h": 23
+  },
+  "claim-timeline": {
+    "x": 183,
+    "y": 605,
+    "w": 234,
+    "h": 23
+  },
+  "new-claim-fab": {
+    "x": 1764,
+    "y": 924,
+    "w": 96,
+    "h": 96
+  },
+  "claim-textarea": {
+    "x": 506,
+    "y": 422,
+    "w": 909,
+    "h": 240
+  },
+  "claim-continue": {
+    "x": 1190,
+    "y": 856,
+    "w": 224,
+    "h": 66
+  },
+  "extracted-continue": {
+    "x": 1185,
+    "y": 830,
+    "w": 235,
+    "h": 69
+  },
+  "decision-history": {
+    "x": 1122,
+    "y": 830,
+    "w": 299,
+    "h": 69
+  },
+  "agent-intelligence-after": {
+    "x": 1322,
+    "y": 680,
+    "w": 223,
+    "h": 23
+  },
+  "manager-reasoning": {
+    "x": 573,
+    "y": 779,
+    "w": 288,
+    "h": 23
+  },
+  "manager-card-name": {
+    "x": 548,
+    "y": 305,
+    "w": 204,
+    "h": 36
+  },
+  "finance-policy": {
+    "x": 800,
+    "y": 731,
+    "w": 310,
+    "h": 26
+  },
+  "audit-row": {
+    "x": 62,
+    "y": 78,
+    "w": 1181,
+    "h": 144
+  },
+  "audit-verify": {
+    "x": 713,
+    "y": 608,
+    "w": 444,
+    "h": 48
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preferences": {
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "kerjacerdas-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:49.894Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "kerjacerdas-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:49.970Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "kerjacerdas-demo"
+      ],
+      "updated_at": "2026-10-04T15:33:50.046Z"
+    }
+  },
+  "sightings": {}
+}

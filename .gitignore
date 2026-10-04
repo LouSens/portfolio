@@ -19,3 +19,11 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Demo video projects: keep the sources and captures, not the outputs
+videos/*/renders/
+videos/*/snapshots/
+videos/*/public/sheet*.jpg
+videos/neuralvoid-demo-sample/shots/
+videos/neuralvoid-demo-sample/newui/
+videos/neuralvoid-demo-sample/Watch History.txt

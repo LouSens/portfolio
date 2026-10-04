@@ -87,6 +87,127 @@ function Heatmap({ rows = 7, cell = 14 }) {
   );
 }
 
+/* Step 1 of the flow: hand over a watch-history export. Nothing else is asked for. */
+function Upload() {
+  return (
+    <div className="h-full p-6 grid grid-cols-12 gap-5 text-white">
+      <div className="col-span-7 flex flex-col">
+        <p className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#FF5A36]">New analysis</p>
+        <p className="text-[26px] font-extrabold leading-tight tracking-tight mt-2">Start from a watch-history export</p>
+        <p className="text-[12px] text-white/55 leading-relaxed mt-2 max-w-[440px]">
+          One text file of timestamps. No account access, no tracking installed, and the file is analysed, not stored.
+        </p>
+
+        <div className="mt-5 flex-1 rounded-xl border border-dashed border-[#FF5A36]/60 bg-[#FF5A36]/[0.06] p-5 flex flex-col justify-center">
+          <div className="flex items-center gap-4">
+            <span className="w-11 h-11 rounded-lg bg-[#FF5A36]/15 border border-[#FF5A36]/40 flex items-center justify-center text-[#FF5A36] text-lg font-bold">↑</span>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Watch History.txt</p>
+              <p className="text-[11px] text-white/50 mt-0.5 tabular-nums">24,848 events · 60 days · 2.3 MB</p>
+            </div>
+            <span className="ml-auto text-[10px] text-emerald-400 font-semibold">Ready</span>
+          </div>
+          <div className="mt-4 h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+            <div className="h-full w-full rounded-full bg-[#FF5A36]" />
+          </div>
+        </div>
+
+        <div className="mt-5 flex items-center gap-4">
+          <span className="inline-flex items-center h-10 px-6 rounded-lg bg-[#FF5A36] text-[13px] font-bold">Run analysis</span>
+          <span className="text-[11px] text-white/40">Takes a few seconds</span>
+        </div>
+      </div>
+
+      <div className="col-span-5 rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 flex flex-col">
+        <p className="text-xs font-semibold">What you get back</p>
+        <ul className="mt-4 space-y-4">
+          {[
+            ['25', 'behavioural features', 'velocity, late-night ratio, binge streaks'],
+            ['3', 'models voting', 'XGBoost, Random Forest, Logistic Regression'],
+            ['1', 'written report', 'a summary a clinician can read and question'],
+          ].map(([n, t, d]) => (
+            <li key={t} className="flex items-start gap-3">
+              <span className="w-9 text-2xl font-extrabold leading-none text-[#FF5A36] tabular-nums">{n}</span>
+              <span>
+                <span className="block text-[12px] font-semibold">{t}</span>
+                <span className="block text-[10px] text-white/45 mt-0.5">{d}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-[10px] text-white/35 leading-relaxed mt-auto pt-4">Sample data shown. The file in this design is made up.</p>
+      </div>
+    </div>
+  );
+}
+
+/* Step 2: the pipeline, shown as it runs, so the score that follows is not a black box. */
+const STAGES = [
+  { name: 'Parse events', detail: '24,848 timestamps read', done: true },
+  { name: 'Detect sessions', detail: '412 sessions · a 10-minute gap ends one', done: true },
+  { name: 'Flag binges', detail: '37 sessions of 45 minutes or longer', done: true },
+  { name: 'Engineer features', detail: '25 per day, with lag and rolling windows', done: true },
+  { name: 'Ensemble vote', detail: 'three models, soft voting', done: false },
+];
+const SAMPLE_FEATURES = [
+  ['doomscroll_velocity', '3.4 clips/min'],
+  ['late_night_ratio', '0.31'],
+  ['binge_streak', '4 days'],
+  ['rewatched_ratio', '0.12'],
+  ['avg_session_min', '21.6'],
+  ['volatility_5d', '0.44'],
+];
+
+function Pipeline() {
+  return (
+    <div className="h-full p-6 grid grid-cols-12 gap-5 text-white">
+      <div className="col-span-7 rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 flex flex-col">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-semibold">Analysing Watch History.txt</p>
+          <span className="text-[10px] text-white/40 tabular-nums">step 5 of 5</span>
+        </div>
+        <ol className="mt-5 space-y-[14px]">
+          {STAGES.map((s, i) => (
+            <li key={s.name} className="flex items-center gap-3.5">
+              <span
+                className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-[11px] font-bold ${
+                  s.done ? 'bg-[#FF5A36] text-white' : 'border-2 border-[#FF5A36] text-[#FF5A36]'
+                }`}
+              >
+                {s.done ? '✓' : i + 1}
+              </span>
+              <span className="min-w-0">
+                <span className={`block text-[13px] font-semibold ${s.done ? '' : 'text-[#FF5A36]'}`}>{s.name}</span>
+                <span className="block text-[10px] text-white/45 mt-0.5 tabular-nums">{s.detail}</span>
+              </span>
+              {!s.done && <span className="ml-auto text-[10px] text-[#FF5A36] font-semibold">running</span>}
+            </li>
+          ))}
+        </ol>
+        <div className="mt-auto pt-4">
+          <div className="h-1.5 rounded-full bg-white/[0.08] overflow-hidden">
+            <div className="h-full w-[88%] rounded-full bg-[#FF5A36]" />
+          </div>
+        </div>
+      </div>
+
+      <div className="col-span-5 rounded-xl border border-white/[0.1] bg-white/[0.03] p-5 flex flex-col">
+        <p className="text-xs font-semibold">Features, as they are computed</p>
+        <p className="text-[10px] text-white/40 mt-1">6 of 25 shown</p>
+        <ul className="mt-4 space-y-2">
+          {SAMPLE_FEATURES.map(([k, v]) => (
+            <li key={k} className="flex items-center justify-between rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2">
+              <span className="text-[11px] font-mono text-white/70">{k}</span>
+              <span className="text-[11px] font-semibold tabular-nums">{v}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="text-[10px] text-white/35 leading-relaxed mt-auto pt-4">Named features, not embeddings: each one can be checked by a person.</p>
+      </div>
+    </div>
+  );
+}
+
 function Dashboard() {
   return (
     <div className="h-full p-5 grid grid-cols-12 gap-4 text-white">
@@ -244,10 +365,17 @@ export const NEURALVOID_VIEWS = [
   { id: 'report', label: 'Clinical report', caption: 'Concept: the automatically written summary and the trend behind it' },
 ];
 
+// upload and pipeline complete the flow for the demo video (videos/neuralvoid-demo); the site's
+// case study still shows only the two views listed above.
+const VIEW_COMPONENTS = { upload: Upload, pipeline: Pipeline, dashboard: Dashboard, report: Report };
+
 export default function NeuralVoidPreview({ view = 'dashboard' }) {
+  const View = VIEW_COMPONENTS[view] || Dashboard;
   return (
     <ScaledStage>
-      <Frame title="neuralvoid · behavioral analytics">{view === 'report' ? <Report /> : <Dashboard />}</Frame>
+      <Frame title="neuralvoid · behavioral analytics">
+        <View />
+      </Frame>
     </ScaledStage>
   );
 }

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NeuralVoid interface storyboard v2</title>
+<style>
+:root{--bg:#050508;--panel:#07080d;--card:rgba(255,255,255,.035);--line:rgba(255,255,255,.1);--text:#f3f3f6;--mute:rgba(243,243,246,.55);--dim:rgba(243,243,246,.32);--accent:#FF5A36;--ok:#34d399}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1500px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:34px;letter-spacing:-.02em;margin:0 0 6px}
+h1 span{color:var(--accent)}
+.dek{margin:0;color:var(--mute);max-width:78ch}
+.tag{display:inline-block;margin-top:14px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 26px;margin-top:34px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.screen{aspect-ratio:16/10;container-type:inline-size;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:var(--panel);overflow:hidden;display:flex;flex-direction:column}
+.screen>*{font-size:1.55cqw}
+.top{height:6.5%;flex:none;display:flex;align-items:center;gap:1.4cqw;padding:0 2cqw;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;font-size:1.7cqw}
+.logo i{color:var(--accent);font-style:normal}
+.tabs{display:flex;gap:.6cqw;margin-left:auto}
+.tabs span{padding:.45cqw 1.2cqw;border-radius:99px;color:var(--mute);font-size:1.3cqw}
+.tabs .on{background:var(--accent);color:#fff;font-weight:700}
+.body{flex:1;min-height:0;padding:2.2cqw;display:grid;gap:1.5cqw}
+.c{border:1px solid var(--line);background:var(--card);border-radius:1.2cqw;padding:1.5cqw;min-width:0}
+.k{font-size:1.15cqw;color:var(--accent);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.h{font-size:3.1cqw;font-weight:800;letter-spacing:-.02em;line-height:1.12;margin:.5cqw 0}
+.h2{font-size:2.1cqw;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.p{color:var(--mute);font-size:1.4cqw}
+.s{color:var(--dim);font-size:1.15cqw}
+.big{font-size:3.4cqw;font-weight:800;line-height:1;letter-spacing:-.02em}
+.acc{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;height:3.6cqw;padding:0 2cqw;border-radius:.9cqw;background:var(--accent);font-weight:700;font-size:1.4cqw}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.row{display:flex;gap:1.2cqw;align-items:center}
+.bar{height:.8cqw;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.bar b{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.num{width:2.6cqw;height:2.6cqw;flex:none;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.25cqw}
+.num.todo{background:transparent;border:.2cqw solid var(--line);color:var(--dim)}
+.heat{display:grid;grid-template-columns:repeat(24,1fr);gap:.25cqw}
+.heat span{height:1.5cqw;border-radius:.25cqw;background:rgba(255,90,54,.14)}
+.heat .m{background:rgba(255,90,54,.45)}
+.heat .x{background:rgba(255,90,54,.95)}
+.label{display:flex;justify-content:space-between;gap:12px;margin-top:12px;font-size:14px}
+.label b{font-weight:700}
+.label span{color:var(--mute)}
+.note{margin:6px 0 0;font-size:13.5px;color:var(--mute)}
+.note b{color:var(--text)}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+td:first-child{color:var(--mute)}
+h2.sec{font-size:20px;margin:46px 0 4px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+ul.plain{margin:10px 0 0;padding-left:18px;color:var(--mute);font-size:14px}
+ul.plain b{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>NeuralVoid interface <span>storyboard v2</span></h1>
+  <p class="dek">A redesign for people who are not technical: someone uploads their TikTok watch history and reads, in ordinary words, how much they watch, when, and what to try. The look is the dark and orange concept design from the portfolio. Numbers shown are examples.</p>
+  <span class="tag">10 screens · plain language · works on a phone</span>
+  <div class="c" style="margin-top:22px;border-radius:12px;padding:18px 20px;font-size:14px">
+    <b>New in v2: from "interesting" to "useful"</b>
+    <ul class="plain">
+      <li><b>Why:</b> charts make someone say "huh". They come back for an app that says what the habit costs them, what they would get back, and helps them change one thing.</li>
+      <li><b>What it adds up to</b> (screen 04): the hours turned into things people feel, and the nights that ran past midnight.</li>
+      <li><b>Your plan</b> (screens 07 and 08): pick one change, see the hours it gives back each month, then get a nightly reminder and the steps to set TikTok's own limit.</li>
+      <li><b>Since last time</b> (screen 09): upload again in two weeks and see what changed. Only a few numbers are kept, in the person's own browser.</li>
+      <li><b>Save or share</b> (screen 10): a picture of the summary to keep, send to a friend, or show a parent or counsellor.</li>
+      <li><b>Your own clock:</b> hours are shown in the visitor's time zone, so "11 pm" means their 11 pm.</li>
+    </ul>
+  </div>
+</header>
+
+<div class="grid">
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span></div>
+    <div class="body" style="grid-template-columns:1.25fr 1fr;align-items:center">
+      <div>
+        <div class="k">Your TikTok habits, in plain numbers</div>
+        <div class="h">See what your scrolling really looks like.</div>
+        <div class="p">Upload your TikTok watch history and get a clear picture: how much you watch, when you watch, and one thing to try.</div>
+        <div class="row" style="margin-top:1.8cqw"><span class="btn">Upload my watch history</span><span class="btn ghost">See an example first</span></div>
+        <div class="s" style="margin-top:1.2cqw">Your file is read once to make your summary. It is not saved.</div>
+      </div>
+      <div class="c">
+        <div class="h2" style="font-size:1.6cqw">How to get your file</div>
+        <div class="row" style="margin-top:1.2cqw"><span class="num">1</span><span class="p">In TikTok, open Settings, then Account</span></div>
+        <div class="row" style="margin-top:.9cqw"><span class="num">2</span><span class="p">Choose "Download your data" and request it as TXT</span></div>
+        <div class="row" style="margin-top:.9cqw"><span class="num">3</span><span class="p">Open the download and find "Watch History.txt"</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="label"><b>01 · WELCOME</b><span>first screen</span></div>
+  <p class="note"><b>Job:</b> say what you get and what you need, with no jargon. The steps for finding the file are new; today the app assumes you already know.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><span class="s" style="margin-left:auto">← Back</span></div>
+    <div class="body" style="grid-template-columns:1fr;place-items:center">
+      <div style="width:62%">
+        <div class="h2">Add your watch history</div>
+        <div class="p">The file called "Watch History.txt" from your TikTok download.</div>
+        <div class="c" style="margin-top:1.4cqw;border-style:dashed;border-color:rgba(255,90,54,.6);background:rgba(255,90,54,.06)">
+          <div class="row"><span class="num">↑</span><div><div style="font-weight:700">Watch History.txt</div><div class="s">about 24,800 videos · 60 days</div></div><span style="margin-left:auto;color:var(--ok);font-weight:700;font-size:1.25cqw">Ready</span></div>
+        </div>
+        <div class="row" style="margin-top:1.5cqw"><span class="btn">Show me my summary</span><span class="s">Takes a few seconds</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="label"><b>02 · ADD YOUR FILE</b><span>after "Upload my watch history"</span></div>
+  <p class="note"><b>Job:</b> one action. Once a file is chosen it confirms what it found ("about 24,800 videos · 60 days") so the person knows it is the right file before starting.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span></div>
+    <div class="body" style="grid-template-columns:1fr;place-items:center">
+      <div style="width:56%">
+        <div class="h2">Reading your history…</div>
+        <div class="row" style="margin-top:1.5cqw"><span class="num">✓</span><div><div style="font-weight:700">Reading your videos</div><div class="s">24,848 found</div></div></div>
+        <div class="row" style="margin-top:1cqw"><span class="num">✓</span><div><div style="font-weight:700">Grouping them into sittings</div><div class="s">412 times you sat down to watch</div></div></div>
+        <div class="row" style="margin-top:1cqw"><span class="num">✓</span><div><div style="font-weight:700">Finding the long ones</div><div class="s">37 lasted 45 minutes or more</div></div></div>
+        <div class="row" style="margin-top:1cqw"><span class="num todo">4</span><div><div style="font-weight:700" class="acc">Spotting your patterns</div><div class="s">when, how often, how fast</div></div></div>
+        <div class="row" style="margin-top:1cqw"><span class="num todo">5</span><div><div style="font-weight:700;color:var(--dim)">Writing your summary</div></div></div>
+        <div class="bar" style="margin-top:1.6cqw"><b style="width:66%"></b></div>
+      </div>
+    </div>
+  </div>
+  <div class="label"><b>03 · READING YOUR HISTORY</b><span>while the analysis runs</span></div>
+  <p class="note"><b>Job:</b> replace the spinner with five plain steps, so the wait explains what is being done. It also teaches the word "sitting" before the results use it.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span class="on">Summary</span><span>When you watch</span><span>How you watch</span><span>Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:1fr 1fr 1fr 1fr;grid-template-rows:auto auto auto 1fr">
+      <div style="grid-column:span 4"><div class="h2">You watched about <span class="acc">92 hours</span> of TikTok in 60 days.</div><div class="p">That is roughly an hour and a half a day.</div></div>
+      <div class="c" style="grid-column:span 2"><div class="s">Your habit level</div><div class="big acc" style="margin:.5cqw 0">High</div><div class="bar"><b style="width:82%"></b></div><div class="row" style="justify-content:space-between;margin-top:.4cqw"><span class="s">Light</span><span class="s">Moderate</span><span class="s">High</span></div><div class="p" style="margin-top:.7cqw">Getting stronger over the last two weeks</div></div>
+      <div class="c"><div class="s">Long sittings</div><div class="big">37</div><div class="p">about 1 in 11, each 45 min or more</div></div>
+      <div class="c"><div class="s">Scrolling speed</div><div class="big">8 <span style="font-size:1.5cqw">a minute</span></div><div class="p">a new video every 7 seconds</div></div>
+      <div class="c" style="grid-column:span 4;border-color:rgba(255,90,54,.5)"><div class="s" style="margin-bottom:.4cqw">What it adds up to</div><div class="row" style="align-items:flex-start"><div style="flex:1"><b class="acc">11 working days</b><div class="p">of eight hours each</div></div><div style="flex:1"><b class="acc">46 films</b><div class="p">back to back</div></div><div style="flex:1"><b class="acc">34 of 60 nights</b><div class="p">you were still watching after midnight</div></div></div></div>
+      <div class="c" style="grid-column:span 4"><div class="s" style="margin-bottom:.6cqw">What stands out</div><div class="row" style="align-items:flex-start"><div style="flex:1"><b>Late nights</b><div class="p">Most of your watching happens after 11 pm.</div></div><div style="flex:1"><b>Sundays</b><div class="p">Your heaviest day, about twice a normal weekday.</div></div><div style="flex:1"><b>Your longest sitting</b><div class="p">3 hours 4 minutes without a break.</div></div></div></div>
+    </div>
+  </div>
+  <div class="label"><b>04 · SUMMARY</b><span>first tab of the results</span></div>
+  <p class="note"><b>Job:</b> the whole answer in one screen. A sentence first, then one "habit level" in words (Light, Moderate, High) in place of a risk percentage, then what the hours add up to (new in v2), then three things that stand out, written as sentences.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span>Summary</span><span class="on">When you watch</span><span>How you watch</span><span>Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:2fr 1fr;grid-template-rows:auto 1fr">
+      <div class="c" style="grid-row:span 2"><div style="font-weight:700">Your week, hour by hour</div><div class="s" style="margin-bottom:1cqw">Brighter means more videos</div>
+        <div style="display:grid;gap:.3cqw">
+          <div class="heat"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="x"></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="x"></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="x"></span><span class="x"></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="x"></span><span class="x"></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span></span><span class="m"></span><span class="m"></span><span class="m"></span><span></span><span></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="x"></span><span class="x"></span><span class="x"></span><span class="x"></span></div>
+          <div class="heat"><span class="x"></span><span class="x"></span><span class="m"></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="m"></span><span></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="m"></span><span class="x"></span><span class="x"></span><span class="x"></span><span class="x"></span><span class="x"></span></div>
+        </div>
+        <div class="row" style="justify-content:space-between;margin-top:.5cqw"><span class="s">midnight</span><span class="s">noon</span><span class="s">11 pm</span></div>
+      </div>
+      <div class="c"><div class="s">Busiest time</div><div class="big">11 pm</div><div class="p">on Sundays</div></div>
+      <div class="c"><div class="s">After midnight</div><div class="big">45</div><div class="p">videos a night, on average</div><div class="s" style="margin-top:.8cqw">First thing in the morning: 12 a day</div></div>
+    </div>
+  </div>
+  <div class="label"><b>05 · WHEN YOU WATCH</b><span>second tab</span></div>
+  <p class="note"><b>Job:</b> answer "when does it happen?". One picture of the week, a legend in words, and the two times that matter most: late at night and first thing in the morning.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span>Summary</span><span>When you watch</span><span class="on">How you watch</span><span>Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr">
+      <div class="c"><div class="s">A typical sitting</div><div class="big">19 <span style="font-size:1.5cqw">min</span></div><div class="p">412 sittings in 60 days</div></div>
+      <div class="c"><div class="s">Most long sittings in a row</div><div class="big">4 <span style="font-size:1.5cqw">days</span></div><div class="p">a long one every day, four days running</div></div>
+      <div class="c"><div class="s">Videos you watched again</div><div class="big">8%</div><div class="p">about 1 in 12 was a repeat</div></div>
+      <div class="c" style="grid-column:span 2"><div style="font-weight:700">Minutes watched each day</div><div class="s">Orange days were heavier than usual for you</div>
+        <svg viewBox="0 0 400 90" style="width:100%;margin-top:.6cqw"><polyline fill="none" stroke="#FF5A36" stroke-width="2.5" points="0,70 30,62 60,66 90,50 120,58 150,40 180,48 210,30 240,38 270,22 300,30 330,16 360,24 400,10"/><line x1="0" x2="400" y1="55" y2="55" stroke="rgba(255,255,255,.18)" stroke-dasharray="4 4"/></svg>
+        <div class="s">Dotted line: your average</div></div>
+      <div class="c"><div style="font-weight:700">Short or long?</div>
+        <svg viewBox="0 0 100 100" style="width:52%;display:block;margin:.6cqw auto"><circle cx="50" cy="50" r="36" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="14"/><circle cx="50" cy="50" r="36" fill="none" stroke="#FF5A36" stroke-width="14" stroke-dasharray="20 206" transform="rotate(-90 50 50)"/></svg>
+        <div class="p">375 shorter · <span class="acc">37 long</span></div></div>
+    </div>
+  </div>
+  <div class="label"><b>06 · HOW YOU WATCH</b><span>third tab</span></div>
+  <p class="note"><b>Job:</b> answer "what are my sittings like?". Every number has a sentence under it that says what it means, so no one needs to know what a ratio or a streak is.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span>Summary</span><span>When you watch</span><span>How you watch</span><span class="on">Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr auto">
+      <div class="c"><div class="k">What we see</div><div class="p" style="margin-top:.6cqw;color:var(--text)">You scroll fast and late: most long sittings start after 11 pm and run past midnight.</div></div>
+      <div class="c"><div class="k">What is likely next</div><div class="p" style="margin-top:.6cqw;color:var(--text)">If nothing changes, tomorrow night will probably be another long one. Late nights are the main reason.</div></div>
+      <div class="c" style="border-color:rgba(255,90,54,.6);background:rgba(255,90,54,.07)"><div class="k">One thing to try</div><div class="p" style="margin-top:.6cqw;color:var(--text)">Put the phone away at 11 pm for a week, or set a 30-minute limit for evenings.</div></div>
+      <div class="c" style="grid-column:span 3"><div class="row" style="justify-content:space-between"><div><b>How this works</b><div class="s">For the curious: what the app measures and how sure it is ▾</div></div><div class="row"><span class="btn ghost">Save my summary</span><span class="btn">Check another file</span></div></div></div>
+    </div>
+  </div>
+  <div class="label"><b>07 · YOUR PLAN: THE READ-OUT</b><span>fourth tab, top</span></div>
+  <p class="note"><b>Job:</b> end with something to do. The written summary keeps its three parts but with everyday headings. All technical detail (signals measured, the three models, accuracy) lives behind "How this works", closed by default.</p>
+</section>
+
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span>Summary</span><span>When you watch</span><span>How you watch</span><span class="on">Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr auto">
+      <div style="grid-column:span 3"><div class="h2">Pick one change. See what you get back.</div><div class="p">Worked out from your own history, not a guess.</div></div>
+      <div class="c" style="border-color:rgba(255,90,54,.7);background:rgba(255,90,54,.07)"><div class="k">Best for you</div><div style="font-weight:700;margin-top:.4cqw">Stop at midnight</div><div class="big acc" style="margin:.6cqw 0">19 hrs</div><div class="p">back every month, mostly sleep</div></div>
+      <div class="c"><div class="s">&nbsp;</div><div style="font-weight:700;margin-top:.4cqw">30 minutes a sitting</div><div class="big" style="margin:.6cqw 0">12 hrs</div><div class="p">back every month</div></div>
+      <div class="c"><div class="s">&nbsp;</div><div style="font-weight:700;margin-top:.4cqw">One hour a day</div><div class="big" style="margin:.6cqw 0">16 hrs</div><div class="p">back every month</div></div>
+      <div class="c" style="grid-column:span 3"><div class="row" style="justify-content:space-between"><div><b>Make it stick</b><div class="p">A reminder at 11:30 pm every night, and the three taps that set TikTok's own limit.</div></div><div class="row"><span class="btn ghost">Show me the taps</span><span class="btn">Add the reminder</span></div></div></div>
+    </div>
+  </div>
+  <div class="label"><b>08 · YOUR PLAN: PICK ONE CHANGE</b><span>fourth tab, below the read-out · new in v2</span></div>
+  <p class="note"><b>Job:</b> the moment the app becomes useful. Three realistic changes, each with the hours it would give back, calculated from the person's own days. Choosing one offers a calendar reminder and the steps for TikTok's built-in daily limit.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><div class="tabs"><span class="on">Summary</span><span>When you watch</span><span>How you watch</span><span>Your plan</span></div></div>
+    <div class="body" style="grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto 1fr auto">
+      <div style="grid-column:span 3"><div class="k">Since last time · 14 days ago</div><div class="h2">You are watching <span style="color:var(--ok)">22% less</span> each day.</div></div>
+      <div class="c"><div class="s">Each day</div><div class="big">1 h 12</div><div class="p" style="color:var(--ok)">down from 1 h 32</div></div>
+      <div class="c"><div class="s">Long sittings a week</div><div class="big">3</div><div class="p" style="color:var(--ok)">down from 4</div></div>
+      <div class="c"><div class="s">Nights past midnight</div><div class="big">5 of 14</div><div class="p">about the same</div></div>
+      <div class="c" style="grid-column:span 3"><div class="row" style="justify-content:space-between"><div class="p">Only these few numbers are kept, on this device. Your file never is.</div><span class="btn ghost">Forget my history</span></div></div>
+    </div>
+  </div>
+  <div class="label"><b>09 · SINCE LAST TIME</b><span>top of Summary on a return visit · new in v2</span></div>
+  <p class="note"><b>Job:</b> a reason to come back. On the first visit this spot says "Upload again in two weeks to see what changed". On the next upload it compares the two, in green when things improved.</p>
+</section>
+
+<section>
+  <div class="screen">
+    <div class="top"><span class="logo">neural<i>void</i></span><span class="s" style="margin-left:auto">Save or share</span></div>
+    <div class="body" style="grid-template-columns:1fr 1.1fr;align-items:center">
+      <div class="c" style="background:#0b0c12;border-color:rgba(255,90,54,.5);padding:2.2cqw">
+        <div class="logo">neural<i>void</i></div>
+        <div class="s" style="margin-top:1.2cqw">My TikTok, last 60 days</div>
+        <div class="big acc" style="font-size:5cqw;margin:.6cqw 0">92 hours</div>
+        <div class="p" style="color:var(--text)">About 1 h 32 a day · 37 long sittings · busiest at 11 pm</div>
+        <div class="p" style="margin-top:1cqw">My one change: stop at midnight.</div>
+      </div>
+      <div>
+        <div class="h2">Keep it, or show someone.</div>
+        <div class="p">One picture with the headline numbers and the change you picked. No video list, nothing personal beyond these totals.</div>
+        <div class="row" style="margin-top:1.6cqw"><span class="btn">Save as a picture</span><span class="btn ghost">Print the full summary</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="label"><b>10 · SAVE OR SHARE</b><span>from "Save my summary" · new in v2</span></div>
+  <p class="note"><b>Job:</b> make the result leave the app: a picture for a friend or group chat, or a printed page for a parent, teacher or counsellor.</p>
+</section>
+
+<section>
+  <div class="screen" style="aspect-ratio:auto;padding:22px 24px;font-size:14px;display:block">
+    <div class="k" style="font-size:12px">Words that change</div>
+    <table>
+      <tr><th>Today</th><th>New</th></tr>
+      <tr><td>Relapse risk score</td><td>Habit level: Light, Moderate or High</td></tr>
+      <tr><td>Session</td><td>Sitting</td></tr>
+      <tr><td>Binge session</td><td>Long sitting (45 minutes or more)</td></tr>
+      <tr><td>Doomscroll velocity</td><td>Scrolling speed (videos a minute)</td></tr>
+      <tr><td>Re-watch ratio</td><td>Videos you watched again</td></tr>
+      <tr><td>Max binge streak</td><td>Most long sittings in a row</td></tr>
+      <tr><td>Morning trigger · Late-night impact</td><td>First thing in the morning · After midnight</td></tr>
+      <tr><td>Activity heatmap (hour × day)</td><td>Your week, hour by hour</td></tr>
+      <tr><td>Clinical assessment · Intervention protocol</td><td>What we see · What is likely next · One thing to try</td></tr>
+      <tr><td>25-feature ML engine · 96% accuracy</td><td>Moved into "How this works"</td></tr>
+    </table>
+  </div>
+  <div class="label"><b>WORD LIST</b><span>applies to every screen</span></div>
+  <p class="note"><b>Rule:</b> if a word needs explaining, it is replaced or gets a sentence under it. No model names, feature names or percentages of confidence on the main screens.</p>
+</section>
+
+</div>
+
+<h2 class="sec">What changes in the code</h2>
+<div class="cols">
+  <ul class="plain">
+    <li><b>Front end:</b> the screens above replace the current landing page, upload panel and three-tab dashboard in <code>frontend/src/App.jsx</code>.</li>
+    <li><b>Analysis:</b> the scoring is unchanged. The backend returns a few extra numbers the new screens need (nights past midnight, late-night hours, the length of each sitting) and reads hours in the visitor's time zone.</li>
+    <li><b>Example mode:</b> "See an example first" keeps working without a file, using made-up numbers labelled as an example.</li>
+  </ul>
+  <ul class="plain">
+    <li><b>Written summary:</b> one small backend change. The instruction that asks for a "clinical" three-part assessment is reworded to ask for plain language under the three new headings.</li>
+    <li><b>Phones:</b> tabs become a scrolling row, cards stack in one column, and the hour-by-hour picture scrolls sideways.</li>
+    <li><b>Kept on the device:</b> "Since last time" stores a handful of totals in the browser, with a button to forget them. No accounts.</li>
+    <li><b>Not included:</b> accounts, syncing between devices, or live tracking of the phone.</li>
+  </ul>
+</div>
+</div>
+</body>
+</html>

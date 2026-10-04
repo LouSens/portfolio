@@ -13,12 +13,15 @@ import {
   Inbox,
   ExternalLink,
   ArrowUpRight,
+  ArrowRight,
   Download,
   Loader2,
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { navigate, routeUrl } from '../utils/route';
 
-export default function ScopeInquiryDrawer() {
+/* compact: the home page version (status and one-tap links). The Contact page adds the message form. */
+export default function ScopeInquiryDrawer({ compact = false }) {
   const [objective, setObjective] = useState('');
   const [scope, setScope] = useState('');
   const [opportunityType, setOpportunityType] = useState('');
@@ -226,7 +229,7 @@ export default function ScopeInquiryDrawer() {
         </motion.div>
 
         {/* ── 2. FASTEST WAYS TO REACH ME: one tap, no typing ── */}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 mb-8 md:mb-14">
+        <ul className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 ${compact ? 'mb-2.5 sm:mb-3 md:mb-4' : 'mb-8 md:mb-14'}`}>
           {[
             { label: 'Email', value: PERSONAL_INFO.email, href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail, copy: true },
             { label: 'LinkedIn', value: 'in/davidkurniawan13', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
@@ -274,8 +277,25 @@ export default function ScopeInquiryDrawer() {
           ))}
         </ul>
 
+        {compact && (
+          <a
+            href={routeUrl('contact')}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('contact');
+            }}
+            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 transition-colors"
+          >
+            <span>
+              <span className="block font-display font-bold text-lg sm:text-xl text-white tracking-tight">Send me a message</span>
+              <span className="block text-sm text-white/55 mt-0.5">A short form that goes straight to my inbox. I usually reply within 24 hours.</span>
+            </span>
+            <ArrowRight size={20} className="shrink-0 text-[var(--accent)] transition-transform duration-150 group-hover:translate-x-0.5" />
+          </a>
+        )}
+
         {/* ── 3. MESSAGE FORM: pick what it is about, then three fields ── */}
-        <motion.div
+        {!compact && <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
@@ -378,10 +398,10 @@ export default function ScopeInquiryDrawer() {
               <p className="text-xs text-white/40 leading-relaxed sm:max-w-[16rem]">Your details are only used to reply to you.</p>
             </div>
           </form>
-        </motion.div>
+        </motion.div>}
 
         {/* Admin Messages Viewer Toggle for David */}
-        {storedInquiries.length > 0 && (
+        {!compact && storedInquiries.length > 0 && (
           <div className="mt-6 flex items-center justify-between text-xs text-white/40">
             <span>Saved Messages: {storedInquiries.length} recorded</span>
             <button

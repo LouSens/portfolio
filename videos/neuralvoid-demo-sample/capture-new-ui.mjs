@@ -1,0 +1,64 @@
+// Captures the rebuilt NeuralVoid (front end :5173, API :8000) for the demo video: every step at
+// 1920x1080, plus where the cursor should click.  Run:  node capture-new-ui.mjs <output-dir>
+import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const require = createRequire('C:/Users/David/orion/frontend/');
+const { chromium } = require('@playwright/test');
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const OUT = process.argv[2];
+const K = 1.5;
+fs.mkdirSync(OUT, { recursive: true });
+const boxes = {};
+const browser = await chromium.launch({ executablePath: 'C:/Users/David/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe' });
+const context = await browser.newContext({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: K, timezoneId: 'Asia/Kuala_Lumpur' });
+const page = await context.newPage();
+const shot = async (name, wait = 900) => {
+  await page.waitForTimeout(wait);
+  await page.screenshot({ path: `${OUT}/${name}.png` });
+  console.log('shot', name);
+};
+const box = async (key, locator) => {
+  const b = await locator.first().boundingBox();
+  boxes[key] = b && { x: Math.round(b.x * K), y: Math.round(b.y * K), w: Math.round(b.width * K), h: Math.round(b.height * K) };
+  console.log('box', key, JSON.stringify(boxes[key]));
+};
+await page.goto('http://localhost:5173/', { waitUntil: 'networkidle' });
+await shot('01-welcome');
+await box('upload', page.getByRole('button', { name: /upload my watch history/i }));
+await page.getByRole('button', { name: /upload my watch history/i }).click();
+await shot('02-add-empty');
+await box('dropzone', page.getByText(/choose the file/i));
+await page.setInputFiles('#fu', path.join(HERE, 'Watch History.txt'));
+await page.getByText(/about [\d,]+ videos/).waitFor();
+await shot('03-add-ready', 500);
+await box('show-summary', page.getByRole('button', { name: /show me my summary/i }));
+await page.getByRole('button', { name: /show me my summary/i }).click();
+await shot('04-reading', 2500);
+await page.getByRole('heading', { name: /you watched about/i }).waitFor({ timeout: 120000 });
+// a first visit shows the "come back in two weeks" note; hide nothing, capture as is
+await shot('05-summary');
+await box('habit', page.getByText('Your habit level'));
+await box('adds-up', page.getByText('What it adds up to'));
+await page.mouse.wheel(0, 420);
+await shot('05b-summary-lower');
+await page.evaluate(() => window.scrollTo(0, 0));
+await box('tab-when', page.getByRole('button', { name: 'When you watch' }));
+await page.getByRole('button', { name: 'When you watch' }).click();
+await shot('06-when');
+await box('week', page.getByText('Your week, hour by hour'));
+await box('tab-plan', page.getByRole('button', { name: 'Your plan' }));
+await page.getByRole('button', { name: 'Your plan' }).click();
+await shot('07-plan');
+await box('pick', page.getByText('Pick one change'));
+const best = page.getByRole('button', { pressed: true });
+await box('best', best);
+const other = page.getByRole('button', { name: /stop at midnight/i });
+await box('midnight', other);
+await other.click();
+await shot('07b-plan-midnight', 500);
+await box('reminder', page.getByRole('button', { name: /add the reminder/i }));
+console.log('summary:', (await page.locator('main').innerText()).replace(/\n+/g, ' | ').slice(0, 700));
+fs.writeFileSync(`${OUT}/boxes.json`, JSON.stringify(boxes, null, 2));
+await browser.close();
