@@ -23,6 +23,7 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 - 🏠 **Home page as the highlights**: hero, about, a 3D project carousel, the three headline awards, and one-tap contact links.
 - 📄 **Dedicated pages**: Projects, Awards and Contact each have their own page (`/#/projects`, `/#/awards`, `/#/contact`), reachable from the navbar and the mobile menu. Pages live behind the hash, so they work on any static host without server rewrites.
 - 🎬 **App demos that play in place**: on the Projects page, each card plays a short silent walkthrough of the real app while it is on screen, and pauses when it scrolls away.
+- 🎞 **A film with sound**: the RADAR case study carries the 32-second film made for the app (built in Remotion in the RADAR repo, `demo-video/`); its card plays the same film silently.
 - 📑 **Case studies**: every project opens a full-screen write-up (`#project=<id>`) with real screens, how it is built, what I built, and the decisions behind it. The back button closes it and returns to where you were.
 - 🏆 **Achievements timeline**: every competition and academic result in date order on the Awards page, each with its certificate one tap away, followed by the featured awards with photos, slides and a clip.
 - 📬 **Contact**: a message form backed by a **Cloudflare Worker + KV** counter and **Web3Forms** email dispatch.

@@ -553,6 +553,7 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
 
   const scenes = [
     { id: 'cover', label: 'Overview' },
+    project.film && { id: 'film', label: 'Film' },
     hasScreens && { id: 'screens', label: project.concept ? 'Design' : 'Screens' },
     flowSteps && { id: 'flow', label: flowTitle },
     project.demo === 'proof-score' && { id: 'demo', label: 'Try it' },
@@ -735,6 +736,24 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
               </div>
             </div>
           </section>
+
+          {/* ── FILM ── */}
+          {project.film && (
+            <Scene id="film" index={num('film')} label="Film" title={project.film.title}>
+              <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8">
+                <video
+                  src={project.film.src}
+                  poster={project.film.poster}
+                  controls
+                  playsInline
+                  preload="none"
+                  aria-label={`${project.title} film, with sound`}
+                  className="w-full aspect-video rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-black"
+                />
+                {project.film.note && <p className="mt-4 max-w-3xl text-sm md:text-base text-white/65 leading-relaxed">{project.film.note}</p>}
+              </div>
+            </Scene>
+          )}
 
           {/* ── SCREENS ── */}
           {hasScreens && (

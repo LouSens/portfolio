@@ -187,6 +187,118 @@ export const PROJECTS_DATA = [
     ],
   },
   {
+    id: 'radar',
+    title: 'RADAR',
+    slug: 'radar',
+    type: 'Full-Stack Market Analytics App',
+    category: 'Read-Only Portfolio Analyst & Machine Learning',
+    role: 'Full-Stack & ML Engineer',
+    team: 'Solo build',
+    isTeam: false,
+    year: 'Oct 2026',
+    badge: 'NEW BUILD',
+    highlight: 'Solo build, open source',
+    posterAccent: 'from-white/[0.08] to-black/30',
+    hasRealUI: true,
+    coverImage: '/screenshots/radar/home.webp',
+    coverPosition: 'top',
+    heroImage: '/screenshots/radar/home.webp',
+    walkthrough: { src: '/media/demos/radar-reel.mp4', poster: '/media/demos/radar-reel-poster.webp', seconds: 32 },
+    film: {
+      src: '/media/demos/radar-reel.mp4',
+      poster: '/media/demos/radar-reel-poster.webp',
+      title: 'Bitcoin fell. Now what?',
+      note: 'A 32-second film I made for the app in Remotion: one situation, Bitcoin falling, and the questions a holder asks, each answered by the app. Every figure in it is the app\u2019s own; the portfolio is a made-up example. The sound effects are generated in code.',
+    },
+    screenCategories: [
+      {
+        name: 'Home & markets',
+        screens: [
+          { src: '/screenshots/radar/home.webp', caption: 'Home: the account, what to do now, the three markets, what is coming up' },
+          { src: '/screenshots/radar/bitcoin.webp', caption: 'A market: live price, its state, the range ahead and the size of a day\u2019s movement' },
+          { src: '/screenshots/radar/markets.webp', caption: 'Markets side by side over a day, a week, a month and a year' },
+          { src: '/screenshots/radar/calendar.webp', caption: 'Calendar: Fed, jobs and inflation dates, with how markets moved on past ones' },
+        ],
+      },
+      {
+        name: 'Questions it answers',
+        screens: [
+          { src: '/screenshots/radar/moves.webp', caption: 'Why it moved: each day against a usual day, with that day\u2019s headlines' },
+          { src: '/screenshots/radar/check.webp', caption: 'Before you buy: where the price sits in its range, from a day to a year' },
+          { src: '/screenshots/radar/range.webp', caption: 'Price range ahead, from 10,000 simulated futures' },
+          { src: '/screenshots/radar/risk.webp', caption: 'Where the risk sits: share of the money against share of the risk' },
+          { src: '/screenshots/radar/todo.webp', caption: 'What to do now: spare cash split into a ladder of prices, from the plan you set' },
+        ],
+      },
+    ],
+    synopsis:
+      'A read-only analyst for a portfolio of Bitcoin, gold and US stocks: what moved, how much it could move, and what your own plan says to do next. It never places a trade.',
+    overview:
+      'RADAR reads a Binance account, explains what each holding is doing, measures how much it could move, and turns a plan of target shares into a short list of what to do with spare cash. Every claim on a screen carries its sample size and period, every model is checked on days it had not seen, and the things that were tested and did not work are written down instead of shipped. The screens here show a made-up example portfolio.',
+    problem:
+      'When a holding falls, the questions come at once: why, is this price high or low, how far could it go, how risky is my mix, what do I buy. Most tools answer with a chart and an opinion, and no way to check either.',
+    solution:
+      'One app that answers each question from stored data with its evidence shown, never trades, and only offers a suggestion from a rule that passed a test written down beforehand.',
+    businessOutcomes: [
+      'Read-only by construction: a test fixes the list of endpoints the app may call, and none can place an order',
+      'The size of the next move is forecast better than every rival tried, in 6 of 6 comparisons',
+      '35 of 36 loss limits held as often as they claimed, after allowing for testing many at once',
+      'Nothing tested could call direction, so no "buy now" or "sell now" is built',
+    ],
+    architectureNodes: [
+      { name: 'Sources', desc: 'Alpaca market data and news, the Binance account and public prices. Every connection is a read.' },
+      { name: 'Worker', desc: 'Hourly sync, data-quality checks, then each model in order (APScheduler)' },
+      { name: 'PostgreSQL + TimescaleDB', desc: 'Raw bars and news are append-only; models write to their own tables' },
+      { name: 'FastAPI', desc: 'REST endpoints over stored results, and a WebSocket for live prices' },
+      { name: 'React app', desc: 'TanStack Query, with API types generated from the backend\u2019s OpenAPI schema' },
+    ],
+    impactMetrics: [
+      { value: '0', label: 'Trades It Can Place' },
+      { value: '6 of 6', label: 'Wins Forecasting Move Size' },
+      { value: '35 of 36', label: 'Loss Limits That Held' },
+      { value: '61% vs 52%', label: 'Fine-Tuned Tone Model vs General' },
+    ],
+    bullets: [
+      'Built a read-only portfolio analyst (FastAPI, PostgreSQL with TimescaleDB, React 19 and TypeScript) that reads a Binance account and never places a trade, enforced by a test on the endpoints it may call.',
+      'Modelled each market four ways, all checked walk-forward on unseen days: a hidden Markov model for its state, a 10,000-path simulation for the range ahead, a HAR regression for the size of a day\u2019s movement, and loss limits with coverage tests.',
+      'Wrote every research question and its pass mark down before running it; direction forecasts, news-driven forecasts and dip-buying all failed and were left out of the product.',
+      'Fine-tuned FinBERT on 1,800 labelled headlines, reaching 61% against 52% on 700 unseen headlines, and showed the measured accuracy beside every score.',
+      'Directed and built a 32-second film for the app in Remotion with a 3D coin, mark and phone and the app\u2019s own interface in motion.',
+    ],
+    tags: ['FastAPI', 'PostgreSQL', 'TimescaleDB', 'React 19', 'TypeScript', 'PyTorch', 'scikit-learn', 'Docker', 'Remotion'],
+    process: [
+      {
+        decision: 'Why does the app refuse to say "buy now"?',
+        reasoning:
+          'Because nothing I tested could call direction. RSI, moving averages, support and resistance, funding rates, trees, logistic regression and an LSTM were each given a pass mark before the test, and each was first shown to find a pattern I had planted so that its "no" could be believed. None passed. What did hold up was the size of the next move, so that is what the app forecasts.',
+      },
+      {
+        decision: 'Why write the pass mark down before running each test?',
+        reasoning:
+          'With enough indicators and enough settings, something always looks good on past data. Fixing the question and the bar first, and never rerunning a failed test with changed settings, is the only way a result on market data means anything.',
+      },
+      {
+        decision: 'Why filtered probabilities and walk-forward checks everywhere?',
+        reasoning:
+          'A value shown for a day may only use data up to that day. A smoothed market state looks cleaner but uses the future, and a shuffled train and test split leaks tomorrow into yesterday. Every model here is refit on the past and judged on the days after it, and each has a test that proves it does not look ahead.',
+      },
+      {
+        decision: 'Why is the film built from the app\u2019s own interface instead of screen recordings?',
+        reasoning:
+          'The running app shows a real account on every page, so it could not be filmed. The film\u2019s data elements are the app\u2019s components rebuilt for motion and fed from recorded market data and an example portfolio worked out by the app\u2019s own code.',
+      },
+    ],
+    parts: [
+      { title: 'Account and plan', text: 'Holdings read from Binance, a plan of target shares, and spare cash turned into a ladder of prices worked out from the price now.' },
+      { title: 'Four models per market', text: 'State (hidden Markov model), range ahead (Monte Carlo), size of movement (HAR regression) and loss limits, each checked on unseen days.' },
+      { title: 'Research, written down', text: 'Decisions and pass marks recorded before each test; what failed is documented and left out.' },
+      { title: 'News with measured accuracy', text: 'Tone from a fine-tuned FinBERT, shown with how often it is right. It drives no forecast and no alert.' },
+      { title: 'The film', text: 'A 32-second Remotion film with generated sound: a 3D coin that becomes the logo, then each answer turning into the next.' },
+    ],
+    githubUrl: 'https://github.com/LouSens/RADAR.git',
+    liveUrl: null,
+  },
+  {
     id: 'orion',
     title: 'Orion',
     slug: 'orion',

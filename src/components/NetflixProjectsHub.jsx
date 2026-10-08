@@ -1,17 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Maximize2,
-  Code,
-  Globe,
-  Layers,
-  Bot,
-  Brain,
-  ArrowRight,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, Code, Globe, Layers, Bot, Brain, ArrowRight, Radar } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { small } from '../utils/img';
 import { navigate, routeUrl } from '../utils/route';
@@ -94,6 +84,8 @@ export default function NetflixProjectsHub({ onOpenProject, initialIndex = 0 }) 
         return <Bot size={17} className="text-[var(--accent)]" />;
       case 'neuralvoid':
         return <Layers size={17} className="text-[var(--accent)]" />;
+      case 'radar':
+        return <Radar size={17} className="text-[var(--accent)]" />;
       case 'legal-rag':
         return <Brain size={17} className="text-[var(--accent)]" />;
       default:
