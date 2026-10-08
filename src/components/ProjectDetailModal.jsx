@@ -740,7 +740,7 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
           {/* ── FILM ── */}
           {project.film && (
             <Scene id="film" index={num('film')} label="Film" title={project.film.title}>
-              <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8">
+              <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
                 <video
                   src={project.film.src}
                   poster={project.film.poster}
@@ -748,9 +748,13 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
                   playsInline
                   preload="none"
                   aria-label={`${project.title} film, with sound`}
-                  className="w-full aspect-video rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-black"
+                  className="w-full md:w-[65%] aspect-video rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-black flex-shrink-0"
                 />
-                {project.film.note && <p className="mt-4 max-w-3xl text-sm md:text-base text-white/65 leading-relaxed">{project.film.note}</p>}
+                {project.film.note && (
+                  <p className="text-sm md:text-base text-white/65 leading-relaxed md:pt-1">
+                    {project.film.note}
+                  </p>
+                )}
               </div>
             </Scene>
           )}

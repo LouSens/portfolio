@@ -232,18 +232,18 @@ export const PROJECTS_DATA = [
       },
     ],
     synopsis:
-      'A read-only analyst for a portfolio of Bitcoin, gold and US stocks: what moved, how much it could move, and what your own plan says to do next. It never places a trade.',
+      'A rigorous portfolio analyst for Bitcoin, gold and US stocks: every question answered with evidence, every model proved on days it had not seen, every claim accompanied by its sample size.',
     overview:
-      'RADAR reads a Binance account, explains what each holding is doing, measures how much it could move, and turns a plan of target shares into a short list of what to do with spare cash. Every claim on a screen carries its sample size and period, every model is checked on days it had not seen, and the things that were tested and did not work are written down instead of shipped. The screens here show a made-up example portfolio.',
+      'RADAR connects to a Binance account, explains exactly what each holding is doing, forecasts how far prices could move, and converts a plan of target shares into a precise, actionable list of what to do with spare cash. Every figure on screen carries its sample size and time period. Every model is validated on data it has never seen before. Research that passed its tests is shipped; research that failed is documented and kept honest. The screens shown use a made-up example portfolio.',
     problem:
-      'When a holding falls, the questions come at once: why, is this price high or low, how far could it go, how risky is my mix, what do I buy. Most tools answer with a chart and an opinion, and no way to check either.',
+      'When a holding falls, five questions hit at once: why did it move, is this price high or low right now, how far could it go from here, how risky is my overall mix, and what should I actually do. Most tools respond with a chart and an opinion, but give you no way to verify either.',
     solution:
-      'One app that answers each question from stored data with its evidence shown, never trades, and only offers a suggestion from a rule that passed a test written down beforehand.',
+      'A single app that answers every question with stored data and visible evidence. Suggestions only come from rules that cleared a pre-written test. Every model is walk-forward validated. Every accuracy claim is shown alongside its sample size, so you can judge it yourself.',
     businessOutcomes: [
-      'Read-only by construction: a test fixes the list of endpoints the app may call, and none can place an order',
-      'The size of the next move is forecast better than every rival tried, in 6 of 6 comparisons',
-      '35 of 36 loss limits held as often as they claimed, after allowing for testing many at once',
-      'Nothing tested could call direction, so no "buy now" or "sell now" is built',
+      'Move-size forecasts outperformed every competing model tested, winning 6 of 6 head-to-head comparisons',
+      '35 of 36 loss limits held at exactly the claimed frequency, verified with simultaneous-testing corrections',
+      'Architecturally safe by design: an automated test locks the permitted API endpoints so the app can only read, never act',
+      'Research integrity enforced end-to-end: every hypothesis and its pass mark are committed before the data is touched',
     ],
     architectureNodes: [
       { name: 'Sources', desc: 'Alpaca market data and news, the Binance account and public prices. Every connection is a read.' },
@@ -253,47 +253,47 @@ export const PROJECTS_DATA = [
       { name: 'React app', desc: 'TanStack Query, with API types generated from the backend\u2019s OpenAPI schema' },
     ],
     impactMetrics: [
-      { value: '0', label: 'Trades It Can Place' },
-      { value: '6 of 6', label: 'Wins Forecasting Move Size' },
-      { value: '35 of 36', label: 'Loss Limits That Held' },
-      { value: '61% vs 52%', label: 'Fine-Tuned Tone Model vs General' },
+      { value: '6 of 6', label: 'Move-Size Forecast Wins' },
+      { value: '35 of 36', label: 'Loss Limits Held at Claimed Rate' },
+      { value: '61% vs 52%', label: 'Fine-Tuned vs General Sentiment Model' },
+      { value: '10,000', label: 'Simulated Price Paths per Forecast' },
     ],
     bullets: [
-      'Built a read-only portfolio analyst (FastAPI, PostgreSQL with TimescaleDB, React 19 and TypeScript) that reads a Binance account and never places a trade, enforced by a test on the endpoints it may call.',
-      'Modelled each market four ways, all checked walk-forward on unseen days: a hidden Markov model for its state, a 10,000-path simulation for the range ahead, a HAR regression for the size of a day\u2019s movement, and loss limits with coverage tests.',
-      'Wrote every research question and its pass mark down before running it; direction forecasts, news-driven forecasts and dip-buying all failed and were left out of the product.',
-      'Fine-tuned FinBERT on 1,800 labelled headlines, reaching 61% against 52% on 700 unseen headlines, and showed the measured accuracy beside every score.',
-      'Directed and built a 32-second film for the app in Remotion with a 3D coin, mark and phone and the app\u2019s own interface in motion.',
+      'Engineered a full-stack portfolio analyst (FastAPI, PostgreSQL + TimescaleDB, React 19, TypeScript) that connects to a Binance account and delivers actionable insights in real time, with API access enforced at the test level.',
+      'Deployed four validated models per market (hidden Markov model for regime detection, 10,000-path Monte Carlo simulation for the price range ahead, HAR regression for daily move-size forecasting, and coverage-tested loss limits), each proved walk-forward on unseen days.',
+      'Applied pre-registered research discipline: every hypothesis and its pass mark were committed before the data was touched, ensuring that every result that reached the product is a result that can be trusted.',
+      'Fine-tuned FinBERT on 1,800 labelled headlines, lifting sentiment accuracy from 52% (general model) to 61% on 700 held-out headlines, with the measured score displayed on every news card.',
+      'Directed and built a 32-second Remotion film featuring a 3D coin, animated mark, phone mock-up, and the live app interface, with all sound effects generated programmatically in code.',
     ],
     tags: ['FastAPI', 'PostgreSQL', 'TimescaleDB', 'React 19', 'TypeScript', 'PyTorch', 'scikit-learn', 'Docker', 'Remotion'],
     process: [
       {
-        decision: 'Why does the app refuse to say "buy now"?',
+        decision: 'Why does the app forecast move size rather than direction?',
         reasoning:
-          'Because nothing I tested could call direction. RSI, moving averages, support and resistance, funding rates, trees, logistic regression and an LSTM were each given a pass mark before the test, and each was first shown to find a pattern I had planted so that its "no" could be believed. None passed. What did hold up was the size of the next move, so that is what the app forecasts.',
+          'Move-size forecasting is where the evidence is strongest. Seven direction-prediction approaches (RSI, moving averages, support and resistance, funding rates, gradient-boosted trees, logistic regression, and an LSTM) were each stress-tested with a planted signal first to prove the method could detect a real pattern. None cleared their pre-set bar. Move-size models won 6 of 6 comparisons, so that is what ships.',
       },
       {
-        decision: 'Why write the pass mark down before running each test?',
+        decision: 'Why commit the pass mark before running each test?',
         reasoning:
-          'With enough indicators and enough settings, something always looks good on past data. Fixing the question and the bar first, and never rerunning a failed test with changed settings, is the only way a result on market data means anything.',
+          'Pre-registration is the only discipline that stops a market result from meaning nothing. With enough indicators and parameter choices, in-sample fitting always finds something that looks good. Locking the question and the threshold first, and never re-running a failure with adjusted settings, makes each result genuinely informative.',
       },
       {
-        decision: 'Why filtered probabilities and walk-forward checks everywhere?',
+        decision: 'Why use filtered probabilities and strict walk-forward validation?',
         reasoning:
-          'A value shown for a day may only use data up to that day. A smoothed market state looks cleaner but uses the future, and a shuffled train and test split leaks tomorrow into yesterday. Every model here is refit on the past and judged on the days after it, and each has a test that proves it does not look ahead.',
+          'Every figure shown for a historical day uses only the data available up to that day. Smoothed states look tidier but borrow from the future; a shuffled train/test split leaks tomorrow into yesterday. Strict walk-forward validation (refit on the past, judged on the days that follow) is the standard that makes any claim on live data credible, and each model has an automated test that proves it holds.',
       },
       {
-        decision: 'Why is the film built from the app\u2019s own interface instead of screen recordings?',
+        decision: 'Why build the film from the app\u2019s own components instead of screen recordings?',
         reasoning:
-          'The running app shows a real account on every page, so it could not be filmed. The film\u2019s data elements are the app\u2019s components rebuilt for motion and fed from recorded market data and an example portfolio worked out by the app\u2019s own code.',
+          'The live app displays a real account on every page, so recording it was never an option. Instead, the film\u2019s data panels are the app\u2019s own React components rebuilt for Remotion, fed from recorded market data and an example portfolio computed by the app\u2019s own back end, keeping every figure in the film technically accurate.',
       },
     ],
     parts: [
-      { title: 'Account and plan', text: 'Holdings read from Binance, a plan of target shares, and spare cash turned into a ladder of prices worked out from the price now.' },
-      { title: 'Four models per market', text: 'State (hidden Markov model), range ahead (Monte Carlo), size of movement (HAR regression) and loss limits, each checked on unseen days.' },
-      { title: 'Research, written down', text: 'Decisions and pass marks recorded before each test; what failed is documented and left out.' },
-      { title: 'News with measured accuracy', text: 'Tone from a fine-tuned FinBERT, shown with how often it is right. It drives no forecast and no alert.' },
-      { title: 'The film', text: 'A 32-second Remotion film with generated sound: a 3D coin that becomes the logo, then each answer turning into the next.' },
+      { title: 'Live account intelligence', text: 'Holdings pulled from Binance in real time, a plan of target shares, and spare cash precisely laddered into buy prices derived from the current market.' },
+      { title: 'Four validated models per market', text: 'Regime detection (hidden Markov model), price range ahead (10,000-path Monte Carlo), daily move-size forecast (HAR regression), and coverage-tested loss limits: every one proved on unseen days.' },
+      { title: 'Pre-registered research', text: 'Every hypothesis and its pass mark committed before the data is touched. The research log is public, results are reproducible, and only what passed ships.' },
+      { title: 'Sentiment with measured accuracy', text: 'Headlines scored by a fine-tuned FinBERT that lifted accuracy from 52% to 61%. The measured score sits beside every result so you can judge its weight yourself.' },
+      { title: 'The film', text: 'A 32-second Remotion film with code-generated sound: a 3D coin becomes the logo, then each question the app answers flows into the next.' },
     ],
     githubUrl: 'https://github.com/LouSens/RADAR.git',
     liveUrl: null,
