@@ -27,3 +27,11 @@ videos/*/public/sheet*.jpg
 videos/neuralvoid-demo-sample/shots/
 videos/neuralvoid-demo-sample/newui/
 videos/neuralvoid-demo-sample/Watch History.txt
+
+# Claude / Tooling & UI design reviews
+.claude/
+.ui-design/
+
+# Old / backup documents
+static/*_OLD.pdf
+
