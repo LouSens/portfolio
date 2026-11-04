@@ -36,7 +36,7 @@ export default function ProjectMedia({ project, className = '', eager = false, s
         />
       ) : (
         <img
-          src={still && project.walkthrough?.poster ? project.walkthrough.poster : small(project.coverImage)}
+          src={still && project.walkthrough?.poster && project.coverFit !== 'cover' ? project.walkthrough.poster : small(project.coverImage)}
           alt=""
           loading={eager ? undefined : 'lazy'}
           decoding="async"
