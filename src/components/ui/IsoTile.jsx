@@ -32,11 +32,11 @@ export default function IsoTile({ name, selected, onSelect, onHover }) {
     >
       <svg viewBox={`0 0 ${W} ${60 + D}`} className="w-[92px] h-auto overflow-visible" aria-hidden="true">
         <g className={`transition-transform duration-200 ease-out ${selected ? '-translate-y-[7px]' : 'group-hover:-translate-y-[7px] group-focus-visible:-translate-y-[7px]'}`}>
-          <polygon points={pts([L, B, [B[0], B[1] + D], [L[0], L[1] + D]])} fill="rgb(var(--fg) / 0.1)" stroke="rgb(var(--fg) / 0.4)" strokeWidth="1" strokeLinejoin="round" />
-          <polygon points={pts([B, R, [R[0], R[1] + D], [B[0], B[1] + D]])} fill="rgb(var(--fg) / 0.05)" stroke="rgb(var(--fg) / 0.4)" strokeWidth="1" strokeLinejoin="round" />
+          <polygon points={pts([L, B, [B[0], B[1] + D], [L[0], L[1] + D]])} fill="rgb(var(--fg) / 0.26)" stroke="rgb(var(--fg) / 0.5)" strokeWidth="1" strokeLinejoin="round" />
+          <polygon points={pts([B, R, [R[0], R[1] + D], [B[0], B[1] + D]])} fill="rgb(var(--fg) / 0.14)" stroke="rgb(var(--fg) / 0.5)" strokeWidth="1" strokeLinejoin="round" />
           <polygon
             points={pts([T, R, B, L])}
-            fill={selected ? 'rgb(var(--accent-rgb) / 0.2)' : 'rgb(var(--bg-rgb))'}
+            fill={selected ? 'rgb(var(--accent-rgb) / 0.28)' : 'rgb(var(--fg) / 0.16)'}
             stroke={selected ? 'rgb(var(--accent-rgb))' : 'rgb(var(--fg) / 0.6)'}
             strokeWidth="1.2"
             strokeLinejoin="round"

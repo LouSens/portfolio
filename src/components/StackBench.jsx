@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import SectionLabel from './SectionLabel';
 import IsoTile from './ui/IsoTile';
-import IsoObject from './iso/IsoObject';
 import { TECH_STACK, EARLIER_WORK, PROJECTS_DATA } from '../data/portfolioData';
 
 /* Tech stack: pick a layer, see its tools as isometric slabs with their icons. Hover or focus a slab for its name and
@@ -25,7 +24,6 @@ export default function StackBench() {
             </h2>
             <p className="mt-3 text-sm text-white/50">Used across {repos} repositories, grouped by layer.</p>
           </div>
-          <IsoObject kind="database" className="hidden md:block w-28 h-28 shrink-0" />
         </div>
 
         <div role="tablist" aria-label="Layers" className="mt-10 flex flex-wrap gap-2">

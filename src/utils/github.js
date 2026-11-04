@@ -9,13 +9,13 @@ import { GITHUB_USER } from '../data/portfolioData';
      2. CLEAN     drop forks and empty repositories from language totals, ignore failed calls individually
                   so one rate-limited endpoint never blanks the whole section.
      3. TRANSFORM weekly grid for the heatmap, monthly totals, streaks, busiest weekday, language shares.
-     4. CACHE     localStorage for 6 hours, served immediately while a fresh copy loads in the background.
+     4. CACHE     localStorage for 30 minutes, served immediately while a fresh copy loads in the background.
    Unauthenticated GitHub calls are limited to 60 per hour per visitor, so the cache matters. */
 
 const API = 'https://api.github.com';
 const CAL = `https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`;
-const CACHE_KEY = `dk-github-${GITHUB_USER}-v1`;
-const TTL = 6 * 60 * 60 * 1000;
+const CACHE_KEY = `dk-github-${GITHUB_USER}-v2`;
+const TTL = 30 * 60 * 1000;
 
 const j = async (url, signal) => {
   const r = await fetch(url, { signal, headers: { Accept: 'application/vnd.github+json' } });
@@ -23,6 +23,16 @@ const j = async (url, signal) => {
   return r.json();
 };
 const safe = (p) => p.catch(() => null);
+
+/* Commits by the user in one repository: ask for one commit per page and read the page count from the Link header. */
+async function commitCount(name, signal) {
+  const r = await fetch(`${API}/repos/${GITHUB_USER}/${name}/commits?author=${GITHUB_USER}&per_page=1`, { signal, headers: { Accept: 'application/vnd.github+json' } });
+  if (!r.ok) return null;
+  const last = /[?&]page=(\d+)>; rel="last"/.exec(r.headers.get('link') || '');
+  if (last) return Number(last[1]);
+  const body = await r.json();
+  return Array.isArray(body) ? body.length : null;
+}
 
 export function readCache() {
   try {
@@ -131,6 +141,18 @@ export async function fetchGitHub(signal) {
   };
   await Promise.all([worker(), worker(), worker(), worker()]);
 
+  // Commits per repository, for the bar chart
+  const repoCommits = {};
+  const cq = own.slice(0, 14);
+  const cworker = async () => {
+    while (cq.length) {
+      const r = cq.shift();
+      const n = await safe(commitCount(r.name, signal));
+      if (n != null) repoCommits[r.name.toLowerCase()] = n;
+    }
+  };
+  await Promise.all([cworker(), cworker(), cworker()]);
+
   const days = cal?.contributions?.map((d) => ({ date: d.date, count: d.count, level: d.level })) || null;
 
   const data = {
@@ -154,6 +176,7 @@ export async function fetchGitHub(signal) {
     })),
     stars: own.reduce((n, r) => n + r.stargazers_count, 0),
     commits: commits?.total_count ?? null,
+    repoCommits,
     pullRequests: prs?.total_count ?? null,
     languages: summariseLanguages(langBytes).map((l) => ({ ...l, repos: langRepos[l.name] })),
     calendar: summariseCalendar(days),

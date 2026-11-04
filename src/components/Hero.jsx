@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import IsoObject from './iso/IsoObject';
+import PaperPlane from './PaperPlane';
 
 const ease = [0.22, 1, 0.36, 1];
 const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -78,7 +78,7 @@ export default function Hero() {
 
             {/* The object sits in its own column, level with the text */}
             <motion.div {...item(0.35)} className="hidden lg:flex lg:col-span-5 items-center justify-center" aria-hidden="true">
-              <IsoObject kind="system" className="w-full max-w-[470px] h-auto" />
+              <PaperPlane className="w-full max-w-[460px] h-auto" />
             </motion.div>
           </div>
         </div>

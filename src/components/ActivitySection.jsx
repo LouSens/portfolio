@@ -143,31 +143,40 @@ function GitHubBlock({ near }) {
     if (near) setStarted(true);
   }, [near]);
 
+  // Load once, then check again every few minutes while the page is open. A cached copy under 30 minutes old is reused.
   useEffect(() => {
     if (!started) return undefined;
-    const cached = readCache();
-    if (cached && isFresh(cached)) {
-      setLive(cached.data);
-      return undefined;
-    }
     const ctl = new AbortController();
-    fetchGitHub(ctl.signal).then(setLive).catch(() => {});
-    return () => ctl.abort();
+    const load = () => {
+      const cached = readCache();
+      if (cached && isFresh(cached)) {
+        setLive(cached.data);
+        return;
+      }
+      fetchGitHub(ctl.signal).then(setLive).catch(() => {});
+    };
+    load();
+    const timer = setInterval(() => !document.hidden && load(), 5 * 60 * 1000);
+    return () => {
+      clearInterval(timer);
+      ctl.abort();
+    };
   }, [started]);
 
   const snapCal = useMemo(() => summariseCalendar(SNAPSHOT.days), []);
   const cal = live?.calendar || snapCal;
   const calLabel = live?.calendar ? 'Contributions' : 'Commits';
-  const commits = live?.commits ?? SNAPSHOT.commits;
+  // Live numbers win when they are higher, so a partial or private-repo-blind response never shows less than the build knew
+  const commits = Math.max(live?.commits ?? 0, SNAPSHOT.commits);
+  const repoRows = SNAPSHOT.repos.map((r) => ({ ...r, commits: Math.max(live?.repoCommits?.[r.name.toLowerCase()] ?? 0, r.commits) }));
   const repoCount = live?.profile?.publicRepos ?? SNAPSHOT.repositories;
   const languages = live?.languages?.length ? live.languages : SNAPSHOT.languages;
-  const recent = (live?.repos?.length ? live.repos.map((r) => ({ name: r.name, url: r.url, language: r.language, last: r.pushedAt })) : SNAPSHOT.repos.map((r) => ({ name: r.name, url: `https://github.com/${GITHUB_USER}/${r.name}`, last: r.last }))).slice(0, 6);
   const since = live?.profile?.createdAt ? new Date(live.profile.createdAt).getFullYear() : new Date(SNAPSHOT.firstCommit).getFullYear();
   const updated = new Date(live?.fetchedAt || SNAPSHOT.generatedAt);
 
   return (
     <div>
-      {/* Bento: a headline tile beside the activity map, then repositories and languages, then recent work */}
+      {/* Bento: a headline tile beside the activity map, then repositories and languages */}
       <div className="grid md:grid-cols-12 gap-4 md:gap-5">
         <div className="md:col-span-4 rounded-2xl bg-accent p-5 md:p-7 flex flex-col justify-between gap-6">
           <p className="text-sm text-white/80">Commits since {since}</p>
@@ -187,28 +196,13 @@ function GitHubBlock({ near }) {
 
         <div className="md:col-span-7 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
           <h4 className="font-display font-semibold text-white mb-4">Commits by repository</h4>
-          <RepoBars repos={SNAPSHOT.repos} />
+          <RepoBars repos={repoRows} />
         </div>
         <div className="md:col-span-5 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
           <h4 className="font-display font-semibold text-white mb-4">Languages</h4>
           <Languages languages={languages} />
         </div>
 
-        <div className="md:col-span-12 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
-          <h4 className="font-display font-semibold text-white">Recently active</h4>
-          <ul className="mt-2 grid md:grid-cols-3 gap-x-8 divide-y md:divide-y-0 divide-white/[0.08]">
-            {recent.map((r) => (
-              <li key={r.name}>
-                <a href={r.url} target="_blank" rel="noreferrer" className="group flex items-center gap-3 py-2.5 text-sm">
-                  <span className="text-white/90 group-hover:text-[var(--accent)] transition-colors truncate">{repoName(r.name)}</span>
-                  {r.language && <span className="text-xs text-white/40 shrink-0">{r.language}</span>}
-                  <span className="ml-auto text-xs text-white/40 tabular-nums shrink-0">{new Date(r.last).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
-                  <ArrowUpRight size={13} className="text-white/30 group-hover:text-[var(--accent)] shrink-0" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
 
       <p className="mt-5 text-xs text-white/40 flex flex-wrap items-center gap-x-3">
