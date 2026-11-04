@@ -587,6 +587,8 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/neuralvoid/summary-detail.webp',
+    coverFit: 'cover',
+    coverZoom: 1.2,
     coverPosition: '12% top',
     heroImage: '/screenshots/neuralvoid/summary.webp',
     walkthrough: { src: '/media/demos/neuralvoid-demo.mp4', poster: '/media/demos/neuralvoid-demo-poster.webp', seconds: 27 },
@@ -691,7 +693,7 @@ export const PROJECTS_DATA = [
     hasRealUI: true,
     concept: true,
     coverImage: '/screenshots/legal-rag/cover.webp',
-    coverFit: 'cover',
+    coverArt: 'rag',
     coverPosition: 'top',
     heroImage: '/screenshots/concepts/legal-rag-search.webp',
     screenCategories: [
@@ -777,7 +779,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/dpickleball/cover.webp',
-    coverFit: 'cover',
+    coverArt: 'court',
     coverPosition: 'center',
     heroImage: '/screenshots/dpickleball/cover.webp',
     synopsis: 'An agent that learns to play pickleball from pixels, using one policy for both sides of the court.',
@@ -844,6 +846,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/gold/cover.webp',
+    coverFit: 'cover',
     coverPosition: 'center',
     heroImage: '/screenshots/gold/cover.webp',
     screenCategories: [
@@ -918,6 +921,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/movie/cover.webp',
+    coverFit: 'cover',
     coverPosition: 'center',
     heroImage: '/screenshots/movie/cover.webp',
     screenCategories: [

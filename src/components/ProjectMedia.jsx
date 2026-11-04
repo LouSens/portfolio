@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { small } from '../utils/img';
+import CoverArt from './CoverArt';
 
 /* A project's demo (silent, looping) or its cover, shown whole: nothing is cropped. The video downloads only when it is
    near and plays only while it is in view. */
@@ -19,7 +20,9 @@ export default function ProjectMedia({ project, className = '', eager = false, s
 
   return (
     <div ref={ref} className={`relative aspect-video overflow-hidden bg-white/[0.04] ${className}`}>
-      {project.walkthrough && !still ? (
+      {project.coverArt ? (
+        <CoverArt kind={project.coverArt} />
+      ) : project.walkthrough && !still ? (
         <video
           ref={video}
           src={near ? project.walkthrough.src : undefined}
@@ -37,6 +40,7 @@ export default function ProjectMedia({ project, className = '', eager = false, s
           alt=""
           loading={eager ? undefined : 'lazy'}
           decoding="async"
+          style={project.coverZoom ? { transform: `scale(${project.coverZoom})`, transformOrigin: 'center 40%' } : undefined}
           className={`absolute inset-0 w-full h-full ${project.coverFit === 'cover' ? 'object-cover' : 'object-contain'}`}
         />
       )}
