@@ -455,10 +455,9 @@ export default function CredentialsSection({ compact = false, panel = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45, ease }}
-          className="stage p-6 sm:p-8 md:p-10"
+          className="rounded-3xl border border-white/[0.14] bg-white/[0.03] p-6 sm:p-8 md:p-10"
         >
-          <div className="stage-glow absolute inset-0 pointer-events-none" aria-hidden="true" />
-          <div className="relative z-10 grid md:grid-cols-12 gap-6 md:gap-10 md:items-end">
+          <div className="grid md:grid-cols-12 gap-6 md:gap-10 md:items-end">
             <div className="md:col-span-6">
               <p className="text-xs uppercase tracking-wider text-white/55">Education</p>
               <h3 className="mt-2 font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-tight">{EDUCATION.degree}</h3>

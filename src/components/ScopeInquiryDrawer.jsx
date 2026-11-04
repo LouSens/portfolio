@@ -2,7 +2,6 @@ import PageSection from './PageSection';
 import { createPortal } from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
-import StageArt from './StageArt';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Send,
@@ -212,9 +211,8 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="stage p-6 sm:p-9 lg:p-12 grid lg:grid-cols-12 gap-10 lg:gap-14"
+          className="relative overflow-hidden rounded-3xl border border-white/[0.14] bg-white/[0.03] p-6 sm:p-9 lg:p-12 grid lg:grid-cols-12 gap-10 lg:gap-14"
         >
-          <StageArt scene="contact" />
           
 
           {/* Left: the pitch and the direct ways to reach me */}

@@ -6,13 +6,7 @@ import IsoObject from './iso/IsoObject';
 const SCENES = {
   hero: [
     { kind: 'database', cls: 'left-[-9%] top-[-8%] w-[300px] md:w-[360px] opacity-30' },
-    { kind: 'cluster', cls: 'left-[34%] top-[-4%] w-[220px] hidden md:block' },
     { kind: 'layers', cls: 'right-[-12%] md:right-[4%] top-[48%] md:top-[18%] w-[260px] md:w-[400px] opacity-35 md:opacity-90' },
-    { kind: 'books', cls: 'left-[-6%] bottom-[-12%] w-[280px] hidden md:block opacity-30' },
-  ],
-  contact: [
-    { kind: 'envelope', cls: 'right-[-8%] top-[-10%] w-[260px] md:w-[320px] opacity-30' },
-    { kind: 'cluster', cls: 'left-[-5%] bottom-[-10%] w-[220px] hidden md:block opacity-25' },
   ],
 };
 
