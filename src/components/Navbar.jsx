@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { HOME, navigate, routeUrl } from '../utils/route';
@@ -14,8 +14,27 @@ export default function Navbar({ route = HOME }) {
   const [scrolled, setScrolled] = useState(false);
   const active = useActiveRoom();
 
+  // At the top the bar is part of the page. A little way down it narrows to glass. Further down it slides away while
+  // you read, and comes back the moment you scroll up.
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const menuOpen = useRef(false);
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 40);
+    menuOpen.current = open;
+    if (open) setHidden(false);
+  }, [open]);
+  useEffect(() => {
+    const on = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      const dy = y - lastY.current;
+      if (Math.abs(dy) > 6) {
+        if (menuOpen.current || y < 160) setHidden(false);
+        else setHidden(dy > 0);
+        lastY.current = y;
+      }
+    };
+    lastY.current = window.scrollY;
     on();
     window.addEventListener('scroll', on, { passive: true });
     return () => window.removeEventListener('scroll', on);
@@ -45,7 +64,7 @@ export default function Navbar({ route = HOME }) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 pt-3 pointer-events-none">
+      <header className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 pt-3 pointer-events-none transition-transform duration-500 ease-out ${hidden ? '-translate-y-[130%]' : 'translate-y-0'}`}>
         {/* At the top the bar is part of the page: no fill, full width. Scrolled, it narrows and turns to glass. */}
         <div className={`mx-auto pointer-events-auto transition-[max-width] duration-500 ease-out ${scrolled ? 'max-w-[900px]' : 'max-w-[1240px]'}`}>
           <div className="relative flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full">
