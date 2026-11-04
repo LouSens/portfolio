@@ -204,8 +204,8 @@ export const PROJECTS_DATA = [
     isTeam: true,
     year: 'Oct 2026',
     badge: 'HACKATHON BUILD',
-    highlight: 'Finalist, top 15, SDC XMUM Hackathon 2026',
-    rank: { event: 'SDC XMUM Hackathon 2026', result: 'Finalist, top 15' },
+    highlight: 'Finalist, top 15 of 245 teams, SDC XMUM Hackathon 2026',
+    rank: { event: 'SDC XMUM Hackathon 2026', result: 'Finalist, top 15 of 245 teams' },
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/adept/cover.webp',
@@ -262,7 +262,7 @@ export const PROJECTS_DATA = [
     solution:
       'One backend and one explainable model. Skills are confirmed by the person, trends carry their source and date, every role score shows its parts, and every course in a plan comes from a verified catalogue with hours and cost.',
     businessOutcomes: [
-      'Finalist (top 15) at the SDC XMUM Hackathon 2026, Domain 1: Future-Ready Workforce',
+      'Finalist (top 15 of 245 teams) at the SDC XMUM Hackathon 2026, Domain 1: Future-Ready Workforce',
       'Built by a four-person team, with SDG 4 (Quality Education) as the main goal',
       'Every recommendation carries source names, retrieval dates, the snapshot date and an estimate label, so nothing is presented as more certain than it is',
       'Individual and organisation workspaces on one engine, in English, Bahasa Melayu and Chinese',
@@ -277,7 +277,7 @@ export const PROJECTS_DATA = [
       { name: 'GitHub Actions CI', desc: 'Lint, Python and web tests, TypeScript, translation parity and contract drift checks, plus browser journeys' },
     ],
     impactMetrics: [
-      { value: "Finalist", label: "Top 15 at the SDC XMUM Hackathon 2026" },
+      { value: "Top 15 of 245", label: "teams, as a finalist at the SDC XMUM Hackathon 2026" },
       { value: "104 courses", label: "verified, and 92 of them free" },
       { value: "48 roles", label: "scored for every person, each with the skills still missing" },
     ],
@@ -1079,10 +1079,10 @@ export const ACHIEVEMENTS = [
   {
     year: '2026',
     date: '2026',
-    result: 'Finalist, top 15',
+    result: 'Finalist, top 15 of 245 teams',
     title: 'SDC XMUM Hackathon 2026',
     organizer: 'Xiamen University Malaysia, Domain 1: The Aiversecity Future-Ready Workforce',
-    detail: 'Adept, a career and reskilling guide that matches skills to roles and builds a learning plan. I led team Pecel Lele.',
+    detail: 'Adept, a career and reskilling guide that matches skills to roles and builds a learning plan. One of 15 finalists from 245 teams, 221 projects and 941 participants from 52+ universities. I led team Pecel Lele.',
     projectId: 'adept',
   },
   {

@@ -35,16 +35,16 @@ export default function Hero() {
 
         <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-24 pb-14">
           <div className="w-full max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7">
-              <motion.h1 {...item(0.1)} className="font-display font-extrabold text-[2.6rem] sm:text-[clamp(2.75rem,1.2rem+4vw,4.5rem)] tracking-[-0.035em] leading-[1.04] text-white">
-                I build web apps<br className="sm:hidden" /> and <span className="text-[var(--accent)]">AI systems.</span>
+            <div className="lg:col-span-7 text-center lg:text-left">
+              <motion.h1 {...item(0.1)} className="font-display font-extrabold text-[2.35rem] sm:text-[clamp(2.75rem,1.2rem+4vw,4.5rem)] tracking-[-0.035em] leading-[1.04] text-white">
+                I build web apps<br className="sm:hidden" />and <span className="text-[var(--accent)] whitespace-nowrap">AI systems.</span>
               </motion.h1>
 
-              <motion.p {...item(0.2)} className="mt-5 sm:mt-6 text-base sm:text-lg md:text-xl text-white/75 leading-relaxed max-w-[34rem]">
+              <motion.p {...item(0.2)} className="mt-5 sm:mt-6 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-[34rem] mx-auto lg:mx-0">
                 David Kurniawan, AI student at Xiamen University Malaysia. I work on the backend, the data and the models behind a product.
               </motion.p>
 
-              <motion.div {...item(0.3)} className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
+              <motion.div {...item(0.3)} className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-center lg:justify-start gap-3 max-w-[22rem] sm:max-w-none mx-auto lg:mx-0">
                 <a
                   href="#work"
                   onClick={goProjects}
@@ -55,20 +55,20 @@ export default function Hero() {
                 </a>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full border border-white/35 text-white font-display font-semibold text-[15px] hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full sm:border border-white/35 text-white font-display font-semibold text-[15px] hover:bg-white/10 transition-colors"
                 >
                   Get in touch
                 </a>
               </motion.div>
 
-              <motion.ul {...item(0.4)} className="mt-6 flex items-center gap-5" aria-label="Find me">
+              <motion.ul {...item(0.4)} className="mt-5 sm:mt-6 flex items-center justify-center lg:justify-start gap-6" aria-label="Find me">
                 {LINKS.map(({ label, href, Icon }) => (
                   <li key={label}>
                     <a
                       href={href}
                       target={label === 'Email' ? undefined : '_blank'}
                       rel="noreferrer"
-                      className="group inline-flex items-center gap-2 py-2 text-sm text-white/65 hover:text-white transition-colors"
+                      className="group inline-flex items-center gap-2 py-2 text-sm text-white/75 hover:text-white transition-colors"
                     >
                       <Icon size={17} aria-hidden="true" />
                       {label}

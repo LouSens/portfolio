@@ -652,13 +652,6 @@ html.theme-reveal::view-transition-new(root) {
   box-shadow: 0 1px 2px rgb(30 30 50 / 0.05), 0 8px 22px rgb(30 30 50 / 0.06);
 }
 
-/* Home sections alternate between the plain page and a faint tinted band, so the scroll has rhythm */
-main > section:nth-of-type(even):not(#hero) {
-  background-image: linear-gradient(180deg, rgb(var(--accent-rgb) / 0.035), transparent 40%, rgb(var(--fg) / 0.02));
-}
-:root[data-theme='light'] main > section:nth-of-type(even):not(#hero) {
-  background-image: linear-gradient(180deg, rgb(var(--accent-rgb) / 0.06), rgb(240 232 220 / 0.55) 55%, rgb(var(--fg) / 0.025));
-}
 :root[data-theme='light'] #hero {
   background-image: radial-gradient(70% 60% at 85% 30%, rgb(var(--accent-rgb) / 0.1), transparent 70%);
 }
@@ -772,3 +765,20 @@ main > section:nth-of-type(even):not(#hero) {
   #hero, #hero .stage { max-width: 100vw; overflow-x: clip; }
   .liquid-nav { border-radius: 9999px; }
 }
+
+/* Page slicing: sections alternate between the page colour and a band, so each one reads as its own block.
+   The bands are a clear step darker or lighter than the page, with a hairline where they meet. */
+:root { --band: #101119; }
+:root[data-theme='light'] { --band: #ebe6da; }
+main > section:nth-of-type(even):not(#hero) {
+  background-color: var(--band);
+  border-top: 1px solid rgb(var(--fg) / 0.1);
+  border-bottom: 1px solid rgb(var(--fg) / 0.1);
+}
+/* Cards that sit on a band need a surface of their own, or they vanish */
+main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { background-color: rgb(var(--panel-rgb) / 1); }
+:root[data-theme='light'] main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card):not(:hover) { background-color: #fffdf8; }
+
+/* Never let anything widen the page on a phone */
+html { overflow-x: clip; }
+body { overflow-x: clip; max-width: 100%; }

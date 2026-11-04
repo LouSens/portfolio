@@ -23,7 +23,7 @@ function Row({ a, open, onToggle, onLightbox }) {
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="w-full grid grid-cols-[1fr_auto] md:grid-cols-[9.5rem_14rem_1fr_auto] items-center gap-x-6 gap-y-1 py-5 text-left cursor-pointer group"
+        className="w-full grid grid-cols-[1fr_auto] md:grid-cols-[9.5rem_17rem_1fr_auto] items-center gap-x-6 gap-y-1 py-5 text-left cursor-pointer group"
       >
         <span className="hidden md:block text-sm text-white/50 tabular-nums">{a.date}</span>
         <span className="font-display font-bold text-[var(--accent)] leading-snug col-span-1 md:col-auto">{a.result}</span>
