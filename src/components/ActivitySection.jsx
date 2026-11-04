@@ -225,9 +225,8 @@ function GitHubBlock({ near }) {
 
 export function GithubRoom({ near }) {
   return (
-    <div className="stage stage-bleed px-5 sm:px-10 md:px-14 py-10 md:py-14">
-      <div className="absolute inset-0 stage-glow pointer-events-none" aria-hidden="true" />
-      <div className="relative max-w-[1100px] mx-auto">
+    <div className="px-5 sm:px-8 py-12 md:py-16">
+      <div className="max-w-[1100px] mx-auto">
         <SectionLabel label="GitHub" />
         <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
           Steady work, <span className="text-[var(--accent)]">in the open</span>
