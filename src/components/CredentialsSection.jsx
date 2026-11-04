@@ -168,7 +168,7 @@ function AwardFeature({ feature, reverse, onOpen, showMedia = true }) {
   const images = [feature.lead, ...feature.photos.filter((p) => p.type !== 'video')];
 
   return (
-    <article id={`award-${feature.id}`} className="pt-12 md:pt-24 first:pt-0 scroll-mt-20">
+    <article id={`award-${feature.id}`} className="pt-10 md:pt-14 first:pt-0 scroll-mt-20">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div
@@ -396,7 +396,7 @@ export default function CredentialsSection({ compact = false, panel = false }) {
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);
 
   return (
-    <PageSection panel={panel} id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20">
+    <PageSection panel={panel} id="awards" className="section-glow py-10 md:py-16 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <IsoObject kind="podium" className="hidden md:block absolute right-8 top-0 w-32 h-32 pointer-events-none" />
         <motion.div
@@ -404,7 +404,7 @@ export default function CredentialsSection({ compact = false, panel = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease }}
-          className="max-w-2xl mb-8 md:mb-12"
+          className="max-w-2xl mb-5 md:mb-8"
         >
           <SectionLabel label="Awards" />
           <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.12]">
@@ -433,7 +433,7 @@ export default function CredentialsSection({ compact = false, panel = false }) {
       ))}
 
       {compact && (
-        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-10 md:mt-14 flex justify-center">
+        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-8 md:mt-10 flex justify-center">
           <a
             href={routeUrl('awards')}
             onClick={(e) => {
@@ -448,35 +448,36 @@ export default function CredentialsSection({ compact = false, panel = false }) {
         </div>
       )}
 
-      {/* Education: its own plain block, a ledger rather than a card */}
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-16 md:mt-28">
+      {/* Education: one compact stage, the reversed colours of the page */}
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-10 md:mt-14">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45, ease }}
-          className="grid md:grid-cols-12 gap-8 md:gap-14 border-t-2 border-white pt-8"
+          className="stage p-6 sm:p-8 md:p-10"
         >
-          <div className="md:col-span-5">
-            <SectionLabel label="Education" />
-            <h3 className="font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-tight">{EDUCATION.degree}</h3>
-            <p className="mt-3 text-[15px] text-white/65">{EDUCATION.school}</p>
-            <p className="text-sm text-white/50">{EDUCATION.start} to {EDUCATION.expected}</p>
-          </div>
-
-          <dl className="md:col-span-7 md:pt-9">
-            {[
-              ['GPA', '3.84 of 4.00'],
-              ['Cohort rank', 'Top 16% in AI & Robotics'],
-            ].map(([k, v]) => (
-              <div key={k} className="flex items-baseline justify-between gap-6 py-3.5 border-b border-white/[0.16]">
-                <dt className="text-sm text-white/55">{k}</dt>
-                <dd className="font-display font-semibold text-white text-right">{v}</dd>
-              </div>
-            ))}
-            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3.5 border-b border-white/[0.16]">
-              <dt className="text-sm text-white/55">Dean&apos;s List</dt>
-              <dd className="flex flex-wrap items-center justify-end gap-2">
+          <div className="stage-glow absolute inset-0 pointer-events-none" aria-hidden="true" />
+          <div className="relative z-10 grid md:grid-cols-12 gap-6 md:gap-10 md:items-end">
+            <div className="md:col-span-6">
+              <p className="text-xs uppercase tracking-wider text-white/55">Education</p>
+              <h3 className="mt-2 font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-tight">{EDUCATION.degree}</h3>
+              <p className="mt-2 text-[15px] text-white/70">{EDUCATION.school} · {EDUCATION.start} to {EDUCATION.expected}</p>
+            </div>
+            <div className="md:col-span-6">
+              <dl className="grid grid-cols-3 gap-4">
+                {[
+                  ['3.84', 'GPA of 4.00'],
+                  ['Top 16%', 'of the AI & Robotics cohort'],
+                  ['3', "semesters on the Dean's List"],
+                ].map(([v, l]) => (
+                  <div key={l}>
+                    <dt className="font-display font-extrabold text-xl md:text-2xl text-white leading-none">{v}</dt>
+                    <dd className="mt-1.5 text-xs text-white/60 leading-snug">{l}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mt-5 flex flex-wrap gap-2">
                 {DEANS_LIST.map((d, i) => (
                   <button
                     key={d.src}
@@ -487,15 +488,15 @@ export default function CredentialsSection({ compact = false, panel = false }) {
                         i
                       )
                     }
-                    className="group inline-flex items-center gap-1 rounded-full bg-white text-canvas px-3.5 py-1.5 text-xs font-semibold hover:bg-accent hover:text-white transition-colors cursor-pointer"
+                    className="group inline-flex items-center gap-1 rounded-lg border border-white/30 text-white px-3.5 py-2 text-xs font-semibold hover:bg-white hover:text-canvas transition-colors cursor-pointer"
                   >
-                    {d.label}
+                    Certificate, {d.label}
                     <ArrowUpRight size={12} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </button>
                 ))}
-              </dd>
+              </div>
             </div>
-          </dl>
+          </div>
         </motion.div>
       </div>
 

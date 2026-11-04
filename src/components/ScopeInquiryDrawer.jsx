@@ -204,7 +204,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
     <PageSection
       panel={panel}
       id="inquire"
-      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20"
+      className="section-glow py-10 md:py-16 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
         <motion.div
@@ -268,7 +268,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
                 )}
                 <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>
               </button>
-              <p className="text-xs text-white/50 leading-relaxed sm:max-w-[16rem]">I reply within 24 hours.</p>
+              <p className="text-xs text-white/50 leading-relaxed sm:max-w-[16rem]">Your message goes straight to my inbox.</p>
             </div>
           </form>
         </motion.div>
@@ -331,7 +331,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
               </h3>
 
               <p className="text-white/70 text-sm font-normal leading-relaxed mb-6">
-                Thanks for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your message regarding <span className="text-white font-medium">"{submissionReceipt.objective}"</span> has been received. I'll get back to you at <span className="text-white font-medium">{submissionReceipt.email}</span> within 24 hours.
+                Thanks for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your message has been received.
               </p>
 
               {/* Action Buttons */}

@@ -146,14 +146,15 @@ function Billboard({ project, onOpen }) {
 export default function ProjectsNetflix({ onOpenProject }) {
   const featured = PROJECTS_DATA.find((p) => p.id === 'adept') || PROJECTS_DATA[0];
   return (
-    <div className="px-5 sm:px-8 py-16 md:py-24">
+    <div className="px-5 sm:px-8 py-12 md:py-16">
       <div className="max-w-[1100px] mx-auto">
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
             <SectionLabel label="Projects" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              Selected <span className="text-[var(--accent)]">work</span>
+              What I have <span className="text-[var(--accent)]">built</span>
             </h2>
+            <p className="mt-3 text-[15px] text-white/60 max-w-[34rem]">Hackathon builds and personal projects. Open one to see what it does, how it works and how it ended.</p>
           </div>
           <a
             href={routeUrl('projects')}
@@ -169,7 +170,7 @@ export default function ProjectsNetflix({ onOpenProject }) {
 
         <Billboard project={featured} onOpen={onOpenProject} />
 
-        <div className="mt-14">
+        <div className="mt-10">
           {ROWS.map((row) => (
             <Rail key={row.title} title={row.title}>
               {row.projects.map((p) => (

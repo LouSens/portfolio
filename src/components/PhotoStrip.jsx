@@ -39,7 +39,7 @@ export default function PhotoStrip() {
   const sprockets = { backgroundImage: 'repeating-linear-gradient(90deg, rgb(255 255 255 / 0.22) 0 14px, transparent 14px 30px)', WebkitMaskImage: 'linear-gradient(#000,#000)' };
 
   return (
-    <div className="px-5 sm:px-8 py-16 md:py-24">
+    <div className="px-5 sm:px-8 py-12 md:py-16">
       <div className="max-w-[1100px] mx-auto">
         <div className="flex items-end justify-between gap-6 mb-8">
           <div>

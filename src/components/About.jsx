@@ -16,14 +16,14 @@ const KINDS = ['database', 'cluster', 'bars'];
 /* An editorial layout, no cards: a statement, a ruled row of facts, then three columns that share the same lines. */
 export default function About() {
   return (
-    <div className="px-5 sm:px-8 py-16 md:py-28">
+    <div className="px-5 sm:px-8 py-12 md:py-20">
       <div className="max-w-[1100px] mx-auto">
         <SectionLabel label="About" />
         <p className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-[1.12] max-w-[52rem]">
-          I study AI and build the <span className="text-[var(--accent)]">backend and AI side</span> of products.
+          I like owning the hard part: <span className="text-[var(--accent)]">the backend, the data</span> and the models.
         </p>
         <p className="mt-6 text-[17px] text-white/70 leading-relaxed max-w-[36rem]">
-          From Indonesia, studying at Xiamen University Malaysia. In team projects I usually end up owning the backend.
+          I'm from Indonesia and study AI at Xiamen University Malaysia. In a team I usually take the backend, and under hackathon deadlines I have taken three projects from idea to a working demo.
         </p>
 
         {/* Facts: one ruled row */}

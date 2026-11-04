@@ -15,15 +15,15 @@ export default function StackBench() {
   const shown = hover && group.items.find((i) => i.name === hover);
 
   return (
-    <div className="px-5 sm:px-8 py-16 md:py-24">
+    <div className="px-5 sm:px-8 py-12 md:py-16">
       <div className="max-w-[1100px] mx-auto">
         <div className="flex items-end justify-between gap-6">
           <div>
             <SectionLabel label="Tech stack" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              Every tool, <span className="text-[var(--accent)]">by layer</span>
+              The tools I <span className="text-[var(--accent)]">build with</span>
             </h2>
-            <p className="mt-3 text-sm text-white/50">{total} tools across {repos} repositories</p>
+            <p className="mt-3 text-sm text-white/50">Everything I have used across {repos} repositories, grouped by layer.</p>
           </div>
           <IsoObject kind="database" className="hidden md:block w-28 h-28 shrink-0" />
         </div>

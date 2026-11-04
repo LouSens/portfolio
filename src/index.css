@@ -714,3 +714,33 @@ main > section:nth-of-type(even):not(#hero) {
 :root[data-theme='light'] .stage [class*='border-white/[0.']:not(:hover) { border-color: rgb(255 255 255 / 0.16); }
 .hero-stage-pad { padding: 6rem 0.75rem 0.75rem; }
 @media (min-width: 640px) { .hero-stage-pad { padding: 6.25rem 1.25rem 1.25rem; } }
+
+
+/* ── Reversed stages: in light mode the stage is dark; in dark mode the stage is light paper on the dark page. */
+:root:not([data-theme='light']) .stage {
+  --fg: 17 18 24;
+  --bg-rgb: 244 242 236;
+  --panel-rgb: 255 255 255;
+  --iso-line: 17 18 24;
+  --accent: #D9421A;
+  --accent-rgb: 217 66 26;
+  background: #f3f1ea;
+  border-color: rgb(255 255 255 / 0.5);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.55);
+  color: #111218;
+}
+:root:not([data-theme='light']) .stage .stage-glow {
+  background:
+    radial-gradient(55% 70% at 88% 45%, rgb(120 150 230 / 0.28), transparent 70%),
+    radial-gradient(45% 60% at 5% 105%, rgb(217 66 26 / 0.22), transparent 70%);
+}
+:root:not([data-theme='light']) .stage [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.75);
+  background-image: none;
+  box-shadow: 0 1px 2px rgb(30 30 50 / 0.06);
+}
+:root:not([data-theme='light']) .stage [class*='border-white/[0.']:not(:hover),
+:root:not([data-theme='light']) .stage [class*='bg-white/[0.0']:not(:hover) {
+  border-color: rgb(17 18 24 / 0.16);
+}
+.stage .stage-bar { border-top: 1px solid rgb(var(--fg) / 0.14); }
