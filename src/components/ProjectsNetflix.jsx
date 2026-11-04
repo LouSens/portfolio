@@ -57,7 +57,7 @@ function Rail({ title, children, grid = false }) {
 function Poster({ project, onOpen, fluid = false }) {
   const metric = project.impactMetrics?.[0];
   return (
-    <button type="button" onClick={() => onOpen(project)} className={`group text-left cursor-pointer ${fluid ? 'w-full' : 'flex-none w-[260px] sm:w-[310px]'}`}>
+    <button type="button" onClick={() => onOpen(project)} className={`group flex flex-col justify-start text-left cursor-pointer ${fluid ? 'w-full' : 'flex-none w-[260px] sm:w-[310px]'}`}>
       <div className="rounded-2xl overflow-hidden border border-white/[0.12] group-hover:border-accent/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.3)]">
         <ProjectMedia project={project} still />
       </div>

@@ -37,7 +37,7 @@ export default function ProjectMedia({ project, className = '', eager = false, s
           alt=""
           loading={eager ? undefined : 'lazy'}
           decoding="async"
-          className="absolute inset-0 w-full h-full object-contain"
+          className={`absolute inset-0 w-full h-full ${project.coverFit === 'cover' ? 'object-cover' : 'object-contain'}`}
         />
       )}
     </div>
