@@ -1,16 +1,10 @@
-import React, { useState, useEffect, useLayoutEffect, useMemo, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
 import { motion, useScroll, PresenceContext } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Modular Components
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import { SpaceGuard } from './components/space/Space';
-import LightHome from './components/LightHome';
-import { useSpaceMode } from './utils/spaceMode';
-import About from './components/About';
-import WorkGallery from './components/WorkGallery';
-import StackLayers from './components/StackLayers';
+import Home from './components/Home';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 import ProjectsPage from './components/ProjectsPage';
@@ -20,10 +14,6 @@ import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
 
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
-const MomentsWall = lazy(() => import('./components/MomentsWall'));
-const ResultsRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.ResultsRoom })));
-const KpiRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.KpiRoom })));
-const GithubRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.GithubRoom })));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
 const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
@@ -51,39 +41,11 @@ function ScrollProgress() {
   );
 }
 
-const gentle = (node) => <Suspense fallback={null}>{node}</Suspense>;
-
-/* Rooms in the order you walk through them. `dwell: 'auto'` means the room is as tall as its content and scrolls inside
-   its panel; `custom` rooms report their own dwell (the projects strip, the layer steps). */
-const ROOMS = (open) => [
-  { id: 'hero', label: 'Introduction', bare: true, dwell: 'custom', render: () => <Hero panel /> },
-  { id: 'about', label: 'About', dwell: 'auto', render: () => <About /> },
-  { id: 'work', label: 'Projects', dwell: 'custom', render: (s) => <WorkGallery {...s} onOpenProject={open} /> },
-  { id: 'stack', label: 'Tech stack', dwell: 'custom', render: (s) => <StackLayers {...s} /> },
-  {
-    id: 'activity',
-    label: 'Numbers',
-    dwell: 'auto',
-    render: () =>
-      gentle(
-        <>
-          <ResultsRoom />
-          <KpiRoom onOpenProject={open} />
-        </>
-      ),
-  },
-  { id: 'github', label: 'GitHub', dwell: 'auto', render: (s) => gentle(<GithubRoom near={s.active} />) },
-  { id: 'moments', label: 'Photos', dwell: 'auto', render: (s) => gentle(<MomentsWall progress={s.progress} />) },
-  { id: 'awards', label: 'Awards', dwell: 'auto', render: () => gentle(<CredentialsSection compact panel />) },
-  { id: 'inquire', label: 'Contact', dwell: 'auto', render: () => gentle(<ScopeInquiryDrawer compact panel />) },
-];
-
 /* ═══════════════════════════════════════
    MAIN APP
    ═══════════════════════════════════════ */
 export default function App() {
   const lenisRef = useRef(null);
-  const space = useSpaceMode();
   const [activeModalProject, setActiveModalProject] = useState(null);
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
@@ -230,11 +192,6 @@ export default function App() {
     window.history.replaceState(null, '', routeUrl(route));
   };
 
-  // Stable identity unless the open-project handler changes (it does not), so the space does not rebuild on every render
-  const openRef = useRef(handleOpenProject);
-  openRef.current = handleOpenProject;
-  const rooms = useMemo(() => ROOMS((p) => openRef.current(p)), []);
-
   return (
     // overflow-x-clip (not hidden): hidden would make this a scroll container and break the sticky galleries.
     <div id="top" className="relative min-h-screen bg-canvas text-white font-sans selection:bg-accent/30 selection:text-white overflow-x-clip">
@@ -250,12 +207,7 @@ export default function App() {
       <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
         {route === HOME ? (
           <>
-            {/* Large screens: a 3D walk through rooms. Everything else: a light page with the same content. */}
-            {space ? (
-              <SpaceGuard rooms={rooms} fallback={<LightHome onOpenProject={handleOpenProject} />} />
-            ) : (
-              <LightHome onOpenProject={handleOpenProject} />
-            )}
+            <Home onOpenProject={handleOpenProject} />
           </>
         ) : (
           // Dedicated pages: one part of the home page in full, clear of the floating navbar.

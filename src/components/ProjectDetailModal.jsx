@@ -35,6 +35,7 @@ import {
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
+import Workflow from './Workflow';
 import { small, srcSet } from '../utils/img';
 
 const ease = [0.22, 1, 0.36, 1];
@@ -548,14 +549,14 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
 
   const categories = project.screenCategories || [];
   const hasScreens = categories.length > 0;
-  const flowSteps = project.flow?.steps || project.architectureNodes?.map((n) => ({ name: n.name, desc: n.desc }));
-  const flowTitle = project.flow?.title || "How it's built";
+  const flowSteps = project.workflow ? [] : project.flow?.steps || project.architectureNodes?.map((n) => ({ name: n.name, desc: n.desc }));
+  const flowTitle = project.workflow ? 'How it works' : project.flow?.title || "How it's built";
 
   const scenes = [
     { id: 'cover', label: 'Overview' },
     project.film && { id: 'film', label: 'Film' },
     hasScreens && { id: 'screens', label: project.concept ? 'Design' : 'Screens' },
-    flowSteps && { id: 'flow', label: flowTitle },
+    (project.workflow || flowSteps) && { id: 'flow', label: flowTitle },
     project.demo === 'proof-score' && { id: 'demo', label: 'Try it' },
     project.parts && { id: 'parts', label: project.partsTitle || 'What I built' },
     project.process && { id: 'decisions', label: 'Decisions' },
@@ -768,10 +769,18 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
           )}
 
           {/* ── FLOW ── */}
-          {flowSteps && (
+          {project.workflow ? (
             <Scene id="flow" index={num('flow')} label={flowTitle} title={flowTitle}>
-              <FlowStage steps={flowSteps} loopNote={project.flow?.loopNote} />
+              <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8">
+                <Workflow workflow={project.workflow} />
+              </div>
             </Scene>
+          ) : (
+            flowSteps && (
+              <Scene id="flow" index={num('flow')} label={flowTitle} title={flowTitle}>
+                <FlowStage steps={flowSteps} loopNote={project.flow?.loopNote} />
+              </Scene>
+            )
           )}
 
           {/* ── DEMO ── */}

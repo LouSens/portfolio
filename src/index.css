@@ -571,3 +571,17 @@ button, a, input, select, textarea {
 .sculpture[data-live='false'] .iso-b {
   animation-play-state: paused;
 }
+
+/* Theme switch: the new theme grows as a circle out of the switch (View Transitions API). */
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-reveal::view-transition-new(root) {
+  animation: theme-reveal 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 90%) var(--vt-y, 4%)); }
+  to { clip-path: circle(150vmax at var(--vt-x, 90%) var(--vt-y, 4%)); }
+}

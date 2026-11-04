@@ -1,4 +1,5 @@
-import PageSection from './space/PageSection';
+import PageSection from './PageSection';
+import IsoObject from './iso/IsoObject';
 import { createPortal } from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
@@ -206,6 +207,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
       className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
+        <IsoObject kind="envelope" className="hidden md:block absolute right-0 top-0 w-32 h-32 pointer-events-none" />
         {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}

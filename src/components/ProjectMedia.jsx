@@ -4,7 +4,7 @@ import { small } from '../utils/img';
 
 /* A project's demo (silent, looping) or its cover, shown whole: nothing is cropped. The video downloads only when it is
    near and plays only while it is in view. */
-export default function ProjectMedia({ project, className = '', eager = false }) {
+export default function ProjectMedia({ project, className = '', eager = false, still = false }) {
   const ref = useRef(null);
   const video = useRef(null);
   const near = useInView(ref, { once: true, margin: '400px 400px 400px 400px' });
@@ -19,7 +19,7 @@ export default function ProjectMedia({ project, className = '', eager = false })
 
   return (
     <div ref={ref} className={`relative aspect-video overflow-hidden bg-white/[0.04] ${className}`}>
-      {project.walkthrough ? (
+      {project.walkthrough && !still ? (
         <video
           ref={video}
           src={near ? project.walkthrough.src : undefined}
@@ -33,7 +33,7 @@ export default function ProjectMedia({ project, className = '', eager = false })
         />
       ) : (
         <img
-          src={small(project.coverImage)}
+          src={still && project.walkthrough?.poster ? project.walkthrough.poster : small(project.coverImage)}
           alt=""
           loading={eager ? undefined : 'lazy'}
           decoding="async"

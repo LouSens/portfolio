@@ -11,7 +11,10 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
       role="switch"
       aria-checked={dark}
       aria-label="Dark mode"
-      onClick={toggleTheme}
+      onClick={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        toggleTheme({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+      }}
       className={`group inline-flex items-center gap-2.5 cursor-pointer select-none ${className}`}
     >
       {showLabel && <span className="text-sm text-white/70 group-hover:text-white transition-colors">Dark mode</span>}

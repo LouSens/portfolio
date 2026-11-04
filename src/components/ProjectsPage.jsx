@@ -89,8 +89,8 @@ export default function ProjectsPage({ onOpenProject }) {
 
                   {/* The numbers the home page carousel has no room for */}
                   {project.impactMetrics?.length > 0 && (
-                    <dl className="grid grid-cols-3 gap-x-3 py-4 mb-4 border-y border-white/[0.08]">
-                      {project.impactMetrics.slice(0, 3).map((m) => (
+                    <dl className="grid grid-cols-[repeat(auto-fit,minmax(7rem,1fr))] gap-x-4 gap-y-3 py-4 mb-4 border-y border-white/[0.08]">
+                      {project.impactMetrics.slice(0, 4).map((m) => (
                         <div key={m.label} className="min-w-0">
                           <dt className="font-display font-extrabold text-lg sm:text-xl text-white leading-tight">{m.value}</dt>
                           <dd className="text-[11px] sm:text-xs text-white/50 mt-1 leading-snug">{m.label}</dd>

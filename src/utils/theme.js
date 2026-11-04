@@ -8,23 +8,39 @@ const listeners = new Set();
 
 const read = () => (document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
-export function setTheme(next, { animate = true } = {}) {
+export function setTheme(next, { origin } = {}) {
   const root = document.documentElement;
-  if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    root.classList.add('theme-fade');
-    window.setTimeout(() => root.classList.remove('theme-fade'), 450);
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const apply = () => {
+    root.setAttribute('data-theme', next);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'light' ? '#f6f5f1' : '#050508');
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {
+      /* private mode: the choice just lasts for this visit */
+    }
+    listeners.forEach((l) => l());
+  };
+
+  if (calm) return apply();
+
+  // Seamless: the browser snapshots the old theme and the new one is revealed as a circle growing out of the switch.
+  if (origin && typeof document.startViewTransition === 'function') {
+    root.style.setProperty('--vt-x', `${origin.x}px`);
+    root.style.setProperty('--vt-y', `${origin.y}px`);
+    root.classList.add('theme-reveal');
+    const t = document.startViewTransition(apply);
+    t.finished.finally(() => root.classList.remove('theme-reveal'));
+    return undefined;
   }
-  root.setAttribute('data-theme', next);
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', next === 'light' ? '#f6f5f1' : '#050508');
-  try {
-    localStorage.setItem(KEY, next);
-  } catch {
-    /* private mode: the choice just lasts for this visit */
-  }
-  listeners.forEach((l) => l());
+
+  // Browsers without view transitions: a short cross-fade of the colours
+  root.classList.add('theme-fade');
+  window.setTimeout(() => root.classList.remove('theme-fade'), 450);
+  return apply();
 }
 
-export const toggleTheme = () => setTheme(read() === 'light' ? 'dark' : 'light');
+export const toggleTheme = (origin) => setTheme(read() === 'light' ? 'dark' : 'light', { origin });
 
 const subscribe = (cb) => {
   listeners.add(cb);

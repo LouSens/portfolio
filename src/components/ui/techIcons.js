@@ -116,3 +116,5 @@ export const ICONS = {
   "roblox studio": siRoblox,
   "unity": siUnity,
 };
+
+export const ICON_DATA = Object.fromEntries(Object.entries(ICONS).map(([k, v]) => [k, v.path]));

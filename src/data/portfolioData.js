@@ -72,11 +72,26 @@ export const PROJECTS_DATA = [
       { name: 'Privacy & Guardrails', desc: 'PII redaction before any model call, hallucination guards, 3-model fallback with a circuit breaker' },
     ],
     impactMetrics: [
-      { value: '4-Factor', label: 'Proof-weighted match score' },
-      { value: '163', label: 'Skills with quiz banks' },
-      { value: '768-dim', label: 'MRL-truncated embeddings' },
-      { value: 'Tier 3', label: 'PIDI Digdaya x Hackathon 2026' },
+      { value: "Finalist, Tier 3", label: "Top 80 of 2,000+ teams at PIDI Digdaya x Hackathon 2026" },
+      { value: "Demoed to recruiters", label: "FEKDI x IFSE 2026, JICC Jakarta" },
+      { value: "163 skills", label: "each with a short quiz that proves it" },
     ],
+    workflow: {
+      inputs: [
+        { label: "Job seeker", note: "CV and a target job" },
+        { label: "Employer", note: "A job posting and its applicants" },
+      ],
+      steps: [
+        { label: "Read the CV", note: "Skills and experience extracted, personal details removed first" },
+        { label: "Match", note: "A score built on proven skills, not keywords" },
+        { label: "Skill gap", note: "What is missing for the job, and the courses to close it" },
+      ],
+      outputs: [
+        { label: "For the seeker", note: "Ranked jobs, the gap view, courses and Proven badges" },
+        { label: "For the employer", note: "One ranked list of better-fit applicants" },
+      ],
+      loop: "A rejection reason from HR sends the seeker back to the skill gap.",
+    },
     parts: [
       {
         title: 'Matching engine',
@@ -103,17 +118,6 @@ export const PROJECTS_DATA = [
         text: 'A 4-phase GitHub Actions pipeline: lint, unit tests, database integration tests on a live pgvector container, and a latency benchmark.',
       },
     ],
-    flow: {
-      title: 'How KerjaCerdas works',
-      steps: [
-        { name: 'Pick a target job', icon: 'Target', desc: 'Jobs that fit your profile, ranked on skills you can prove.' },
-        { name: 'See what is missing', icon: 'Search', desc: 'A skill-gap view specific to that job, not a generic list.' },
-        { name: 'Learn', icon: 'BookOpen', desc: 'Course recommendations for each missing skill. Pass a short quiz to earn a Proven badge.' },
-        { name: 'Apply', icon: 'Send', desc: 'Every applicant lands in one ranked list for the employer.' },
-        { name: 'Get HR feedback', icon: 'MessageSquare', desc: 'Rejection reasons and confirmed skills from the interview feed the next round.' },
-      ],
-      loopNote: 'Not selected? The reason from HR sends you back to step 2.',
-    },
     demo: 'proof-score',
     process: [
       {
@@ -246,9 +250,9 @@ export const PROJECTS_DATA = [
       },
     ],
     synopsis:
-      'A sourced, human-led guide that connects the skills you have to dated AI and labour signals, explains which roles fit, and turns the choice into an ordered, costed learning plan.',
+      'Upload a CV, see which skills are rising, compare roles with a score you can inspect, and follow a costed learning plan. Teams see where they are short.',
     overview:
-      'AI changes work faster than a one-time skills test or a static course list can follow. Adept links confirmed skills to dated trend signals, ranks roles with a score you can inspect, and builds a plan from a verified course catalogue. A second mode gives teams and career centres a cohort view without taking the choice away from the individual.',
+      'Skills change faster than a one-off test or a static course list can follow. Adept reads a CV, tracks dated signals from research and labour data, ranks roles with a score that shows its parts, and builds a plan from a verified course catalogue. A second workspace shows teams and career centres where they are short.',
     problem:
       'People and advisers face one fragmented decision: what can I do today, which skills are rising or fading, which role fits, and what can I realistically learn within my time and budget.',
     solution:
@@ -265,15 +269,30 @@ export const PROJECTS_DATA = [
       { name: 'FastAPI service', desc: 'Private API for profiles, trends, matching, pathways, SDG links, jobs and accounts, with Pydantic v2 contracts' },
       { name: 'PostgreSQL + pgvector', desc: 'Profiles, catalogue, dated trend snapshots with provenance, plans and progress' },
       { name: 'Trend pipeline', desc: 'arXiv cs.AI abstracts embedded with MiniLM on RunPod, scored per skill against a dated BLS labour baseline' },
-      { name: 'Adi guide', desc: 'Deterministic guide by default; an optional LLM only picks validated, server-written answer blocks' },
+      { name: 'Adi assistant', desc: 'Answers from ready-written, checked blocks; an optional language model only chooses between them' },
       { name: 'GitHub Actions CI', desc: 'Lint, Python and web tests, TypeScript, translation parity and contract drift checks, plus browser journeys' },
     ],
     impactMetrics: [
-      { value: '104', label: 'Courses in the verified catalogue' },
-      { value: '48', label: 'Roles with skill requirements' },
-      { value: '142', label: 'Skills in the taxonomy' },
-      { value: '0', label: 'Rank changes across 75 fairness swaps' },
+      { value: "Finalist", label: "Top 15 at the SDC XMUM Hackathon 2026" },
+      { value: "104 courses", label: "verified, and 92 of them free" },
+      { value: "0 rank changes", label: "across 75 name and segment swaps in a fairness check" },
     ],
+    workflow: {
+      inputs: [
+        { label: "A person", note: "A CV, or four short steps" },
+        { label: "A team", note: "A join code; members confirm their skills" },
+      ],
+      steps: [
+        { label: "Skills radar", note: "Which skills are rising or fading, with source and date" },
+        { label: "Role match", note: "A score shown in four parts, with the skills still missing" },
+        { label: "Learning plan", note: "Ordered, verified courses with hours and cost" },
+      ],
+      outputs: [
+        { label: "For a person", note: "Ranked roles, a plan, progress and badges" },
+        { label: "For a team", note: "A skill-gap heatmap, a team plan and budgets" },
+      ],
+      loop: "Progress and evidence raise skill levels, which updates the next match.",
+    },
     partsTitle: 'What the team built',
     parts: [
       {
@@ -301,17 +320,6 @@ export const PROJECTS_DATA = [
         text: 'Synthetic personas only, no raw CVs stored, and no human trials claimed. 1,985 Python and 129 web tests passed at the last recorded check.',
       },
     ],
-    flow: {
-      title: 'How Adept works',
-      steps: [
-        { name: 'Radar', icon: 'Search', desc: 'See which skills are rising, steady or declining, with the source and date.' },
-        { name: 'Roles', icon: 'Target', desc: 'Ranked role matches, each score broken into parts with the skills you have, partly have or lack.' },
-        { name: 'Plan', icon: 'BookOpen', desc: 'Pick a target role and get an ordered plan of verified courses, with weeks and cost.' },
-        { name: 'Progress', icon: 'MessageSquare', desc: 'Mark courses done and add evidence. Confirmed evidence raises your skill levels.' },
-        { name: 'Jobs', icon: 'Send', desc: 'Explore openings for the role you chose, from credited public feeds.' },
-      ],
-      loopNote: 'Confirmed evidence feeds back into the role match, so the next ranking reflects what you learned.',
-    },
     tags: ['Next.js 16', 'React 19', 'TypeScript', 'FastAPI', 'PostgreSQL + pgvector', 'Sentence Transformers', 'Tailwind v4', 'RunPod', 'Replit'],
     githubUrl: 'https://github.com/pecel-lelele/adept',
     liveUrl: 'https://adept-my.replit.app',
@@ -383,11 +391,25 @@ export const PROJECTS_DATA = [
       { name: 'React app', desc: 'TanStack Query, with API types generated from the backend\u2019s OpenAPI schema' },
     ],
     impactMetrics: [
-      { value: '6 of 6', label: 'Move-Size Forecast Wins' },
-      { value: '35 of 36', label: 'Loss Limits Held at Claimed Rate' },
-      { value: '61% vs 52%', label: 'Fine-Tuned vs General Sentiment Model' },
-      { value: '10,000', label: 'Simulated Price Paths per Forecast' },
+      { value: "Read-only", label: "it cannot place a trade; a test locks the allowed endpoints" },
+      { value: "35 of 36", label: "loss limits held at their stated rate, on data the model had not seen" },
+      { value: "3 markets", label: "Bitcoin, gold and US stocks" },
     ],
+    workflow: {
+      inputs: [
+        { label: "Market data", note: "Prices and news for Bitcoin, gold and US stocks" },
+        { label: "Your account", note: "A read-only Binance connection" },
+      ],
+      steps: [
+        { label: "Check and store", note: "Hourly sync with data-quality checks" },
+        { label: "Models", note: "Move size, risk, sentiment and a price range" },
+        { label: "Rules", note: "Suggestions only from rules that passed a test written in advance" },
+      ],
+      outputs: [
+        { label: "Answers", note: "Why it moved, whether the price is high or low, how far it could go, how risky the mix is" },
+        { label: "What to do", note: "Spare cash split into a ladder of prices" },
+      ],
+    },
     bullets: [
       'Engineered a full-stack portfolio analyst (FastAPI, PostgreSQL + TimescaleDB, React 19, TypeScript) that connects to a Binance account and delivers actionable insights in real time, with API access enforced at the test level.',
       'Deployed four validated models per market (hidden Markov model for regime detection, 10,000-path Monte Carlo simulation for the price range ahead, HAR regression for daily move-size forecasting, and coverage-tested loss limits), each proved walk-forward on unseen days.',
@@ -494,11 +516,25 @@ export const PROJECTS_DATA = [
       { name: 'Ledger Node', desc: 'Immutable structured transaction ledger' },
     ],
     impactMetrics: [
-      { value: 'Top 24', label: 'Out of 100+ Teams (Hackathon)' },
-      { value: '~80%', label: 'Faster Claim Processing' },
-      { value: '6-Stage', label: 'Automated State Machine' },
-      { value: '85%', label: 'Code Coverage (Unit + Integration)' },
+      { value: "Top 24", label: "of 100+ teams at UM Hackathon 2026" },
+      { value: "~80% faster", label: "claim processing than manual review" },
+      { value: "Full audit trail", label: "every decision is recorded in the ledger" },
     ],
+    workflow: {
+      inputs: [
+        { label: "A claim", note: "Receipt photo and details from the employee" },
+        { label: "Company policy", note: "The spending rules a claim must meet" },
+      ],
+      steps: [
+        { label: "Read the receipt", note: "Parsed and cleaned before anything else sees it" },
+        { label: "Check the policy", note: "Fixed rules first, then AI reasoning for the grey areas" },
+        { label: "Catch duplicates", note: "Fuzzy matching against earlier claims" },
+      ],
+      outputs: [
+        { label: "A decision", note: "Approve, reject, or send to a manager" },
+        { label: "The ledger", note: "Every step recorded for audit" },
+      ],
+    },
     bullets: [
       'Built a 6-stage autonomous LLM workflow using LangGraph and FastAPI to automate end-to-end expense claim processing, parsing natural language submissions to extract, validate, and auto-approve claims, reducing processing time by roughly 80%.',
       'Integrated LangSmith observability and type-safe Pydantic contracts, establishing real-time tracing, token cost monitoring, and execution state debugging across all agent stages.',
@@ -592,11 +628,23 @@ export const PROJECTS_DATA = [
       { name: 'React SPA', desc: 'Hosted on Vercel with Railway API gateway' },
     ],
     impactMetrics: [
-      { value: '96%', label: 'Classification Accuracy' },
-      { value: '25', label: 'Behavioral Metrics Tracked' },
-      { value: 'FastAPI', label: 'High-Speed API Gateway' },
-      { value: 'React SPA', label: 'Responsive Web Platform' },
+      { value: "96%", label: "accuracy telling compulsive use from normal use" },
+      { value: "Plain words", label: "a habit level and one change to try, not just charts" },
     ],
+    workflow: {
+      inputs: [
+        { label: "Watch history", note: "An exported file of your app usage" },
+      ],
+      steps: [
+        { label: "Read the history", note: "Session lengths, late-night use, how often you switch apps" },
+        { label: "Score the habit", note: "25 measures into a classifier, explained in words" },
+        { label: "Write the report", note: "A short summary a clinician or you can read" },
+      ],
+      outputs: [
+        { label: "The report", note: "Habit level, what stands out, what to change" },
+        { label: "The dashboard", note: "When you watch, hour by hour, and the hours a change would give back" },
+      ],
+    },
     bullets: [
       'Engineered a 25-feature machine learning pipeline calculating session velocity, streak metrics, and binge probability feeding an ensemble model with ~96% classification accuracy.',
       'Integrated automated clinical report synthesis served through a high-throughput FastAPI backend.',
@@ -639,7 +687,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     concept: true,
-    coverImage: '/screenshots/concepts/legal-rag-poster.webp',
+    coverImage: '/screenshots/legal-rag/cover.webp',
     coverPosition: 'top',
     heroImage: '/screenshots/concepts/legal-rag-search.webp',
     screenCategories: [
@@ -652,7 +700,7 @@ export const PROJECTS_DATA = [
       },
     ],
     synopsis:
-      'High-precision legal search engine providing verifiable Indonesian labor law citations with zero hallucinations and exact statutory references.',
+      'Ask a question about Indonesian labour law and get an answer that points to the exact article, or a clear fallback when the system is not sure.',
     overview:
       'Built for legal and HR departments requiring 100% verifiable citations without hallucinations. Combines parent-child document chunking, hybrid search (keyword BM25 + dense vector FAISS), and cross-encoder neural reranking to deliver exact statutory article references.',
     problem:
@@ -672,10 +720,24 @@ export const PROJECTS_DATA = [
       { name: 'Synthesis Layer', desc: 'Verifiable statutory citation generator with exact article references' },
     ],
     impactMetrics: [
-      { value: '0.92+', label: 'Retrieval Precision Score' },
-      { value: 'Hybrid', label: 'BM25 + FAISS Vector Fusion' },
-      { value: 'Parent-Child', label: 'Context Chunking' },
+      { value: "0.92+", label: "retrieval precision after reranking" },
+      { value: "Always cited", label: "every answer points to the exact article" },
+      { value: "Open model", label: "fine-tuned and published on Hugging Face" },
     ],
+    workflow: {
+      inputs: [
+        { label: "A question", note: "About Indonesian labour law, in plain language" },
+      ],
+      steps: [
+        { label: "Search two ways", note: "Keywords and meaning, combined" },
+        { label: "Rerank", note: "A second model reads the best matches closely" },
+        { label: "Confidence check", note: "Below 0.3 the system says so and searches the web" },
+      ],
+      outputs: [
+        { label: "A cited answer", note: "With the exact article and its text" },
+        { label: "A web fallback", note: "When confidence is low, clearly marked" },
+      ],
+    },
     bullets: [
       'Built a Parent-Child Hybrid Ensemble RAG pipeline combining sparse BM25 (0.4) and dense FAISS vector search (0.6) with HyDE hypothesis generation and Cross-Encoder reranking.',
       'Fine-tuned model weights on domain dataset with W&B experiment tracking across multiple hyperparameter sweeps.',
@@ -731,11 +793,26 @@ export const PROJECTS_DATA = [
       { name: 'Deploy', desc: 'Weights pushed to the Hugging Face Hub' },
     ],
     impactMetrics: [
-      { value: '3rd', label: 'Place, AI category' },
-      { value: '1', label: 'Policy for both sides' },
-      { value: '256', label: 'LSTM memory units' },
-      { value: '84 x 168', label: 'Grayscale input, 4 frames stacked' },
+      { value: "3rd place", label: "AI category, XMUM AI Competition" },
+      { value: "One player", label: "a single policy plays the left and the right side" },
+      { value: "Self-taught", label: "learned only by playing older versions of itself" },
     ],
+    workflow: {
+      inputs: [
+        { label: "The court", note: "Small grayscale frames from the game" },
+        { label: "Opponents", note: "Older versions of the agent" },
+      ],
+      steps: [
+        { label: "Mirror", note: "The right-hand view is flipped, so both sides look the same" },
+        { label: "Decide", note: "Vision plus a short memory picks the next move" },
+        { label: "Learn", note: "Points won become reward, and PPO updates the policy" },
+      ],
+      outputs: [
+        { label: "A match-ready player", note: "Plays either side" },
+        { label: "Published weights", note: "Shared on Hugging Face" },
+      ],
+      loop: "Versions that get beaten join the league it trains against.",
+    },
     parts: [
       { title: 'Mirror trick', text: 'Flip the right-hand view and swap left and right actions, so one network learns both sides.' },
       { title: 'Memory', text: 'An LSTM tracks where the ball is heading across a 1024-step window.' },
@@ -793,11 +870,24 @@ export const PROJECTS_DATA = [
       { name: 'Choose', desc: 'Pick on validation, report once on test' },
     ],
     impactMetrics: [
-      { value: '284', label: 'Test forecasts' },
-      { value: '4', label: 'Models compared' },
-      { value: '75.6', label: 'Best test RMSE (USD)' },
-      { value: 'p > 0.05', label: 'No significant winner' },
+      { value: "No clear winner", label: "no model beat a plain guess with statistical significance" },
+      { value: "284 days", label: "of one-day-ahead forecasts on data the models had not seen" },
+      { value: "1.2% error", label: "average miss of the best model" },
     ],
+    workflow: {
+      inputs: [
+        { label: "Gold prices", note: "Daily gold futures from Yahoo Finance" },
+      ],
+      steps: [
+        { label: "Split by time", note: "Train, validate and test, always in order" },
+        { label: "Train four models", note: "A plain guess, ARIMA, XGBoost and an LSTM" },
+        { label: "Test the gap", note: "A significance test on every difference" },
+      ],
+      outputs: [
+        { label: "A forecast", note: "The next trading day" },
+        { label: "A verdict", note: "Whether any model is really better" },
+      ],
+    },
     parts: [
       { title: 'Fair comparison', text: 'All models predict the same days, and the model is chosen on validation data only.' },
       { title: 'Honest result', text: 'The LSTM only learned the average upward drift. It called every test day "up".' },
@@ -854,11 +944,25 @@ export const PROJECTS_DATA = [
       { name: 'Run', desc: 'One command: python -m src.pipeline' },
     ],
     impactMetrics: [
-      { value: '0.2173', label: 'NDCG@10, neural model' },
-      { value: '+31.5%', label: 'Over the popularity baseline' },
-      { value: '0.841', label: 'SVD rating error (RMSE)' },
-      { value: '602', label: 'Test users' },
+      { value: "+31.5%", label: "better top-10 ranking than \"most popular\"" },
+      { value: "+58.2%", label: "more of the movies a user liked were found" },
+      { value: "602 users", label: "held out for the test" },
     ],
+    workflow: {
+      inputs: [
+        { label: "Ratings and tags", note: "MovieLens data" },
+        { label: "A user", note: "Their rating history" },
+      ],
+      steps: [
+        { label: "Similar movies", note: "A content model on genres and tags" },
+        { label: "Rating guess", note: "SVD predicts how a user would rate" },
+        { label: "Top picks", note: "A neural model ranks what to show" },
+      ],
+      outputs: [
+        { label: "Top 10 picks", note: "Ranked per user" },
+        { label: "Predicted ratings", note: "How much a user would like a movie" },
+      ],
+    },
     parts: [
       { title: 'Three models', text: 'Content-based, SVD and NeuMF, each good at something different.' },
       { title: 'Fair test', text: 'Seen movies are hidden and every model ranks the same 3,643 candidates.' },
@@ -893,29 +997,28 @@ export const EDUCATION = {
 export const ABOUT = {
   heading: "Hi, I'm David.",
   intro: [
-    'I study AI at Xiamen University Malaysia. I am from Indonesia.',
-    'I build the backend and AI side of products. In team projects I usually end up owning the backend.',
+    'I study AI at Xiamen University Malaysia and I am from Indonesia.',
+    'I build the backend and AI side of products, and in team projects I usually end up owning the backend.',
   ],
   facts: [
     { label: 'Based in', value: 'Selangor, Malaysia' },
-    { label: 'From', value: 'Indonesia' },
     { label: 'Studying', value: 'BEng (Hons) Artificial Intelligence, 2024 to 2028' },
     { label: 'Looking for', value: 'Internships and remote part-time work' },
   ],
   focus: [
     {
       title: 'Backend and APIs',
-      points: ['FastAPI services and typed data contracts', 'PostgreSQL with pgvector', 'CI that runs real integration tests'],
+      points: ['FastAPI services with typed contracts', 'PostgreSQL and pgvector', 'CI that runs real integration tests'],
       projects: ['kerjacerdas', 'adept'],
     },
     {
       title: 'AI agents and search',
-      points: ['LangGraph agent workflows', 'Hybrid search: BM25, vectors, reranker', 'Keeping LLM calls cheap and checkable'],
+      points: ['LangGraph agent workflows', 'Hybrid search with a reranker', 'LLM calls that stay cheap and checkable'],
       projects: ['orion', 'legal-rag'],
     },
     {
       title: 'Machine learning',
-      points: ['Hand-built features when results must be explained', 'Forecasting and recommendation, tested fairly', 'Reinforcement learning agents'],
+      points: ['Features I can explain to a reader', 'Forecasting and recommendation, tested fairly', 'Reinforcement learning agents'],
       projects: ['neuralvoid', 'movie-recommender', 'dpickleball'],
     },
   ],

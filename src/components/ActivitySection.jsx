@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowUpRight, Star, GitCommitHorizontal, GitPullRequest, Flame, CalendarDays, FolderGit2 } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Star, GitCommitHorizontal, GitPullRequest, Flame, CalendarDays, FolderGit2 } from 'lucide-react';
+import useEmblaCarousel from 'embla-carousel-react';
 import SectionLabel from './SectionLabel';
 import CountUp from './ui/CountUp';
 import { GITHUB_USER, KEY_NUMBERS, PERSONAL_INFO, PROJECTS_DATA, EARLIER_WORK, TECH_STACK } from '../data/portfolioData';
@@ -312,37 +313,54 @@ export function ResultsRoom() {
 }
 
 export function KpiRoom({ onOpenProject }) {
-  const projectRows = useMemo(() => PROJECTS_DATA.filter((p) => p.impactMetrics?.length).map((p) => ({ p, m: p.impactMetrics.slice(0, 3) })), []);
+  const rows = useMemo(() => PROJECTS_DATA.filter((p) => p.impactMetrics?.length), []);
+  const [ref, api] = useEmblaCarousel({ align: 'start', dragFree: true, containScroll: 'trimSnaps' });
+  const [can, setCan] = useState({ prev: false, next: true });
+  useEffect(() => {
+    if (!api) return undefined;
+    const update = () => setCan({ prev: api.canScrollPrev(), next: api.canScrollNext() });
+    update();
+    api.on('select', update).on('reInit', update).on('scroll', update);
+    return () => api.off('select', update).off('reInit', update).off('scroll', update);
+  }, [api]);
+  const arrow = 'w-9 h-9 rounded-full border border-white/[0.16] text-white/80 hover:text-white hover:border-white/[0.4] disabled:opacity-25 disabled:pointer-events-none flex items-center justify-center transition-colors cursor-pointer';
   return (
     <Frame>
-      <Block title="Project KPIs">
-        <ul className="rounded-2xl border border-white/[0.1] divide-y divide-white/[0.08] overflow-hidden">
-          {projectRows.map(({ p, m }) => (
-            <li key={p.id}>
-              <button
-                type="button"
-                onClick={() => onOpenProject(p)}
-                className="group w-full grid grid-cols-[1fr_auto] md:grid-cols-[220px_1fr_auto] items-center gap-x-6 gap-y-3 px-4 md:px-6 py-4 text-left hover:bg-white/[0.03] transition-colors cursor-pointer"
-              >
-                <span className="min-w-0">
+      <div className="flex items-center justify-between mb-5">
+        <h3 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight">Project KPIs</h3>
+        <div className="hidden sm:flex gap-2">
+          <button type="button" className={arrow} onClick={() => api?.scrollPrev()} disabled={!can.prev} aria-label="Previous KPIs"><ChevronLeft size={16} /></button>
+          <button type="button" className={arrow} onClick={() => api?.scrollNext()} disabled={!can.next} aria-label="Next KPIs"><ChevronRight size={16} /></button>
+        </div>
+      </div>
+      <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={ref}>
+        <div className="flex gap-4 pb-2">
+          {rows.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => onOpenProject(p)}
+              className="group flex-none w-[290px] text-left rounded-2xl border border-white/[0.12] hover:border-accent/50 bg-white/[0.02] p-5 transition-colors cursor-pointer"
+            >
+              <span className="flex items-start justify-between gap-2">
+                <span>
                   <span className="block font-display font-semibold text-white group-hover:text-[var(--accent)] transition-colors">{p.title}</span>
-                  <span className="block text-xs text-white/45 truncate">{p.type}</span>
+                  <span className="block text-xs text-white/45">{p.type}</span>
                 </span>
-                <ArrowUpRight size={16} className="text-white/30 group-hover:text-[var(--accent)] md:order-3" />
-                <span className="col-span-2 md:col-span-1 grid grid-cols-3 gap-4 min-w-0">
-                  {m.map((x) => (
-                    <span key={x.label} className="min-w-0">
-                      <span className="block font-display font-bold text-base md:text-lg text-white tabular-nums truncate">{x.value}</span>
-                      <span className="block text-[11px] text-white/45 leading-snug line-clamp-2">{x.label}</span>
-                    </span>
-                  ))}
-                </span>
-              </button>
-            </li>
+                <ArrowUpRight size={15} className="mt-1 text-white/30 group-hover:text-[var(--accent)]" />
+              </span>
+              <span className="mt-4 grid gap-3">
+                {p.impactMetrics.slice(0, 3).map((x) => (
+                  <span key={x.label} className="block border-t border-white/[0.08] pt-2.5">
+                    <span className="block font-display font-bold text-white leading-snug">{x.value}</span>
+                    <span className="block text-xs text-white/50 leading-snug">{x.label}</span>
+                  </span>
+                ))}
+              </span>
+            </button>
           ))}
-        </ul>
-        <p className="mt-3 text-xs text-white/40">{EARLIER_WORK.length} smaller repositories are listed on the Projects page.</p>
-      </Block>
+        </div>
+      </div>
     </Frame>
   );
 }

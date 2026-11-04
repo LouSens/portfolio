@@ -4,7 +4,8 @@ import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, FileTex
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
-import PageSection from './space/PageSection';
+import PageSection from './PageSection';
+import IsoObject from './iso/IsoObject';
 import { Play } from 'lucide-react';
 import { srcSet, isTouch } from '../utils/img';
 import { ACHIEVEMENTS, AWARD_FEATURES, DEANS_LIST, EDUCATION, PROJECTS_DATA } from '../data/portfolioData';
@@ -397,6 +398,7 @@ export default function CredentialsSection({ compact = false, panel = false }) {
   return (
     <PageSection panel={panel} id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+        <IsoObject kind="podium" className="hidden md:block absolute right-8 top-0 w-32 h-32 pointer-events-none" />
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
