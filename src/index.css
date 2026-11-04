@@ -676,3 +676,9 @@ main > section:nth-of-type(even):not(#hero) {
 :root[data-theme='light'] #hero {
   background-image: radial-gradient(70% 60% at 85% 30%, rgb(var(--accent-rgb) / 0.1), transparent 70%);
 }
+
+/* Hero: the photo is cut on a diagonal; on phones it is a faint band behind the text */
+.hero-photo { clip-path: polygon(0 22%, 100% 0, 100% 100%, 0 100%); opacity: 0.4; }
+@media (min-width: 1024px) {
+  .hero-photo { clip-path: polygon(24% 0, 100% 0, 100% 100%, 0% 100%); opacity: 1; }
+}
