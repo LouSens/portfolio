@@ -203,7 +203,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
     <PageSection
       panel={panel}
       id="inquire"
-      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
+      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
         {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}

@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { motion, useScroll, PresenceContext } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Modular Components
 import Navbar from './components/Navbar';
-import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
 import { SpaceGuard } from './components/space/Space';
+import LightHome from './components/LightHome';
+import { useSpaceMode } from './utils/spaceMode';
 import About from './components/About';
 import WorkGallery from './components/WorkGallery';
 import StackLayers from './components/StackLayers';
@@ -52,31 +53,29 @@ function ScrollProgress() {
 
 const gentle = (node) => <Suspense fallback={null}>{node}</Suspense>;
 
-/* Rooms in the order you move through them. `dwell: 'auto'` means the room is as tall as its content and scrolls
-   inside its panel; the others report their own dwell (the sideways strip, the layer steps). */
+/* Rooms in the order you walk through them. `dwell: 'auto'` means the room is as tall as its content and scrolls inside
+   its panel; `custom` rooms report their own dwell (the projects strip, the layer steps). */
 const ROOMS = (open) => [
-  { id: 'hero', label: 'Introduction', bare: true, dwell: 'custom', render: () => <Hero /> },
+  { id: 'hero', label: 'Introduction', bare: true, dwell: 'custom', render: () => <Hero panel /> },
   { id: 'about', label: 'About', dwell: 'auto', render: () => <About /> },
   { id: 'work', label: 'Projects', dwell: 'custom', render: (s) => <WorkGallery {...s} onOpenProject={open} /> },
   { id: 'stack', label: 'Tech stack', dwell: 'custom', render: (s) => <StackLayers {...s} /> },
-  { id: 'activity', label: 'Results', dwell: 'auto', render: () => gentle(<ResultsRoom />) },
-  { id: 'kpis', label: 'Project KPIs', dwell: 'auto', render: () => gentle(<KpiRoom onOpenProject={open} />) },
-  { id: 'github', label: 'GitHub', dwell: 'auto', render: (s) => gentle(<GithubRoom near={s.near} />) },
+  {
+    id: 'activity',
+    label: 'Numbers',
+    dwell: 'auto',
+    render: () =>
+      gentle(
+        <>
+          <ResultsRoom />
+          <KpiRoom onOpenProject={open} />
+        </>
+      ),
+  },
+  { id: 'github', label: 'GitHub', dwell: 'auto', render: (s) => gentle(<GithubRoom near={s.active} />) },
   { id: 'moments', label: 'Photos', dwell: 'auto', render: (s) => gentle(<MomentsWall progress={s.progress} />) },
   { id: 'awards', label: 'Awards', dwell: 'auto', render: () => gentle(<CredentialsSection compact panel />) },
   { id: 'inquire', label: 'Contact', dwell: 'auto', render: () => gentle(<ScopeInquiryDrawer compact panel />) },
-];
-
-/* Looping isometric sculptures hung in the space: one beside the lobby, the rest seen in passing between rooms */
-const SCULPTURES = [
-  { kind: 'layers', size: 380, x: 430, y: 20, z: -140, ry: -18 },
-  { kind: 'match', size: 300, x: -760, y: -60, z: -620, ry: 24 },
-  { kind: 'cluster', size: 300, x: 840, y: 60, z: -1760, ry: -22 },
-  { kind: 'database', size: 300, x: -700, y: -40, z: -2900, ry: 20 },
-  { kind: 'bars', size: 300, x: 760, y: 40, z: -4050, ry: -20 },
-  { kind: 'reel', size: 300, x: -720, y: -30, z: -5200, ry: 18 },
-  { kind: 'ingots', size: 300, x: 700, y: 50, z: -6300, ry: -16 },
-  { kind: 'books', size: 300, x: -640, y: -20, z: -7450, ry: 14 },
 ];
 
 /* ═══════════════════════════════════════
@@ -84,6 +83,7 @@ const SCULPTURES = [
    ═══════════════════════════════════════ */
 export default function App() {
   const lenisRef = useRef(null);
+  const space = useSpaceMode();
   const [activeModalProject, setActiveModalProject] = useState(null);
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
@@ -157,10 +157,17 @@ export default function App() {
       return;
     }
     const section = takePendingSection();
-    const sectionEl = section && document.getElementById(section);
-    const y = sectionEl ? sectionEl.getBoundingClientRect().top + window.scrollY : 0;
-    window.scrollTo({ top: y, behavior: 'instant' });
-    lenisRef.current?.scrollTo(y, { immediate: true, force: true });
+    const jump = () => {
+      const el = section && document.getElementById(section);
+      const y = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+      window.scrollTo({ top: y, behavior: 'instant' });
+      lenisRef.current?.scrollTo(y, { immediate: true, force: true });
+    };
+    jump();
+    // The 3D page settles its room heights a moment after it mounts, so land again once it has
+    if (!section) return undefined;
+    const timers = [250, 800, 1600].map((ms) => setTimeout(jump, ms));
+    return () => timers.forEach(clearTimeout);
   }, [route]);
 
   // Sync page and modal with URL hash
@@ -223,6 +230,11 @@ export default function App() {
     window.history.replaceState(null, '', routeUrl(route));
   };
 
+  // Stable identity unless the open-project handler changes (it does not), so the space does not rebuild on every render
+  const openRef = useRef(handleOpenProject);
+  openRef.current = handleOpenProject;
+  const rooms = useMemo(() => ROOMS((p) => openRef.current(p)), []);
+
   return (
     // overflow-x-clip (not hidden): hidden would make this a scroll container and break the sticky galleries.
     <div id="top" className="relative min-h-screen bg-canvas text-white font-sans selection:bg-accent/30 selection:text-white overflow-x-clip">
@@ -232,19 +244,22 @@ export default function App() {
 
       {/* Navigation */}
       <Navbar route={route} />
-      {route === HOME && <SectionNav />}
 
       {/* Main Content Flow */}
       <PresenceContext.Provider value={IS_PHONE && homeKey === 0 ? NO_INTRO : null}>
       <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
         {route === HOME ? (
           <>
-            {/* The home page is a 3D space: every room is a panel hung in space, and the camera flies between them */}
-            <SpaceGuard rooms={ROOMS(handleOpenProject)} sculptures={SCULPTURES} />
+            {/* Large screens: a 3D walk through rooms. Everything else: a light page with the same content. */}
+            {space ? (
+              <SpaceGuard rooms={rooms} fallback={<LightHome onOpenProject={handleOpenProject} />} />
+            ) : (
+              <LightHome onOpenProject={handleOpenProject} />
+            )}
           </>
         ) : (
           // Dedicated pages: one part of the home page in full, clear of the floating navbar.
-          <div className="pt-14 md:pt-10 min-h-screen">
+          <div className="pt-24 min-h-screen">
             {route === 'projects' && <ProjectsPage onOpenProject={handleOpenProject} />}
             <Suspense fallback={<div className="min-h-screen" />}>
               {route === 'awards' && <CredentialsSection />}

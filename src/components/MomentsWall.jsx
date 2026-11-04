@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { AnimatePresence, motion, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
@@ -20,7 +20,9 @@ const PHOTOS = [
   ...DIGDAYA.photos.slice(0, 2).map((p) => ({ ...p, tag: 'PIDI Digdaya 2026' })),
 ].filter((p) => p.src);
 
-export default function MomentsWall({ progress }) {
+export default function MomentsWall({ progress: given }) {
+  const still = useMotionValue(0.5);
+  const progress = given || still;
   const [lightbox, setLightbox] = useState(null);
   const close = useCallback(() => setLightbox(null), []);
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);

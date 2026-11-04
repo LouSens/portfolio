@@ -395,7 +395,7 @@ export default function CredentialsSection({ compact = false, panel = false }) {
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);
 
   return (
-    <PageSection panel={panel} id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06]">
+    <PageSection panel={panel} id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

@@ -1,0 +1,45 @@
+import React, { useEffect, useRef } from 'react';
+import { useInView } from 'framer-motion';
+import { small } from '../utils/img';
+
+/* A project's demo (silent, looping) or its cover, shown whole: nothing is cropped. The video downloads only when it is
+   near and plays only while it is in view. */
+export default function ProjectMedia({ project, className = '', eager = false }) {
+  const ref = useRef(null);
+  const video = useRef(null);
+  const near = useInView(ref, { once: true, margin: '400px 400px 400px 400px' });
+  const playing = useInView(ref, { amount: 0.6 });
+
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    if (playing && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) v.play().catch(() => {});
+    else v.pause();
+  }, [playing]);
+
+  return (
+    <div ref={ref} className={`relative aspect-video overflow-hidden bg-white/[0.04] ${className}`}>
+      {project.walkthrough ? (
+        <video
+          ref={video}
+          src={near ? project.walkthrough.src : undefined}
+          poster={project.walkthrough.poster}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-label={`${project.title} demo, silent`}
+          className="absolute inset-0 w-full h-full object-contain"
+        />
+      ) : (
+        <img
+          src={small(project.coverImage)}
+          alt=""
+          loading={eager ? undefined : 'lazy'}
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-contain"
+        />
+      )}
+    </div>
+  );
+}

@@ -176,9 +176,14 @@ function RepoBars({ repos }) {
    last live copy is kept in the browser. If GitHub is rate limited, the section simply keeps what it has. */
 function GitHubBlock({ near }) {
   const [live, setLive] = useState(() => readCache()?.data || null);
+  // Start once the room has been reached, and keep going if you scroll on
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    if (near) setStarted(true);
+  }, [near]);
 
   useEffect(() => {
-    if (!near) return undefined;
+    if (!started) return undefined;
     const cached = readCache();
     if (cached && isFresh(cached)) {
       setLive(cached.data);
@@ -187,7 +192,7 @@ function GitHubBlock({ near }) {
     const ctl = new AbortController();
     fetchGitHub(ctl.signal).then(setLive).catch(() => {});
     return () => ctl.abort();
-  }, [near]);
+  }, [started]);
 
   const snapCal = useMemo(() => summariseCalendar(SNAPSHOT.days), []);
   const cal = live?.calendar || snapCal;

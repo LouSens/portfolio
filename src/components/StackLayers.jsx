@@ -15,7 +15,7 @@ const pts = (l) => l.map((p) => p.join(',')).join(' ');
 function Plates({ n, active }) {
   const plates = Array.from({ length: n }, (_, i) => i); // 0 is the top plate
   return (
-    <svg viewBox="-70 -70 140 230" className="w-full h-full" aria-hidden="true" fill="none" strokeLinejoin="round">
+    <svg viewBox="-80 -134 160 226" className="w-full h-full" aria-hidden="true" fill="none" strokeLinejoin="round">
       {[...plates].reverse().map((i) => {
         const z = (n - 1 - i) * 1.7;
         const w = 7;
@@ -70,7 +70,7 @@ export default function StackLayers({ progress, onDwell, dims }) {
               <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
                 Every tool, <span className="text-[var(--accent)]">by layer</span>
               </h2>
-              <p className="mt-3 text-sm text-white/50">{total} tools · {repoCount} repositories</p>
+              <p className="mt-3 text-sm text-white/50">{total} tools across {repoCount} repositories</p>
             </div>
             <div className="w-28 h-40 shrink-0 md:w-full md:h-[min(46svh,380px)] md:mt-6">
               <Plates n={n} active={active} />
@@ -92,9 +92,7 @@ export default function StackLayers({ progress, onDwell, dims }) {
                   {group.name}
                 </motion.h3>
               </AnimatePresence>
-              <span className="font-mono text-xs text-white/45 tabular-nums shrink-0">
-                {String(active + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}
-              </span>
+              <span className="text-xs text-white/45 shrink-0">{group.items.length} tools</span>
             </div>
             <div className="mt-3 h-px bg-white/[0.12] relative">
               <motion.div className="absolute left-0 top-0 h-px bg-[var(--accent)]" style={{ width: bar }} />
@@ -125,7 +123,6 @@ export default function StackLayers({ progress, onDwell, dims }) {
                       className="relative w-full aspect-square rounded-2xl border border-white/[0.12] bg-panel/85 hover:border-[var(--accent)]/60 focus-visible:border-[var(--accent)] outline-none text-white/85 hover:text-white flex items-center justify-center transition-colors cursor-default"
                     >
                       <TechIcon name={it.name} size={26} />
-                      <span className="absolute top-1.5 right-2 text-[10px] text-white/35 tabular-nums">{it.repos.length}</span>
                     </button>
                   </motion.li>
                 ))}

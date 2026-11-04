@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, ExternalLink, Trophy } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import { PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
-import { small } from '../utils/img';
+import ProjectMedia from './ProjectMedia';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -67,28 +67,7 @@ export default function ProjectsPage({ onOpenProject }) {
             >
               {/* The whole card opens the write-up (the button below stretches over it); the live link sits above that. */}
               <div className="group relative flex flex-col w-full h-full text-left rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.1] hover:border-accent/50 bg-panel transition-colors">
-                <div className="relative w-full aspect-video overflow-hidden bg-white/[0.03]">
-                  {project.walkthrough ? (
-                    <Walkthrough video={project.walkthrough} title={project.title} />
-                  ) : (
-                    <>
-                      <img
-                        src={small(project.coverImage)}
-                        alt=""
-                        loading={i < 2 ? undefined : 'lazy'}
-                        decoding="async"
-                        style={{ objectPosition: project.coverPosition || 'top' }}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent" />
-                    </>
-                  )}
-                  {!project.walkthrough && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-panel/90 border border-white/[0.12] font-display font-semibold text-[10px] text-white tracking-tight">
-                      {project.badge}
-                    </span>
-                  )}
-                </div>
+                <ProjectMedia project={project} eager={i < 2} />
 
                 <div className="flex flex-col flex-1 p-5 sm:p-6">
                   <p className="font-display font-semibold text-[11px] uppercase tracking-wider text-[var(--accent)] mb-1">

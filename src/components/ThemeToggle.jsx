@@ -1,32 +1,35 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Moon, Sun } from 'lucide-react';
 import { toggleTheme, useTheme } from '../utils/theme';
 
-/* Light / dark switch for the navbar. The icon shows the theme you will get, not the one you have. */
-export default function ThemeToggle({ className = '' }) {
-  const theme = useTheme();
-  const next = theme === 'light' ? 'dark' : 'light';
+/* An on/off switch for dark mode: the knob sits on the sun side when it is off and on the moon side when it is on. */
+export default function ThemeToggle({ className = '', showLabel = false }) {
+  const dark = useTheme() === 'dark';
   return (
     <button
       type="button"
+      role="switch"
+      aria-checked={dark}
+      aria-label="Dark mode"
       onClick={toggleTheme}
-      aria-label={`Switch to ${next} mode`}
-      title={`Switch to ${next} mode`}
-      className={`relative w-9 h-9 rounded-full border border-white/[0.14] bg-white/[0.05] hover:bg-white/[0.1] hover:border-white/[0.3] text-white/80 hover:text-white flex items-center justify-center overflow-hidden transition-colors cursor-pointer ${className}`}
+      className={`group inline-flex items-center gap-2.5 cursor-pointer select-none ${className}`}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={theme}
-          initial={{ y: 14, opacity: 0, rotate: -40 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: -14, opacity: 0, rotate: 40 }}
-          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="flex"
+      {showLabel && <span className="text-sm text-white/70 group-hover:text-white transition-colors">Dark mode</span>}
+      <span
+        className={`relative inline-flex h-7 w-[3.1rem] shrink-0 items-center rounded-full border transition-colors duration-300 ${
+          dark ? 'bg-white/[0.12] border-white/[0.22]' : 'bg-accent/15 border-accent/40'
+        }`}
+      >
+        <Sun size={12} className={`absolute left-[7px] transition-opacity ${dark ? 'opacity-35' : 'opacity-0'} text-white`} aria-hidden="true" />
+        <Moon size={12} className={`absolute right-[7px] transition-opacity ${dark ? 'opacity-0' : 'opacity-45'} text-white`} aria-hidden="true" />
+        <span
+          className={`absolute top-[3px] h-5 w-5 rounded-full shadow-md flex items-center justify-center transition-all duration-300 ease-out ${
+            dark ? 'left-[calc(100%-1.4rem)] bg-white text-canvas' : 'left-[3px] bg-accent text-white'
+          }`}
         >
-          {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
-        </motion.span>
-      </AnimatePresence>
+          {dark ? <Moon size={11} aria-hidden="true" /> : <Sun size={11} aria-hidden="true" />}
+        </span>
+      </span>
     </button>
   );
 }
