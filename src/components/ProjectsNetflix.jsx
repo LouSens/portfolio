@@ -5,7 +5,6 @@ import SectionLabel from './SectionLabel';
 import ProjectMedia from './ProjectMedia';
 import RankChip from './RankChip';
 import { PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
-import { navigate, routeUrl } from '../utils/route';
 import { small } from '../utils/img';
 
 /* Projects, in the manner of a streaming service: one featured project on a billboard with its demo playing, then rows
@@ -156,16 +155,6 @@ export default function ProjectsNetflix({ onOpenProject }) {
             </h2>
             <p className="mt-3 text-[15px] text-white/60 max-w-[34rem]">Hackathon builds and personal projects. Open one to see what it does, how it works and how it ended.</p>
           </div>
-          <a
-            href={routeUrl('projects')}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('projects');
-            }}
-            className="hidden sm:inline-flex items-center gap-2 text-sm text-[var(--accent)] hover:text-white transition-colors"
-          >
-            All projects <ArrowRight size={15} />
-          </a>
         </div>
 
         <Billboard project={featured} onOpen={onOpenProject} />

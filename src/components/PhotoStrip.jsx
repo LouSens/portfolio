@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import AutoScroll from 'embla-carousel-auto-scroll';
 import { AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import IsoObject from './iso/IsoObject';
 import { PHOTOS } from '../data/photos';
 import { small } from '../utils/img';
-import { navigate, routeUrl } from '../utils/route';
 
 /* Photos from the competitions on a film strip that drifts by itself, like a reel. It stops when you hover, touch or
    focus it, while a photo is open, or when you press pause, and it stays still for people who ask for less motion. */
@@ -83,16 +82,6 @@ export default function PhotoStrip() {
             </button>
             <button type="button" className={arrow} onClick={() => api?.scrollNext()} aria-label="Next photos"><ChevronRight size={18} /></button>
           </div>
-          <a
-            href={routeUrl('awards')}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('awards');
-            }}
-            className="group inline-flex items-center gap-2 text-sm text-[var(--accent)] hover:text-white transition-colors"
-          >
-            Full story on Awards <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
-          </a>
         </div>
       </div>
       <AnimatePresence>

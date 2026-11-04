@@ -3,10 +3,7 @@
 // and sit alongside the existing #project=<id> case study links.
 export const HOME = 'home';
 
-export const PAGES = [
-  { route: 'projects', label: 'Projects' },
-  { route: 'awards', label: 'Awards' },
-];
+export const PAGES = [];
 
 export const parseRoute = (hash = window.location.hash) => {
   const match = hash.match(/^#\/([a-z-]+)/);
@@ -25,11 +22,13 @@ export const takePendingSection = () => {
   return id;
 };
 
+// There is only the home page; these names scroll to their section on it.
+const SECTION_OF = { projects: 'work', awards: 'awards', contact: 'inquire' };
+
 export function navigate(route, section = null) {
-  // Contact lives on the home page: one design, one place
-  if (route === 'contact') {
+  if (route !== HOME) {
+    section = SECTION_OF[route] || section;
     route = HOME;
-    section = 'inquire';
   }
   if (!window.location.hash.startsWith('#project=') && parseRoute() === route) {
     const el = section && document.getElementById(section);

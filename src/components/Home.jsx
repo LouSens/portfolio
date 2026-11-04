@@ -7,7 +7,7 @@ import { setActiveRoom } from '../utils/roomStore';
 
 const GithubRoom = lazy(() => import('./ActivitySection').then((m) => ({ default: m.GithubRoom })));
 const PhotoStrip = lazy(() => import('./PhotoStrip'));
-const CredentialsSection = lazy(() => import('./CredentialsSection'));
+const AwardsSection = lazy(() => import('./AwardsSection'));
 const ScopeInquiryDrawer = lazy(() => import('./ScopeInquiryDrawer'));
 
 const IDS = ['about', 'work', 'stack', 'github', 'moments', 'awards', 'inquire'];
@@ -52,7 +52,7 @@ export default function Home({ onOpenProject }) {
         <section id="moments" className={section}>
           <PhotoStrip />
         </section>
-        <CredentialsSection compact />
+        <AwardsSection />
         <ScopeInquiryDrawer />
       </Suspense>
     </>

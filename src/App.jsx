@@ -7,8 +7,6 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
-import ProjectsPage from './components/ProjectsPage';
-import PageNav from './components/PageNav';
 
 import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
@@ -16,7 +14,6 @@ import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/r
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
-const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
 
 const HOME_TITLE = typeof document !== 'undefined' ? document.title : '';
 const IS_PHONE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
@@ -204,20 +201,7 @@ export default function App() {
       {/* Main Content Flow */}
       <PresenceContext.Provider value={IS_PHONE && homeKey === 0 ? NO_INTRO : null}>
       <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
-        {route === HOME ? (
-          <>
-            <Home onOpenProject={handleOpenProject} />
-          </>
-        ) : (
-          // Dedicated pages: one part of the home page in full, clear of the floating navbar.
-          <div className="pt-24 min-h-screen">
-            {route === 'projects' && <ProjectsPage onOpenProject={handleOpenProject} />}
-            <Suspense fallback={<div className="min-h-screen" />}>
-              {route === 'awards' && <CredentialsSection />}
-            </Suspense>
-            <PageNav route={route} />
-          </div>
-        )}
+        <Home onOpenProject={handleOpenProject} />
       </main>
       </PresenceContext.Provider>
 
