@@ -167,44 +167,48 @@ function GitHubBlock({ near }) {
 
   return (
     <div>
-      <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-[44rem]">
-        <span className="text-white font-semibold">{nf(commits)} commits</span> across {nf(repoCount)} repositories since {since}.
-        Longest streak: {cal.longest} days.
-      </p>
-
-      <div className="mt-8 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
-        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-          <h4 className="font-display font-semibold text-white">{calLabel} by day</h4>
-          <p className="text-xs text-white/45">{cal.from} to {cal.to}</p>
+      {/* Bento: a headline tile beside the activity map, then repositories and languages, then recent work */}
+      <div className="grid md:grid-cols-12 gap-4 md:gap-5">
+        <div className="md:col-span-4 rounded-2xl bg-accent p-5 md:p-7 flex flex-col justify-between gap-6">
+          <p className="text-sm text-white/80">Commits since {since}</p>
+          <div>
+            <p className="font-display font-extrabold text-5xl md:text-6xl text-white tracking-tight leading-none">{nf(commits)}</p>
+            <p className="mt-3 text-sm text-white/85 leading-snug">across {nf(repoCount)} repositories. Longest streak: {cal.longest} days.</p>
+          </div>
         </div>
-        <Heatmap calendar={cal} />
-      </div>
 
-      <div className="mt-4 md:mt-5 grid md:grid-cols-2 gap-4 md:gap-5">
-        <div className="rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+        <div className="md:col-span-8 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+          <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+            <h4 className="font-display font-semibold text-white">{calLabel} by day</h4>
+            <p className="text-xs text-white/45">{cal.from} to {cal.to}</p>
+          </div>
+          <Heatmap calendar={cal} />
+        </div>
+
+        <div className="md:col-span-7 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
           <h4 className="font-display font-semibold text-white mb-4">Commits by repository</h4>
           <RepoBars repos={SNAPSHOT.repos} />
         </div>
-        <div className="rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+        <div className="md:col-span-5 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
           <h4 className="font-display font-semibold text-white mb-4">Languages</h4>
           <Languages languages={languages} />
         </div>
-      </div>
 
-      <div className="mt-4 md:mt-5 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
-        <h4 className="font-display font-semibold text-white">Recently active</h4>
-        <ul className="mt-2 grid md:grid-cols-2 gap-x-8 divide-y md:divide-y-0 divide-white/[0.08]">
-          {recent.map((r) => (
-            <li key={r.name}>
-              <a href={r.url} target="_blank" rel="noreferrer" className="group flex items-center gap-3 py-2.5 text-sm">
-                <span className="text-white/90 group-hover:text-[var(--accent)] transition-colors truncate">{repoName(r.name)}</span>
-                {r.language && <span className="text-xs text-white/40 shrink-0">{r.language}</span>}
-                <span className="ml-auto text-xs text-white/40 tabular-nums shrink-0">{new Date(r.last).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
-                <ArrowUpRight size={13} className="text-white/30 group-hover:text-[var(--accent)] shrink-0" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="md:col-span-12 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+          <h4 className="font-display font-semibold text-white">Recently active</h4>
+          <ul className="mt-2 grid md:grid-cols-3 gap-x-8 divide-y md:divide-y-0 divide-white/[0.08]">
+            {recent.map((r) => (
+              <li key={r.name}>
+                <a href={r.url} target="_blank" rel="noreferrer" className="group flex items-center gap-3 py-2.5 text-sm">
+                  <span className="text-white/90 group-hover:text-[var(--accent)] transition-colors truncate">{repoName(r.name)}</span>
+                  {r.language && <span className="text-xs text-white/40 shrink-0">{r.language}</span>}
+                  <span className="ml-auto text-xs text-white/40 tabular-nums shrink-0">{new Date(r.last).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' })}</span>
+                  <ArrowUpRight size={13} className="text-white/30 group-hover:text-[var(--accent)] shrink-0" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <p className="mt-5 text-xs text-white/40 flex flex-wrap items-center gap-x-3">
