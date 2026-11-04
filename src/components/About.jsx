@@ -1,40 +1,40 @@
 import React from 'react';
 import { GraduationCap, MapPin, Search } from 'lucide-react';
-import SectionLabel from './SectionLabel';
 import { ABOUT } from '../data/portfolioData';
 
 const FACT_ICONS = { 'Based in': MapPin, Studying: GraduationCap, 'Looking for': Search };
 
-/* Who I am, and nothing more: a short bio and three facts. What I work on is shown by Projects and Tech stack. */
+/* Who I am, and nothing more. No picture, so the section is built on type and symmetry: a centred introduction, then
+   three facts in equal columns under one rule. What I work on is shown by Projects and Tech stack. */
 export default function About() {
   return (
-    <div className="px-5 sm:px-8 py-12 md:py-20">
+    <div className="px-5 sm:px-8 py-14 md:py-24">
       <div className="max-w-[1100px] mx-auto">
-        <SectionLabel label="About" />
-        <div className="grid md:grid-cols-12 gap-8 md:gap-14 items-start">
-          <h2 className="md:col-span-5 font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
+
+        <div className="text-center max-w-[40rem] mx-auto">
+          <span className="mx-auto w-16 h-16 rounded-2xl bg-accent/10 border border-accent/40 flex items-center justify-center font-display font-extrabold text-xl text-[var(--accent)]">
+            DK
+          </span>
+          <h2 className="mt-6 font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
             Hi, I&apos;m <span className="text-[var(--accent)]">David.</span>
           </h2>
-
-          <div className="md:col-span-7">
-            <p className="text-[17px] text-white/70 leading-relaxed max-w-[34rem]">
-              I&apos;m an AI student at Xiamen University Malaysia, originally from Indonesia. I like building web apps and AI systems, and in team projects I usually work on the backend.
-            </p>
-
-            <ul className="mt-8 max-w-[34rem] divide-y divide-white/[0.14] border-y border-white/[0.14]">
-              {ABOUT.facts.map((f) => {
-                const Icon = FACT_ICONS[f.label] || MapPin;
-                return (
-                  <li key={f.label} className="flex items-start gap-4 py-3.5">
-                    <Icon size={16} className="mt-1 text-[var(--accent)] shrink-0" aria-hidden="true" />
-                    <span className="w-24 shrink-0 text-sm text-white/50">{f.label}</span>
-                    <span className="text-[15px] text-white leading-snug">{f.value}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          <p className="mt-5 text-lg text-white/70 leading-relaxed">
+            I&apos;m an AI student at Xiamen University Malaysia, originally from Indonesia. I like building web apps and AI systems, and in team projects I usually work on the backend.
+          </p>
         </div>
+
+        <ul className="mt-14 grid md:grid-cols-3 border-t border-white/[0.18]">
+          {ABOUT.facts.map((f) => {
+            const Icon = FACT_ICONS[f.label] || MapPin;
+            return (
+              <li key={f.label} className="pt-6 pb-2 md:px-8 first:md:pl-0 last:md:pr-0 md:border-l first:md:border-l-0 border-white/[0.18] text-center md:text-left">
+                <Icon size={18} className="mx-auto md:mx-0 text-[var(--accent)]" aria-hidden="true" />
+                <p className="mt-3 text-xs uppercase tracking-wider text-white/50">{f.label}</p>
+                <p className="mt-1.5 text-[16px] text-white leading-snug">{f.value}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
