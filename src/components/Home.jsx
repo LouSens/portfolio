@@ -46,7 +46,7 @@ export default function Home({ onOpenProject }) {
         <StackBench />
       </section>
       <Suspense fallback={<div className="min-h-[50svh]" />}>
-        <section id="github" className={section}>
+        <section id="github" className="scroll-mt-20">
           <GithubRoom near />
         </section>
         <section id="moments" className={section}>

@@ -2,6 +2,7 @@ import PageSection from './PageSection';
 import { createPortal } from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
+import StageArt from './StageArt';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Send,
@@ -211,12 +212,13 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl border border-white/[0.14] bg-white/[0.03] p-6 sm:p-9 lg:p-12 grid lg:grid-cols-12 gap-10 lg:gap-14"
+          className="stage p-6 sm:p-9 lg:p-12 grid lg:grid-cols-12 gap-10 lg:gap-14"
         >
+          <StageArt scene="contact" />
           
 
           {/* Left: the pitch and the direct ways to reach me */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 relative z-10">
             <SectionLabel label="Contact" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
               Let&apos;s work <span className="text-[var(--accent)]">together.</span>
@@ -236,7 +238,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
           </div>
 
           {/* Right: the message form */}
-          <form onSubmit={handleSubmit} className="lg:col-span-7 flex flex-col gap-5 select-text lg:pt-2">
+          <form onSubmit={handleSubmit} className="lg:col-span-7 relative z-10 flex flex-col gap-5 select-text lg:pt-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="contact-name" className="block text-sm text-white/80 mb-2">Name or company</label>

@@ -682,3 +682,35 @@ main > section:nth-of-type(even):not(#hero) {
 @media (min-width: 1024px) {
   .hero-photo { clip-path: polygon(24% 0, 100% 0, 100% 100%, 0% 100%); opacity: 1; }
 }
+
+/* ── Dark stages: rounded dark panels set into the page, with isometric line art behind the content.
+   They stay dark in both themes (the page around them changes), so moving between a stage and a plain section is a
+   real contrast. Inside, the theme colours are pinned to the dark values so every token reads correctly. */
+.stage {
+  --fg: 255 255 255;
+  --bg-rgb: 10 11 16;
+  --panel-rgb: 14 15 22;
+  --iso-line: 255 255 255;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: #0a0b10;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: 0 30px 70px rgb(10 12 30 / 0.28);
+  color: #f3f3f6;
+}
+.stage-glow {
+  background:
+    radial-gradient(55% 70% at 88% 45%, rgb(40 70 150 / 0.38), transparent 70%),
+    radial-gradient(45% 60% at 5% 105%, rgb(var(--accent-rgb) / 0.3), transparent 70%);
+}
+/* Cards, fields and chips inside a stage keep the dark treatment even when the page is in light mode */
+:root[data-theme='light'] .stage [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.04);
+  background-image: none;
+  box-shadow: none;
+  border-color: rgb(255 255 255 / 0.16);
+}
+:root[data-theme='light'] .stage [class*='border-white/[0.']:not(:hover) { border-color: rgb(255 255 255 / 0.16); }
+.hero-stage-pad { padding: 6rem 0.75rem 0.75rem; }
+@media (min-width: 640px) { .hero-stage-pad { padding: 6.25rem 1.25rem 1.25rem; } }
