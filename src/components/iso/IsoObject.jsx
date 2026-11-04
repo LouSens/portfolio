@@ -26,7 +26,7 @@ export default function IsoObject({ kind = 'layers', className = '' }) {
   }, [kind]);
 
   return (
-    <svg viewBox={box.join(' ')} className={className} aria-hidden="true" fill="none" strokeLinejoin="round">
+    <svg viewBox={box.join(' ')} className={className} aria-hidden="true" fill="none" strokeLinejoin="round" style={{ willChange: 'transform' }}>
       {boxes.map((o, i) => (
         <g key={i} className="iso-b" style={{ '--amp': `${-o.amp * S}px`, '--d': `${-o.ph}s` }}>
           <polygon points={pts(o.front)} fill="rgb(var(--bg-rgb) / 0.92)" stroke="rgb(var(--fg) / 0.5)" strokeWidth="0.9" vectorEffect="non-scaling-stroke" />

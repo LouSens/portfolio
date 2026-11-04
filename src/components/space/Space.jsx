@@ -17,9 +17,10 @@ import { poseFor, ease, clamp, lerp } from './poses';
 const RoomCtx = createContext({ goTo: () => {} });
 export const useRoom = () => useContext(RoomCtx);
 
-const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Flat mode: no camera flight, panels just swap. For reduced motion, and `?flat` in the address as an escape hatch.
+const reduced = typeof window !== 'undefined' && (window.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]flat\b/.test(window.location.search));
 
-function Panel({ index, pose, dims, room, current, roomFloat, progress, dwellPx, onAutoHeight, children }) {
+const Panel = React.memo(function Panel({ index, pose, dims, room, active, near, progress, dwellPx, onAutoHeight, children }) {
   const inner = useRef(null);
   const frame = useRef(null);
   const auto = room.dwell === 'auto';
@@ -36,9 +37,6 @@ function Panel({ index, pose, dims, room, current, roomFloat, progress, dwellPx,
   }, [auto, dims.ph, room.id, onAutoHeight]);
 
   const y = useTransform(progress, (p) => (auto ? -p * dwellPx : 0));
-  const opacity = useTransform(roomFloat, (r) => clamp(1 - Math.abs(r - index) * 0.85, 0, 1));
-  const near = Math.abs(current - index) <= 1;
-  const active = current === index;
 
   // Rooms that are not in front cannot be focused or clicked
   useEffect(() => {
@@ -62,18 +60,23 @@ function Panel({ index, pose, dims, room, current, roomFloat, progress, dwellPx,
         width: dims.pw,
         height: dims.ph,
         transform,
-        opacity,
+        // Dimming is a CSS transition between three states, not a per-frame style write: writing opacity on every
+        // scroll frame forces the whole 3D layer to be redrawn, which shows up as flicker.
+        opacity: active ? 1 : near ? 0.3 : 0,
+        transition: 'opacity 0.4s ease',
         visibility: near ? 'visible' : 'hidden',
         pointerEvents: active ? 'auto' : 'none',
+        backfaceVisibility: 'hidden',
       }}
       className={
-        room.bare
+        'space-panel ' +
+        (room.bare
           ? ''
-          : 'rounded-[28px] border border-white/[0.12] bg-canvas shadow-[0_40px_90px_rgba(0,0,0,0.35)] overflow-hidden'
+          : 'rounded-[28px] border border-white/[0.12] bg-canvas shadow-[0_40px_90px_rgba(0,0,0,0.35)] overflow-hidden')
       }
     >
       {auto ? (
-        <motion.div ref={inner} style={{ y }} className="absolute inset-x-0 top-0">
+        <motion.div ref={inner} style={{ y, willChange: 'transform' }} className="absolute inset-x-0 top-0">
           {children({ progress, active, near })}
         </motion.div>
       ) : (
@@ -85,14 +88,14 @@ function Panel({ index, pose, dims, room, current, roomFloat, progress, dwellPx,
       {auto && !room.bare && <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-canvas to-transparent" />}
     </motion.section>
   );
-}
+});
 
-export default function Space({ rooms, sculptures = [] }) {
+export default function Space({ rooms, sculptures = [], forceFlat = false }) {
   const sectionRef = useRef(null);
   const [dims, setDims] = useState(() => measure());
   const [heights, setHeights] = useState({}); // dwell distance reported by each room (px)
   const [current, setCurrent] = useState(0);
-  const mode = useMemo(() => ({ compact: dims.vw < 768, flat: reduced }), [dims.vw]);
+  const mode = useMemo(() => ({ compact: dims.vw < 768, flat: reduced || forceFlat }), [dims.vw, forceFlat]);
 
   function measure() {
     const vw = typeof window === 'undefined' ? 1280 : window.innerWidth;
@@ -100,12 +103,44 @@ export default function Space({ rooms, sculptures = [] }) {
     return { vw, vh, pw: Math.min(1180, vw * 0.94), ph: Math.min(vh - 104, 840) };
   }
   useEffect(() => {
-    const on = () => setDims(measure());
+    // Resize events can arrive in bursts (DevTools docking, a phone's address bar): take the last one per frame,
+    // and ignore it if nothing changed, so a burst can never become a chain of renders.
+    let frame = 0;
+    const on = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const next = measure();
+        setDims((d) => (Math.abs(d.vw - next.vw) < 2 && Math.abs(d.vh - next.vh) < 2 ? d : next));
+      });
+    };
     window.addEventListener('resize', on);
-    return () => window.removeEventListener('resize', on);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('resize', on);
+    };
   }, []);
 
-  const onAutoHeight = useCallback((id, h) => setHeights((s) => (Math.abs((s[id] ?? -1) - h) < 2 ? s : { ...s, [id]: h })), []);
+  // Rooms report how far they need to scroll from layout effects and resize observers. Collect the reports and apply
+  // them once per frame, with a tolerance, so reports can never trigger each other in a synchronous chain.
+  const pending = useRef({});
+  const flush = useRef(0);
+  const onAutoHeight = useCallback((id, h) => {
+    pending.current[id] = h;
+    if (flush.current) return;
+    flush.current = requestAnimationFrame(() => {
+      flush.current = 0;
+      const batch = pending.current;
+      pending.current = {};
+      setHeights((s) => {
+        let next = s;
+        Object.entries(batch).forEach(([k, v]) => {
+          if (Math.abs((s[k] ?? 0) - v) >= 4) next = { ...next, [k]: v };
+        });
+        return next;
+      });
+    });
+  }, []);
+  useEffect(() => () => cancelAnimationFrame(flush.current), []);
   const onDwell = useCallback((id) => (h) => onAutoHeight(id, h), [onAutoHeight]);
 
   // The scroll timeline: for each room, a travel segment then a dwell segment
@@ -142,7 +177,8 @@ export default function Space({ rooms, sculptures = [] }) {
     }
     return segs.length - 1;
   });
-  useMotionValueEvent(roomFloat, 'change', (r) => setCurrent((c) => (Math.round(r) === c ? c : Math.round(r))));
+  // Only switch rooms once clearly past the halfway point, so a scroll resting near it cannot flip back and forth
+  useMotionValueEvent(roomFloat, 'change', (r) => setCurrent((c) => (Math.abs(r - c) > 0.62 ? Math.round(r) : c)));
 
   // The camera: interpolate the pose, with a pull-back and a swing in the middle of each move
   const camera = useTransform(yPx, (y) => {
@@ -181,31 +217,17 @@ export default function Space({ rooms, sculptures = [] }) {
     <RoomCtx.Provider value={ctx}>
       <div ref={sectionRef} className="relative">
         <div className="sticky top-0 h-[100svh] overflow-hidden" style={{ perspective: mode.compact ? 900 : 1500, perspectiveOrigin: '50% 46%' }}>
-          <motion.div style={{ position: 'absolute', left: '50%', top: '50%', width: 0, height: 0, transformStyle: 'preserve-3d', transform: camera }}>
-            {/* The ground: a faint grid, so there is always something to measure your movement against */}
-            <div
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                left: -9000,
-                top: -9000,
-                width: 18000,
-                height: 18000,
-                transform: `translate3d(0, ${dims.ph / 2 + 260}px, ${-(rooms.length * 560)}px) rotateX(90deg)`,
-                backgroundImage:
-                  'linear-gradient(rgb(var(--fg) / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--fg) / 0.07) 1px, transparent 1px)',
-                backgroundSize: '180px 180px',
-                WebkitMaskImage: 'radial-gradient(closest-side, #000 22%, transparent 100%)',
-                maskImage: 'radial-gradient(closest-side, #000 22%, transparent 100%)',
-              }}
-            />
+          <motion.div style={{ position: 'absolute', left: '50%', top: '50%', width: 0, height: 0, transformStyle: 'preserve-3d', transform: camera, willChange: 'transform' }}>
             {/* Sculptures hung between rooms: seen in passing as the camera flies by */}
             {!mode.flat &&
               sculptures.map((s, i) => (
                 <div
                   key={i}
                   aria-hidden="true"
+                  className="sculpture"
+                  data-live={Math.abs(Math.round(-s.z / (mode.compact ? 900 : 1150)) - current) <= 1 ? 'true' : 'false'}
                   style={{
+                    willChange: 'transform',
                     position: 'absolute',
                     left: -s.size / 2,
                     top: -s.size / 2,
@@ -227,8 +249,8 @@ export default function Space({ rooms, sculptures = [] }) {
                 pose={layout.poses[i]}
                 seg={layout.segs[i]}
                 dims={dims}
-                current={current}
-                roomFloat={roomFloat}
+                active={current === i}
+                near={Math.abs(current - i) <= 1}
                 yPx={yPx}
                 dwellPx={heights[room.id] ?? 0}
                 onAutoHeight={onAutoHeight}
@@ -247,13 +269,37 @@ export default function Space({ rooms, sculptures = [] }) {
   );
 }
 
-function RoomPanel({ index, room, pose, seg, dims, current, roomFloat, yPx, dwellPx, onAutoHeight, onDwell }) {
+const RoomPanel = React.memo(function RoomPanel({ index, room, pose, seg, dims, active, near, yPx, dwellPx, onAutoHeight, onDwell }) {
   const segRef = useRef(seg);
   segRef.current = seg;
   const progress = useTransform(yPx, (y) => clamp((y - segRef.current.dwellStart) / Math.max(1, segRef.current.dwell)));
   return (
-    <Panel index={index} pose={pose} dims={dims} room={room} current={current} roomFloat={roomFloat} progress={progress} dwellPx={dwellPx} onAutoHeight={onAutoHeight}>
+    <Panel index={index} pose={pose} dims={dims} room={room} active={active} near={near} progress={progress} dwellPx={dwellPx} onAutoHeight={onAutoHeight}>
       {(state) => room.render({ ...state, onDwell, dims })}
     </Panel>
   );
+});
+
+/* If anything in the space ever throws, fall back to the flat version (no camera flight) instead of a blank page. */
+export class SpaceGuard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { failures: 0 };
+  }
+
+  static getDerivedStateFromError() {
+    return null;
+  }
+
+  componentDidCatch() {
+    this.setState((s) => ({ failures: s.failures + 1 }));
+  }
+
+  render() {
+    const { failures } = this.state;
+    if (failures >= 2) {
+      return <div className="min-h-[60svh] flex items-center justify-center text-sm text-white/60 px-6 text-center">Something went wrong loading this page. Please refresh.</div>;
+    }
+    return <Space key={failures} {...this.props} forceFlat={failures > 0} />;
+  }
 }

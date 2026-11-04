@@ -6,7 +6,7 @@ import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
-import Space from './components/space/Space';
+import { SpaceGuard } from './components/space/Space';
 import About from './components/About';
 import WorkGallery from './components/WorkGallery';
 import StackLayers from './components/StackLayers';
@@ -240,7 +240,7 @@ export default function App() {
         {route === HOME ? (
           <>
             {/* The home page is a 3D space: every room is a panel hung in space, and the camera flies between them */}
-            <Space rooms={ROOMS(handleOpenProject)} sculptures={SCULPTURES} />
+            <SpaceGuard rooms={ROOMS(handleOpenProject)} sculptures={SCULPTURES} />
           </>
         ) : (
           // Dedicated pages: one part of the home page in full, clear of the floating navbar.
