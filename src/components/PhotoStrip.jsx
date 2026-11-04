@@ -43,9 +43,9 @@ export default function PhotoStrip() {
           <div>
             <SectionLabel label="Moments" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              From the <span className="text-[var(--accent)]">stage</span>
+              Competition <span className="text-[var(--accent)]">photos</span>
             </h2>
-            <p className="mt-3 text-[15px] text-white/55">Booths, trophies and teams.</p>
+            <p className="mt-3 text-[15px] text-white/55">Photos from the events I took part in.</p>
           </div>
         </div>
 

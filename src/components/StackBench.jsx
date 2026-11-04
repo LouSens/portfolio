@@ -21,9 +21,9 @@ export default function StackBench() {
           <div>
             <SectionLabel label="Tech stack" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              The tools I <span className="text-[var(--accent)]">build with</span>
+              Tools and <span className="text-[var(--accent)]">technologies</span>
             </h2>
-            <p className="mt-3 text-sm text-white/50">Everything I have used across {repos} repositories, grouped by layer.</p>
+            <p className="mt-3 text-sm text-white/50">Used across {repos} repositories, grouped by layer.</p>
           </div>
           <IsoObject kind="database" className="hidden md:block w-28 h-28 shrink-0" />
         </div>

@@ -160,9 +160,9 @@ export default function ProjectsNetflix({ onOpenProject }) {
           <div>
             <SectionLabel label="Projects" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              What I have <span className="text-[var(--accent)]">built</span>
+              Selected <span className="text-[var(--accent)]">projects</span>
             </h2>
-            <p className="mt-3 text-[15px] text-white/60 max-w-[34rem]">Hackathon builds and personal projects. Open one to see what it does, how it works and how it ended.</p>
+            <p className="mt-3 text-[15px] text-white/60 max-w-[34rem]">Hackathon projects and personal work. Open one for details.</p>
           </div>
         </div>
 

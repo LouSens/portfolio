@@ -219,10 +219,10 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
           <div className="lg:col-span-5 relative z-10">
             <SectionLabel label="Contact" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-              Let&apos;s work <span className="text-[var(--accent)]">together.</span>
+              Get in <span className="text-[var(--accent)]">touch</span>
             </h2>
             <p className="mt-5 text-[17px] text-white/70 leading-relaxed">
-              Looking for an internship or remote part-time work in backend, full-stack and AI. Send me a few lines.
+              Open to internships and remote part-time work in backend, full-stack and AI. Email me or use the form.
             </p>
 
             <div className="mt-8 flex items-center gap-2.5">

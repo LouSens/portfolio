@@ -229,7 +229,7 @@ export function GithubRoom({ near }) {
       <div className="max-w-[1100px] mx-auto">
         <SectionLabel label="GitHub" />
         <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-          Steady work, <span className="text-[var(--accent)]">in the open</span>
+          GitHub <span className="text-[var(--accent)]">activity</span>
         </h2>
         <div className="mt-8">
           <GitHubBlock near={near} />
