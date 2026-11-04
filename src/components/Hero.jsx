@@ -35,19 +35,19 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="hero-stage-pad">
-      <div className="stage min-h-[calc(100svh-7.5rem)] max-h-[860px] flex flex-col">
+    <section id="hero">
+      <div className="stage stage-bleed min-h-[92svh] max-h-[900px] flex flex-col pt-16">
         <StageArt scene="hero" />
 
         <div className="relative z-10 flex-1 flex items-center px-6 sm:px-10 md:px-16 pt-14 pb-10">
           <div className="w-full max-w-[1100px] mx-auto">
             <div className="max-w-[44rem]">
               <motion.h1 {...item(0.1)} className="font-display font-extrabold text-fluid-h1 tracking-[-0.035em] leading-[1.04] text-white">
-                I build the backend and AI behind <span className="text-[var(--accent)]">real products.</span>
+                I build web apps and <span className="text-[var(--accent)]">AI systems.</span>
               </motion.h1>
 
               <motion.p {...item(0.2)} className="mt-6 text-lg md:text-xl text-white/75 leading-relaxed max-w-[34rem]">
-                I&apos;m David, an AI student at Xiamen University Malaysia. I take hackathon projects from idea to a working demo, and two of them reached the finals.
+                David Kurniawan, AI student at Xiamen University Malaysia. I work on the backend, the data and the models behind a product.
               </motion.p>
 
               <motion.div {...item(0.3)} className="mt-9 flex flex-col sm:flex-row gap-3">

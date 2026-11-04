@@ -19,12 +19,13 @@ export default function About() {
     <div className="px-5 sm:px-8 py-12 md:py-20">
       <div className="max-w-[1100px] mx-auto">
         <SectionLabel label="About" />
-        <p className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-[1.12] max-w-[52rem]">
-          I like owning the hard part: <span className="text-[var(--accent)]">the backend, the data</span> and the models.
-        </p>
-        <p className="mt-6 text-[17px] text-white/70 leading-relaxed max-w-[36rem]">
-          I'm from Indonesia and study AI at Xiamen University Malaysia. In a team I usually take the backend, and under hackathon deadlines I have taken three projects from idea to a working demo.
-        </p>
+        <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
+          Hi, I&apos;m <span className="text-[var(--accent)]">David.</span>
+        </h2>
+        <div className="mt-6 space-y-3 text-[17px] text-white/70 leading-relaxed max-w-[38rem]">
+          <p>I&apos;m an AI student at Xiamen University Malaysia, originally from Indonesia.</p>
+          <p>I enjoy building web apps and AI systems, and in team projects I usually work on the backend.</p>
+        </div>
 
         {/* Facts: one ruled row */}
         <ul className="mt-12 grid md:grid-cols-3 border-y-2 border-white md:divide-x divide-white/[0.16]">
