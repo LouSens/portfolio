@@ -206,11 +206,32 @@ export const PROJECTS_DATA = [
     heroImage: '/screenshots/adept/cover.webp',
     screenCategories: [
       {
-        name: 'The app',
+        name: 'For a person',
         screens: [
-          { src: '/screenshots/adept/cover.webp', caption: 'Landing page: upload a CV and see which skills are rising' },
+          { src: '/screenshots/adept/me-home.webp', caption: 'Home: best-fit role, journey and top matches' },
+          { src: '/screenshots/adept/me-radar.webp', caption: 'Skills radar: rising and declining skills, with your own marked' },
+          { src: '/screenshots/adept/me-role.webp', caption: 'A role: the score, skills to close and the outlook under two AI paces' },
+          { src: '/screenshots/adept/me-plan.webp', caption: 'Learning plan: ordered, free courses with hours and cost' },
+          { src: '/screenshots/adept/me-progress.webp', caption: 'Progress: courses done, skill levels and badges' },
+          { src: '/screenshots/adept/me-sdg.webp', caption: 'UN Goals: which goals the path supports' },
+        ],
+      },
+      {
+        name: 'For a team',
+        screens: [
+          { src: '/screenshots/adept/team-home.webp', caption: 'Team home: profiles ready and where the team is short' },
+          { src: '/screenshots/adept/team-members.webp', caption: 'Team: members, profile status and the join code' },
+          { src: '/screenshots/adept/team-gaps.webp', caption: 'Skill gaps: share of the team missing each skill, by role' },
+          { src: '/screenshots/adept/team-radar.webp', caption: 'Industry radar and automation exposure' },
+          { src: '/screenshots/adept/team-plan.webp', caption: 'Team plan: compare learning packages by cost and time' },
+        ],
+      },
+      {
+        name: 'Public site',
+        screens: [
+          { src: '/screenshots/adept/cover.webp', caption: 'Landing page' },
           { src: '/screenshots/adept/app-try.webp', caption: 'Try it first: drop a CV, no sign-up' },
-          { src: '/screenshots/adept/app-impact.webp', caption: 'Evidence page: what the example pathways offer' },
+          { src: '/screenshots/adept/app-impact.webp', caption: 'Evidence page' },
           { src: '/screenshots/adept/app-mobile.webp', caption: 'On a phone' },
         ],
       },
