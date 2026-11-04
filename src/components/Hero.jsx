@@ -7,6 +7,8 @@ import RankChip from './RankChip';
 import ResumeButton from './ResumeButton';
 
 const ease = [0.22, 1, 0.36, 1];
+// On a fresh load the name screen is still up, so the hero waits for it to lift before it moves in
+const lead = typeof document !== 'undefined' && document.getElementById('splash') ? 1.05 : 0;
 const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const LINKS = [
@@ -21,7 +23,7 @@ export default function Hero({ onOpenProject }) {
   const item = (delay) => ({
     initial: calm ? false : { opacity: 0, y: 14 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.55, delay, ease },
+    transition: { duration: 0.8, delay: delay + lead, ease },
   });
   return (
     <section id="hero" className="relative min-h-[88svh] flex items-center px-5 sm:px-8 pt-28 pb-16">

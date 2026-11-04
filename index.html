@@ -33,23 +33,23 @@
     <style>
         html,body{margin:0;background:#050508}
         html[data-theme=light],html[data-theme=light] body{background:#f6f5f1}
-        #splash{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1rem;text-align:center;background:#050508;font-family:Inter,system-ui,sans-serif}
-        #splash p{margin:0;font-weight:800;letter-spacing:-0.03em;line-height:1.08;color:#fff;font-size:clamp(1.875rem,1.2rem + 4vw,4.5rem)}
-        #splash p+p{margin:1.25rem 0 0;font-weight:400;letter-spacing:0;line-height:1.5;color:rgba(255,255,255,0.6);font-size:1rem}
+        #splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#050508;font-family:Inter,system-ui,sans-serif;transition:opacity .7s ease,transform .9s cubic-bezier(.22,1,.36,1),clip-path .9s cubic-bezier(.22,1,.36,1);clip-path:inset(0 0 0 0)}
+        #splash.out{opacity:0;transform:translateY(-3%);clip-path:inset(0 0 100% 0);pointer-events:none}
+        #splash p{margin:0;font-weight:800;letter-spacing:-0.03em;color:#fff;font-size:clamp(1.75rem,1.1rem + 3.4vw,3.5rem);opacity:0;transform:translateY(10px);animation:splash-in .7s .1s cubic-bezier(.22,1,.36,1) forwards}
+        #splash i{font-style:normal;color:#FF5A36}
+        #splash span{display:block;height:2px;width:0;margin:1rem auto 0;background:#FF5A36;animation:splash-line .8s .35s cubic-bezier(.22,1,.36,1) forwards}
+        @keyframes splash-in{to{opacity:1;transform:none}}
+        @keyframes splash-line{to{width:3.5rem}}
         html[data-theme=light] #splash{background:#f6f5f1}
         html[data-theme=light] #splash p{color:#111218}
-        html[data-theme=light] #splash p+p{color:rgba(17,18,24,0.6)}
+        @media (prefers-reduced-motion:reduce){#splash p,#splash span{animation-duration:.01s}#splash,#splash.out{transition:opacity .3s;clip-path:none;transform:none}}
     </style>
 </head>
 
 <body class="bg-canvas text-white antialiased">
-    <div id="root">
-        <!-- Shown instantly while the app loads; React replaces it. -->
-        <div id="splash">
-            <p>Full-Stack Web Applications &amp;<br /><span style="color:#FF5A36">Intelligent Systems.</span></p>
-            <p>David Kurniawan</p>
-        </div>
-    </div>
+    <div id="root"></div>
+    <!-- Name only, shown at once. The app mounts underneath; main.jsx lifts this away once the page is ready. -->
+    <div id="splash" aria-hidden="true"><div style="text-align:center"><p>David Kurniawan<i>.</i></p><span></span></div></div>
     <script>
         /* Load-time readout, only when the address ends in ?debug. Shows where the seconds go on a real device. */
         if (location.search.indexOf('debug') > -1) (function () {
