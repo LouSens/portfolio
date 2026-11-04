@@ -286,6 +286,7 @@ export default function ActivitySection({ onOpenProject }) {
     []
   );
   const awards = [
+    ['Finalist, top 15', 'SDC XMUM Hackathon 2026'],
     ['Top 80 of 2,000+', 'PIDI Digdaya 2026'],
     ['Silver', 'SEA-CICSIC 2026'],
     ['Top 24 of 100+', 'UMHackathon 2026'],
@@ -316,7 +317,7 @@ export default function ActivitySection({ onOpenProject }) {
             ))}
           </div>
           <ul className="mt-4 flex flex-wrap gap-2">
-            {awards.map(([v, l]) => <li key={l}><Badge label={l} value={v} accent={v.startsWith('Top 80')} /></li>)}
+            {awards.map(([v, l]) => <li key={l}><Badge label={l} value={v} accent={v.startsWith('Top 80') || v.startsWith('Finalist')} /></li>)}
           </ul>
         </Block>
 

@@ -43,7 +43,7 @@ export default function Hero() {
           <motion.ul {...item(0.4)} className="mt-7 space-y-2 text-sm text-white/60">
             <li className="flex items-center gap-2.5"><GraduationCap size={15} className="text-[var(--accent)]" />Xiamen University Malaysia, GPA {PERSONAL_INFO.gpa.split(' ')[0]}</li>
             <li className="flex items-center gap-2.5"><MapPin size={15} className="text-[var(--accent)]" />{PERSONAL_INFO.location}</li>
-            <li className="flex items-center gap-2.5"><Layers size={15} className="text-[var(--accent)]" />{PROJECTS_DATA.length} projects, top 80 of 2,000+ teams at Digdaya 2026</li>
+            <li className="flex items-center gap-2.5"><Layers size={15} className="text-[var(--accent)]" />{PROJECTS_DATA.length} projects, two hackathon finals in 2026</li>
           </motion.ul>
 
           <motion.div {...item(0.5)} className="mt-9 flex flex-col sm:flex-row gap-3">

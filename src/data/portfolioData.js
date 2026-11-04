@@ -197,7 +197,7 @@ export const PROJECTS_DATA = [
     isTeam: true,
     year: 'Oct 2026',
     badge: 'HACKATHON BUILD',
-    highlight: 'SDC XMUM Hackathon 2026, Domain 1: Future-Ready Workforce',
+    highlight: 'Finalist (top 15), SDC XMUM Hackathon 2026',
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/adept/cover.webp',
@@ -223,7 +223,8 @@ export const PROJECTS_DATA = [
     solution:
       'One backend and one explainable model. Skills are confirmed by the person, trends carry their source and date, every role score shows its parts, and every course in a plan comes from a verified catalogue with hours and cost.',
     businessOutcomes: [
-      'Built by a four-person team for the SDC XMUM Hackathon 2026, Domain 1, with SDG 4 (Quality Education) as the main goal',
+      'Finalist (top 15) at the SDC XMUM Hackathon 2026, Domain 1: Future-Ready Workforce',
+      'Built by a four-person team, with SDG 4 (Quality Education) as the main goal',
       'Every recommendation carries source names, retrieval dates, the snapshot date and an estimate label, so nothing is presented as more certain than it is',
       'Individual and organisation workspaces on one engine, in English, Bahasa Melayu and Chinese',
       'Fairness check: swapping 5 names and 3 segments across 5 personas (75 swaps) moved no role rank, and 93 API inputs passed the protected-term guardrail',
@@ -929,6 +930,15 @@ export const DEANS_LIST = [
 // at the longer account (with photos) further down the same page.
 const CERT = '/media/certificates/';
 export const ACHIEVEMENTS = [
+  {
+    year: '2026',
+    date: '2026',
+    result: 'Finalist, top 15',
+    title: 'SDC XMUM Hackathon 2026',
+    organizer: 'Xiamen University Malaysia, Domain 1: The Aiversecity Future-Ready Workforce',
+    detail: 'Adept, a career and reskilling guide that matches skills to roles and builds a learning plan. I led team Pecel Lele.',
+    projectId: 'adept',
+  },
   {
     year: '2026',
     date: 'Sep 2026',
