@@ -13,7 +13,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 pb-6 border-b border-white/[0.06]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#101118] border border-white/[0.12] flex items-center justify-center text-[var(--accent)]">
+            <div className="w-8 h-8 rounded-lg bg-panel border border-white/[0.12] flex items-center justify-center text-[var(--accent)]">
               <Code size={16} />
             </div>
             <div>

@@ -4,6 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, FileTex
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
+import Scene from './Scene';
 import { Play } from 'lucide-react';
 import { srcSet, isTouch } from '../utils/img';
 import { ACHIEVEMENTS, AWARD_FEATURES, DEANS_LIST, EDUCATION, PROJECTS_DATA } from '../data/portfolioData';
@@ -394,7 +395,7 @@ export default function CredentialsSection({ compact = false }) {
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);
 
   return (
-    <section id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06]">
+    <Scene id="awards" variant="swingRight" className="section-glow py-20 md:py-32 relative overflow-hidden border-t border-white/[0.06]">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -437,7 +438,7 @@ export default function CredentialsSection({ compact = false }) {
               e.preventDefault();
               navigate('awards');
             }}
-            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 mb-10 md:mb-16 transition-colors"
+            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-accent/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 mb-10 md:mb-16 transition-colors"
           >
             <span>
               <span className="block font-display font-bold text-lg sm:text-xl text-white tracking-tight">See the full record</span>
@@ -500,6 +501,6 @@ export default function CredentialsSection({ compact = false }) {
       </div>
 
       <AnimatePresence>{lightbox && <Lightbox items={lightbox.items} index={lightbox.index} onClose={close} onIndex={setIndex} />}</AnimatePresence>
-    </section>
+    </Scene>
   );
 }

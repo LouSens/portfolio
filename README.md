@@ -20,7 +20,12 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 
 ## ✨ What is on the site
 
-- 🏠 **Home page as the highlights**: hero, about, a 3D project carousel, the three headline awards, and one-tap contact links.
+- 🏢 **A walk through rooms**: the home page is a sequence of rooms (hero, About, Projects, Tech stack, Numbers, Awards, Contact). Each room turns into view from a different camera angle, and a monochrome isometric wireframe building loops in the background and turns as you scroll.
+- ➡️ **Galleries that hold the page**: Projects and Tech stack are horizontal galleries. The next room cannot appear until you have scrolled through every frame (`HorizontalGate`).
+- 🌗 **Light and dark mode**: a toggle in the navbar, saved in `localStorage`, applied before first paint. Colours are CSS variables (`--fg`, `--bg-rgb`, `--panel-rgb`, `--accent-rgb`) that Tailwind's `white`, `panel`, `canvas` and `accent` read.
+- 📊 **Numbers**: overall results, a KPI row per project, and live GitHub metrics (commits, pull requests, stars, contribution heatmap, streaks, monthly activity, languages by code size, recent repositories, badges). Fetched in the browser, cached 6 hours (`src/utils/github.js`).
+- 🧰 **Full tech list**: every tool found in the manifests of all public repos, grouped by layer, with the repos that use it (`TECH_STACK` in `src/data/portfolioData.js`).
+- 🧱 **Each project** shows its numbers, its stack and how it works from input to output.
 - 📄 **Dedicated pages**: Projects, Awards and Contact each have their own page (`/#/projects`, `/#/awards`, `/#/contact`), reachable from the navbar and the mobile menu. Pages live behind the hash, so they work on any static host without server rewrites.
 - 🎬 **App demos that play in place**: on the Projects page, each card plays a short silent walkthrough of the real app while it is on screen, and pauses when it scrolls away.
 - 🎞 **A film with sound**: the RADAR case study carries the 32-second film made for the app (built in Remotion in the RADAR repo, `demo-video/`); its card plays the same film silently.
@@ -37,7 +42,7 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 | :--- | :--- | :--- |
 | **Frontend Framework** | React 18 & Vite 5 | Components and fast builds |
 | **Styling** | Tailwind CSS 3 & plain CSS | Layout, glass surfaces and shared tokens |
-| **3D Graphics** | Three.js (React Three Fiber) | Particle field behind the hero |
+| **3D Graphics** | Three.js (React Three Fiber) | Isometric wireframe building behind the page (desktop); CSS version on phones |
 | **Animation** | Framer Motion & Lenis | Entrance motion, transitions and smooth scroll |
 | **Routing** | A small hash router (`src/utils/route.js`) | Pages without a router dependency or server rewrites |
 | **Serverless Backend** | Cloudflare Workers & KV | Inquiry counter and API endpoint |

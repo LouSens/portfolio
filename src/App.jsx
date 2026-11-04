@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
-import { motion, useScroll, PresenceContext } from 'framer-motion';
+import { motion, useScroll, useTransform, PresenceContext } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Modular Components
 import Navbar from './components/Navbar';
 import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
-import Marquee from './components/Marquee';
 import About from './components/About';
-import NetflixProjectsHub from './components/NetflixProjectsHub';
+import WorkGallery from './components/WorkGallery';
+import StackGallery from './components/StackGallery';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 import ProjectsPage from './components/ProjectsPage';
@@ -18,7 +18,8 @@ import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
 
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
-const ParticleCanvas = lazy(() => import('./components/ParticleCanvas'));
+const IsoScene = lazy(() => import('./components/IsoScene'));
+const ActivitySection = lazy(() => import('./components/ActivitySection'));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
 const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
@@ -33,6 +34,12 @@ const NO_INTRO = { id: 'no-intro', isPresent: true, initial: false, register: ()
 /* ═══════════════════════════════════════
    SCROLL PROGRESS BAR
    ═══════════════════════════════════════ */
+/* The building is the centrepiece in the lobby, then steps back so it never competes with text and charts. */
+function useBuildingOpacity() {
+  const { scrollY } = useScroll();
+  return useTransform(scrollY, [0, 500], [0.6, 0.14]);
+}
+
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return (
@@ -51,19 +58,19 @@ function ScrollProgress() {
    ═══════════════════════════════════════ */
 export default function App() {
   const lenisRef = useRef(null);
+  const buildingOpacity = useBuildingOpacity();
   const [activeModalProject, setActiveModalProject] = useState(null);
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
   // Bumped every time a case study closes: remounting <main> replays every entrance animation,
-  // which otherwise only run once per page load. lastIndex keeps the carousel on the project just viewed.
+  // which otherwise only run once per page load.
   const [homeKey, setHomeKey] = useState(0);
-  const [lastIndex, setLastIndex] = useState(0);
   // Where the visitor was on the page when a case study opened, so closing it returns them there.
   const savedScroll = useRef(0);
   // Mount the 3D background only once the browser is idle, so it never delays the hero.
   const [show3D, setShow3D] = useState(false);
   useEffect(() => {
-    // Phones skip the 3D background entirely: no three.js download, no GPU work. The hero keeps its CSS glow.
+    // Phones skip the 3D building entirely: no three.js download, no GPU work. The hero draws a CSS version.
     if (window.matchMedia('(max-width: 767px)').matches) return undefined;
     const start = () => setShow3D(true);
     const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
@@ -177,7 +184,6 @@ export default function App() {
 
   const handleOpenProject = (project) => {
     setActiveModalProject(project);
-    setLastIndex(Math.max(0, PROJECTS_DATA.findIndex((p) => p.id === project.id)));
     if (modalOpen.current) {
       // Switching between case studies stays a single step in the history.
       window.history.replaceState(null, '', `#project=${project.id}`);
@@ -202,25 +208,27 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050508] text-[#f3f3f6] font-sans selection:bg-[var(--accent)]/30 selection:text-white overflow-x-hidden">
+    // overflow-x-clip (not hidden): hidden would make this a scroll container and break the sticky galleries.
+    <div id="top" className="relative min-h-screen bg-canvas text-white font-sans selection:bg-accent/30 selection:text-white overflow-x-clip">
       <ScrollProgress />
       <CursorGlow />
       <div className="fixed inset-0 z-0 pointer-events-none bg-dots" aria-hidden="true" />
 
-      {/* ── 3D WEBGL PARTICLE SPHERE (HERO ISOLATED CENTERPIECE) ── */}
+      {/* ── THE BUILDING: a monochrome isometric wireframe that loops forever and turns as you scroll ── */}
       {show3D && (
-        <div
-          className={`absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden ${route === HOME ? '' : 'hidden'}`}
+        <motion.div
+          aria-hidden="true"
+          className={`fixed top-0 right-0 h-[100svh] w-[62vw] pointer-events-none z-0 ${route === HOME ? '' : 'hidden'}`}
           style={{
-            height: '100vh',
-            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
+            opacity: buildingOpacity,
+            maskImage: 'radial-gradient(ellipse 70% 65% at 55% 50%, #000 35%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 55% 50%, #000 35%, transparent 100%)',
           }}
         >
           <Suspense fallback={null}>
-            <ParticleCanvas paused={!!activeModalProject || route !== HOME} />
+            <IsoScene paused={!!activeModalProject || route !== HOME} />
           </Suspense>
-        </div>
+        </motion.div>
       )}
 
       {/* Navigation */}
@@ -229,26 +237,20 @@ export default function App() {
 
       {/* Main Content Flow */}
       <PresenceContext.Provider value={IS_PHONE && homeKey === 0 ? NO_INTRO : null}>
-      <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-hidden">
+      <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
         {route === HOME ? (
           <>
             {/* 1. Hero Section */}
             <Hero />
 
-            {/* 2. Marquee Ticker */}
-            <Marquee />
-
-            {/* 3. About */}
+            {/* The page is a walk through rooms. Rooms turn into view from different angles; the two
+                galleries (projects, tech stack) hold the page until you have been through every frame. */}
             <About />
-
-            {/* 4. Projects Showcase & Catalog */}
-            <NetflixProjectsHub onOpenProject={handleOpenProject} initialIndex={lastIndex} />
-
-            {/* 6. Education & Awards: the headline awards; the Awards page has the full record */}
+            <WorkGallery onOpenProject={handleOpenProject} />
+            <StackGallery />
             <Suspense fallback={<div className="min-h-screen" />}>
+              <ActivitySection onOpenProject={handleOpenProject} />
               <CredentialsSection compact />
-
-              {/* 7. Contact: one-tap links; the Contact page has the message form */}
               <ScopeInquiryDrawer compact />
             </Suspense>
           </>
@@ -271,7 +273,7 @@ export default function App() {
 
       {/* ── PROJECT DETAIL MODAL ── */}
       {activeModalProject && (
-        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-[#050508]" />}>
+        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-canvas" />}>
         <ProjectDetailModal
           project={activeModalProject}
           projects={PROJECTS_DATA}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, ExternalLink, Trophy } from 'lucide-react';
 import SectionLabel from './SectionLabel';
-import { PROJECTS_DATA } from '../data/portfolioData';
+import { PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
 import { small } from '../utils/img';
 
 const ease = [0.22, 1, 0.36, 1];
@@ -48,11 +48,11 @@ export default function ProjectsPage({ onOpenProject }) {
           className="max-w-2xl mb-8 md:mb-12"
         >
           <SectionLabel label="Projects" />
-          <h1 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.12] mb-3">
-            Things I've <span className="text-[var(--accent)]">Actually Built</span>
+          <h1 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1] mb-4">
+            Things I have <span className="text-[var(--accent)]">built</span>
           </h1>
-          <p className="text-white/65 text-sm md:text-base leading-relaxed">
-            Web apps, AI agents, and backend systems I've shipped. Open any of them to see the problem, how I solved it, and the code behind it.
+          <p className="text-white/65 text-base leading-relaxed">
+            Web apps, AI agents and ML work. Open any project to see its numbers, its tools and how it works.
           </p>
         </motion.div>
 
@@ -66,7 +66,7 @@ export default function ProjectsPage({ onOpenProject }) {
               transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease }}
             >
               {/* The whole card opens the write-up (the button below stretches over it); the live link sits above that. */}
-              <div className="group relative flex flex-col w-full h-full text-left rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.1] hover:border-[var(--accent)]/50 bg-[#0A0B10] transition-colors">
+              <div className="group relative flex flex-col w-full h-full text-left rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.1] hover:border-accent/50 bg-panel transition-colors">
                 <div className="relative w-full aspect-video overflow-hidden bg-white/[0.03]">
                   {project.walkthrough ? (
                     <Walkthrough video={project.walkthrough} title={project.title} />
@@ -80,11 +80,11 @@ export default function ProjectsPage({ onOpenProject }) {
                         style={{ objectPosition: project.coverPosition || 'top' }}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0B10] via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent" />
                     </>
                   )}
                   {!project.walkthrough && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#0A0B12]/90 border border-white/[0.12] font-display font-semibold text-[10px] text-white tracking-tight">
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-panel/90 border border-white/[0.12] font-display font-semibold text-[10px] text-white tracking-tight">
                       {project.badge}
                     </span>
                   )}
@@ -161,6 +161,35 @@ export default function ProjectsPage({ onOpenProject }) {
             </motion.li>
           ))}
         </ul>
+
+        {/* Smaller repositories: listed, not written up */}
+        <div className="mt-16 md:mt-24">
+          <h2 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight">Earlier and smaller work</h2>
+          <p className="mt-2 text-sm text-white/50">Course and personal projects, all on GitHub.</p>
+          <ul className="mt-6 grid sm:grid-cols-2 gap-3 md:gap-4">
+            {EARLIER_WORK.map((w) => (
+              <li key={w.title}>
+                <a
+                  href={w.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex h-full flex-col rounded-2xl border border-white/[0.1] hover:border-accent/50 bg-white/[0.02] hover:bg-white/[0.04] p-5 transition-colors"
+                >
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="font-display font-semibold text-white group-hover:text-[var(--accent)] transition-colors">{w.title}</span>
+                    <ArrowUpRight size={15} className="shrink-0 mt-1 text-white/30 group-hover:text-[var(--accent)]" />
+                  </span>
+                  <span className="mt-1.5 text-sm text-white/60 leading-relaxed">{w.line}</span>
+                  <span className="mt-3 flex flex-wrap gap-1.5">
+                    {w.tags.map((t) => (
+                      <span key={t} className="px-2 py-0.5 rounded-md bg-white/[0.06] border border-white/[0.08] text-[11px] text-white/70">{t}</span>
+                    ))}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

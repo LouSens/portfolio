@@ -10,7 +10,7 @@ export default function Tilt({ children, className = '', as = 'div', ...rest }) 
     <Comp
       whileHover={{ y: -3 }}
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative hover:border-[var(--accent)]/40 ${className}`}
+      className={`relative hover:border-accent/40 ${className}`}
       {...rest}
     >
       {children}

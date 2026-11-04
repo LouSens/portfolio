@@ -6,14 +6,23 @@
    DESIGN TOKENS & LIQUID GLASS VARIABLES
 ═══════════════════════════════════════════ */
 :root {
-  --bg: #070709;
+  color-scheme: dark;
+  /* Theme triplets feed Tailwind (white, panel, canvas); see tailwind.config.js. */
+  --fg: 255 255 255;
+  --bg-rgb: 5 5 8;
+  --panel-rgb: 10 11 16;
+  --bg: #050508;
   --surface-1: rgba(13, 14, 19, 0.72);
   --surface-2: rgba(18, 20, 28, 0.85);
   --surface-3: rgba(255, 255, 255, 0.035);
   --text-1: #f3f3f6;
   --text-2: #9b9ba4;
   --text-3: #5e606b;
+  --iso-line: 255 255 255;
+  --field-base: #0D0E16;
+  --dot: rgba(255, 255, 255, 0.07);
   --accent: #FF5A36;
+  --accent-rgb: 255 90 54;
   --accent-hover: #FF431A;
   --accent-light: #FF8C69;
   --accent-dim: rgba(255, 90, 54, 0.09);
@@ -30,6 +39,50 @@
   --liquid-border-hover: rgba(255, 255, 255, 0.24);
   --liquid-highlight: rgba(255, 255, 255, 0.35);
   --liquid-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Light theme: warm paper, ink text, a deeper accent so orange text still reads. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --fg: 17 18 24;
+  --bg-rgb: 246 245 241;
+  --panel-rgb: 255 255 255;
+  --bg: #f6f5f1;
+  --surface-1: rgba(255, 255, 255, 0.78);
+  --surface-2: rgba(255, 255, 255, 0.9);
+  --surface-3: rgba(17, 18, 24, 0.04);
+  --text-1: #111218;
+  --text-2: #55576a;
+  --text-3: #8a8c9a;
+  --iso-line: 17 18 24;
+  --field-base: #ffffff;
+  --dot: rgba(17, 18, 24, 0.09);
+  --accent: #D9421A;
+  --accent-rgb: 217 66 26;
+  --accent-hover: #BF3511;
+  --accent-light: #E8643F;
+  --accent-dim: rgba(217, 66, 26, 0.08);
+  --accent-glow: rgba(217, 66, 26, 0.16);
+  --border: rgba(17, 18, 24, 0.1);
+  --border-hover: rgba(17, 18, 24, 0.22);
+  --border-accent: rgba(217, 66, 26, 0.4);
+  --liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+  --liquid-border: rgba(17, 18, 24, 0.1);
+  --liquid-border-hover: rgba(17, 18, 24, 0.24);
+  --liquid-highlight: rgba(255, 255, 255, 0.9);
+  --liquid-shadow: 0 14px 36px rgba(30, 30, 50, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+/* Anything filled with the accent keeps white text in both themes. */
+.bg-\[var\(--accent\)\],
+.liquid-btn-primary,
+[class*='from-[#FF6644]'],
+.group:hover .group-hover\:bg-\[var\(--accent\)\] {
+  --fg: 255 255 255;
+}
+
+/* Theme change: a short cross-fade of the colours only, not of layout or transforms. */
+html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, fill 0.35s ease, stroke 0.35s ease !important;
 }
 
 /* ═══════════════════════════════════════════
@@ -50,7 +103,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: rgb(var(--bg-rgb));
   color: var(--text-1);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
@@ -76,7 +129,7 @@ body.is-scrolling * {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgb(var(--fg) / 0.14);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -119,7 +172,7 @@ body.is-scrolling * {
 
 .liquid-glass-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), rgba(10, 11, 16, 0.8);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.05) 0%, rgb(var(--fg) / 0.01) 100%), rgb(var(--panel-rgb) / 0.8);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--liquid-border);
@@ -199,13 +252,13 @@ body.is-scrolling * {
   gap: 8px;
   padding: 12px 26px;
   border-radius: 9999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(11, 12, 18, 0.85);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.06) 0%, rgb(var(--fg) / 0.02) 100%), rgb(var(--panel-rgb) / 0.85);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgb(var(--fg) / 0.14);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.18),
+              inset 0 1px 0 0 rgb(var(--fg) / 0.12);
+  color: rgb(var(--fg) / 0.9);
   font-family: var(--font-display);
   font-size: 13px;
   letter-spacing: 0.02em;
@@ -221,11 +274,11 @@ body.is-scrolling * {
 }
 .liquid-btn-secondary:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.3);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(16, 17, 24, 0.95);
-  color: #ffffff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.32);
+  border-color: rgb(var(--fg) / 0.3);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.1) 0%, rgb(var(--fg) / 0.03) 100%), rgb(var(--panel-rgb) / 0.95);
+  color: rgb(var(--fg));
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.22),
+              inset 0 1px 0 0 rgb(var(--fg) / 0.18);
 }
 .liquid-btn-secondary:active {
   transform: translateY(1px) scale(0.98);
@@ -233,9 +286,9 @@ body.is-scrolling * {
 
 /* Liquid input fields */
 .liquid-input {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%), #0D0E16;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.04) 0%, rgb(var(--fg) / 0.01) 100%), var(--field-base);
+  border: 1px solid rgb(var(--fg) / 0.14);
+  box-shadow: inset 0 1px 2px 0 rgb(0 0 0 / 0.14);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .liquid-input:focus {
@@ -273,7 +326,7 @@ body.is-scrolling * {
    GRADIENTS & TEXT UTILITIES
 ═══════════════════════════════════════════ */
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(135deg, rgb(var(--fg)) 0%, rgb(var(--fg) / 0.55) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -390,7 +443,7 @@ button, a, input, select, textarea {
    PAGE TEXTURE — one dot grid + one accent glow per section
 ═══════════════════════════════════════════ */
 .bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
   mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
@@ -450,7 +503,7 @@ button, a, input, select, textarea {
     -webkit-backdrop-filter: none !important;
   }
   .nav-dock {
-    background: rgba(11, 12, 18, 0.94) !important;
+    background: rgb(var(--panel-rgb) / 0.94) !important;
   }
   /* Safari redraws a masked, animated strip on every frame and starves the rest of the page:
      fade the edges with two plain overlays instead, and let the strip be an ordinary layer. */
@@ -469,8 +522,8 @@ button, a, input, select, textarea {
     z-index: 1;
     pointer-events: none;
   }
-  .ticker-wrap-new::before { left: 0; background: linear-gradient(to right, #050508, transparent); }
-  .ticker-wrap-new::after { right: 0; background: linear-gradient(to left, #050508, transparent); }
+  .ticker-wrap-new::before { left: 0; background: linear-gradient(to right, rgb(var(--bg-rgb)), transparent); }
+  .ticker-wrap-new::after { right: 0; background: linear-gradient(to left, rgb(var(--bg-rgb)), transparent); }
   .ticker-track-new { will-change: auto; }
   /* the logos are already white, so the grayscale filter only costs a layer per icon */
   .ticker-track-new img { filter: none !important; }
@@ -482,4 +535,16 @@ button, a, input, select, textarea {
     backface-visibility: visible;
     will-change: auto;
   }
+}
+
+/* ═══ Isometric building fallback (phones, reduced motion): floors lift apart and settle on a loop ═══ */
+@keyframes iso-lift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--lift)); }
+}
+.iso-floor {
+  animation: iso-lift 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .iso-floor { animation: none; }
 }

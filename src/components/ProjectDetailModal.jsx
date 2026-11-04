@@ -266,14 +266,14 @@ function FlowStage({ steps, loopNote }) {
                   aria-current={on ? 'step' : undefined}
                   className="relative w-10 h-10 rounded-full flex items-center justify-center cursor-pointer"
                 >
-                  {on && <span className="absolute inset-0 rounded-full bg-[var(--accent)]/30 animate-ping" aria-hidden="true" />}
+                  {on && <span className="absolute inset-0 rounded-full bg-accent/30 animate-ping" aria-hidden="true" />}
                   <span
                     className={`relative w-10 h-10 rounded-full border-2 flex items-center justify-center text-sm font-bold transition-all duration-300 ${
                       on
                         ? 'bg-[var(--accent)] border-[var(--accent)] text-white scale-110'
                         : done
-                        ? 'bg-[var(--accent)]/20 border-[var(--accent)]/60 text-white'
-                        : 'bg-[#050508] border-white/20 text-white/50 hover:border-white/50'
+                        ? 'bg-accent/20 border-accent/60 text-white'
+                        : 'bg-canvas border-white/20 text-white/50 hover:border-white/50'
                     }`}
                   >
                     {done ? <Check size={16} /> : STEP_ICONS[st.icon] ? React.createElement(STEP_ICONS[st.icon], { size: 16 }) : <span className="w-2 h-2 rounded-full bg-current" />}
@@ -504,7 +504,7 @@ function HeroVisual({ project }) {
   if (!project.heroImage) return null;
   return (
     <div style={{ animationDelay: '0.5s' }} className="cs-fade-up lg:col-span-5 min-w-0">
-      <div className="rounded-xl overflow-hidden border border-white/[0.14] bg-[#07080D] shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+      <div className="rounded-xl overflow-hidden border border-white/[0.14] bg-panel shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
         <img src={project.heroImage} srcSet={srcSet(project.heroImage, 1600)} sizes="(max-width: 1024px) 100vw, 440px" alt={`${project.title} interface`} className="block w-full h-auto" />
       </div>
       {project.concept && <p className="mt-3 text-xs text-white/40">Concept design with sample data, not a screenshot of the deployed app.</p>}
@@ -557,7 +557,7 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
     hasScreens && { id: 'screens', label: project.concept ? 'Design' : 'Screens' },
     flowSteps && { id: 'flow', label: flowTitle },
     project.demo === 'proof-score' && { id: 'demo', label: 'Try it' },
-    project.parts && { id: 'parts', label: 'What I built' },
+    project.parts && { id: 'parts', label: project.partsTitle || 'What I built' },
     project.process && { id: 'decisions', label: 'Decisions' },
   ].filter(Boolean);
   const num = (id) => scenes.findIndex((s) => s.id === id);
@@ -597,11 +597,11 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
       transition={{ duration: 0.3, ease }}
       role="dialog"
       aria-modal="true"
-      aria-label={`${project.title} case study`}
-      className="fixed inset-0 z-[100] bg-[#050508] flex flex-col select-text"
+      aria-label={`${project.title} project details`}
+      className="fixed inset-0 z-[100] bg-canvas flex flex-col select-text"
     >
       {/* ── TOP BAR ── */}
-      <header className="relative shrink-0 h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between gap-3 border-b border-white/[0.08] bg-[#050508]/95 backdrop-blur z-20">
+      <header className="relative shrink-0 h-14 sm:h-16 px-3 sm:px-6 flex items-center justify-between gap-3 border-b border-white/[0.08] bg-canvas/95 backdrop-blur z-20">
         <button type="button" onClick={onClose} className="inline-flex items-center gap-2 h-11 pr-3 text-sm text-white/80 hover:text-white transition-colors cursor-pointer">
           <ArrowLeft size={18} />
           <span>All projects</span>
@@ -628,7 +628,7 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
       </header>
 
       {/* ── SCENE DOTS (desktop) ── */}
-      <nav aria-label="Case study scenes" className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-30 flex-col items-end gap-3.5">
+      <nav aria-label="Project sections" className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-30 flex-col items-end gap-3.5">
         {scenes.map((s) => {
           const on = activeScene === s.id;
           return (
@@ -648,8 +648,8 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
             <div className="absolute inset-0" aria-hidden="true">
               <div className="w-full h-full bg-dots opacity-70" />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-[#050508]/70 to-[#050508]/20" aria-hidden="true" />
-            <motion.div aria-hidden="true" className="absolute -bottom-40 -left-32 w-[560px] h-[560px] rounded-full bg-[var(--accent)]/[0.14] blur-[140px]" animate={{ x: [0, 60, 0], y: [0, -30, 0] }} transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/70 to-canvas/20" aria-hidden="true" />
+            <motion.div aria-hidden="true" className="absolute -bottom-40 -left-32 w-[560px] h-[560px] rounded-full bg-accent/[0.14] blur-[140px]" animate={{ x: [0, 60, 0], y: [0, -30, 0] }} transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }} />
 
             <div className="relative max-w-[1100px] w-full mx-auto px-4 sm:px-6 md:px-8 pt-24 pb-10 md:pb-14">
               <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -783,14 +783,14 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
 
           {/* ── WHAT I BUILT ── */}
           {project.parts && (
-            <Scene id="parts" index={num('parts')} label="What I built" title="What I built">
+            <Scene id="parts" index={num('parts')} label={project.partsTitle || 'What I built'} title={project.partsTitle || 'What I built'}>
               <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 grid sm:grid-cols-2 gap-4" style={{ perspective: 1200 }}>
                 {project.parts.map((p, i) => {
                   const Icon = PART_ICONS[i % PART_ICONS.length];
                   return (
                     <motion.div key={p.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.5, delay: (i % 2) * 0.08, ease }}>
                       <Tilt max={6} className="h-full rounded-2xl border border-white/[0.1] hover:border-white/[0.22] bg-white/[0.02] p-6 transition-colors">
-                        <div className="w-11 h-11 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)]" style={{ transform: 'translateZ(30px)' }}>
+                        <div className="w-11 h-11 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-[var(--accent)]" style={{ transform: 'translateZ(30px)' }}>
                           <Icon size={20} />
                         </div>
                         <h4 className="mt-4 font-display font-bold text-xl text-white tracking-tight">{p.title}</h4>
@@ -805,9 +805,9 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
 
           {/* ── DECISIONS ── */}
           {project.process && (
-            <Scene id="decisions" index={num('decisions')} label="Decisions" title="The calls I made">
+            <Scene id="decisions" index={num('decisions')} label="Decisions" title="Choices I made">
               <p className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 -mt-6 mb-8 text-base text-white/60">
-                Pick one to read why. Where it was judgment more than testing, I say so.
+                Pick one to read why. Where it was a judgment call and not a test result, I say so.
               </p>
               <DecisionExplorer items={project.process} />
             </Scene>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Download } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { HOME, PAGES, navigate, routeUrl } from '../utils/route';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar({ route = HOME }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -46,7 +47,12 @@ export default function Navbar({ route = HOME }) {
   }, [isOpen]);
 
   // Projects, Awards and Contact open their own page; About is a section of the home page.
-  const navLinks = [{ route: HOME, section: 'about', label: 'About' }, ...PAGES];
+  const navLinks = [
+    { route: HOME, section: 'about', label: 'About' },
+    PAGES[0],
+    { route: HOME, section: 'activity', label: 'Numbers' },
+    ...PAGES.slice(1),
+  ];
 
   const go = (target, section) => (e) => {
     e.preventDefault();
@@ -75,7 +81,7 @@ export default function Navbar({ route = HOME }) {
           <div
             className={`nav-dock relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
               isScrolled
-                ? 'bg-gradient-to-r from-white/[0.08] via-white/[0.03] to-white/[0.06] backdrop-blur-2xl border border-white/[0.14] shadow-[0_16px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_0_rgba(255,255,255,0.22)]'
+                ? 'bg-gradient-to-r from-white/[0.08] via-white/[0.03] to-white/[0.06] backdrop-blur-2xl border border-white/[0.14] shadow-[0_16px_36px_rgba(0,0,0,0.28)]'
                 : 'bg-white/[0.02] backdrop-blur-md border border-white/[0.06]'
             }`}
           >
@@ -85,7 +91,7 @@ export default function Navbar({ route = HOME }) {
               className="flex items-center gap-3 text-white transition-all duration-200 group text-left cursor-pointer select-none"
             >
               {/* Custom Liquid Glass DK Monogram Emblem */}
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-white/[0.16] via-[#0E1018]/90 to-[#07080D]/95 border border-white/[0.22] group-hover:border-[var(--accent)]/70 flex items-center justify-center font-display font-extrabold text-[13px] tracking-tight text-white transition-all duration-200 shadow-md">
+              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-white/[0.16] via-panel/90 to-panel/95 border border-white/[0.22] group-hover:border-accent/70 flex items-center justify-center font-display font-extrabold text-[13px] tracking-tight text-white transition-all duration-200 shadow-md">
                 <span className="bg-gradient-to-r from-white via-white to-white/75 bg-clip-text text-transparent group-hover:to-[var(--accent)] transition-all">
                   DK
                 </span>
@@ -120,6 +126,7 @@ export default function Navbar({ route = HOME }) {
 
             {/* Remodeled Action Buttons */}
             <div className="hidden lg:flex items-center gap-2">
+              <ThemeToggle />
               <a
                 href={PERSONAL_INFO.resumeUrl}
                 download="CV_David_Kurniawan.pdf"
@@ -139,7 +146,8 @@ export default function Navbar({ route = HOME }) {
               </button>
             </div>
 
-            {/* Reimagined Liquid Hamburger Button for Mobile & Tablet */}
+            <ThemeToggle className="lg:hidden ml-auto mr-2" />
+            {/* Menu button for phones and tablets */}
             <button
               className="lg:hidden w-9 h-9 rounded-full bg-white/[0.06] border border-white/[0.14] flex flex-col items-center justify-center gap-1.5 text-white/80 hover:text-white transition-all cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
@@ -183,7 +191,7 @@ export default function Navbar({ route = HOME }) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-              className="fixed top-[68px] left-4 right-4 z-40 p-6 rounded-3xl bg-[#090A10]/95 backdrop-blur-2xl border border-white/[0.14] shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.2)] flex flex-col items-center gap-4 lg:hidden select-none"
+              className="fixed top-[68px] left-4 right-4 z-40 p-6 rounded-3xl bg-panel/95 backdrop-blur-2xl border border-white/[0.14] shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.2)] flex flex-col items-center gap-4 lg:hidden select-none"
             >
               <div className="w-full flex flex-col gap-1">
                 {[{ route: HOME, label: 'Home' }, ...navLinks].map((link) => {

@@ -18,15 +18,36 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400;600&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'" />
-    <style>html,body{margin:0;background:#050508}</style>
+    <!-- Theme is applied before the first paint so a returning visitor never sees a flash of the other one. -->
+    <script>
+        (function () {
+            var t = 'dark';
+            try { t = localStorage.getItem('dk-theme') || 'dark'; } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            var m = document.createElement('meta');
+            m.name = 'theme-color';
+            m.content = t === 'light' ? '#f6f5f1' : '#050508';
+            document.head.appendChild(m);
+        })();
+    </script>
+    <style>
+        html,body{margin:0;background:#050508}
+        html[data-theme=light],html[data-theme=light] body{background:#f6f5f1}
+        #splash{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1rem;text-align:center;background:#050508;font-family:Inter,system-ui,sans-serif}
+        #splash p{margin:0;font-weight:800;letter-spacing:-0.03em;line-height:1.08;color:#fff;font-size:clamp(1.875rem,1.2rem + 4vw,4.5rem)}
+        #splash p+p{margin:1.25rem 0 0;font-weight:400;letter-spacing:0;line-height:1.5;color:rgba(255,255,255,0.6);font-size:1rem}
+        html[data-theme=light] #splash{background:#f6f5f1}
+        html[data-theme=light] #splash p{color:#111218}
+        html[data-theme=light] #splash p+p{color:rgba(17,18,24,0.6)}
+    </style>
 </head>
 
-<body class="bg-[#070709] text-[#f2f2f5] antialiased">
+<body class="bg-canvas text-white antialiased">
     <div id="root">
         <!-- Shown instantly while the app loads; React replaces it. -->
-        <div style="min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1rem;text-align:center;background:#050508;font-family:Inter,system-ui,sans-serif">
-            <p style="margin:0;font-weight:800;letter-spacing:-0.03em;line-height:1.08;color:#fff;font-size:clamp(1.875rem,1.2rem + 4vw,4.5rem)">Full-Stack Web Applications &amp;<br /><span style="color:#FF5A36">Intelligent Systems.</span></p>
-            <p style="margin:1.25rem 0 0;color:rgba(255,255,255,0.6);font-size:1rem">David Kurniawan</p>
+        <div id="splash">
+            <p>Full-Stack Web Applications &amp;<br /><span style="color:#FF5A36">Intelligent Systems.</span></p>
+            <p>David Kurniawan</p>
         </div>
     </div>
     <script>

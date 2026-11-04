@@ -1,3 +1,4 @@
+import Scene from './Scene';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -198,9 +199,10 @@ export default function ScopeInquiryDrawer({ compact = false }) {
   };
 
   return (
-    <section
+    <Scene
       id="inquire"
-      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
+      variant="tiltUp"
+      className="section-glow py-20 md:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
         {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}
@@ -242,7 +244,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative group rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-200 sm:min-h-[128px]`}
+              className={`relative group rounded-2xl border border-white/[0.1] hover:border-accent/40 bg-white/[0.02] hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-200 sm:min-h-[128px]`}
             >
               <a
                 href={href}
@@ -251,7 +253,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
                 download={download}
                 className="flex h-full flex-row items-center sm:flex-col sm:items-start sm:justify-between gap-4 sm:gap-5 p-3.5 sm:p-5"
               >
-                <span className="shrink-0 w-10 h-10 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/25 flex items-center justify-center text-[var(--accent)] group-hover:scale-105 transition-transform">
+                <span className="shrink-0 w-10 h-10 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center text-[var(--accent)] group-hover:scale-105 transition-transform">
                   <Icon size={18} />
                 </span>
                 <span className="min-w-0">
@@ -284,7 +286,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               e.preventDefault();
               navigate('contact');
             }}
-            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 transition-colors"
+            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-accent/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 transition-colors"
           >
             <span>
               <span className="block font-display font-bold text-lg sm:text-xl text-white tracking-tight">Send me a message</span>
@@ -326,7 +328,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
                       }}
                       className={`text-left rounded-xl border px-4 py-3 min-h-[56px] transition-colors cursor-pointer ${
                         on
-                          ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-white'
+                          ? 'border-[var(--accent)] bg-accent/10 text-white'
                           : 'border-white/[0.1] bg-white/[0.03] text-white/70 hover:text-white hover:border-white/[0.25]'
                       }`}
                     >
@@ -432,7 +434,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 320, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-md w-full bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.15)] overflow-hidden"
+              className="relative max-w-md w-full bg-panel border border-white/[0.14] rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.15)] overflow-hidden"
             >
               {/* Close Button */}
               <button
@@ -500,12 +502,12 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-2xl w-full max-h-[80vh] bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
+              className="relative max-w-2xl w-full max-h-[80vh] bg-panel border border-white/[0.14] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[var(--accent)]/15 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)]">
+                  <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-[var(--accent)]">
                     <Inbox size={16} />
                   </div>
                   <div>
@@ -583,6 +585,6 @@ export default function ScopeInquiryDrawer({ compact = false }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </Scene>
   );
 }

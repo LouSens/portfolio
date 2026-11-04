@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+// The floor map: one dot per room, in the order you walk through them.
 const SECTIONS = [
+  { id: 'top', label: 'Start' },
   { id: 'about', label: 'About' },
   { id: 'work', label: 'Projects' },
+  { id: 'stack', label: 'Tech stack' },
+  { id: 'activity', label: 'Numbers' },
   { id: 'awards', label: 'Awards' },
   { id: 'inquire', label: 'Contact' },
 ];
@@ -20,6 +24,7 @@ export default function SectionNav() {
       let current = SECTIONS[0].id;
       SECTIONS.forEach(({ id }) => {
         const el = document.getElementById(id);
+        if (id === 'top') return;
         if (el && el.getBoundingClientRect().top <= middle) current = id;
       });
       setActive(current);
@@ -39,7 +44,8 @@ export default function SectionNav() {
   }, []);
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'top') window.scrollTo({ top: 0, behavior: 'smooth' });
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (

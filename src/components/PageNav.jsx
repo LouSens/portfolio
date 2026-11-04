@@ -27,7 +27,7 @@ export default function PageNav({ route }) {
       <a
         href={routeUrl(next.route)}
         onClick={go(next.route)}
-        className="group inline-flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 transition-colors"
+        className="group inline-flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-accent/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 transition-colors"
       >
         <span>
           <span className="block text-xs text-white/45">Next</span>
