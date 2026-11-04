@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import StageArt from './StageArt';
+import IsoObject from './iso/IsoObject';
 
 const ease = [0.22, 1, 0.36, 1];
 const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,8 +41,8 @@ export default function Hero() {
         <StageArt scene="hero" />
 
         <div className="relative z-10 flex-1 flex items-center px-6 sm:px-10 md:px-16 pt-14 pb-10">
-          <div className="w-full max-w-[1100px] mx-auto">
-            <div className="max-w-[44rem]">
+          <div className="w-full max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7">
               <motion.h1 {...item(0.1)} className="font-display font-extrabold text-fluid-h1 tracking-[-0.035em] leading-[1.04] text-white">
                 I build web apps and <span className="text-[var(--accent)]">AI systems.</span>
               </motion.h1>
@@ -67,6 +68,11 @@ export default function Hero() {
                 </a>
               </motion.div>
             </div>
+
+            {/* The object sits in its own column, level with the text */}
+            <motion.div {...item(0.35)} className="hidden lg:flex lg:col-span-5 items-center justify-center" aria-hidden="true">
+              <IsoObject kind="system" className="w-full max-w-[470px] h-auto" />
+            </motion.div>
           </div>
         </div>
 

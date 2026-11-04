@@ -3,11 +3,7 @@ import IsoObject from './iso/IsoObject';
 
 /* Isometric line-art scenes that sit behind the content of a dark stage. The objects drift slowly (CSS only) and are
    dimmed so text on top stays easy to read. Fewer objects show on small screens. */
-const SCENES = {
-  hero: [
-    { kind: 'system', cls: 'right-[-18%] md:right-[2%] top-[42%] md:top-[12%] w-[300px] md:w-[520px] opacity-35 md:opacity-95' },
-  ],
-};
+const SCENES = { hero: [] };
 
 export default function StageArt({ scene = 'hero' }) {
   return (

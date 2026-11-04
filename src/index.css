@@ -734,3 +734,29 @@ main > section:nth-of-type(even):not(#hero) {
 
 /* A stage that runs edge to edge: no rounded frame, no border, no shadow, so it reads as a section, not a card */
 .stage.stage-bleed { border-radius: 0; border: 0; box-shadow: none; }
+
+/* A dark card with a blue and orange tone, the same hue as the hero panel, for the few cards that should stand out.
+   It stays dark in both themes, with the theme colours pinned so text inside reads correctly. */
+.hue-card {
+  --fg: 255 255 255;
+  --bg-rgb: 10 11 16;
+  --panel-rgb: 14 15 22;
+  --accent: #FF5A36;
+  --accent-rgb: 255 90 54;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 92% 0%, rgb(40 70 150 / 0.42), transparent 70%),
+    radial-gradient(55% 70% at 0% 100%, rgb(255 90 54 / 0.26), transparent 70%),
+    #0b0c12;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  color: #f3f3f6;
+}
+:root[data-theme='light'] .hue-card [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.04);
+  background-image: none;
+  box-shadow: none;
+  border-color: rgb(255 255 255 / 0.16);
+}
+:root[data-theme='light'] .hue-card [class*='border-white/[0.']:not(:hover) { border-color: rgb(255 255 255 / 0.16); }
+:root[data-theme='light'] .hue-card { box-shadow: 0 24px 60px rgb(10 12 30 / 0.25); }

@@ -80,7 +80,7 @@ function Billboard({ project, onOpen }) {
   // With no demo video, show two more screens beside the cover so the billboard is filled
   const extra = project.walkthrough ? [] : (project.screenCategories || []).slice(0, 2).map((c) => ({ ...c.screens[0], label: c.name })).filter((x) => x.src);
   return (
-    <article className="relative grid lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-white/[0.14] bg-panel">
+    <article className="hue-card grid lg:grid-cols-12 gap-0 rounded-3xl">
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="lg:col-span-7 bg-white/[0.03] p-3 md:p-4 flex flex-col gap-3 md:gap-4 justify-center">
         <div className="rounded-xl overflow-hidden border border-white/[0.14] shadow-[0_10px_30px_rgba(0,0,0,0.18)]">

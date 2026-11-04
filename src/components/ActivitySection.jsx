@@ -177,7 +177,7 @@ function GitHubBlock({ near }) {
           </div>
         </div>
 
-        <div className="md:col-span-8 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+        <div className="md:col-span-8 hue-card rounded-2xl p-5 md:p-7">
           <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
             <h4 className="font-display font-semibold text-white">{calLabel} by day</h4>
             <p className="text-xs text-white/45">{cal.from} to {cal.to}</p>
