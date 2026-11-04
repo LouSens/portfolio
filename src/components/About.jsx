@@ -1,7 +1,16 @@
 import React from 'react';
 import { GraduationCap, Layers, Search } from 'lucide-react';
-import { ABOUT } from '../data/portfolioData';
+import { ABOUT, ACHIEVEMENTS, EARLIER_WORK, PROJECTS_DATA } from '../data/portfolioData';
+import CountUp from './ui/CountUp';
 import Logo from './Logo';
+
+// Counted from the data on this site, so they change when the lists do. Studying and building since Sept 2024.
+const YEARS = Math.max(1, Math.floor((Date.now() - new Date('2024-09-01').getTime()) / (365.25 * 24 * 3600 * 1000)));
+const STATS = [
+  { to: YEARS, label: 'years studying and building' },
+  { to: PROJECTS_DATA.length + EARLIER_WORK.length, label: 'projects and apps built' },
+  { to: ACHIEVEMENTS.length, label: 'awards and results' },
+];
 
 const FACT_ICONS = { Studying: GraduationCap, Focus: Layers, 'Looking for': Search };
 
@@ -22,7 +31,18 @@ export default function About() {
           </p>
         </div>
 
-        <ul className="mt-14 grid md:grid-cols-3 border-t border-white/[0.18]">
+        <dl className="mt-12 grid grid-cols-3 gap-3 sm:gap-6 max-w-[40rem] mx-auto">
+          {STATS.map((st) => (
+            <div key={st.label} className="rounded-2xl border border-white/[0.12] bg-white/[0.03] px-3 py-5 sm:py-6 text-center">
+              <dt className="font-display font-extrabold text-3xl sm:text-4xl text-white leading-none tabular-nums">
+                <CountUp to={st.to} />
+              </dt>
+              <dd className="mt-2 text-[11px] sm:text-xs text-white/60 leading-snug">{st.label}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <ul className="mt-12 grid md:grid-cols-3 border-t border-white/[0.18]">
           {ABOUT.facts.map((f) => {
             const Icon = FACT_ICONS[f.label] || Layers;
             return (
