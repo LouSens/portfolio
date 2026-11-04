@@ -208,6 +208,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/adept/cover.webp',
+    coverFit: 'cover',
     coverPosition: 'top',
     heroImage: '/screenshots/adept/cover.webp',
     screenCategories: [
@@ -846,7 +847,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/gold/cover.webp',
-    coverFit: 'cover',
+    coverArt: 'gold',
     coverPosition: 'center',
     heroImage: '/screenshots/gold/cover.webp',
     screenCategories: [
@@ -921,7 +922,7 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/movie/cover.webp',
-    coverFit: 'cover',
+    coverArt: 'movie',
     coverPosition: 'center',
     heroImage: '/screenshots/movie/cover.webp',
     screenCategories: [

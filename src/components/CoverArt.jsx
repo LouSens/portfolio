@@ -94,6 +94,69 @@ export function RagArt() {
   );
 }
 
+/* A price line draws itself, then a dashed forecast and its band carry on from the last point */
+export function GoldArt() {
+  const hist = 'M12 64 L24 60 L34 66 L46 54 L58 58 L70 46 L82 50 L94 38';
+  const fore = 'M94 38 L106 34 L118 40 L130 30 L148 26';
+  return (
+    <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full" aria-hidden="true">
+      {BG}
+      {[24, 40, 56, 72].map((y) => <line key={y} x1="8" y1={y} x2="152" y2={y} stroke="#fff" strokeOpacity="0.07" strokeWidth="0.5" />)}
+      {/* a second, flatter model line for contrast */}
+      <path d="M12 62 L34 60 L58 56 L82 54 L106 52 L130 50 L148 49" fill="none" stroke="#fff" strokeOpacity="0.22" strokeWidth="1" strokeDasharray="2 2" />
+      {/* the forecast band */}
+      <polygon points="94,38 106,28 118,32 130,20 148,14 148,40 130,42 118,48 106,42" fill="#FF5A36" fillOpacity="0.14">
+        <animate attributeName="fill-opacity" values="0;0;0.16;0.16;0" keyTimes="0;0.45;0.6;0.9;1" dur="5s" repeatCount="indefinite" />
+      </polygon>
+      <path d={hist} fill="none" stroke="#fff" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" pathLength="1" strokeDasharray="1">
+        <animate attributeName="stroke-dashoffset" values="1;0;0;0;1" keyTimes="0;0.45;0.9;0.97;1" dur="5s" repeatCount="indefinite" />
+      </path>
+      <path d={fore} fill="none" stroke="#FF5A36" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="3 2.4">
+        <animate attributeName="stroke-opacity" values="0;0;1;1;0" keyTimes="0;0.45;0.6;0.9;1" dur="5s" repeatCount="indefinite" />
+      </path>
+      <circle r="2.4" fill="#fff">
+        <animateMotion dur="5s" repeatCount="indefinite" path={`${hist} ${fore.replace('M94 38', 'L94 38')}`} keyPoints="0;0.62;0.62;1" keyTimes="0;0.45;0.9;1" calcMode="linear" />
+        <animate attributeName="opacity" values="1;1;1;0" keyTimes="0;0.9;0.97;1" dur="5s" repeatCount="indefinite" />
+      </circle>
+    </svg>
+  );
+}
+
+/* One liked film, and the three it points to appearing in turn */
+export function MovieArt() {
+  const card = (x, delay, accent) => (
+    <g key={x} opacity="0">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.1;0.25;0.9;1" dur="4.5s" begin={`${delay}s`} repeatCount="indefinite" />
+      <animateTransform attributeName="transform" type="translate" values="0 6;0 6;0 0;0 0;0 0" keyTimes="0;0.1;0.25;0.9;1" dur="4.5s" begin={`${delay}s`} repeatCount="indefinite" />
+      <rect x={x} y="28" width="24" height="34" rx="3" fill="#161821" stroke={accent ? '#FF5A36' : '#fff'} strokeOpacity={accent ? 0.9 : 0.25} strokeWidth="0.8" />
+      <rect x={x + 3} y="31" width="18" height="18" rx="2" fill="#fff" fillOpacity="0.08" />
+      <line x1={x + 3} y1="54" x2={x + 20} y2="54" stroke="#fff" strokeOpacity="0.4" strokeWidth="1.3" strokeLinecap="round" />
+      <line x1={x + 3} y1="58" x2={x + 14} y2="58" stroke="#fff" strokeOpacity="0.2" strokeWidth="1.1" strokeLinecap="round" />
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 w-full h-full" aria-hidden="true">
+      {BG}
+      {/* the liked film */}
+      <rect x="14" y="24" width="30" height="42" rx="3.5" fill="#161821" stroke="#FF5A36" strokeWidth="1.2" />
+      <rect x="18" y="28" width="22" height="22" rx="2" fill="#FF5A36" fillOpacity="0.2" />
+      <line x1="18" y1="55" x2="38" y2="55" stroke="#fff" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="18" y1="60" x2="30" y2="60" stroke="#fff" strokeOpacity="0.25" strokeWidth="1.2" strokeLinecap="round" />
+      {/* the link to what comes next */}
+      <path d="M46 45 H66" stroke="#fff" strokeOpacity="0.25" strokeWidth="1" strokeDasharray="2 2.5" />
+      <circle r="2" fill="#FF5A36">
+        <animateMotion dur="1.5s" repeatCount="indefinite" path="M46 45 H66" />
+      </circle>
+      {card(72, 0, true)}
+      {card(102, 0.5, false)}
+      {card(132, 1, false)}
+    </svg>
+  );
+}
+
 export default function CoverArt({ kind }) {
-  return kind === 'court' ? <CourtArt /> : <RagArt />;
+  if (kind === 'court') return <CourtArt />;
+  if (kind === 'gold') return <GoldArt />;
+  if (kind === 'movie') return <MovieArt />;
+  return <RagArt />;
 }

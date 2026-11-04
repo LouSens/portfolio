@@ -90,8 +90,8 @@ function Billboard({ project, onOpen }) {
           <div className="grid grid-cols-2 gap-3 md:gap-4">
             {extra.map((sc) => (
               <figure key={sc.src} className="m-0">
-                <div className="aspect-video rounded-xl overflow-hidden border border-white/[0.14] bg-white/[0.04]">
-                  <img src={small(sc.src)} alt={sc.caption} loading="lazy" decoding="async" className="w-full h-full object-contain" />
+                <div className="aspect-[16/10] rounded-xl overflow-hidden border border-white/[0.14] bg-white/[0.04]">
+                  <img src={small(sc.src)} alt={sc.caption} loading="lazy" decoding="async" className="w-full h-full object-cover object-top" />
                 </div>
                 <figcaption className="mt-1.5 px-1 text-[11px] text-white/55 truncate">{sc.label}</figcaption>
               </figure>

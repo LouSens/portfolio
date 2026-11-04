@@ -40,7 +40,7 @@ export default function ProjectMedia({ project, className = '', eager = false, s
           alt=""
           loading={eager ? undefined : 'lazy'}
           decoding="async"
-          style={project.coverZoom ? { transform: `scale(${project.coverZoom})`, transformOrigin: 'center 40%' } : undefined}
+          style={{ ...(project.coverFit === 'cover' && project.coverPosition === 'top' ? { objectPosition: 'top' } : null), ...(project.coverZoom ? { transform: `scale(${project.coverZoom})`, transformOrigin: 'center 40%' } : null) }}
           className={`absolute inset-0 w-full h-full ${project.coverFit === 'cover' ? 'object-cover' : 'object-contain'}`}
         />
       )}
