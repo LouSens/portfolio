@@ -784,14 +784,17 @@ html { overflow-x: clip; }
 body { overflow-x: clip; max-width: 100%; }
 
 /* ── Page colour: one soft mesh of colour behind the whole page, as on a poster. Warm yellow top-left, blue top-right,
-   green at the sides, a blush at the bottom (light); orange, blue and teal glows on near-black (dark). It is fixed, so
-   the colour stays put while the sections move over it. Sections and cards are translucent so it shows through. */
+   green at the sides, a blush at the bottom (light). In dark it is an aurora: deep blue and violet from the top right,
+   teal at the left, orange-magenta from the bottom left, on near-black. It is fixed, so the colour stays put while the
+   sections move over it, and sections and cards are translucent so it shows through. */
 :root {
   --mesh:
-    radial-gradient(42% 38% at 2% 100%, rgb(255 90 54 / 0.2), transparent 70%),
-    radial-gradient(42% 40% at 98% 2%, rgb(60 100 230 / 0.24), transparent 70%),
-    radial-gradient(34% 38% at 0% 46%, rgb(30 150 140 / 0.12), transparent 70%),
-    radial-gradient(34% 36% at 100% 66%, rgb(110 70 200 / 0.12), transparent 70%);
+    radial-gradient(48% 44% at 100% 0%, rgb(54 90 255 / 0.5), transparent 68%),
+    radial-gradient(40% 40% at 70% 12%, rgb(130 70 230 / 0.26), transparent 70%),
+    radial-gradient(44% 46% at 0% 100%, rgb(255 84 48 / 0.42), transparent 68%),
+    radial-gradient(34% 36% at 24% 96%, rgb(235 60 130 / 0.2), transparent 70%),
+    radial-gradient(34% 42% at 0% 42%, rgb(20 170 160 / 0.26), transparent 70%),
+    radial-gradient(34% 38% at 100% 70%, rgb(90 70 220 / 0.24), transparent 70%);
   --mesh-base: #07080c;
   --band: rgb(255 255 255 / 0.025);
 }
@@ -821,3 +824,9 @@ body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: v
 }
 /* dark cards: a faint glass fill so the glow behind shows through */
 :root:not([data-theme='light']) main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { background-color: rgb(255 255 255 / 0.035); }
+/* dark cards pick up a little of the aurora, as the light ones pick up the pastel */
+:root:not([data-theme='light']) [class*='bg-white/[0.0'][class*='rounded-2xl']:not(.hue-card),
+:root:not([data-theme='light']) [class*='bg-white/[0.0'][class*='rounded-3xl']:not(.hue-card) {
+  background-image: radial-gradient(90% 90% at 100% 0%, rgb(60 100 255 / 0.12), transparent 65%), radial-gradient(80% 80% at 0% 100%, rgb(255 90 54 / 0.1), transparent 65%);
+  border-color: rgb(255 255 255 / 0.13);
+}

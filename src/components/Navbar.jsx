@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { HOME, navigate, routeUrl } from '../utils/route';
 import { NAV_SECTIONS, useActiveRoom } from '../utils/roomStore';
 import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 import ResumeButton from './ResumeButton';
 
 /* One navbar for the whole site. Every link goes to a part of the home page; the highlighted link is the part you are
@@ -50,9 +51,7 @@ export default function Navbar({ route = HOME }) {
           <div className="relative flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full">
             <span aria-hidden="true" className={`absolute inset-0 rounded-full liquid-nav liquid-nav-strong transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
             <a href={routeUrl(HOME)} onClick={go(null)} className="relative flex items-center gap-2.5 min-w-0 group" aria-label="David Kurniawan, home">
-              <span className="w-8 h-8 shrink-0 rounded-lg bg-white/[0.06] border border-white/[0.16] flex items-center justify-center font-display font-extrabold text-[12px] text-white group-hover:border-accent/70 transition-colors">
-                DK
-              </span>
+              <Logo className="w-9 h-9 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5" />
               <span className="hidden sm:block font-display font-bold text-sm text-white leading-none truncate">David Kurniawan</span>
             </a>
 

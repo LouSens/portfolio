@@ -1,6 +1,7 @@
 import React from 'react';
 import { GraduationCap, Layers, Search } from 'lucide-react';
 import { ABOUT } from '../data/portfolioData';
+import Logo from './Logo';
 
 const FACT_ICONS = { Studying: GraduationCap, Focus: Layers, 'Looking for': Search };
 
@@ -12,9 +13,7 @@ export default function About() {
       <div className="max-w-[1100px] mx-auto">
 
         <div className="text-center max-w-[40rem] mx-auto">
-          <span className="mx-auto w-16 h-16 rounded-2xl bg-accent/10 border border-accent/40 flex items-center justify-center font-display font-extrabold text-xl text-[var(--accent)]">
-            DK
-          </span>
+          <Logo className="mx-auto w-16 h-16" />
           <h2 className="mt-6 font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
             Hi, I&apos;m <span className="text-[var(--accent)]">David.</span>
           </h2>
