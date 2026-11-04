@@ -782,3 +782,42 @@ main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { backg
 /* Never let anything widen the page on a phone */
 html { overflow-x: clip; }
 body { overflow-x: clip; max-width: 100%; }
+
+/* ── Page colour: one soft mesh of colour behind the whole page, as on a poster. Warm yellow top-left, blue top-right,
+   green at the sides, a blush at the bottom (light); orange, blue and teal glows on near-black (dark). It is fixed, so
+   the colour stays put while the sections move over it. Sections and cards are translucent so it shows through. */
+:root {
+  --mesh:
+    radial-gradient(42% 38% at 2% 100%, rgb(255 90 54 / 0.2), transparent 70%),
+    radial-gradient(42% 40% at 98% 2%, rgb(60 100 230 / 0.24), transparent 70%),
+    radial-gradient(34% 38% at 0% 46%, rgb(30 150 140 / 0.12), transparent 70%),
+    radial-gradient(34% 36% at 100% 66%, rgb(110 70 200 / 0.12), transparent 70%);
+  --mesh-base: #07080c;
+  --band: rgb(255 255 255 / 0.025);
+}
+:root[data-theme='light'] {
+  --mesh:
+    radial-gradient(42% 38% at 4% 2%, rgb(250 218 120 / 0.75), transparent 70%),
+    radial-gradient(44% 42% at 98% 4%, rgb(140 188 245 / 0.75), transparent 70%),
+    radial-gradient(34% 40% at 0% 52%, rgb(175 222 150 / 0.62), transparent 70%),
+    radial-gradient(34% 40% at 100% 64%, rgb(175 222 150 / 0.55), transparent 70%),
+    radial-gradient(50% 36% at 50% 102%, rgb(245 190 170 / 0.65), transparent 70%);
+  --mesh-base: #f5f4ee;
+  --band: rgb(255 255 255 / 0.42);
+}
+html, body { background: var(--mesh-base) !important; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: var(--mesh); pointer-events: none; }
+#top { background: transparent !important; }
+
+/* Light cards become frosted: translucent white, a bright edge, a faint tint of the mesh inside */
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-2xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-3xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-xl']:not(:hover),
+:root[data-theme='light'] main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card):not(:hover) {
+  background-color: rgb(255 255 255 / 0.62);
+  background-image: radial-gradient(90% 90% at 100% 0%, rgb(150 195 245 / 0.18), transparent 65%), radial-gradient(80% 80% at 0% 100%, rgb(250 222 140 / 0.2), transparent 65%);
+  border-color: rgb(255 255 255 / 0.85);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.9) inset, 0 10px 30px rgb(80 90 120 / 0.1);
+}
+/* dark cards: a faint glass fill so the glow behind shows through */
+:root:not([data-theme='light']) main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { background-color: rgb(255 255 255 / 0.035); }

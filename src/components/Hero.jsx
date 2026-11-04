@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import StageArt from './StageArt';
 import IsoObject from './iso/IsoObject';
 
 const ease = [0.22, 1, 0.36, 1];
@@ -30,14 +29,13 @@ export default function Hero() {
 
   return (
     <section id="hero">
-      <div className="stage stage-bleed min-h-[100svh] flex flex-col pt-16">
-        <StageArt scene="hero" />
+      <div className="min-h-[100svh] flex flex-col pt-16">
 
         <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-24 pb-14">
           <div className="w-full max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
               <motion.h1 {...item(0.1)} className="font-display font-extrabold text-[2.35rem] sm:text-[clamp(2.75rem,1.2rem+4vw,4.5rem)] tracking-[-0.035em] leading-[1.04] text-white">
-                I build web apps<br className="sm:hidden" />and <span className="text-[var(--accent)] whitespace-nowrap">AI systems.</span>
+                I build web apps<br className="sm:hidden" /> and <span className="text-[var(--accent)] whitespace-nowrap">AI systems.</span>
               </motion.h1>
 
               <motion.p {...item(0.2)} className="mt-5 sm:mt-6 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed max-w-[34rem] mx-auto lg:mx-0">

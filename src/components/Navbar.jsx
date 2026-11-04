@@ -14,7 +14,7 @@ export default function Navbar({ route = HOME }) {
   const active = useActiveRoom();
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 12);
+    const on = () => setScrolled(window.scrollY > 40);
     on();
     window.addEventListener('scroll', on, { passive: true });
     return () => window.removeEventListener('scroll', on);
@@ -45,18 +45,18 @@ export default function Navbar({ route = HOME }) {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 pt-3 pointer-events-none">
-        <div className="max-w-[1240px] mx-auto pointer-events-auto">
-          <div
-            className={`liquid-nav flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full transition-shadow duration-300 ${scrolled ? 'liquid-nav-strong' : ''}`}
-          >
-            <a href={routeUrl(HOME)} onClick={go(null)} className="flex items-center gap-2.5 min-w-0 group" aria-label="David Kurniawan, home">
+        {/* At the top the bar is part of the page: no fill, full width. Scrolled, it narrows and turns to glass. */}
+        <div className={`mx-auto pointer-events-auto transition-[max-width] duration-500 ease-out ${scrolled ? 'max-w-[900px]' : 'max-w-[1240px]'}`}>
+          <div className="relative flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full">
+            <span aria-hidden="true" className={`absolute inset-0 rounded-full liquid-nav liquid-nav-strong transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
+            <a href={routeUrl(HOME)} onClick={go(null)} className="relative flex items-center gap-2.5 min-w-0 group" aria-label="David Kurniawan, home">
               <span className="w-8 h-8 shrink-0 rounded-lg bg-white/[0.06] border border-white/[0.16] flex items-center justify-center font-display font-extrabold text-[12px] text-white group-hover:border-accent/70 transition-colors">
                 DK
               </span>
               <span className="hidden sm:block font-display font-bold text-sm text-white leading-none truncate">David Kurniawan</span>
             </a>
 
-            <nav aria-label="Main" className="hidden lg:flex items-center gap-0.5">
+            <nav aria-label="Main" className="relative hidden lg:flex items-center gap-0.5">
               {NAV_SECTIONS.map((link) => (
                 <a
                   key={link.id}
@@ -73,7 +73,7 @@ export default function Navbar({ route = HOME }) {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2.5">
+            <div className="relative flex items-center gap-2.5">
               <ThemeToggle className="hidden sm:inline-flex" />
               <ResumeButton variant="compact" className="hidden lg:inline-flex" />
               <button
