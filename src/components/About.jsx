@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Download, Server, Bot, LineChart, MapPin, Globe2, GraduationCap, Search } from 'lucide-react';
+import { ArrowUpRight, Download, MapPin, Globe2, GraduationCap, Search } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import Scene from './Scene';
 import Magnetic from './Magnetic';
+import IsoObject from './iso/IsoObject';
 import { PERSONAL_INFO, PROJECTS_DATA, ABOUT } from '../data/portfolioData';
 
 const projectTitle = (id) => PROJECTS_DATA.find((p) => p.id === id)?.title ?? id;
@@ -13,7 +14,7 @@ const openProject = (id) => {
 };
 
 const FACT_ICONS = { 'Based in': MapPin, From: Globe2, Studying: GraduationCap, 'Looking for': Search };
-const FOCUS_ICONS = [Server, Bot, LineChart];
+const FOCUS_KINDS = ['database', 'cluster', 'bars'];
 
 const reveal = {
   initial: { opacity: 0, y: 20 },
@@ -87,7 +88,6 @@ export default function About() {
           </motion.p>
           <div className="space-y-5">
             {ABOUT.focus.map((item, idx) => {
-              const Icon = FOCUS_ICONS[idx % FOCUS_ICONS.length];
               return (
                 <motion.div
                   key={item.title}
@@ -96,8 +96,8 @@ export default function About() {
                   className="rounded-2xl border border-white/[0.1] hover:border-white/[0.22] bg-white/[0.02] p-6 sm:p-8 transition-colors"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="shrink-0 w-11 h-11 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center text-[var(--accent)]">
-                      <Icon size={20} />
+                    <span className="shrink-0 w-14 h-14" aria-hidden="true">
+                      <IsoObject kind={FOCUS_KINDS[idx % FOCUS_KINDS.length]} className="w-full h-full" />
                     </span>
                     <h3 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight">{item.title}</h3>
                   </div>

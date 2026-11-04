@@ -3,6 +3,7 @@ import { useInView } from 'framer-motion';
 import { ArrowUpRight, Github, RefreshCw, Star, GitCommitHorizontal, GitPullRequest, Flame, CalendarDays, FolderGit2 } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import CountUp from './ui/CountUp';
+import Scene from './Scene';
 import { GITHUB_USER, KEY_NUMBERS, PERSONAL_INFO, PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
 import { fetchGitHub, readCache, isFresh } from '../utils/github';
 
@@ -296,7 +297,7 @@ export default function ActivitySection({ onOpenProject }) {
   ];
 
   return (
-    <section id="activity" className="relative py-20 md:py-32 px-4 sm:px-6 md:px-8 border-t border-white/[0.06]">
+    <Scene id="activity" variant="tiltDown" className="relative py-20 md:py-32 px-4 sm:px-6 md:px-8 border-t border-white/[0.06]">
       <div className="max-w-[1100px] mx-auto relative z-10">
         <div className="max-w-2xl mb-12 md:mb-16">
           <SectionLabel label="Numbers" />
@@ -354,6 +355,6 @@ export default function ActivitySection({ onOpenProject }) {
           <GitHubBlock />
         </Block>
       </div>
-    </section>
+    </Scene>
   );
 }

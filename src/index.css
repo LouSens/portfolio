@@ -548,3 +548,16 @@ button, a, input, select, textarea {
 @media (prefers-reduced-motion: reduce) {
   .iso-floor { animation: none; }
 }
+
+/* Isometric sculptures on cards: each box bobs on its own phase, forever. */
+@keyframes iso-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--amp, -3px)); }
+}
+.iso-b {
+  animation: iso-bob 5.5s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .iso-b { animation: none; }
+}

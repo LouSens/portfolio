@@ -22,6 +22,8 @@ const VARIANTS = {
   tiltDown: { origin: '50% 0%', in: { rotateX: 14, y: 60, scale: 0.95 }, out: { rotateX: -6, y: -30, scale: 0.97 } },
   // Looks up from below, like leaving a lift
   tiltUp: { origin: '50% 100%', in: { rotateX: -12, y: 70, scale: 0.95 }, out: { rotateX: 7, y: -30, scale: 0.97 } },
+  // Opens like an aperture: the room is revealed through a window that widens
+  reveal: { origin: '50% 50%', in: { scale: 0.96 }, out: { scale: 0.98, y: -20 } },
   // Pushes straight in through a door
   dolly: { origin: '50% 50%', in: { scale: 0.88, y: 40 }, out: { scale: 0.94, y: -20 } },
 };
@@ -45,9 +47,11 @@ function Camera({ variant, children, className }) {
   const x = useMix(enter, exit, v, 'x');
   const y = useMix(enter, exit, v, 'y');
   const scale = useMix(enter, exit, v, 'scale');
+  const clipPath = useTransform(enter, [0, 1], ['inset(9% 7% 9% 7% round 32px)', 'inset(0% 0% 0% 0% round 0px)']);
   const opacity = useTransform([enter, exit], ([e, x2]) => Math.min(1, 0.15 + e * 0.85) * (1 - x2 * 0.55));
 
-  const style = phone ? { y, opacity } : { rotateX, rotateY, x, y, scale, opacity, transformOrigin: v.origin };
+  const base = phone ? { y, opacity } : { rotateX, rotateY, x, y, scale, opacity, transformOrigin: v.origin };
+  const style = variant === 'reveal' ? { ...base, clipPath } : base;
 
   return (
     <div style={{ perspective: 1500 }} className="w-full">

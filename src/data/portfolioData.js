@@ -1078,7 +1078,7 @@ export const AWARD_FEATURES = [DIGDAYA, OMNIQC, DPICKLEBALL];
    FULL TECH LIST: read from the manifests (package.json, requirements.txt, pyproject.toml, Unity packages)
    of every public repository, grouped by what the tool is for. `repos` says where each one is used.
    ═══════════════════════════════════════ */
-export const TECH_STACK = [
+const TECH_STACK_RAW = [
   {
     name: 'Languages',
     items: [
@@ -1187,6 +1187,17 @@ export const TECH_STACK = [
     ],
   },
 ];
+
+/* One entry per tool: combined names ("pandas + NumPy") are split so each gets its own icon. */
+export const TECH_STACK = TECH_STACK_RAW.map((g) => ({
+  ...g,
+  items: g.items.flatMap((it) =>
+    it.name
+      .split(/ \+ |, | \/ /)
+      .map((n) => n.trim().replace(/ v2$/, '').replace('C++17', 'C++'))
+      .map((name) => ({ name, repos: it.repos }))
+  ),
+}));
 
 /* Smaller and earlier repositories: listed, not written up. */
 export const EARLIER_WORK = [

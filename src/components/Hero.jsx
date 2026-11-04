@@ -8,6 +8,8 @@ import Magnetic from './Magnetic';
 const ease = [0.22, 1, 0.36, 1];
 const phone = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
 const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Same rule as App: weak phones get the light CSS sculpture instead of the WebGL world.
+const weak = phone && (navigator.hardwareConcurrency || 4) < 6;
 
 /* The lobby. Text on the left; on the right sits the building (the 3D scene, drawn behind the whole page). */
 export default function Hero() {
@@ -20,7 +22,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-[100svh] flex items-center px-4 sm:px-6 md:px-8 pt-28 pb-24 select-none">
       {/* Phones skip WebGL: a light CSS version of the building instead */}
-      {(phone || calm) && <IsoFallback className="absolute right-[-18%] top-[12%] w-[78%] max-w-[420px] opacity-40 pointer-events-none" />}
+      {(weak || calm) && <IsoFallback className="absolute right-[-18%] top-[12%] w-[78%] max-w-[420px] opacity-40 pointer-events-none" />}
 
       <div className="relative z-10 w-full max-w-[1100px] mx-auto">
         <div className="max-w-[620px]">

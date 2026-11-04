@@ -8,7 +8,8 @@ import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
 import About from './components/About';
 import WorkGallery from './components/WorkGallery';
-import StackGallery from './components/StackGallery';
+import StackLayers from './components/StackLayers';
+import MomentsWall from './components/MomentsWall';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 import ProjectsPage from './components/ProjectsPage';
@@ -18,7 +19,7 @@ import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
 
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
-const IsoScene = lazy(() => import('./components/IsoScene'));
+const WorldScene = lazy(() => import('./components/WorldScene'));
 const ActivitySection = lazy(() => import('./components/ActivitySection'));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
@@ -34,10 +35,10 @@ const NO_INTRO = { id: 'no-intro', isPresent: true, initial: false, register: ()
 /* ═══════════════════════════════════════
    SCROLL PROGRESS BAR
    ═══════════════════════════════════════ */
-/* The building is the centrepiece in the lobby, then steps back so it never competes with text and charts. */
-function useBuildingOpacity() {
+/* The world is bold in the lobby, then settles back so it never competes with text and charts. */
+function useWorldOpacity() {
   const { scrollY } = useScroll();
-  return useTransform(scrollY, [0, 500], [0.6, 0.14]);
+  return useTransform(scrollY, [0, 600], [0.85, 0.5]);
 }
 
 function ScrollProgress() {
@@ -58,7 +59,7 @@ function ScrollProgress() {
    ═══════════════════════════════════════ */
 export default function App() {
   const lenisRef = useRef(null);
-  const buildingOpacity = useBuildingOpacity();
+  const worldOpacity = useWorldOpacity();
   const [activeModalProject, setActiveModalProject] = useState(null);
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
@@ -70,8 +71,9 @@ export default function App() {
   // Mount the 3D background only once the browser is idle, so it never delays the hero.
   const [show3D, setShow3D] = useState(false);
   useEffect(() => {
-    // Phones skip the 3D building entirely: no three.js download, no GPU work. The hero draws a CSS version.
-    if (window.matchMedia('(max-width: 767px)').matches) return undefined;
+    // Weak phones skip the 3D world (no three.js download, no GPU work); the hero draws a CSS version instead.
+    const phone = window.matchMedia('(max-width: 767px)').matches;
+    if (phone && (navigator.hardwareConcurrency || 4) < 6) return undefined;
     const start = () => setShow3D(true);
     const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
     return () => ('requestIdleCallback' in window ? window.cancelIdleCallback(id) : clearTimeout(id));
@@ -214,19 +216,15 @@ export default function App() {
       <CursorGlow />
       <div className="fixed inset-0 z-0 pointer-events-none bg-dots" aria-hidden="true" />
 
-      {/* ── THE BUILDING: a monochrome isometric wireframe that loops forever and turns as you scroll ── */}
+      {/* ── THE WORLD: every section is a room in one wireframe building; the camera flies the corridor as you scroll ── */}
       {show3D && (
         <motion.div
           aria-hidden="true"
-          className={`fixed top-0 right-0 h-[100svh] w-[62vw] pointer-events-none z-0 ${route === HOME ? '' : 'hidden'}`}
-          style={{
-            opacity: buildingOpacity,
-            maskImage: 'radial-gradient(ellipse 70% 65% at 55% 50%, #000 35%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 55% 50%, #000 35%, transparent 100%)',
-          }}
+          className={`fixed inset-0 pointer-events-none z-0 ${route === HOME ? '' : 'hidden'}`}
+          style={{ opacity: worldOpacity }}
         >
           <Suspense fallback={null}>
-            <IsoScene paused={!!activeModalProject || route !== HOME} />
+            <WorldScene paused={!!activeModalProject || route !== HOME} />
           </Suspense>
         </motion.div>
       )}
@@ -247,9 +245,10 @@ export default function App() {
                 galleries (projects, tech stack) hold the page until you have been through every frame. */}
             <About />
             <WorkGallery onOpenProject={handleOpenProject} />
-            <StackGallery />
+            <StackLayers />
             <Suspense fallback={<div className="min-h-screen" />}>
               <ActivitySection onOpenProject={handleOpenProject} />
+              <MomentsWall />
               <CredentialsSection compact />
               <ScopeInquiryDrawer compact />
             </Suspense>

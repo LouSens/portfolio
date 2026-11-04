@@ -20,7 +20,8 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 
 ## ✨ What is on the site
 
-- 🏢 **A walk through rooms**: the home page is a sequence of rooms (hero, About, Projects, Tech stack, Numbers, Awards, Contact). Each room turns into view from a different camera angle, and a monochrome isometric wireframe building loops in the background and turns as you scroll.
+- 🏢 **The site is a 3D place**: every section is a room in one wireframe building (`WorldScene`). A rising, winding corridor links the rooms and a real perspective camera flies it as you scroll, mapped section by section (a long section is a long walk). Each room holds a looping isometric sculpture. Text is plain HTML laid over the world. Weak phones and reduced-motion users get a light CSS version.
+- 🎞 **Different movement per room**: rooms enter at different camera angles or through a widening aperture; the Projects gallery slides sideways (with each app demo playing in its frame); the Tech stack scrubs down a 3D stack of plates with brand icons; the Moments wall drifts in columns.
 - ➡️ **Galleries that hold the page**: Projects and Tech stack are horizontal galleries. The next room cannot appear until you have scrolled through every frame (`HorizontalGate`).
 - 🌗 **Light and dark mode**: a toggle in the navbar, saved in `localStorage`, applied before first paint. Colours are CSS variables (`--fg`, `--bg-rgb`, `--panel-rgb`, `--accent-rgb`) that Tailwind's `white`, `panel`, `canvas` and `accent` read.
 - 📊 **Numbers**: overall results, a KPI row per project, and live GitHub metrics (commits, pull requests, stars, contribution heatmap, streaks, monthly activity, languages by code size, recent repositories, badges). Fetched in the browser, cached 6 hours (`src/utils/github.js`).
