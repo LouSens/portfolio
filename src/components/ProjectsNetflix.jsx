@@ -17,7 +17,7 @@ const ROWS = [
   { title: 'Machine learning and research', projects: byId(['radar', 'neuralvoid', 'legal-rag', 'gold-forecast', 'movie-recommender']) },
 ];
 
-function Rail({ title, children }) {
+function Rail({ title, children, grid = false }) {
   const [ref, api] = useEmblaCarousel({ align: 'start', dragFree: true, containScroll: 'trimSnaps' });
   const [can, setCan] = useState({ prev: false, next: true });
   const update = useCallback(() => api && setCan({ prev: api.canScrollPrev(), next: api.canScrollNext() }), [api]);
@@ -29,6 +29,15 @@ function Rail({ title, children }) {
   }, [api, update]);
 
   const arrow = 'w-9 h-9 rounded-full border border-white/[0.16] text-white/80 hover:text-white hover:border-white/[0.4] disabled:opacity-25 disabled:pointer-events-none flex items-center justify-center transition-colors cursor-pointer';
+  // A short row fills the width as a grid instead of leaving empty space beside it
+  if (grid) {
+    return (
+      <div className="mt-12 first:mt-0">
+        <h3 className="font-display font-semibold text-lg text-white mb-4">{title}</h3>
+        <div className="grid sm:grid-cols-3 gap-5">{children}</div>
+      </div>
+    );
+  }
   return (
     <div className="mt-12 first:mt-0">
       <div className="flex items-center justify-between mb-4">
@@ -45,10 +54,10 @@ function Rail({ title, children }) {
   );
 }
 
-function Poster({ project, onOpen }) {
+function Poster({ project, onOpen, fluid = false }) {
   const metric = project.impactMetrics?.[0];
   return (
-    <button type="button" onClick={() => onOpen(project)} className="group flex-none w-[260px] sm:w-[310px] text-left cursor-pointer">
+    <button type="button" onClick={() => onOpen(project)} className={`group text-left cursor-pointer ${fluid ? 'w-full' : 'flex-none w-[260px] sm:w-[310px]'}`}>
       <div className="rounded-2xl overflow-hidden border border-white/[0.12] group-hover:border-accent/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.3)]">
         <ProjectMedia project={project} still />
       </div>
@@ -161,9 +170,9 @@ export default function ProjectsNetflix({ onOpenProject }) {
 
         <div className="mt-10">
           {ROWS.map((row) => (
-            <Rail key={row.title} title={row.title}>
+            <Rail key={row.title} title={row.title} grid={row.projects.length <= 3}>
               {row.projects.map((p) => (
-                <Poster key={p.id} project={p} onOpen={onOpenProject} />
+                <Poster key={p.id} project={p} onOpen={onOpenProject} fluid={row.projects.length <= 3} />
               ))}
             </Rail>
           ))}

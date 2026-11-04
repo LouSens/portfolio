@@ -1001,12 +1001,12 @@ export const EDUCATION = {
 export const ABOUT = {
   heading: "Hi, I'm David.",
   intro: [
-    'I study AI at Xiamen University Malaysia and I am from Indonesia.',
+    'I study AI at Xiamen University Malaysia.',
     'I build the backend and AI side of products, and in team projects I usually end up owning the backend.',
   ],
   facts: [
-    { label: 'Based in', value: 'Selangor, Malaysia' },
-    { label: 'Studying', value: 'BEng (Hons) Artificial Intelligence, 2024 to 2028' },
+    { label: 'Studying', value: 'BEng (Hons) Artificial Intelligence' },
+    { label: 'Focus', value: 'Backend, AI agents and machine learning' },
     { label: 'Looking for', value: 'Internships and remote part-time work' },
   ],
   focus: [

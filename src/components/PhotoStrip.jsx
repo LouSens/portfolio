@@ -5,7 +5,6 @@ import { AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
-import IsoObject from './iso/IsoObject';
 import { PHOTOS } from '../data/photos';
 import { small } from '../utils/img';
 
@@ -48,7 +47,6 @@ export default function PhotoStrip() {
             </h2>
             <p className="mt-3 text-[15px] text-white/55">Booths, trophies and teams. Hover to pause, drag to browse.</p>
           </div>
-          <IsoObject kind="camera" className="hidden md:block w-28 h-28 shrink-0" />
         </div>
 
         <div className="rounded-2xl bg-[#0c0c10] border border-white/[0.12] py-3 text-white">

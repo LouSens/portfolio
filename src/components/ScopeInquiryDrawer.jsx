@@ -211,7 +211,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-3xl border border-white/[0.14] bg-white/[0.03] p-6 sm:p-9 lg:p-12 grid lg:grid-cols-12 gap-10 lg:gap-14"
+          className="relative grid lg:grid-cols-12 gap-10 lg:gap-16 border-t-2 border-white pt-10"
         >
           
 
@@ -257,7 +257,7 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="liquid-btn-primary w-full sm:w-auto justify-center !py-3.5 !px-8 text-sm font-bold group cursor-pointer disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto rounded-xl bg-accent text-white px-8 py-3.5 text-sm font-display font-bold hover:brightness-110 transition cursor-pointer disabled:opacity-50 group"
               >
                 {isSubmitting ? (
                   <Loader2 size={15} className="animate-spin" />

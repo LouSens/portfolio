@@ -99,7 +99,7 @@ export default function AwardsSection() {
       <div className="max-w-[1100px] mx-auto">
         <SectionLabel label="Awards" />
         <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-          Awards &amp; <span className="text-[var(--accent)]">education</span>
+          Awards and <span className="text-[var(--accent)]">Education</span>
         </h2>
 
         <ol className="mt-8 border-t border-white/[0.16]">
@@ -114,7 +114,7 @@ export default function AwardsSection() {
           <div className="grid md:grid-cols-2 gap-x-10 gap-y-4">
             <div>
               <h3 className="font-display font-bold text-xl text-white tracking-tight leading-snug">{EDUCATION.degree}</h3>
-              <p className="mt-1 text-[15px] text-white/65">{EDUCATION.school}, {EDUCATION.start} to {EDUCATION.expected}</p>
+              <p className="mt-1 text-[15px] text-white/65">{EDUCATION.school}</p>
             </div>
             <div className="text-[15px] text-white/75 leading-relaxed">
               <p>GPA 3.84 of 4.00, top 16% of the AI &amp; Robotics cohort.</p>

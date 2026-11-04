@@ -5,8 +5,7 @@ import IsoObject from './iso/IsoObject';
    dimmed so text on top stays easy to read. Fewer objects show on small screens. */
 const SCENES = {
   hero: [
-    { kind: 'database', cls: 'left-[-9%] top-[-8%] w-[300px] md:w-[360px] opacity-30' },
-    { kind: 'layers', cls: 'right-[-12%] md:right-[4%] top-[48%] md:top-[18%] w-[260px] md:w-[400px] opacity-35 md:opacity-90' },
+    { kind: 'system', cls: 'right-[-18%] md:right-[2%] top-[42%] md:top-[12%] w-[300px] md:w-[520px] opacity-35 md:opacity-95' },
   ],
 };
 

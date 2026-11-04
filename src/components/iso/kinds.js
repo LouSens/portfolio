@@ -4,6 +4,29 @@
 const b = (x, y, z, w, d, h, amp = 0.35, ph = 0) => ({ x, y, z, w, d, h, amp, ph });
 
 export const KINDS = {
+  // A small system on one platform: a server stack, a row of chart bars and a hub of agents, tied by thin links.
+  // This is the hero object: the backend, the data and the models in one picture.
+  system: [
+    b(0, 0, 0, 9, 8, 0.3, 0, 0),
+    // the server stack
+    b(0.8, 0.8, 0.3, 3, 3, 0.8, 0.15, 0.2),
+    b(0.8, 0.8, 1.35, 3, 3, 0.8, 0.3, 0.6),
+    b(0.8, 0.8, 2.4, 3, 3, 0.8, 0.45, 1),
+    b(1.1, 3.78, 0.55, 0.5, 0.06, 0.3, 0.15, 0.2),
+    b(1.1, 3.78, 1.6, 0.5, 0.06, 0.3, 0.3, 0.6),
+    // the chart
+    ...[1.2, 2.2, 1.6, 3].map((h, i) => b(5.3 + i * 0.85, 0.9, 0.3, 0.6, 0.6, h, 0.25 + (i % 2) * 0.2, i * 0.4)),
+    // the agents: a hub with four nodes
+    b(5.7, 4.6, 1.5, 1.1, 1.1, 1.1, 0.25, 0),
+    b(4.6, 4.2, 0.3, 0.7, 0.7, 0.7, 0.4, 0.4),
+    b(7.4, 4.0, 0.9, 0.7, 0.7, 0.7, 0.5, 1.1),
+    b(4.7, 6.6, 1.9, 0.7, 0.7, 0.7, 0.45, 1.8),
+    b(7.3, 6.5, 0.4, 0.7, 0.7, 0.7, 0.4, 2.4),
+    // links from the hub to the nodes
+    b(5.3, 4.9, 1.9, 0.4, 0.1, 0.1, 0.25, 0),
+    b(6.8, 4.9, 1.9, 0.6, 0.1, 0.1, 0.25, 0),
+    b(6.2, 5.7, 1.8, 0.1, 0.9, 0.1, 0.25, 0),
+  ],
   // Four floors that lift apart and settle
   layers: [0, 1, 2, 3].map((i) => b(0, 0, i * 1.1, 4, 4, 0.25, 0.28 * i + 0.1, i * 0.4)),
   // Two planes joined by columns: two sides meeting
