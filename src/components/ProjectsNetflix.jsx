@@ -6,6 +6,7 @@ import ProjectMedia from './ProjectMedia';
 import RankChip from './RankChip';
 import { PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
 import { navigate, routeUrl } from '../utils/route';
+import { small } from '../utils/img';
 
 /* Projects, in the manner of a streaming service: one featured project on a billboard with its demo playing, then rows
    you swipe or drag sideways. Press a poster for the full write-up. */
@@ -68,11 +69,27 @@ function Poster({ project, onOpen }) {
 
 function Billboard({ project, onOpen }) {
   const metrics = (project.impactMetrics || []).slice(0, 4);
+  // With no demo video, show two more screens beside the cover so the billboard is filled
+  const extra = project.walkthrough ? [] : (project.screenCategories || []).slice(0, 2).map((c) => ({ ...c.screens[0], label: c.name })).filter((x) => x.src);
   return (
     <article className="relative grid lg:grid-cols-12 gap-0 rounded-3xl overflow-hidden border border-white/[0.14] bg-panel">
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="lg:col-span-7 bg-white/[0.03]">
-        <ProjectMedia project={project} eager />
+      <div className="lg:col-span-7 bg-white/[0.03] p-3 md:p-4 flex flex-col gap-3 md:gap-4 justify-center">
+        <div className="rounded-xl overflow-hidden border border-white/[0.14] shadow-[0_10px_30px_rgba(0,0,0,0.18)]">
+          <ProjectMedia project={project} eager />
+        </div>
+        {extra.length > 0 && (
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            {extra.map((sc) => (
+              <figure key={sc.src} className="m-0">
+                <div className="aspect-video rounded-xl overflow-hidden border border-white/[0.14] bg-white/[0.04]">
+                  <img src={small(sc.src)} alt={sc.caption} loading="lazy" decoding="async" className="w-full h-full object-contain" />
+                </div>
+                <figcaption className="mt-1.5 px-1 text-[11px] text-white/55 truncate">{sc.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
       </div>
       <div className="lg:col-span-5 relative p-6 md:p-9 flex flex-col">
         <p className="text-xs font-medium tracking-wide text-white/50">FEATURED</p>
