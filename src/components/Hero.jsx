@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import StageArt from './StageArt';
 import IsoObject from './iso/IsoObject';
@@ -10,20 +10,13 @@ const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduce
 // On a fresh load the name screen is still up, so the hero waits for it to lift before it moves in
 const lead = typeof document !== 'undefined' && document.getElementById('splash') ? 1.05 : 0;
 
-const ICONS = [
-  { label: 'GitHub', href: PERSONAL_INFO.github, Icon: Github, external: true },
-  { label: 'LinkedIn', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
+const LINKS = [
+  { label: 'GitHub', href: PERSONAL_INFO.github, Icon: Github },
+  { label: 'LinkedIn', href: PERSONAL_INFO.linkedin, Icon: Linkedin },
   { label: 'Email', href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail },
-  { label: 'Resume', href: PERSONAL_INFO.resumeUrl, Icon: Download, download: 'CV_David_Kurniawan.pdf' },
 ];
 
-const PROOF = [
-  ['Finalist, top 15', 'SDC XMUM Hackathon 2026'],
-  ['Finalist, top 80', 'PIDI x Digdaya Hackathon 2026'],
-];
-
-/* The first screen: a stage set into the page. Top: the one sentence about me and the two things to do next.
-   Bottom bar: where else to find me on the left, the results that back the sentence on the right. */
+/* The first screen: the sentence about me, one main action, one quiet one, and where else to find me. */
 export default function Hero() {
   const item = (delay) => ({
     initial: calm ? false : { opacity: 0, y: 14 },
@@ -40,10 +33,10 @@ export default function Hero() {
       <div className="stage stage-bleed min-h-[100svh] flex flex-col pt-16">
         <StageArt scene="hero" />
 
-        <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-8 sm:pt-14 pb-8 sm:pb-10">
+        <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-24 pb-14">
           <div className="w-full max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7">
-              <motion.h1 {...item(0.1)} className="font-display font-extrabold text-fluid-h1 tracking-[-0.035em] leading-[1.04] text-white">
+              <motion.h1 {...item(0.1)} className="font-display font-extrabold text-[2.6rem] sm:text-[clamp(2.75rem,1.2rem+4vw,4.5rem)] tracking-[-0.035em] leading-[1.04] text-white">
                 I build web apps<br className="sm:hidden" /> and <span className="text-[var(--accent)]">AI systems.</span>
               </motion.h1>
 
@@ -51,22 +44,38 @@ export default function Hero() {
                 David Kurniawan, AI student at Xiamen University Malaysia. I work on the backend, the data and the models behind a product.
               </motion.p>
 
-              <motion.div {...item(0.3)} className="mt-7 sm:mt-9 grid grid-cols-2 sm:flex gap-2.5 sm:gap-3">
+              <motion.div {...item(0.3)} className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3">
                 <a
                   href="#work"
                   onClick={goProjects}
-                  className="group inline-flex items-center justify-center gap-2.5 px-4 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-accent text-white font-display font-bold text-[15px] shadow-[0_10px_28px_rgba(255,90,54,0.35)] hover:brightness-110 transition"
+                  className="group inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-accent text-white font-display font-semibold text-[15px] hover:brightness-110 transition"
                 >
-                  <span className="sm:hidden">Projects</span><span className="hidden sm:inline">See my projects</span>
-                  <ArrowRight size={17} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  See my projects
+                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="inline-flex items-center justify-center gap-2.5 px-4 sm:px-7 py-3.5 sm:py-4 rounded-xl border-2 border-white/80 text-white font-display font-bold text-[15px] hover:bg-white hover:text-canvas transition-colors"
+                  className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full border border-white/35 text-white font-display font-semibold text-[15px] hover:bg-white/10 transition-colors"
                 >
-                  <Mail size={17} aria-hidden="true" /> Get in touch
+                  Get in touch
                 </a>
               </motion.div>
+
+              <motion.ul {...item(0.4)} className="mt-6 flex items-center gap-5" aria-label="Find me">
+                {LINKS.map(({ label, href, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target={label === 'Email' ? undefined : '_blank'}
+                      rel="noreferrer"
+                      className="group inline-flex items-center gap-2 py-2 text-sm text-white/65 hover:text-white transition-colors"
+                    >
+                      <Icon size={17} aria-hidden="true" />
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </motion.ul>
             </div>
 
             {/* The object sits in its own column, level with the text */}
@@ -75,37 +84,6 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-
-        {/* Bottom bar */}
-        <motion.div {...item(0.45)} className="stage-bar relative z-10 px-5 sm:px-10 md:px-16 py-4 sm:py-5">
-          <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <ul className="flex items-center gap-2 order-2 md:order-1" aria-label="Find me">
-              {ICONS.map(({ label, href, Icon, external, download }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    target={external ? '_blank' : undefined}
-                    rel={external ? 'noreferrer' : undefined}
-                    download={download}
-                    aria-label={label}
-                    title={label}
-                    className="w-11 h-11 rounded-xl border border-white/25 text-white/80 hover:text-white hover:border-white/60 hover:bg-white/10 flex items-center justify-center transition-colors"
-                  >
-                    <Icon size={18} aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <ul className="grid grid-cols-2 md:flex gap-x-6 md:gap-x-10 gap-y-3">
-              {PROOF.map(([result, event]) => (
-                <li key={event}>
-                  <span className="block font-display font-bold text-[15px] text-[var(--accent)]">{result}</span>
-                  <span className="block text-xs text-white/60">{event}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
