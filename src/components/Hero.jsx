@@ -37,7 +37,7 @@ export default function Hero() {
 
   return (
     <section id="hero">
-      <div className="stage stage-bleed min-h-[92svh] max-h-[900px] flex flex-col pt-16">
+      <div className="stage stage-bleed min-h-[100svh] flex flex-col pt-16">
         <StageArt scene="hero" />
 
         <div className="relative z-10 flex-1 flex items-center px-6 sm:px-10 md:px-16 pt-14 pb-10">
