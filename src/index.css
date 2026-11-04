@@ -74,6 +74,8 @@
 }
 /* Anything filled with the accent keeps white text in both themes. */
 .bg-\[var\(--accent\)\],
+.bg-accent,
+.hover\:bg-accent:hover,
 .liquid-btn-primary,
 [class*='from-[#FF6644]'],
 .group:hover .group-hover\:bg-\[var\(--accent\)\] {

@@ -27,7 +27,7 @@ export default function About() {
         </p>
 
         <div className="mt-12 grid lg:grid-cols-12 gap-4 md:gap-5">
-          <aside className="lg:col-span-4 liquid-glass-card rounded-3xl p-6 md:p-7 self-start">
+          <aside className="lg:col-span-4 rounded-3xl border border-white/[0.14] bg-white/[0.03] p-6 md:p-7 self-start">
             <div className="flex items-center gap-3.5">
               <span className="w-12 h-12 rounded-2xl bg-accent/15 border border-accent/40 flex items-center justify-center font-display font-extrabold text-[var(--accent)]">DK</span>
               <div>

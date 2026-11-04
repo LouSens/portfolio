@@ -589,7 +589,7 @@ export default function ProjectDetailModal({ project, projects, onClose, onSelec
     });
   };
 
-  const linkBtn = 'liquid-btn-secondary !py-2.5 !px-4 text-sm font-semibold';
+  const linkBtn = 'inline-flex items-center gap-2 rounded-full bg-white text-canvas hover:bg-accent hover:text-white px-4 py-2.5 text-sm font-semibold transition-colors';
 
   return (
     <motion.div

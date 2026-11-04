@@ -277,7 +277,7 @@ export const PROJECTS_DATA = [
     impactMetrics: [
       { value: "Finalist", label: "Top 15 at the SDC XMUM Hackathon 2026" },
       { value: "104 courses", label: "verified, and 92 of them free" },
-      { value: "0 rank changes", label: "across 75 name and segment swaps in a fairness check" },
+      { value: "48 roles", label: "scored for every person, each with the skills still missing" },
     ],
     workflow: {
       inputs: [

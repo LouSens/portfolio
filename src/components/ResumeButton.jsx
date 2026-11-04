@@ -21,7 +21,7 @@ export default function ResumeButton({ variant = 'secondary', className = '', la
       ? 'px-6 py-3 bg-accent text-white hover:brightness-110'
       : variant === 'compact'
         ? 'px-3.5 py-1.5 text-xs border border-white/[0.14] bg-white/[0.04] text-white/85 hover:text-white hover:border-white/[0.3] hover:bg-white/[0.08]'
-        : 'px-6 py-3 border border-white/[0.18] bg-white/[0.04] text-white hover:border-white/[0.35] hover:bg-white/[0.08]';
+        : 'px-6 py-3 bg-white text-canvas hover:bg-accent hover:text-white';
 
   return (
     <a

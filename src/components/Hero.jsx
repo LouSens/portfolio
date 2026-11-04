@@ -69,7 +69,7 @@ export default function Hero({ onOpenProject }) {
             <button
               type="button"
               onClick={() => onOpenProject?.(featured)}
-              className="liquid-glass-card group block w-full text-left rounded-3xl p-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1"
+              className="group block w-full text-left rounded-3xl border border-white/[0.14] bg-white/[0.03] p-3 cursor-pointer transition-transform duration-300 hover:-translate-y-1"
               aria-label={`Open ${featured.title}`}
             >
               <div className="rounded-2xl overflow-hidden border border-white/[0.1]">
