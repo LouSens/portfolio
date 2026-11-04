@@ -1,8 +1,7 @@
-import React, { useRef, useState, useCallback } from 'react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useCallback } from 'react';
+import { AnimatePresence, motion, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import SectionLabel from './SectionLabel';
-import Scene from './Scene';
 import Lightbox from './Lightbox';
 import { DIGDAYA, DPICKLEBALL, OMNIQC } from '../data/portfolioData';
 import { small } from '../utils/img';
@@ -21,29 +20,28 @@ const PHOTOS = [
   ...DIGDAYA.photos.slice(0, 2).map((p) => ({ ...p, tag: 'PIDI Digdaya 2026' })),
 ].filter((p) => p.src);
 
-export default function MomentsWall() {
-  const ref = useRef(null);
+export default function MomentsWall({ progress }) {
   const [lightbox, setLightbox] = useState(null);
   const close = useCallback(() => setLightbox(null), []);
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const up = useTransform(scrollYProgress, [0, 1], [70, -70]);
-  const down = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  // Columns drift against each other while the room scrolls
+  const up = useTransform(progress, [0, 1], [30, -60]);
+  const down = useTransform(progress, [0, 1], [-40, 40]);
   const cols = [[], [], []];
   PHOTOS.forEach((p, i) => cols[i % 3].push({ ...p, i }));
   const items = PHOTOS.map((p) => ({ src: p.src, caption: `${p.caption} · ${p.tag}`, label: p.tag }));
   const speeds = [up, down, up];
 
   return (
-    <Scene id="moments" variant="reveal" className="relative py-20 md:py-32 px-4 sm:px-6 md:px-8 border-t border-white/[0.06]">
-      <div ref={ref} className="max-w-[1100px] mx-auto">
+    <div className="px-5 sm:px-8 md:px-12 py-8 md:py-12">
+      <div className="max-w-[1100px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10 md:mb-14">
           <div className="max-w-xl">
             <SectionLabel label="Moments" />
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
               From the <span className="text-[var(--accent)]">stage</span>
             </h2>
-            <p className="mt-4 text-[15px] text-white/65">Booths, mentoring sessions, trophies and teams. Tap a photo to see it larger.</p>
+            <p className="mt-4 text-[15px] text-white/65">Booths, trophies and teams.</p>
           </div>
           <a
             href={routeUrl('awards')}
@@ -82,6 +80,6 @@ export default function MomentsWall() {
         </div>
       </div>
       <AnimatePresence>{lightbox && <Lightbox items={lightbox.items} index={lightbox.index} onClose={close} onIndex={setIndex} />}</AnimatePresence>
-    </Scene>
+    </div>
   );
 }

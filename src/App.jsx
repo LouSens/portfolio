@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, lazy, Suspense } from 'react';
-import { motion, useScroll, useTransform, PresenceContext } from 'framer-motion';
+import { motion, useScroll, PresenceContext } from 'framer-motion';
 import Lenis from 'lenis';
 
 // Modular Components
 import Navbar from './components/Navbar';
 import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
+import Space from './components/space/Space';
 import About from './components/About';
 import WorkGallery from './components/WorkGallery';
 import StackLayers from './components/StackLayers';
-import MomentsWall from './components/MomentsWall';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 import ProjectsPage from './components/ProjectsPage';
@@ -19,8 +19,10 @@ import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
 
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
-const WorldScene = lazy(() => import('./components/WorldScene'));
-const ActivitySection = lazy(() => import('./components/ActivitySection'));
+const MomentsWall = lazy(() => import('./components/MomentsWall'));
+const ResultsRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.ResultsRoom })));
+const KpiRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.KpiRoom })));
+const GithubRoom = lazy(() => import('./components/ActivitySection').then((m) => ({ default: m.GithubRoom })));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
 const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
@@ -35,12 +37,6 @@ const NO_INTRO = { id: 'no-intro', isPresent: true, initial: false, register: ()
 /* ═══════════════════════════════════════
    SCROLL PROGRESS BAR
    ═══════════════════════════════════════ */
-/* The world is bold in the lobby, then settles back so it never competes with text and charts. */
-function useWorldOpacity() {
-  const { scrollY } = useScroll();
-  return useTransform(scrollY, [0, 600], [0.85, 0.5]);
-}
-
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return (
@@ -54,12 +50,40 @@ function ScrollProgress() {
   );
 }
 
+const gentle = (node) => <Suspense fallback={null}>{node}</Suspense>;
+
+/* Rooms in the order you move through them. `dwell: 'auto'` means the room is as tall as its content and scrolls
+   inside its panel; the others report their own dwell (the sideways strip, the layer steps). */
+const ROOMS = (open) => [
+  { id: 'hero', label: 'Introduction', bare: true, dwell: 'custom', render: () => <Hero /> },
+  { id: 'about', label: 'About', dwell: 'auto', render: () => <About /> },
+  { id: 'work', label: 'Projects', dwell: 'custom', render: (s) => <WorkGallery {...s} onOpenProject={open} /> },
+  { id: 'stack', label: 'Tech stack', dwell: 'custom', render: (s) => <StackLayers {...s} /> },
+  { id: 'activity', label: 'Results', dwell: 'auto', render: () => gentle(<ResultsRoom />) },
+  { id: 'kpis', label: 'Project KPIs', dwell: 'auto', render: () => gentle(<KpiRoom onOpenProject={open} />) },
+  { id: 'github', label: 'GitHub', dwell: 'auto', render: (s) => gentle(<GithubRoom near={s.near} />) },
+  { id: 'moments', label: 'Photos', dwell: 'auto', render: (s) => gentle(<MomentsWall progress={s.progress} />) },
+  { id: 'awards', label: 'Awards', dwell: 'auto', render: () => gentle(<CredentialsSection compact panel />) },
+  { id: 'inquire', label: 'Contact', dwell: 'auto', render: () => gentle(<ScopeInquiryDrawer compact panel />) },
+];
+
+/* Looping isometric sculptures hung in the space: one beside the lobby, the rest seen in passing between rooms */
+const SCULPTURES = [
+  { kind: 'layers', size: 380, x: 430, y: 20, z: -140, ry: -18 },
+  { kind: 'match', size: 300, x: -760, y: -60, z: -620, ry: 24 },
+  { kind: 'cluster', size: 300, x: 840, y: 60, z: -1760, ry: -22 },
+  { kind: 'database', size: 300, x: -700, y: -40, z: -2900, ry: 20 },
+  { kind: 'bars', size: 300, x: 760, y: 40, z: -4050, ry: -20 },
+  { kind: 'reel', size: 300, x: -720, y: -30, z: -5200, ry: 18 },
+  { kind: 'ingots', size: 300, x: 700, y: 50, z: -6300, ry: -16 },
+  { kind: 'books', size: 300, x: -640, y: -20, z: -7450, ry: 14 },
+];
+
 /* ═══════════════════════════════════════
    MAIN APP
    ═══════════════════════════════════════ */
 export default function App() {
   const lenisRef = useRef(null);
-  const worldOpacity = useWorldOpacity();
   const [activeModalProject, setActiveModalProject] = useState(null);
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
@@ -68,17 +92,6 @@ export default function App() {
   const [homeKey, setHomeKey] = useState(0);
   // Where the visitor was on the page when a case study opened, so closing it returns them there.
   const savedScroll = useRef(0);
-  // Mount the 3D background only once the browser is idle, so it never delays the hero.
-  const [show3D, setShow3D] = useState(false);
-  useEffect(() => {
-    // Weak phones skip the 3D world (no three.js download, no GPU work); the hero draws a CSS version instead.
-    const phone = window.matchMedia('(max-width: 767px)').matches;
-    if (phone && (navigator.hardwareConcurrency || 4) < 6) return undefined;
-    const start = () => setShow3D(true);
-    const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
-    return () => ('requestIdleCallback' in window ? window.cancelIdleCallback(id) : clearTimeout(id));
-  }, []);
-
   // Initialize Lenis Smooth Scroll (skipped for users who prefer reduced motion)
   useEffect(() => {
     // Touch devices already scroll smoothly; running Lenis there only costs frames.
@@ -144,7 +157,8 @@ export default function App() {
       return;
     }
     const section = takePendingSection();
-    const y = section ? (document.getElementById(section)?.offsetTop ?? 0) : 0;
+    const sectionEl = section && document.getElementById(section);
+    const y = sectionEl ? sectionEl.getBoundingClientRect().top + window.scrollY : 0;
     window.scrollTo({ top: y, behavior: 'instant' });
     lenisRef.current?.scrollTo(y, { immediate: true, force: true });
   }, [route]);
@@ -216,19 +230,6 @@ export default function App() {
       <CursorGlow />
       <div className="fixed inset-0 z-0 pointer-events-none bg-dots" aria-hidden="true" />
 
-      {/* ── THE WORLD: every section is a room in one wireframe building; the camera flies the corridor as you scroll ── */}
-      {show3D && (
-        <motion.div
-          aria-hidden="true"
-          className={`fixed inset-0 pointer-events-none z-0 ${route === HOME ? '' : 'hidden'}`}
-          style={{ opacity: worldOpacity }}
-        >
-          <Suspense fallback={null}>
-            <WorldScene paused={!!activeModalProject || route !== HOME} />
-          </Suspense>
-        </motion.div>
-      )}
-
       {/* Navigation */}
       <Navbar route={route} />
       {route === HOME && <SectionNav />}
@@ -238,20 +239,8 @@ export default function App() {
       <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
         {route === HOME ? (
           <>
-            {/* 1. Hero Section */}
-            <Hero />
-
-            {/* The page is a walk through rooms. Rooms turn into view from different angles; the two
-                galleries (projects, tech stack) hold the page until you have been through every frame. */}
-            <About />
-            <WorkGallery onOpenProject={handleOpenProject} />
-            <StackLayers />
-            <Suspense fallback={<div className="min-h-screen" />}>
-              <ActivitySection onOpenProject={handleOpenProject} />
-              <MomentsWall />
-              <CredentialsSection compact />
-              <ScopeInquiryDrawer compact />
-            </Suspense>
+            {/* The home page is a 3D space: every room is a panel hung in space, and the camera flies between them */}
+            <Space rooms={ROOMS(handleOpenProject)} sculptures={SCULPTURES} />
           </>
         ) : (
           // Dedicated pages: one part of the home page in full, clear of the floating navbar.

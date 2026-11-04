@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, FileTex
 import SectionLabel from './SectionLabel';
 import Lightbox from './Lightbox';
 import Tilt from './Tilt';
-import Scene from './Scene';
+import PageSection from './space/PageSection';
 import { Play } from 'lucide-react';
 import { srcSet, isTouch } from '../utils/img';
 import { ACHIEVEMENTS, AWARD_FEATURES, DEANS_LIST, EDUCATION, PROJECTS_DATA } from '../data/portfolioData';
@@ -388,14 +388,14 @@ function Timeline({ onOpen }) {
 
 /* compact: the home page version (the three headline awards, no media bands). The Awards page adds
    the full timeline with certificates, and the photos, slides and clips behind each award. */
-export default function CredentialsSection({ compact = false }) {
+export default function CredentialsSection({ compact = false, panel = false }) {
   const [lightbox, setLightbox] = useState(null); // { items, index }
   const open = (items, index) => setLightbox({ items, index });
   const close = useCallback(() => setLightbox(null), []);
   const setIndex = useCallback((index) => setLightbox((lb) => (lb ? { ...lb, index } : lb)), []);
 
   return (
-    <Scene id="awards" variant="swingRight" className="section-glow py-20 md:py-32 relative overflow-hidden border-t border-white/[0.06]">
+    <PageSection panel={panel} id="awards" className="section-glow py-14 md:py-28 relative overflow-hidden border-t border-white/[0.06]">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -501,6 +501,6 @@ export default function CredentialsSection({ compact = false }) {
       </div>
 
       <AnimatePresence>{lightbox && <Lightbox items={lightbox.items} index={lightbox.index} onClose={close} onIndex={setIndex} />}</AnimatePresence>
-    </Scene>
+    </PageSection>
   );
 }

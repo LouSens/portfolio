@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
+import React, { useLayoutEffect, useState } from 'react';
+import { AnimatePresence, motion, useMotionValueEvent, useTransform } from 'framer-motion';
 import SectionLabel from './SectionLabel';
 import TechIcon from './ui/TechIcon';
 import { TECH_STACK, EARLIER_WORK, PROJECTS_DATA } from '../data/portfolioData';
@@ -45,14 +45,14 @@ function Plates({ n, active }) {
   );
 }
 
-export default function StackLayers() {
-  const ref = useRef(null);
+export default function StackLayers({ progress, onDwell, dims }) {
   const n = TECH_STACK.length;
   const [active, setActive] = useState(0);
   const [hover, setHover] = useState(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  useMotionValueEvent(scrollYProgress, 'change', (p) => setActive(Math.min(n - 1, Math.floor(p * n * 0.999))));
-  const bar = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  // One layer per half screen of scrolling
+  useLayoutEffect(() => onDwell(n * dims.vh * 0.5), [n, dims.vh, onDwell]);
+  useMotionValueEvent(progress, 'change', (p) => setActive(Math.min(n - 1, Math.floor(p * n * 0.999))));
+  const bar = useTransform(progress, [0, 1], ['0%', '100%']);
 
   const group = TECH_STACK[active];
   const total = new Set(TECH_STACK.flatMap((g) => g.items.map((i) => i.name))).size;
@@ -60,8 +60,8 @@ export default function StackLayers() {
   const shown = hover && group.items.find((i) => i.name === hover);
 
   return (
-    <section id="stack" ref={ref} aria-label="Tech stack" className="relative" style={{ height: `${n * 62 + 100}svh` }}>
-      <div className="sticky top-0 h-[100svh] flex items-center px-4 sm:px-6 md:px-8 pt-16">
+    <div className="absolute inset-0 flex items-center px-5 sm:px-8 md:px-12">
+      <div className="w-full">
         <div className="w-full max-w-[1100px] mx-auto grid md:grid-cols-12 gap-6 md:gap-12 items-center">
           {/* Left: heading and the stack of plates */}
           <div className="md:col-span-5 flex md:block items-center gap-5">
@@ -70,7 +70,7 @@ export default function StackLayers() {
               <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
                 Every tool, <span className="text-[var(--accent)]">by layer</span>
               </h2>
-              <p className="mt-3 text-sm text-white/60">{total} tools across {repoCount} repositories.</p>
+              <p className="mt-3 text-sm text-white/50">{total} tools · {repoCount} repositories</p>
             </div>
             <div className="w-28 h-40 shrink-0 md:w-full md:h-[min(46svh,380px)] md:mt-6">
               <Plates n={n} active={active} />
@@ -141,12 +141,12 @@ export default function StackLayers() {
                   {shown.repos.join(', ')}
                 </>
               ) : (
-                <span className="text-white/40">Hover an icon for its name. The small number is how many repos use it.</span>
+                <span className="text-white/40">&nbsp;</span>
               )}
             </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

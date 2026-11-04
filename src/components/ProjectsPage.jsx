@@ -49,10 +49,10 @@ export default function ProjectsPage({ onOpenProject }) {
         >
           <SectionLabel label="Projects" />
           <h1 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1] mb-4">
-            Things I have <span className="text-[var(--accent)]">built</span>
+            Selected <span className="text-[var(--accent)]">work</span>
           </h1>
           <p className="text-white/65 text-base leading-relaxed">
-            Web apps, AI agents and ML work. Open any project to see its numbers, its tools and how it works.
+            Web apps, AI agents and machine learning.
           </p>
         </motion.div>
 
@@ -165,7 +165,7 @@ export default function ProjectsPage({ onOpenProject }) {
         {/* Smaller repositories: listed, not written up */}
         <div className="mt-16 md:mt-24">
           <h2 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight">Earlier and smaller work</h2>
-          <p className="mt-2 text-sm text-white/50">Course and personal projects, all on GitHub.</p>
+          <p className="mt-2 text-sm text-white/50">Course and personal projects.</p>
           <ul className="mt-6 grid sm:grid-cols-2 gap-3 md:gap-4">
             {EARLIER_WORK.map((w) => (
               <li key={w.title}>

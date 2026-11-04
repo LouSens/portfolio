@@ -2,16 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Layers, Download, MapPin, GraduationCap } from 'lucide-react';
 import { PERSONAL_INFO, PROJECTS_DATA } from '../data/portfolioData';
-import IsoFallback from './IsoFallback';
 import Magnetic from './Magnetic';
 
 const ease = [0.22, 1, 0.36, 1];
-const phone = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
 const calm = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Same rule as App: weak phones get the light CSS sculpture instead of the WebGL world.
-const weak = phone && (navigator.hardwareConcurrency || 4) < 6;
 
-/* The lobby. Text on the left; on the right sits the building (the 3D scene, drawn behind the whole page). */
+/* The lobby: a bare panel (no frame) hung in the 3D space, text on the left, a looping sculpture floating on the right. */
 export default function Hero() {
   const item = (delay) => ({
     initial: calm ? false : { opacity: 0, y: 18 },
@@ -20,9 +16,7 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative min-h-[100svh] flex items-center px-4 sm:px-6 md:px-8 pt-28 pb-24 select-none">
-      {/* Phones skip WebGL: a light CSS version of the building instead */}
-      {(weak || calm) && <IsoFallback className="absolute right-[-18%] top-[12%] w-[78%] max-w-[420px] opacity-40 pointer-events-none" />}
+    <div className="relative h-full flex items-center px-4 sm:px-8 md:px-12 select-none">
 
       <div className="relative z-10 w-full max-w-[1100px] mx-auto">
         <div className="max-w-[620px]">
@@ -39,13 +33,13 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p {...item(0.3)} className="mt-6 text-lg text-white/70 leading-relaxed max-w-[34rem]">
-            David Kurniawan, an AI student. I make the backend, the data and the models that make a product work.
+            David Kurniawan. AI student at Xiamen University Malaysia, building the backend, data and models behind a product.
           </motion.p>
 
           <motion.ul {...item(0.4)} className="mt-7 space-y-2 text-sm text-white/60">
-            <li className="flex items-center gap-2.5"><GraduationCap size={15} className="text-[var(--accent)]" />Xiamen University Malaysia, GPA {PERSONAL_INFO.gpa.split(' ')[0]}</li>
+            <li className="flex items-center gap-2.5"><GraduationCap size={15} className="text-[var(--accent)]" />GPA {PERSONAL_INFO.gpa.split(' ')[0]}</li>
             <li className="flex items-center gap-2.5"><MapPin size={15} className="text-[var(--accent)]" />{PERSONAL_INFO.location}</li>
-            <li className="flex items-center gap-2.5"><Layers size={15} className="text-[var(--accent)]" />{PROJECTS_DATA.length} projects, two hackathon finals in 2026</li>
+            <li className="flex items-center gap-2.5"><Layers size={15} className="text-[var(--accent)]" />{PROJECTS_DATA.length} projects, two hackathon finals</li>
           </motion.ul>
 
           <motion.div {...item(0.5)} className="mt-9 flex flex-col sm:flex-row gap-3">
@@ -78,13 +72,12 @@ export default function Hero() {
         initial={calm ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[11px] text-white/45"
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center"
       >
-        Scroll to walk through
         <span className="relative block w-px h-9 bg-white/[0.2] overflow-hidden">
           <motion.span className="absolute left-0 top-0 w-px h-3 bg-[var(--accent)]" animate={calm ? undefined : { y: [-12, 36] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }} />
         </span>
       </motion.div>
-    </section>
+    </div>
   );
 }

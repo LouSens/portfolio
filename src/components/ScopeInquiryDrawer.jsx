@@ -1,4 +1,5 @@
-import Scene from './Scene';
+import PageSection from './space/PageSection';
+import { createPortal } from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,7 +23,7 @@ import { PERSONAL_INFO } from '../data/portfolioData';
 import { navigate, routeUrl } from '../utils/route';
 
 /* compact: the home page version (status and one-tap links). The Contact page adds the message form. */
-export default function ScopeInquiryDrawer({ compact = false }) {
+export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
   const [objective, setObjective] = useState('');
   const [scope, setScope] = useState('');
   const [opportunityType, setOpportunityType] = useState('');
@@ -199,10 +200,10 @@ export default function ScopeInquiryDrawer({ compact = false }) {
   };
 
   return (
-    <Scene
+    <PageSection
+      panel={panel}
       id="inquire"
-      variant="tiltUp"
-      className="section-glow py-20 md:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
+      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
         {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}
@@ -419,7 +420,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
       </div>
 
       {/* ── 1. CLEAN MODERN CONFIRMATION MODAL ── */}
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {submissionReceipt && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -484,10 +485,10 @@ export default function ScopeInquiryDrawer({ compact = false }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
 
       {/* ── 2. CLEAN INBOX VIEWER MODAL (FOR DAVID) ── */}
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {showAdminInbox && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -584,7 +585,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </Scene>
+      </AnimatePresence>, document.body)}
+    </PageSection>
   );
 }

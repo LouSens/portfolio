@@ -1,4 +1,5 @@
 // Portfolio data store: full-stack and AI systems focus
+import { TECH_STACK } from './techStack';
 
 export const PERSONAL_INFO = {
   name: 'David Kurniawan',
@@ -201,9 +202,18 @@ export const PROJECTS_DATA = [
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/adept/cover.webp',
-    coverPosition: 'center',
+    coverPosition: 'top',
     heroImage: '/screenshots/adept/cover.webp',
     screenCategories: [
+      {
+        name: 'The app',
+        screens: [
+          { src: '/screenshots/adept/cover.webp', caption: 'Landing page: upload a CV and see which skills are rising' },
+          { src: '/screenshots/adept/app-try.webp', caption: 'Try it first: drop a CV, no sign-up' },
+          { src: '/screenshots/adept/app-impact.webp', caption: 'Evidence page: what the example pathways offer' },
+          { src: '/screenshots/adept/app-mobile.webp', caption: 'On a phone' },
+        ],
+      },
       {
         name: 'Diagrams',
         screens: [
@@ -1074,130 +1084,7 @@ export const DPICKLEBALL = {
 export const AWARD_FEATURES = [DIGDAYA, OMNIQC, DPICKLEBALL];
 
 
-/* ═══════════════════════════════════════
-   FULL TECH LIST: read from the manifests (package.json, requirements.txt, pyproject.toml, Unity packages)
-   of every public repository, grouped by what the tool is for. `repos` says where each one is used.
-   ═══════════════════════════════════════ */
-const TECH_STACK_RAW = [
-  {
-    name: 'Languages',
-    items: [
-      { name: 'Python', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'NeuralVoid', 'IndoLegal-LLM', 'Gold Forecast', 'Movie Recommender', 'dPickleBall', 'NLP Corpus'] },
-      { name: 'TypeScript', repos: ['Adept', 'RADAR', 'Orion'] },
-      { name: 'JavaScript', repos: ['KerjaCerdas', 'NeuralVoid'] },
-      { name: 'SQL', repos: ['KerjaCerdas', 'Adept', 'RADAR'] },
-      { name: 'C#', repos: ['dPickleBall (Unity)'] },
-      { name: 'C++17', repos: ['Hospital System'] },
-      { name: 'C', repos: ['Hotel System'] },
-    ],
-  },
-  {
-    name: 'Frontend',
-    items: [
-      { name: 'React', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'NeuralVoid'] },
-      { name: 'Next.js', repos: ['Adept'] },
-      { name: 'Vite', repos: ['KerjaCerdas', 'RADAR', 'Orion', 'NeuralVoid'] },
-      { name: 'Tailwind CSS', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'NeuralVoid'] },
-      { name: 'React Router', repos: ['KerjaCerdas', 'RADAR', 'Orion'] },
-      { name: 'Zustand', repos: ['KerjaCerdas'] },
-      { name: 'TanStack Query', repos: ['RADAR'] },
-      { name: 'Recharts', repos: ['Adept', 'NeuralVoid'] },
-      { name: 'Lightweight Charts', repos: ['RADAR'] },
-      { name: 'three.js', repos: ['Adept', 'RADAR'] },
-      { name: 'next-intl', repos: ['Adept'] },
-      { name: 'Remotion', repos: ['RADAR'] },
-    ],
-  },
-  {
-    name: 'Backend and data',
-    items: [
-      { name: 'FastAPI', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'NeuralVoid'] },
-      { name: 'Pydantic v2', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion'] },
-      { name: 'Express', repos: ['Orion'] },
-      { name: 'SQLAlchemy + Alembic', repos: ['KerjaCerdas', 'RADAR'] },
-      { name: 'PostgreSQL', repos: ['KerjaCerdas', 'Adept', 'RADAR'] },
-      { name: 'pgvector', repos: ['KerjaCerdas', 'Adept'] },
-      { name: 'TimescaleDB', repos: ['RADAR'] },
-      { name: 'Redis', repos: ['KerjaCerdas'] },
-      { name: 'APScheduler', repos: ['RADAR'] },
-      { name: 'WebSockets', repos: ['RADAR'] },
-      { name: 'pandas + NumPy', repos: ['RADAR', 'NeuralVoid', 'Gold Forecast', 'Movie Recommender'] },
-      { name: 'Pandera + PyArrow', repos: ['RADAR'] },
-    ],
-  },
-  {
-    name: 'Machine learning',
-    items: [
-      { name: 'PyTorch', repos: ['RADAR', 'Adept', 'IndoLegal-LLM', 'Gold Forecast', 'Movie Recommender', 'dPickleBall'] },
-      { name: 'TensorFlow / Keras', repos: ['Face Mask', 'MNIST Digits'] },
-      { name: 'scikit-learn', repos: ['RADAR', 'NeuralVoid', 'Gold Forecast', 'Movie Recommender', 'Heart Disease'] },
-      { name: 'XGBoost', repos: ['NeuralVoid', 'Gold Forecast'] },
-      { name: 'statsmodels', repos: ['RADAR', 'Gold Forecast'] },
-      { name: 'hmmlearn', repos: ['RADAR'] },
-      { name: 'Surprise (SVD)', repos: ['Movie Recommender'] },
-      { name: 'OpenCV', repos: ['Face Mask'] },
-      { name: 'Stable-Baselines3', repos: ['dPickleBall'] },
-      { name: 'Unity ML-Agents', repos: ['dPickleBall'] },
-      { name: 'MLflow', repos: ['RADAR'] },
-      { name: 'Weights & Biases', repos: ['IndoLegal-LLM'] },
-      { name: 'NLTK', repos: ['NLP Corpus'] },
-    ],
-  },
-  {
-    name: 'LLMs and agents',
-    items: [
-      { name: 'LangGraph', repos: ['KerjaCerdas', 'Orion'] },
-      { name: 'LangChain', repos: ['KerjaCerdas', 'IndoLegal-LLM'] },
-      { name: 'LangSmith', repos: ['Orion'] },
-      { name: 'Gemini API', repos: ['KerjaCerdas', 'Orion', 'NeuralVoid'] },
-      { name: 'OpenAI SDK', repos: ['Orion'] },
-      { name: 'Transformers', repos: ['RADAR', 'Adept', 'IndoLegal-LLM'] },
-      { name: 'PEFT, TRL, Unsloth', repos: ['IndoLegal-LLM', 'RADAR'] },
-      { name: 'Sentence Transformers', repos: ['Adept', 'IndoLegal-LLM'] },
-      { name: 'FAISS + BM25', repos: ['IndoLegal-LLM'] },
-      { name: 'Hugging Face Hub', repos: ['IndoLegal-LLM', 'dPickleBall'] },
-      { name: 'Gradio', repos: ['IndoLegal-LLM'] },
-    ],
-  },
-  {
-    name: 'Testing and quality',
-    items: [
-      { name: 'pytest', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'Gold Forecast', 'Movie Recommender'] },
-      { name: 'Vitest', repos: ['KerjaCerdas', 'RADAR', 'Orion'] },
-      { name: 'Playwright', repos: ['KerjaCerdas', 'Adept', 'Orion'] },
-      { name: 'Testing Library', repos: ['KerjaCerdas', 'RADAR', 'Orion'] },
-      { name: 'MSW', repos: ['KerjaCerdas'] },
-      { name: 'Ruff', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Movie Recommender'] },
-      { name: 'mypy', repos: ['KerjaCerdas', 'RADAR'] },
-      { name: 'ESLint + Prettier', repos: ['KerjaCerdas', 'Adept', 'RADAR', 'Orion', 'NeuralVoid'] },
-    ],
-  },
-  {
-    name: 'Delivery',
-    items: [
-      { name: 'Docker Compose', repos: ['KerjaCerdas', 'Adept', 'RADAR'] },
-      { name: 'GitHub Actions', repos: ['KerjaCerdas', 'Adept', 'Orion'] },
-      { name: 'uv', repos: ['RADAR', 'Adept'] },
-      { name: 'pnpm', repos: ['Adept'] },
-      { name: 'Make', repos: ['RADAR', 'Adept'] },
-      { name: 'Vercel', repos: ['NeuralVoid'] },
-      { name: 'Render', repos: ['NeuralVoid'] },
-      { name: 'Replit', repos: ['KerjaCerdas', 'Adept'] },
-      { name: 'RunPod', repos: ['Adept'] },
-    ],
-  },
-];
-
-/* One entry per tool: combined names ("pandas + NumPy") are split so each gets its own icon. */
-export const TECH_STACK = TECH_STACK_RAW.map((g) => ({
-  ...g,
-  items: g.items.flatMap((it) =>
-    it.name
-      .split(/ \+ |, | \/ /)
-      .map((n) => n.trim().replace(/ v2$/, '').replace('C++17', 'C++'))
-      .map((name) => ({ name, repos: it.repos }))
-  ),
-}));
+export { TECH_STACK } from './techStack';
 
 /* Smaller and earlier repositories: listed, not written up. */
 export const EARLIER_WORK = [

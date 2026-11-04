@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react';
-import HorizontalGate from './HorizontalGate';
+import { useRoom } from './space/Space';
+import { motion, useMotionValueEvent, useTransform } from 'framer-motion';
 import SectionLabel from './SectionLabel';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { small } from '../utils/img';
@@ -46,7 +47,7 @@ function ProjectFrame({ project, index, total, onOpen }) {
   return (
     <article
       ref={frame}
-      className="group relative flex flex-col md:flex-row w-[min(86vw,360px)] md:w-[min(78vw,780px)] h-[min(68svh,560px)] md:h-[min(62svh,500px)] rounded-3xl overflow-hidden border border-white/[0.12] hover:border-accent/50 bg-panel transition-colors"
+      className="group relative flex flex-col md:flex-row w-[min(80vw,340px)] md:w-[min(70vw,760px)] h-[min(60svh,520px)] md:h-[min(58svh,480px)] rounded-3xl overflow-hidden border border-white/[0.12] hover:border-accent/50 bg-panel transition-colors"
     >
       {/* Image */}
       <div className="relative md:w-[42%] h-[30%] md:h-auto shrink-0 overflow-hidden bg-white/[0.03]">
@@ -88,7 +89,7 @@ function ProjectFrame({ project, index, total, onOpen }) {
 
         {steps.length > 0 && (
           <p className="hidden md:block mt-4 text-xs text-white/55 leading-relaxed">
-            <span className="text-white/35">How it works </span>
+            <span className="text-white/35">Flow </span>
             {steps.map((st, i) => (
               <React.Fragment key={st}>
                 {i > 0 && <span className="text-[var(--accent)] mx-1.5">→</span>}
@@ -122,62 +123,90 @@ function ProjectFrame({ project, index, total, onOpen }) {
   );
 }
 
-export default function WorkGallery({ onOpenProject }) {
+/* The Projects room: inside its panel the frames slide sideways as you scroll. The room holds the camera until the
+   last frame has passed (its dwell is the sideways distance, eased by SPEED). */
+const SPEED = 1.5;
+const pad = (n) => String(n + 1).padStart(2, '0');
+
+export default function WorkGallery({ progress, onDwell, dims, onOpenProject }) {
+  const { goTo } = useRoom();
+  const track = useRef(null);
+  const geo = useRef({ dist: 0, lefts: [], widths: [] });
+  const [active, setActive] = useState(0);
   const total = PROJECTS_DATA.length;
   const go = (e) => {
     e.preventDefault();
     navigate('projects');
   };
 
-  const panels = [
-    {
-      key: 'intro',
-      name: 'Projects',
-      className: 'w-[min(86vw,420px)]',
-      node: (
-        <div className="pr-2 md:pr-8">
+  const x = useTransform(progress, (p) => -p * geo.current.dist);
+
+  useLayoutEffect(() => {
+    const el = track.current;
+    if (!el) return undefined;
+    const measure = () => {
+      const nodes = Array.from(el.querySelectorAll('[data-frame]'));
+      const lefts = nodes.map((n) => n.offsetLeft);
+      const widths = nodes.map((n) => n.offsetWidth);
+      const end = nodes.length ? lefts[nodes.length - 1] + widths[nodes.length - 1] : 0;
+      const dist = Math.max(0, end + 48 - dims.pw);
+      geo.current = { dist, lefts, widths };
+      onDwell(dist / SPEED);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [dims.pw, onDwell]);
+
+  useMotionValueEvent(x, 'change', (latest) => {
+    const g = geo.current;
+    let best = 0;
+    let bd = Infinity;
+    g.lefts.forEach((l, i) => {
+      const d = Math.abs(l + g.widths[i] / 2 + latest - dims.pw / 2);
+      if (d < bd) { bd = d; best = i; }
+    });
+    setActive((a) => (a === best ? a : best));
+  });
+
+  const jump = (i) => {
+    const g = geo.current;
+    if (!g.dist) return;
+    goTo('work', Math.min(1, Math.max(0, (g.lefts[i] + g.widths[i] / 2 - dims.pw / 2) / g.dist)));
+  };
+
+  return (
+    <div className="absolute inset-0 flex flex-col">
+      <motion.div ref={track} style={{ x }} className="flex flex-1 min-h-0 items-center gap-5 md:gap-8 pl-6 md:pl-12 pr-6">
+        <div data-frame className="shrink-0 w-[min(80vw,380px)]">
           <SectionLabel label="Projects" />
           <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-            Things I have <span className="text-[var(--accent)]">built</span>
+            Selected <span className="text-[var(--accent)]">work</span>
           </h2>
-          <ul className="mt-6 space-y-3 text-[15px] text-white/70">
-            <li className="flex gap-3"><span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shrink-0" />{total} projects: web apps, AI agents and ML work</li>
-            <li className="flex gap-3"><span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shrink-0" />Each one shows its numbers, its tools and how it works</li>
-            <li className="flex gap-3"><span className="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--accent)] shrink-0" />Press Details to see screens and the choices behind it</li>
-          </ul>
-          <p className="mt-8 inline-flex items-center gap-2 text-sm text-white/50">
-            Keep scrolling <ArrowRight size={14} className="text-[var(--accent)]" />
-          </p>
+          <p className="mt-5 text-[15px] text-white/55">{total} projects</p>
         </div>
-      ),
-    },
-    ...PROJECTS_DATA.map((project, i) => ({
-      key: project.id,
-      name: project.title,
-      node: <ProjectFrame project={project} index={i} total={total} onOpen={onOpenProject} />,
-    })),
-    {
-      key: 'outro',
-      name: 'All projects',
-      className: 'w-[min(86vw,380px)]',
-      node: (
-        <div className="pl-2 md:pl-6 pr-4">
+        {PROJECTS_DATA.map((project, i) => (
+          <div data-frame key={project.id} className="shrink-0">
+            <ProjectFrame project={project} index={i} total={total} onOpen={onOpenProject} />
+          </div>
+        ))}
+        <div data-frame className="shrink-0 w-[min(80vw,340px)] pl-2">
           <Trophy size={22} className="text-[var(--accent)] mb-4" />
-          <h3 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">Want the full list?</h3>
-          <p className="mt-3 text-[15px] text-white/65 leading-relaxed">
-            The Projects page shows every project side by side, with app demos and the smaller repos.
-          </p>
-          <a
-            href={routeUrl('projects')}
-            onClick={go}
-            className="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/[0.2] hover:border-[var(--accent)] text-sm font-semibold text-white transition-colors"
-          >
+          <h3 className="font-display font-bold text-2xl md:text-3xl text-white tracking-tight">And more</h3>
+          <a href={routeUrl('projects')} onClick={go} className="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-full border border-white/[0.2] hover:border-[var(--accent)] text-sm font-semibold text-white transition-colors">
             All projects <ArrowRight size={15} />
           </a>
         </div>
-      ),
-    },
-  ];
+      </motion.div>
 
-  return <HorizontalGate id="work" label="Projects" panels={panels} />;
+      {/* Where you are in the strip */}
+      <div className="shrink-0 px-6 md:px-12 pb-5 flex items-center gap-4">
+        <span className="font-mono text-[11px] tabular-nums text-white/55 w-[3.2rem]">{pad(Math.min(Math.max(active - 1, 0), total - 1))} / {pad(total - 1)}</span>
+        <div className="relative flex-1 h-px bg-white/[0.14]">
+          <motion.div className="absolute left-0 top-0 h-px bg-[var(--accent)]" style={{ width: useTransform(progress, (p) => `${p * 100}%`) }} />
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Download, MapPin, Globe2, GraduationCap, Search } from 'lucide-react';
 import SectionLabel from './SectionLabel';
-import Scene from './Scene';
 import Magnetic from './Magnetic';
 import IsoObject from './iso/IsoObject';
 import { PERSONAL_INFO, PROJECTS_DATA, ABOUT } from '../data/portfolioData';
@@ -25,8 +24,8 @@ const reveal = {
 
 export default function About() {
   return (
-    <Scene id="about" variant="swingLeft" className="relative py-20 md:py-32 px-4 sm:px-6 md:px-8 border-t border-white/[0.06]">
-      <div className="max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-12 lg:gap-20">
+    <div className="px-5 sm:px-8 md:px-12 py-8 md:py-12">
+      <div className="max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
         {/* Who I am */}
         <motion.div {...reveal} className="lg:col-span-5">
           <SectionLabel label="About" />
@@ -129,6 +128,6 @@ export default function About() {
           </div>
         </div>
       </div>
-    </Scene>
+    </div>
   );
 }
