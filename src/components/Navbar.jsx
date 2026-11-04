@@ -1,228 +1,141 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
-import { HOME, PAGES, navigate, routeUrl } from '../utils/route';
+import { Menu, X } from 'lucide-react';
+import { HOME, navigate, routeUrl } from '../utils/route';
+import { NAV_SECTIONS, useActiveRoom } from '../utils/roomStore';
+import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
+import ResumeButton from './ResumeButton';
 
+/* One navbar for the whole site. Every link goes to a part of the home page; the highlighted link is the part you are
+   in. It stays put while you scroll, so it is always there to jump with. */
 export default function Navbar({ route = HOME }) {
-  const [isVisible, setIsVisible] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const prevScrollY = useRef(0);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveRoom();
 
+  // At the top the bar is part of the page. A little way down it narrows to glass. Further down it slides away while
+  // you read, and comes back the moment you scroll up.
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const menuOpen = useRef(false);
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = currentScrollY - prevScrollY.current;
-
-      // Update background state based on scroll offset
-      setIsScrolled(currentScrollY > 15);
-
-      // Instantaneous reveal on any upward scroll (delta < 0) or at the top of the page
-      if (delta < 0 || currentScrollY < 15) {
-        setIsVisible(true);
-      } else if (delta > 3 && currentScrollY > 60 && !isOpen) {
-        // Hide immediately on downward scroll
-        setIsVisible(false);
+    menuOpen.current = open;
+    if (open) setHidden(false);
+  }, [open]);
+  useEffect(() => {
+    const on = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      const dy = y - lastY.current;
+      if (Math.abs(dy) > 6) {
+        if (menuOpen.current || y < 160) setHidden(false);
+        else setHidden(dy > 0);
+        lastY.current = y;
       }
-
-      prevScrollY.current = currentScrollY;
     };
+    lastY.current = window.scrollY;
+    on();
+    window.addEventListener('scroll', on, { passive: true });
+    return () => window.removeEventListener('scroll', on);
+  }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isOpen]);
-
-  // Lock background scroll while the mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = open ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [open]);
 
-  // Projects, Awards and Contact open their own page; About is a section of the home page.
-  const navLinks = [{ route: HOME, section: 'about', label: 'About' }, ...PAGES];
-
-  const go = (target, section) => (e) => {
-    e.preventDefault();
-    setIsOpen(false);
-    // Release the menu's scroll lock now, so the new page can be scrolled into place as it renders.
+  const go = (id) => (e) => {
+    e?.preventDefault();
+    setOpen(false);
     document.body.style.overflow = '';
-    navigate(target, section);
+    if (route === HOME && id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    if (route === HOME) window.scrollTo({ top: 0, behavior: 'smooth' });
+    else navigate(HOME, id || null);
   };
+
+  const current = (link) => route === HOME && link.rooms.includes(active);
 
   return (
     <>
-      <motion.header
-        initial={{ y: 0, opacity: 1 }}
-        animate={{
-          y: isVisible ? 0 : -90,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.18,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 py-3.5 transition-colors pointer-events-auto"
-      >
-        <div className="max-w-[1240px] mx-auto">
-          {/* Floating Liquid Glass Navigation Bar Dock */}
-          <div
-            className={`nav-dock relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full transition-all duration-300 ${
-              isScrolled
-                ? 'bg-gradient-to-r from-white/[0.08] via-white/[0.03] to-white/[0.06] backdrop-blur-2xl border border-white/[0.14] shadow-[0_16px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_0_rgba(255,255,255,0.22)]'
-                : 'bg-white/[0.02] backdrop-blur-md border border-white/[0.06]'
-            }`}
-          >
-            {/* ── BESPOKE LIQUID BRAND IDENTITY ── */}
-            <button
-              onClick={go(HOME)}
-              className="flex items-center gap-3 text-white transition-all duration-200 group text-left cursor-pointer select-none"
-            >
-              {/* Custom Liquid Glass DK Monogram Emblem */}
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-white/[0.16] via-[#0E1018]/90 to-[#07080D]/95 border border-white/[0.22] group-hover:border-[var(--accent)]/70 flex items-center justify-center font-display font-extrabold text-[13px] tracking-tight text-white transition-all duration-200 shadow-md">
-                <span className="bg-gradient-to-r from-white via-white to-white/75 bg-clip-text text-transparent group-hover:to-[var(--accent)] transition-all">
-                  DK
-                </span>
-              </div>
+      <header className={`fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 pt-3 pointer-events-none transition-transform duration-500 ease-out ${hidden ? '-translate-y-[130%]' : 'translate-y-0'}`}>
+        {/* At the top the bar is part of the page: no fill, full width. Scrolled, it narrows and turns to glass. */}
+        <div className={`mx-auto pointer-events-auto transition-[max-width] duration-500 ease-out ${scrolled ? 'max-w-[900px]' : 'max-w-[1240px]'}`}>
+          <div className="relative flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full">
+            <span aria-hidden="true" className={`absolute inset-0 rounded-full liquid-nav liquid-nav-strong transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-0'}`} />
+            <a href={routeUrl(HOME)} onClick={go(null)} className="relative flex items-center gap-2.5 min-w-0 group" aria-label="David Kurniawan, home">
+              <Logo className="w-9 h-9 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5" />
+              <span className="hidden sm:block font-display font-bold text-sm text-white leading-none truncate">David Kurniawan</span>
+            </a>
 
-              <div>
-                <span className="font-display font-bold text-sm sm:text-base text-white block leading-none tracking-tight group-hover:text-[var(--accent)] transition-colors">
-                  David Kurniawan
-                </span>
-                <span className="text-[9px] text-white/50 uppercase tracking-widest block mt-0.5 font-medium">
-                  Full-Stack &amp; AI Systems
-                </span>
-              </div>
-            </button>
-
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] p-1 rounded-full border border-white/[0.06]">
-              {navLinks.map((link) => (
+            <nav aria-label="Main" className="relative hidden lg:flex items-center gap-0.5">
+              {NAV_SECTIONS.map((link) => (
                 <a
-                  key={link.label}
-                  href={routeUrl(link.route)}
-                  onClick={go(link.route, link.section)}
-                  aria-current={route === link.route && !link.section ? 'page' : undefined}
-                  className={`px-3.5 py-1.5 rounded-full hover:text-white transition-all text-xs font-display font-medium tracking-wide cursor-pointer ${
-                    route === link.route && !link.section ? 'text-white bg-white/[0.1]' : 'text-white/70 hover:bg-white/[0.06]'
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={go(link.id)}
+                  aria-current={current(link) ? 'true' : undefined}
+                  className={`relative px-3.5 py-1.5 rounded-full text-[13px] font-display font-medium transition-colors ${
+                    current(link) ? 'text-white' : 'text-white/60 hover:text-white'
                   }`}
                 >
-                  {link.label}
+                  {current(link) && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/[0.1]" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
+                  <span className="relative">{link.label}</span>
                 </a>
               ))}
             </nav>
 
-            {/* Remodeled Action Buttons */}
-            <div className="hidden lg:flex items-center gap-2">
-              <a
-                href={PERSONAL_INFO.resumeUrl}
-                download="CV_David_Kurniawan.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/[0.12] text-white/80 hover:text-white hover:border-white/[0.28] font-display font-medium text-xs transition-all bg-white/[0.03] hover:bg-white/[0.08] shadow-sm cursor-pointer"
-              >
-                <Download size={13} />
-                <span>Resume</span>
-              </a>
-
+            <div className="relative flex items-center gap-2.5">
+              <ThemeToggle className="hidden sm:inline-flex" />
+              <ResumeButton variant="compact" className="hidden lg:inline-flex" />
               <button
-                onClick={go('contact')}
-                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gradient-to-r from-[#FF6644] to-[#FF431A] hover:from-[#ff7555] hover:to-[#ff522b] text-white font-display font-bold text-xs tracking-wide shadow-[0_4px_14px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.4)] border border-white/20 transition-all cursor-pointer active:scale-95"
+                type="button"
+                onClick={() => setOpen((o) => !o)}
+                aria-label={open ? 'Close menu' : 'Open menu'}
+                aria-expanded={open}
+                className="liquid-nav-btn lg:hidden w-9 h-9 rounded-full text-white flex items-center justify-center cursor-pointer"
               >
-                Contact
+                {open ? <X size={16} /> : <Menu size={16} />}
               </button>
             </div>
-
-            {/* Reimagined Liquid Hamburger Button for Mobile & Tablet */}
-            <button
-              className="lg:hidden w-9 h-9 rounded-full bg-white/[0.06] border border-white/[0.14] flex flex-col items-center justify-center gap-1.5 text-white/80 hover:text-white transition-all cursor-pointer"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle mobile menu"
-            >
-              <span
-                className={`w-4 h-0.5 bg-white rounded-full transition-transform duration-300 ${
-                  isOpen ? 'rotate-45 translate-y-2' : ''
-                }`}
-              />
-              <span
-                className={`w-4 h-0.5 bg-white rounded-full transition-opacity duration-200 ${
-                  isOpen ? 'opacity-0' : 'opacity-100'
-                }`}
-              />
-              <span
-                className={`w-4 h-0.5 bg-white rounded-full transition-transform duration-300 ${
-                  isOpen ? '-rotate-45 -translate-y-2' : ''
-                }`}
-              />
-            </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Mobile Menu: Backdrop + Drawer */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} className="fixed inset-0 z-40 bg-black/60 lg:hidden" />
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm lg:hidden"
-            />
-
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.96 }}
-              transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-              className="fixed top-[68px] left-4 right-4 z-40 p-6 rounded-3xl bg-[#090A10]/95 backdrop-blur-2xl border border-white/[0.14] shadow-[0_30px_70px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.2)] flex flex-col items-center gap-4 lg:hidden select-none"
+              className="fixed top-[72px] left-3 right-3 z-50 liquid-nav liquid-nav-menu rounded-3xl p-3 lg:hidden"
             >
-              <div className="w-full flex flex-col gap-1">
-                {[{ route: HOME, label: 'Home' }, ...navLinks].map((link) => {
-                  const current = route === link.route && !link.section;
-                  return (
+              <nav aria-label="Menu" className="flex flex-col">
+                {NAV_SECTIONS.map((link) => (
                   <a
-                    key={link.label}
-                    href={routeUrl(link.route)}
-                    onClick={go(link.route, link.section)}
-                    aria-current={current ? 'page' : undefined}
-                    className={`flex items-center justify-between w-full py-3 px-4 rounded-xl font-display text-base font-semibold hover:text-white hover:bg-white/[0.06] active:bg-white/[0.08] transition-all cursor-pointer ${
-                      current ? 'text-white bg-white/[0.06]' : 'text-white/80'
-                    }`}
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={go(link.id)}
+                    aria-current={current(link) ? 'true' : undefined}
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl font-display font-semibold ${current(link) ? 'text-white bg-white/[0.1]' : 'text-white/90'}`}
                   >
                     {link.label}
-                    {current && <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" aria-hidden="true" />}
+                    {current(link) && <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />}
                   </a>
-                  );
-                })}
-              </div>
-
-              <div className="flex flex-col w-full gap-2.5 pt-4 border-t border-white/[0.08]">
-                <button
-                  onClick={go('contact')}
-                  className="liquid-btn-primary w-full justify-center !py-3.5 font-display text-sm font-bold tracking-wide"
-                >
-                  Contact
-                </button>
-
-                <a
-                  href={PERSONAL_INFO.resumeUrl}
-                  download="CV_David_Kurniawan.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="liquid-btn-secondary w-full justify-center !py-3.5 font-display text-sm font-semibold tracking-wide text-center flex items-center gap-2"
-                >
-                  <Download size={15} />
-                  <span>Download Resume</span>
-                </a>
+                ))}
+              </nav>
+              <div className="mt-3 pt-4 border-t border-white/[0.1] flex items-center justify-between gap-3 px-1">
+                <ThemeToggle showLabel />
+                <ResumeButton variant="compact" />
               </div>
             </motion.div>
           </>

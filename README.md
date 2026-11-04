@@ -20,7 +20,15 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 
 ## ✨ What is on the site
 
-- 🏠 **Home page as the highlights**: hero, about, a 3D project carousel, the three headline awards, and one-tap contact links.
+- 📜 **One calm vertical scroll**: no 3D, nothing pinned, nothing that takes over the scroll. Sideways movement happens only inside rows you drag or swipe (Embla Carousel): the Netflix-style project rows, the project KPI cards and the photo film strip.
+- 🎬 **Projects like a streaming service**: a featured billboard (Adept, with its demo playing, shown whole), then rows of posters by theme. Each project has outcome metrics (they vary per project and need not be numbers) and a workflow diagram with one or more inputs and outputs (`Workflow.jsx`).
+- 🧱 **Tech stack on isometric tiles**: pick a layer, and each tool is a small isometric slab with its brand icon lying on top.
+- 🧭 **One navbar**: always visible, every link scrolls to a section, the current section is highlighted. Dark mode is an on/off switch that changes the theme with a circular reveal from the switch (View Transitions API, with a fade fallback). The resume button confirms the click, and the hero links straight to GitHub, LinkedIn and email.
+- 🌗 **Light and dark mode**: a toggle in the navbar, saved in `localStorage`, applied before first paint. Colours are CSS variables (`--fg`, `--bg-rgb`, `--panel-rgb`, `--accent-rgb`) that Tailwind's `white`, `panel`, `canvas` and `accent` read.
+- 📸 **GitHub snapshot**: `scripts/snapshot-github.py` builds `src/data/githubSnapshot.json` from the git history of local clones (commits by author email, daily counts, per-repo totals, language share). The Numbers section shows it instantly and upgrades to live GitHub data when the API answers.
+- 📊 **Numbers**: overall results, a KPI row per project, and live GitHub metrics (commits, pull requests, stars, contribution heatmap, streaks, monthly activity, languages by code size, recent repositories, badges). Fetched in the browser, cached 6 hours (`src/utils/github.js`).
+- 🧰 **Full tech list**: every tool found in the manifests of all public repos, grouped by layer, with the repos that use it (`TECH_STACK` in `src/data/portfolioData.js`).
+- 🧱 **Each project** shows its numbers, its stack and how it works from input to output.
 - 📄 **Dedicated pages**: Projects, Awards and Contact each have their own page (`/#/projects`, `/#/awards`, `/#/contact`), reachable from the navbar and the mobile menu. Pages live behind the hash, so they work on any static host without server rewrites.
 - 🎬 **App demos that play in place**: on the Projects page, each card plays a short silent walkthrough of the real app while it is on screen, and pauses when it scrolls away.
 - 🎞 **A film with sound**: the RADAR case study carries the 32-second film made for the app (built in Remotion in the RADAR repo, `demo-video/`); its card plays the same film silently.
@@ -37,7 +45,7 @@ A portfolio built with **React**, **Three.js**, **Framer Motion** and **Tailwind
 | :--- | :--- | :--- |
 | **Frontend Framework** | React 18 & Vite 5 | Components and fast builds |
 | **Styling** | Tailwind CSS 3 & plain CSS | Layout, glass surfaces and shared tokens |
-| **3D Graphics** | Three.js (React Three Fiber) | Particle field behind the hero |
+| **Carousels** | Embla Carousel | Draggable rows and the film strip |
 | **Animation** | Framer Motion & Lenis | Entrance motion, transitions and smooth scroll |
 | **Routing** | A small hash router (`src/utils/route.js`) | Pages without a router dependency or server rewrites |
 | **Serverless Backend** | Cloudflare Workers & KV | Inquiry counter and API endpoint |

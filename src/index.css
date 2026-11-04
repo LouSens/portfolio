@@ -6,14 +6,23 @@
    DESIGN TOKENS & LIQUID GLASS VARIABLES
 ═══════════════════════════════════════════ */
 :root {
-  --bg: #070709;
+  color-scheme: dark;
+  /* Theme triplets feed Tailwind (white, panel, canvas); see tailwind.config.js. */
+  --fg: 255 255 255;
+  --bg-rgb: 5 5 8;
+  --panel-rgb: 10 11 16;
+  --bg: #050508;
   --surface-1: rgba(13, 14, 19, 0.72);
   --surface-2: rgba(18, 20, 28, 0.85);
   --surface-3: rgba(255, 255, 255, 0.035);
   --text-1: #f3f3f6;
   --text-2: #9b9ba4;
   --text-3: #5e606b;
+  --iso-line: 255 255 255;
+  --field-base: #0D0E16;
+  --dot: rgba(255, 255, 255, 0.07);
   --accent: #FF5A36;
+  --accent-rgb: 255 90 54;
   --accent-hover: #FF431A;
   --accent-light: #FF8C69;
   --accent-dim: rgba(255, 90, 54, 0.09);
@@ -30,6 +39,52 @@
   --liquid-border-hover: rgba(255, 255, 255, 0.24);
   --liquid-highlight: rgba(255, 255, 255, 0.35);
   --liquid-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Light theme: warm paper, ink text, a deeper accent so orange text still reads. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --fg: 17 18 24;
+  --bg-rgb: 246 245 241;
+  --panel-rgb: 255 255 255;
+  --bg: #f6f5f1;
+  --surface-1: rgba(255, 255, 255, 0.78);
+  --surface-2: rgba(255, 255, 255, 0.9);
+  --surface-3: rgba(17, 18, 24, 0.04);
+  --text-1: #111218;
+  --text-2: #55576a;
+  --text-3: #8a8c9a;
+  --iso-line: 17 18 24;
+  --field-base: #ffffff;
+  --dot: rgba(17, 18, 24, 0.09);
+  --accent: #D9421A;
+  --accent-rgb: 217 66 26;
+  --accent-hover: #BF3511;
+  --accent-light: #E8643F;
+  --accent-dim: rgba(217, 66, 26, 0.08);
+  --accent-glow: rgba(217, 66, 26, 0.16);
+  --border: rgba(17, 18, 24, 0.1);
+  --border-hover: rgba(17, 18, 24, 0.22);
+  --border-accent: rgba(217, 66, 26, 0.4);
+  --liquid-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+  --liquid-border: rgba(17, 18, 24, 0.1);
+  --liquid-border-hover: rgba(17, 18, 24, 0.24);
+  --liquid-highlight: rgba(255, 255, 255, 0.9);
+  --liquid-shadow: 0 14px 36px rgba(30, 30, 50, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+/* Anything filled with the accent keeps white text in both themes. */
+.bg-\[var\(--accent\)\],
+.bg-accent,
+.hover\:bg-accent:hover,
+.liquid-btn-primary,
+[class*='from-[#FF6644]'],
+.group:hover .group-hover\:bg-\[var\(--accent\)\] {
+  --fg: 255 255 255;
+}
+
+/* Theme change: a short cross-fade of the colours only, not of layout or transforms. */
+html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease, fill 0.35s ease, stroke 0.35s ease !important;
 }
 
 /* ═══════════════════════════════════════════
@@ -50,7 +105,7 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background: rgb(var(--bg-rgb));
   color: var(--text-1);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
@@ -76,7 +131,7 @@ body.is-scrolling * {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgb(var(--fg) / 0.14);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -119,7 +174,7 @@ body.is-scrolling * {
 
 .liquid-glass-card {
   position: relative;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%), rgba(10, 11, 16, 0.8);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.05) 0%, rgb(var(--fg) / 0.01) 100%), rgb(var(--panel-rgb) / 0.8);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--liquid-border);
@@ -199,13 +254,13 @@ body.is-scrolling * {
   gap: 8px;
   padding: 12px 26px;
   border-radius: 9999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%), rgba(11, 12, 18, 0.85);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.06) 0%, rgb(var(--fg) / 0.02) 100%), rgb(var(--panel-rgb) / 0.85);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgb(var(--fg) / 0.14);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.18),
+              inset 0 1px 0 0 rgb(var(--fg) / 0.12);
+  color: rgb(var(--fg) / 0.9);
   font-family: var(--font-display);
   font-size: 13px;
   letter-spacing: 0.02em;
@@ -221,11 +276,11 @@ body.is-scrolling * {
 }
 .liquid-btn-secondary:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.3);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(16, 17, 24, 0.95);
-  color: #ffffff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.32);
+  border-color: rgb(var(--fg) / 0.3);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.1) 0%, rgb(var(--fg) / 0.03) 100%), rgb(var(--panel-rgb) / 0.95);
+  color: rgb(var(--fg));
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.22),
+              inset 0 1px 0 0 rgb(var(--fg) / 0.18);
 }
 .liquid-btn-secondary:active {
   transform: translateY(1px) scale(0.98);
@@ -233,9 +288,9 @@ body.is-scrolling * {
 
 /* Liquid input fields */
 .liquid-input {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%), #0D0E16;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.04) 0%, rgb(var(--fg) / 0.01) 100%), var(--field-base);
+  border: 1px solid rgb(var(--fg) / 0.14);
+  box-shadow: inset 0 1px 2px 0 rgb(0 0 0 / 0.14);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .liquid-input:focus {
@@ -273,7 +328,7 @@ body.is-scrolling * {
    GRADIENTS & TEXT UTILITIES
 ═══════════════════════════════════════════ */
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(135deg, rgb(var(--fg)) 0%, rgb(var(--fg) / 0.55) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -390,7 +445,7 @@ button, a, input, select, textarea {
    PAGE TEXTURE — one dot grid + one accent glow per section
 ═══════════════════════════════════════════ */
 .bg-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
   background-size: 28px 28px;
   -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
   mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, #000 30%, transparent 100%);
@@ -450,7 +505,7 @@ button, a, input, select, textarea {
     -webkit-backdrop-filter: none !important;
   }
   .nav-dock {
-    background: rgba(11, 12, 18, 0.94) !important;
+    background: rgb(var(--panel-rgb) / 0.94) !important;
   }
   /* Safari redraws a masked, animated strip on every frame and starves the rest of the page:
      fade the edges with two plain overlays instead, and let the strip be an ordinary layer. */
@@ -469,8 +524,8 @@ button, a, input, select, textarea {
     z-index: 1;
     pointer-events: none;
   }
-  .ticker-wrap-new::before { left: 0; background: linear-gradient(to right, #050508, transparent); }
-  .ticker-wrap-new::after { right: 0; background: linear-gradient(to left, #050508, transparent); }
+  .ticker-wrap-new::before { left: 0; background: linear-gradient(to right, rgb(var(--bg-rgb)), transparent); }
+  .ticker-wrap-new::after { right: 0; background: linear-gradient(to left, rgb(var(--bg-rgb)), transparent); }
   .ticker-track-new { will-change: auto; }
   /* the logos are already white, so the grayscale filter only costs a layer per icon */
   .ticker-track-new img { filter: none !important; }
@@ -483,3 +538,305 @@ button, a, input, select, textarea {
     will-change: auto;
   }
 }
+
+/* ═══ Isometric building fallback (phones, reduced motion): floors lift apart and settle on a loop ═══ */
+@keyframes iso-lift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--lift)); }
+}
+.iso-floor {
+  animation: iso-lift 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .iso-floor { animation: none; }
+}
+
+/* Isometric sculptures on cards: each box bobs on its own phase, forever. */
+@keyframes iso-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--amp, -3px)); }
+}
+.iso-b {
+  animation: iso-bob 5.5s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .iso-b { animation: none; }
+}
+
+/* 3D space: things that make the compositor redraw large layers on every frame are switched off. */
+.space-panel, .space-panel * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+/* Sculptures only loop while their room is the current one or next to it */
+.sculpture[data-live='false'] .iso-b {
+  animation-play-state: paused;
+}
+
+/* Theme switch: the new theme grows as a circle out of the switch (View Transitions API). */
+html.theme-reveal::view-transition-old(root),
+html.theme-reveal::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-reveal::view-transition-new(root) {
+  animation: theme-reveal 0.75s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 90%) var(--vt-y, 4%)); }
+  to { clip-path: circle(150vmax at var(--vt-x, 90%) var(--vt-y, 4%)); }
+}
+
+/* ── Liquid glass for the navigation: dock, round buttons and the phone menu.
+   Named apart from the other glass classes so the phone rules that remove blur elsewhere do not touch it. */
+.liquid-nav {
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.07) 0%, rgb(var(--fg) / 0.02) 55%, rgb(var(--fg) / 0.05) 100%), rgb(var(--panel-rgb) / 0.74);
+  backdrop-filter: blur(22px) saturate(190%);
+  -webkit-backdrop-filter: blur(22px) saturate(190%);
+  border: 1px solid rgb(var(--fg) / 0.16);
+  box-shadow:
+    inset 0 1px 0 rgb(var(--fg) / 0.22),
+    inset 0 -1px 0 rgb(var(--fg) / 0.05),
+    0 10px 30px rgb(0 0 0 / 0.22);
+}
+.liquid-nav-strong {
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.08) 0%, rgb(var(--fg) / 0.02) 100%), rgb(var(--panel-rgb) / 0.86);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+}
+.liquid-nav-btn {
+  background: rgb(var(--fg) / 0.08);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgb(var(--fg) / 0.2);
+  box-shadow: inset 0 1px 0 rgb(var(--fg) / 0.25);
+}
+
+/* ── Light theme: firmer cards, borders and quiet text. The utility classes mix ink at low opacity, which on
+   paper is too faint; these rules raise it without touching the dark theme or hover states. */
+:root[data-theme='light'] [class*='border-white/[0.']:not(:hover),
+:root[data-theme='light'] [class*='border-y'][class*='border-white/']:not(:hover) {
+  border-color: rgb(var(--fg) / 0.2);
+}
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-2xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-3xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-xl']:not(:hover) {
+  background-color: rgb(var(--panel-rgb));
+  box-shadow: 0 1px 2px rgb(30 30 50 / 0.06), 0 10px 26px rgb(30 30 50 / 0.07);
+}
+:root[data-theme='light'] .liquid-glass-card {
+  border-color: rgb(var(--fg) / 0.2);
+  box-shadow: 0 1px 2px rgb(30 30 50 / 0.07), 0 14px 34px rgb(30 30 50 / 0.1);
+}
+:root[data-theme='light'] [class*='text-white/3']:not(:hover),
+:root[data-theme='light'] [class*='text-white/4']:not(:hover),
+:root[data-theme='light'] [class*='text-white/5']:not(:hover) {
+  color: rgb(var(--fg) / 0.66);
+}
+:root[data-theme='light'] [class*='text-white/6']:not(:hover),
+:root[data-theme='light'] [class*='text-white/7']:not(:hover) {
+  color: rgb(var(--fg) / 0.78);
+}
+:root[data-theme='light'] .liquid-nav { border-color: rgb(var(--fg) / 0.22); }
+
+/* ── Cards stay plain and flat so they sit quietly on the page: a hairline border and a faint fill in dark mode,
+   white with a soft shadow in light mode. Colour and depth are saved for the few things that should stand out. */
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-2xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-3xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-xl']:not(:hover),
+:root[data-theme='light'] .liquid-glass-card {
+  background-image: none;
+  background-color: #fff;
+  border-color: rgb(var(--fg) / 0.16);
+  box-shadow: 0 1px 2px rgb(30 30 50 / 0.05), 0 8px 22px rgb(30 30 50 / 0.06);
+}
+
+:root[data-theme='light'] #hero {
+  background-image: radial-gradient(70% 60% at 85% 30%, rgb(var(--accent-rgb) / 0.1), transparent 70%);
+}
+
+/* Hero: the photo is cut on a diagonal; on phones it is a faint band behind the text */
+.hero-photo { clip-path: polygon(0 22%, 100% 0, 100% 100%, 0 100%); opacity: 0.4; }
+@media (min-width: 1024px) {
+  .hero-photo { clip-path: polygon(24% 0, 100% 0, 100% 100%, 0% 100%); opacity: 1; }
+}
+
+/* ── Dark stages: rounded dark panels set into the page, with isometric line art behind the content.
+   They stay dark in both themes (the page around them changes), so moving between a stage and a plain section is a
+   real contrast. Inside, the theme colours are pinned to the dark values so every token reads correctly. */
+.stage {
+  --fg: 255 255 255;
+  --bg-rgb: 10 11 16;
+  --panel-rgb: 14 15 22;
+  --iso-line: 255 255 255;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: #0a0b10;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: 0 30px 70px rgb(10 12 30 / 0.28);
+  color: #f3f3f6;
+}
+.stage-glow {
+  background:
+    radial-gradient(55% 70% at 88% 45%, rgb(40 70 150 / 0.38), transparent 70%),
+    radial-gradient(45% 60% at 5% 105%, rgb(var(--accent-rgb) / 0.3), transparent 70%);
+}
+/* Cards, fields and chips inside a stage keep the dark treatment even when the page is in light mode */
+:root[data-theme='light'] .stage [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.04);
+  background-image: none;
+  box-shadow: none;
+  border-color: rgb(255 255 255 / 0.16);
+}
+:root[data-theme='light'] .stage [class*='border-white/[0.']:not(:hover) { border-color: rgb(255 255 255 / 0.16); }
+.hero-stage-pad { padding: 6rem 0.75rem 0.75rem; }
+@media (min-width: 640px) { .hero-stage-pad { padding: 6.25rem 1.25rem 1.25rem; } }
+
+
+/* ── Reversed stages: in light mode the stage is dark; in dark mode the stage is light paper on the dark page. */
+:root:not([data-theme='light']) .stage {
+  --fg: 17 18 24;
+  --bg-rgb: 244 242 236;
+  --panel-rgb: 255 255 255;
+  --iso-line: 17 18 24;
+  --accent: #D9421A;
+  --accent-rgb: 217 66 26;
+  background: #f3f1ea;
+  border-color: rgb(255 255 255 / 0.5);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.55);
+  color: #111218;
+}
+:root:not([data-theme='light']) .stage .stage-glow {
+  background:
+    radial-gradient(55% 70% at 88% 45%, rgb(120 150 230 / 0.28), transparent 70%),
+    radial-gradient(45% 60% at 5% 105%, rgb(217 66 26 / 0.22), transparent 70%);
+}
+:root:not([data-theme='light']) .stage [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.75);
+  background-image: none;
+  box-shadow: 0 1px 2px rgb(30 30 50 / 0.06);
+}
+:root:not([data-theme='light']) .stage [class*='border-white/[0.']:not(:hover),
+:root:not([data-theme='light']) .stage [class*='bg-white/[0.0']:not(:hover) {
+  border-color: rgb(17 18 24 / 0.16);
+}
+.stage .stage-bar { border-top: 1px solid rgb(var(--fg) / 0.14); }
+
+/* A stage that runs edge to edge: no rounded frame, no border, no shadow, so it reads as a section, not a card */
+.stage.stage-bleed { border-radius: 0; border: 0; box-shadow: none; }
+
+/* A dark card with a blue and orange tone, the same hue as the hero panel, for the few cards that should stand out.
+   It stays dark in both themes, with the theme colours pinned so text inside reads correctly. */
+.hue-card {
+  --fg: 255 255 255;
+  --bg-rgb: 10 11 16;
+  --panel-rgb: 14 15 22;
+  --accent: #FF5A36;
+  --accent-rgb: 255 90 54;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 92% 0%, rgb(40 70 150 / 0.42), transparent 70%),
+    radial-gradient(55% 70% at 0% 100%, rgb(255 90 54 / 0.26), transparent 70%),
+    #0b0c12;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  color: #f3f3f6;
+}
+:root[data-theme='light'] .hue-card [class*='bg-white/[0.0']:not(:hover) {
+  background-color: rgb(255 255 255 / 0.04);
+  background-image: none;
+  box-shadow: none;
+  border-color: rgb(255 255 255 / 0.16);
+}
+:root[data-theme='light'] .hue-card [class*='border-white/[0.']:not(:hover) { border-color: rgb(255 255 255 / 0.16); }
+:root[data-theme='light'] .hue-card { box-shadow: 0 24px 60px rgb(10 12 30 / 0.25); }
+
+/* The phone menu sits over the page, so it is much more opaque than the dock: readable on a dark hero and a light one */
+.liquid-nav-menu {
+  background: linear-gradient(135deg, rgb(var(--fg) / 0.06), rgb(var(--fg) / 0.02)), rgb(var(--panel-rgb) / 0.9);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+/* Phones: the hero keeps to the screen width and nothing inside it can push it wider */
+@media (max-width: 640px) {
+  #hero, #hero .stage { max-width: 100vw; overflow-x: clip; }
+  .liquid-nav { border-radius: 9999px; }
+}
+
+/* Page slicing: sections alternate between the page colour and a band, so each one reads as its own block.
+   The bands are a clear step darker or lighter than the page, with a hairline where they meet. */
+:root { --band: #101119; }
+:root[data-theme='light'] { --band: #ebe6da; }
+main > section:nth-of-type(even):not(#hero) {
+  background-color: var(--band);
+  border-top: 1px solid rgb(var(--fg) / 0.1);
+  border-bottom: 1px solid rgb(var(--fg) / 0.1);
+}
+/* Cards that sit on a band need a surface of their own, or they vanish */
+main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { background-color: rgb(var(--panel-rgb) / 1); }
+:root[data-theme='light'] main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card):not(:hover) { background-color: #fffdf8; }
+
+/* Never let anything widen the page on a phone */
+html { overflow-x: clip; }
+body { overflow-x: clip; max-width: 100%; }
+
+/* ── Page colour: one soft mesh of colour behind the whole page, as on a poster. Warm yellow top-left, blue top-right,
+   green at the sides, a blush at the bottom (light). In dark it is an aurora: deep blue and violet from the top right,
+   teal at the left, orange-magenta from the bottom left, on near-black. It is fixed, so the colour stays put while the
+   sections move over it, and sections and cards are translucent so it shows through. */
+:root {
+  --mesh:
+    radial-gradient(48% 44% at 100% 0%, rgb(54 90 255 / 0.5), transparent 68%),
+    radial-gradient(40% 40% at 70% 12%, rgb(130 70 230 / 0.26), transparent 70%),
+    radial-gradient(44% 46% at 0% 100%, rgb(255 84 48 / 0.42), transparent 68%),
+    radial-gradient(34% 36% at 24% 96%, rgb(235 60 130 / 0.2), transparent 70%),
+    radial-gradient(34% 42% at 0% 42%, rgb(20 170 160 / 0.26), transparent 70%),
+    radial-gradient(34% 38% at 100% 70%, rgb(90 70 220 / 0.24), transparent 70%);
+  --mesh-base: #07080c;
+  --band: rgb(255 255 255 / 0.025);
+}
+:root[data-theme='light'] {
+  --mesh:
+    radial-gradient(42% 38% at 4% 2%, rgb(250 218 120 / 0.75), transparent 70%),
+    radial-gradient(44% 42% at 98% 4%, rgb(140 188 245 / 0.75), transparent 70%),
+    radial-gradient(34% 40% at 0% 52%, rgb(175 222 150 / 0.62), transparent 70%),
+    radial-gradient(34% 40% at 100% 64%, rgb(175 222 150 / 0.55), transparent 70%),
+    radial-gradient(50% 36% at 50% 102%, rgb(245 190 170 / 0.65), transparent 70%);
+  --mesh-base: #f5f4ee;
+  --band: rgb(255 255 255 / 0.42);
+}
+html, body { background: var(--mesh-base) !important; }
+body::before { content: ''; position: fixed; inset: 0; z-index: 0; background: var(--mesh); pointer-events: none; }
+#top { background: transparent !important; }
+
+/* Light cards become frosted: translucent white, a bright edge, a faint tint of the mesh inside */
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-2xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-3xl']:not(:hover),
+:root[data-theme='light'] [class*='bg-white/[0.0'][class*='rounded-xl']:not(:hover),
+:root[data-theme='light'] main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card):not(:hover) {
+  background-color: rgb(255 255 255 / 0.62);
+  background-image: radial-gradient(90% 90% at 100% 0%, rgb(150 195 245 / 0.18), transparent 65%), radial-gradient(80% 80% at 0% 100%, rgb(250 222 140 / 0.2), transparent 65%);
+  border-color: rgb(255 255 255 / 0.85);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.9) inset, 0 10px 30px rgb(80 90 120 / 0.1);
+}
+/* dark cards: a faint glass fill so the glow behind shows through */
+:root:not([data-theme='light']) main > section:nth-of-type(even) [class*='bg-white/[0.0']:not(.hue-card) { background-color: rgb(255 255 255 / 0.035); }
+/* dark cards pick up a little of the aurora, as the light ones pick up the pastel */
+:root:not([data-theme='light']) [class*='bg-white/[0.0'][class*='rounded-2xl']:not(.hue-card),
+:root:not([data-theme='light']) [class*='bg-white/[0.0'][class*='rounded-3xl']:not(.hue-card) {
+  background-image: radial-gradient(90% 90% at 100% 0%, rgb(60 100 255 / 0.12), transparent 65%), radial-gradient(80% 80% at 0% 100%, rgb(255 90 54 / 0.1), transparent 65%);
+  border-color: rgb(255 255 255 / 0.13);
+}
+
+/* Paper plane: a slow drift, and a dotted trail that keeps moving toward it */
+@keyframes plane-float {
+  0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+  50% { transform: translate(14px, -18px) rotate(2.5deg); }
+}
+@keyframes plane-trail { to { stroke-dashoffset: -44; } }
+.plane-float { animation: plane-float 5.5s ease-in-out infinite; transform-origin: 200px 200px; }
+.plane-trail { animation: plane-trail 2.4s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .plane-float, .plane-trail { animation: none; } }

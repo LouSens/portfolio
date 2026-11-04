@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink, X } from 'lucide-react';
 
@@ -24,7 +25,8 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [multi, onClose, step]);
 
-  return (
+  // Rendered on <body>: inside a 3D panel a fixed element would be fixed to the panel, not the screen
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -79,6 +81,7 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
           </a>
         </div>
       </div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }

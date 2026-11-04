@@ -1,3 +1,5 @@
+import PageSection from './PageSection';
+import { createPortal } from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import SectionLabel from './SectionLabel';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -21,7 +23,7 @@ import { PERSONAL_INFO } from '../data/portfolioData';
 import { navigate, routeUrl } from '../utils/route';
 
 /* compact: the home page version (status and one-tap links). The Contact page adds the message form. */
-export default function ScopeInquiryDrawer({ compact = false }) {
+export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
   const [objective, setObjective] = useState('');
   const [scope, setScope] = useState('');
   const [opportunityType, setOpportunityType] = useState('');
@@ -198,195 +200,75 @@ export default function ScopeInquiryDrawer({ compact = false }) {
   };
 
   return (
-    <section
+    <PageSection
+      panel={panel}
       id="inquire"
-      className="section-glow py-14 md:py-28 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06]"
+      className="section-glow py-10 md:py-16 px-4 sm:px-6 md:px-8 relative overflow-hidden border-t border-white/[0.06] scroll-mt-20"
     >
       <div className="max-w-[1100px] mx-auto relative z-10">
-        {/* ── 1. HEADER: who I am looking for, and the one-line status ── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl mb-8 md:mb-12"
-        >
-          <SectionLabel label="Contact" />
-          <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.12] mb-4">
-            Let's <span className="text-[var(--accent)]">talk.</span>
-          </h2>
-          <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-            I'm looking for an internship in backend, full-stack or AI engineering, and I'm open to remote part-time work.
-            If you've read my CV and want the story behind a project, ask away.
-          </p>
-          <p className="mt-5 inline-flex items-center gap-2.5 text-sm text-white/70">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
-            </span>
-            {PERSONAL_INFO.status}
-          </p>
-        </motion.div>
-
-        {/* ── 2. FASTEST WAYS TO REACH ME: one tap, no typing ── */}
-        <ul className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 ${compact ? 'mb-2.5 sm:mb-3 md:mb-4' : 'mb-8 md:mb-14'}`}>
-          {[
-            { label: 'Email', value: PERSONAL_INFO.email, href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail, copy: true },
-            { label: 'LinkedIn', value: 'in/davidkurniawan13', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
-            { label: 'GitHub', value: 'LouSens', href: PERSONAL_INFO.github, Icon: Github, external: true },
-            { label: 'CV', value: 'Download PDF', href: PERSONAL_INFO.resumeUrl, Icon: Download, download: 'CV_David_Kurniawan.pdf', external: true },
-          ].map(({ label, value, href, Icon, copy, external, download }) => (
-            <motion.li
-              key={label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative group rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/40 bg-white/[0.02] hover:bg-white/[0.04] hover:-translate-y-0.5 transition-all duration-200 sm:min-h-[128px]`}
-            >
-              <a
-                href={href}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noreferrer' : undefined}
-                download={download}
-                className="flex h-full flex-row items-center sm:flex-col sm:items-start sm:justify-between gap-4 sm:gap-5 p-3.5 sm:p-5"
-              >
-                <span className="shrink-0 w-10 h-10 rounded-xl bg-[var(--accent)]/10 border border-[var(--accent)]/25 flex items-center justify-center text-[var(--accent)] group-hover:scale-105 transition-transform">
-                  <Icon size={18} />
-                </span>
-                <span className="min-w-0">
-                  <span className="flex items-center gap-1 text-xs text-white/45 mb-0.5">
-                    {label}
-                    {!copy && <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />}
-                  </span>
-                  <span className="block text-sm sm:text-[15px] text-white break-words leading-snug">{value}</span>
-                </span>
-              </a>
-              {copy && (
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  aria-label="Copy email address"
-                  className="absolute top-1/2 -translate-y-1/2 right-2 sm:top-2.5 sm:translate-y-0 sm:right-2.5 inline-flex items-center gap-1.5 h-10 px-3 rounded-lg text-xs text-white/60 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
-                >
-                  {copiedEmail ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-                  <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
-                </button>
-              )}
-            </motion.li>
-          ))}
-        </ul>
-
-        {compact && (
-          <a
-            href={routeUrl('contact')}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('contact');
-            }}
-            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-[var(--accent)]/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 transition-colors"
-          >
-            <span>
-              <span className="block font-display font-bold text-lg sm:text-xl text-white tracking-tight">Send me a message</span>
-              <span className="block text-sm text-white/55 mt-0.5">A short form that goes straight to my inbox. I usually reply within 24 hours.</span>
-            </span>
-            <ArrowRight size={20} className="shrink-0 text-[var(--accent)] transition-transform duration-150 group-hover:translate-x-0.5" />
-          </a>
-        )}
-
-        {/* ── 3. MESSAGE FORM: pick what it is about, then three fields ── */}
-        {!compact && <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-white/[0.02] p-4 sm:p-8 lg:p-10 grid lg:grid-cols-12 gap-7 lg:gap-14"
+          className="relative grid lg:grid-cols-12 gap-10 lg:gap-16 border-t-2 border-white pt-10"
         >
-          <div className="lg:col-span-4">
-            <h3 className="font-display font-bold text-2xl text-white tracking-tight">Send a message</h3>
-            <p className="mt-2 text-sm text-white/55 leading-relaxed">Goes straight to my inbox. I usually reply within 24 hours.</p>
+          
 
-            <fieldset className="mt-6">
-              <legend className="text-sm text-white/80 mb-3">What is it about?</legend>
-              <div className="grid sm:grid-cols-3 lg:grid-cols-1 gap-2.5">
-                {[
-                  { label: 'Internship', hint: 'Backend, full-stack or AI' },
-                  { label: 'Remote part-time', hint: 'Flexible hours' },
-                  { label: 'Just saying hi', hint: 'A question or an idea' },
-                ].map((opt) => {
-                  const on = opportunityType === opt.label;
-                  return (
-                    <button
-                      key={opt.label}
-                      type="button"
-                      aria-pressed={on}
-                      onClick={() => {
-                        setOpportunityType(on ? '' : opt.label);
-                        setObjective(on ? '' : opt.label);
-                      }}
-                      className={`text-left rounded-xl border px-4 py-3 min-h-[56px] transition-colors cursor-pointer ${
-                        on
-                          ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-white'
-                          : 'border-white/[0.1] bg-white/[0.03] text-white/70 hover:text-white hover:border-white/[0.25]'
-                      }`}
-                    >
-                      <span className="block text-sm font-semibold">{opt.label}</span>
-                      <span className={`block text-xs mt-0.5 ${on ? 'text-white/70' : 'text-white/40'}`}>{opt.hint}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </fieldset>
+          {/* Left: the pitch and the direct ways to reach me */}
+          <div className="lg:col-span-5 relative z-10">
+            <SectionLabel label="Contact" />
+            <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
+              Get in <span className="text-[var(--accent)]">touch</span>
+            </h2>
+            <p className="mt-5 text-[17px] text-white/70 leading-relaxed">
+              Open to internships and remote part-time work in backend, full-stack and AI. Email me or use the form.
+            </p>
+
+            <div className="mt-8 flex items-center gap-2.5">
+              {[
+                { label: 'GitHub', href: PERSONAL_INFO.github, Icon: Github, external: true },
+                { label: 'LinkedIn', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
+                { label: 'Email', href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail },
+              ].map(({ label, href, Icon, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noreferrer' : undefined}
+                  aria-label={label}
+                  title={label === 'Email' ? PERSONAL_INFO.email : label}
+                  className="w-12 h-12 rounded-xl border border-white/25 text-white/80 hover:text-white hover:border-white/60 hover:bg-white/10 flex items-center justify-center transition-colors"
+                >
+                  <Icon size={20} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="lg:col-span-8 flex flex-col gap-5 select-text">
+          {/* Right: the message form */}
+          <form onSubmit={handleSubmit} className="lg:col-span-7 relative z-10 flex flex-col gap-5 select-text lg:pt-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="contact-name" className="block text-sm text-white/80 mb-2">Name or company</label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  autoComplete="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Alex Chen or Acme Corp"
-                  required
-                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
-                />
+                <input id="contact-name" type="text" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Alex Chen or Acme Corp" required className="w-full bg-white/[0.03] border border-white/[0.14] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-[var(--accent)] transition-colors" />
               </div>
               <div>
                 <label htmlFor="contact-email" className="block text-sm text-white/80 mb-2">Email</label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="alex@company.com"
-                  required
-                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
-                />
+                <input id="contact-email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="alex@company.com" required className="w-full bg-white/[0.03] border border-white/[0.14] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-[var(--accent)] transition-colors" />
               </div>
             </div>
 
             <div>
               <label htmlFor="contact-message" className="block text-sm text-white/80 mb-2">Message</label>
-              <textarea
-                id="contact-message"
-                rows={6}
-                value={scope}
-                onChange={(e) => setScope(e.target.value)}
-                placeholder="A few lines on the role or what you'd like to discuss."
-                required
-                className="w-full bg-white/[0.03] border border-white/[0.1] rounded-xl p-4 text-base sm:text-sm text-white placeholder:text-white/30 resize-none leading-relaxed focus:outline-none focus:border-[var(--accent)] focus:bg-white/[0.06] transition-colors"
-              />
+              <textarea id="contact-message" rows={6} value={scope} onChange={(e) => setScope(e.target.value)} placeholder="A few lines on the role or what you'd like to discuss." required className="w-full bg-white/[0.03] border border-white/[0.14] rounded-xl px-4 py-3.5 text-base sm:text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-[var(--accent)] transition-colors resize-none leading-relaxed" />
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between pt-1">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="liquid-btn-primary w-full sm:w-auto justify-center !py-3.5 !px-8 text-sm font-bold group cursor-pointer disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto rounded-xl bg-accent text-white px-8 py-3.5 text-sm font-display font-bold hover:brightness-110 transition cursor-pointer disabled:opacity-50 group"
               >
                 {isSubmitting ? (
                   <Loader2 size={15} className="animate-spin" />
@@ -395,13 +277,13 @@ export default function ScopeInquiryDrawer({ compact = false }) {
                 )}
                 <span>{isSubmitting ? 'Sending...' : 'Send message'}</span>
               </button>
-              <p className="text-xs text-white/40 leading-relaxed sm:max-w-[16rem]">Your details are only used to reply to you.</p>
+              <p className="text-xs text-white/50 leading-relaxed sm:max-w-[16rem]">Your message goes straight to my inbox.</p>
             </div>
           </form>
-        </motion.div>}
+        </motion.div>
 
         {/* Admin Messages Viewer Toggle for David */}
-        {!compact && storedInquiries.length > 0 && (
+        {storedInquiries.length > 0 && (
           <div className="mt-6 flex items-center justify-between text-xs text-white/40">
             <span>Saved Messages: {storedInquiries.length} recorded</span>
             <button
@@ -417,7 +299,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
       </div>
 
       {/* ── 1. CLEAN MODERN CONFIRMATION MODAL ── */}
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {submissionReceipt && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -432,7 +314,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 320, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-md w-full bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.15)] overflow-hidden"
+              className="relative max-w-md w-full bg-panel border border-white/[0.14] rounded-3xl p-6 sm:p-8 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9),inset_0_1px_1px_0_rgba(255,255,255,0.15)] overflow-hidden"
             >
               {/* Close Button */}
               <button
@@ -458,7 +340,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               </h3>
 
               <p className="text-white/70 text-sm font-normal leading-relaxed mb-6">
-                Thanks for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your message regarding <span className="text-white font-medium">"{submissionReceipt.objective}"</span> has been received. I'll get back to you at <span className="text-white font-medium">{submissionReceipt.email}</span> within 24 hours.
+                Thanks for reaching out, <span className="text-white font-medium">{submissionReceipt.name}</span>. Your message has been received.
               </p>
 
               {/* Action Buttons */}
@@ -482,10 +364,10 @@ export default function ScopeInquiryDrawer({ compact = false }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
 
       {/* ── 2. CLEAN INBOX VIEWER MODAL (FOR DAVID) ── */}
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {showAdminInbox && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -500,12 +382,12 @@ export default function ScopeInquiryDrawer({ compact = false }) {
               exit={{ scale: 0.95, opacity: 0, y: 10 }}
               transition={{ type: 'spring', stiffness: 300, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-2xl w-full max-h-[80vh] bg-[#0D0E14] border border-white/[0.14] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
+              className="relative max-w-2xl w-full max-h-[80vh] bg-panel border border-white/[0.14] rounded-3xl p-6 sm:p-8 flex flex-col shadow-2xl overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[var(--accent)]/15 border border-[var(--accent)]/30 flex items-center justify-center text-[var(--accent)]">
+                  <div className="w-8 h-8 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center text-[var(--accent)]">
                     <Inbox size={16} />
                   </div>
                   <div>
@@ -582,7 +464,7 @@ export default function ScopeInquiryDrawer({ compact = false }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </section>
+      </AnimatePresence>, document.body)}
+    </PageSection>
   );
 }

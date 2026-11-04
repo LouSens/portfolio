@@ -4,25 +4,16 @@ import Lenis from 'lenis';
 
 // Modular Components
 import Navbar from './components/Navbar';
-import SectionNav from './components/SectionNav';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import About from './components/About';
-import NetflixProjectsHub from './components/NetflixProjectsHub';
+import Home from './components/Home';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
-import ProjectsPage from './components/ProjectsPage';
-import PageNav from './components/PageNav';
 
 import { PROJECTS_DATA } from './data/portfolioData';
 import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/route';
 
 // Heavy pieces load after the first paint: three.js for the background, and the case study view.
-const ParticleCanvas = lazy(() => import('./components/ParticleCanvas'));
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
-const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
-const ScopeInquiryDrawer = lazy(() => import('./components/ScopeInquiryDrawer'));
 
 const HOME_TITLE = typeof document !== 'undefined' ? document.title : '';
 const IS_PHONE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
@@ -55,21 +46,10 @@ export default function App() {
   // Which page is showing: the long home page, or one of the dedicated pages the navbar links to.
   const [route, setRoute] = useState(() => parseRoute());
   // Bumped every time a case study closes: remounting <main> replays every entrance animation,
-  // which otherwise only run once per page load. lastIndex keeps the carousel on the project just viewed.
+  // which otherwise only run once per page load.
   const [homeKey, setHomeKey] = useState(0);
-  const [lastIndex, setLastIndex] = useState(0);
   // Where the visitor was on the page when a case study opened, so closing it returns them there.
   const savedScroll = useRef(0);
-  // Mount the 3D background only once the browser is idle, so it never delays the hero.
-  const [show3D, setShow3D] = useState(false);
-  useEffect(() => {
-    // Phones skip the 3D background entirely: no three.js download, no GPU work. The hero keeps its CSS glow.
-    if (window.matchMedia('(max-width: 767px)').matches) return undefined;
-    const start = () => setShow3D(true);
-    const id = 'requestIdleCallback' in window ? window.requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 1200);
-    return () => ('requestIdleCallback' in window ? window.cancelIdleCallback(id) : clearTimeout(id));
-  }, []);
-
   // Initialize Lenis Smooth Scroll (skipped for users who prefer reduced motion)
   useEffect(() => {
     // Touch devices already scroll smoothly; running Lenis there only costs frames.
@@ -135,9 +115,17 @@ export default function App() {
       return;
     }
     const section = takePendingSection();
-    const y = section ? (document.getElementById(section)?.offsetTop ?? 0) : 0;
-    window.scrollTo({ top: y, behavior: 'instant' });
-    lenisRef.current?.scrollTo(y, { immediate: true, force: true });
+    const jump = () => {
+      const el = section && document.getElementById(section);
+      const y = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+      window.scrollTo({ top: y, behavior: 'instant' });
+      lenisRef.current?.scrollTo(y, { immediate: true, force: true });
+    };
+    jump();
+    // The 3D page settles its room heights a moment after it mounts, so land again once it has
+    if (!section) return undefined;
+    const timers = [250, 800, 1600].map((ms) => setTimeout(jump, ms));
+    return () => timers.forEach(clearTimeout);
   }, [route]);
 
   // Sync page and modal with URL hash
@@ -177,7 +165,6 @@ export default function App() {
 
   const handleOpenProject = (project) => {
     setActiveModalProject(project);
-    setLastIndex(Math.max(0, PROJECTS_DATA.findIndex((p) => p.id === project.id)));
     if (modalOpen.current) {
       // Switching between case studies stays a single step in the history.
       window.history.replaceState(null, '', `#project=${project.id}`);
@@ -202,67 +189,19 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050508] text-[#f3f3f6] font-sans selection:bg-[var(--accent)]/30 selection:text-white overflow-x-hidden">
+    // overflow-x-clip (not hidden): hidden would make this a scroll container and break the sticky galleries.
+    <div id="top" className="relative min-h-screen bg-canvas text-white font-sans selection:bg-accent/30 selection:text-white overflow-x-clip">
       <ScrollProgress />
       <CursorGlow />
       <div className="fixed inset-0 z-0 pointer-events-none bg-dots" aria-hidden="true" />
 
-      {/* ── 3D WEBGL PARTICLE SPHERE (HERO ISOLATED CENTERPIECE) ── */}
-      {show3D && (
-        <div
-          className={`absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden ${route === HOME ? '' : 'hidden'}`}
-          style={{
-            height: '100vh',
-            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
-          }}
-        >
-          <Suspense fallback={null}>
-            <ParticleCanvas paused={!!activeModalProject || route !== HOME} />
-          </Suspense>
-        </div>
-      )}
-
       {/* Navigation */}
       <Navbar route={route} />
-      {route === HOME && <SectionNav />}
 
       {/* Main Content Flow */}
       <PresenceContext.Provider value={IS_PHONE && homeKey === 0 ? NO_INTRO : null}>
-      <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-hidden">
-        {route === HOME ? (
-          <>
-            {/* 1. Hero Section */}
-            <Hero />
-
-            {/* 2. Marquee Ticker */}
-            <Marquee />
-
-            {/* 3. About */}
-            <About />
-
-            {/* 4. Projects Showcase & Catalog */}
-            <NetflixProjectsHub onOpenProject={handleOpenProject} initialIndex={lastIndex} />
-
-            {/* 6. Education & Awards: the headline awards; the Awards page has the full record */}
-            <Suspense fallback={<div className="min-h-screen" />}>
-              <CredentialsSection compact />
-
-              {/* 7. Contact: one-tap links; the Contact page has the message form */}
-              <ScopeInquiryDrawer compact />
-            </Suspense>
-          </>
-        ) : (
-          // Dedicated pages: one part of the home page in full, clear of the floating navbar.
-          <div className="pt-14 md:pt-10 min-h-screen">
-            {route === 'projects' && <ProjectsPage onOpenProject={handleOpenProject} />}
-            <Suspense fallback={<div className="min-h-screen" />}>
-              {route === 'awards' && <CredentialsSection />}
-              {route === 'contact' && <ScopeInquiryDrawer />}
-            </Suspense>
-            <PageNav route={route} />
-          </div>
-        )}
+      <main key={`${route}-${homeKey}`} className="relative z-10 w-full overflow-x-clip">
+        <Home onOpenProject={handleOpenProject} />
       </main>
       </PresenceContext.Provider>
 
@@ -271,7 +210,7 @@ export default function App() {
 
       {/* ── PROJECT DETAIL MODAL ── */}
       {activeModalProject && (
-        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-[#050508]" />}>
+        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-canvas" />}>
         <ProjectDetailModal
           project={activeModalProject}
           projects={PROJECTS_DATA}
