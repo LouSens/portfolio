@@ -44,7 +44,8 @@ export const PROJECTS_DATA = [
     isTeam: true,
     year: '2026',
     badge: 'FEATURED BUILD',
-    highlight: 'Finalist and Tier 3 Award, PIDI Digdaya x Hackathon 2026',
+    highlight: 'Finalist, top 80 of 2,000+ teams, PIDI x Digdaya Hackathon 2026',
+    rank: { event: 'PIDI x Digdaya Hackathon 2026', result: 'Finalist, top 80' },
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/kerjacerdas-v2/mobile-landing.webp',
@@ -202,7 +203,8 @@ export const PROJECTS_DATA = [
     isTeam: true,
     year: 'Oct 2026',
     badge: 'HACKATHON BUILD',
-    highlight: 'Finalist (top 15), SDC XMUM Hackathon 2026',
+    highlight: 'Finalist, top 15, SDC XMUM Hackathon 2026',
+    rank: { event: 'SDC XMUM Hackathon 2026', result: 'Finalist, top 15' },
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/adept/cover.webp',
@@ -461,7 +463,8 @@ export const PROJECTS_DATA = [
     isTeam: true,
     year: 'May 2026',
     badge: 'TOP 24 HACKATHON',
-    highlight: 'Top 24 of 100+ teams, UM Hackathon 2026',
+    highlight: 'Ranked 24th of 100+ teams, UMHackathon 2026',
+    rank: { event: 'UMHackathon 2026', result: 'Ranked 24th' },
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/media/orion/07-manager-approvals.jpg',
@@ -497,13 +500,13 @@ export const PROJECTS_DATA = [
     synopsis:
       'Automated corporate expense reimbursement platform that eliminates manual receipt audits, duplicate claims, and policy violations in seconds.',
     overview:
-      'Orion transforms corporate expense reconciliation by replacing slow manual receipt reviews with a 6-stage intelligent workflow. Built under 48-hour hackathon constraints and placing in the Top 24 out of 100+ teams, it automatically checks receipts against company policy, detects duplicate submissions, and produces audit-ready financial ledgers.',
+      'Orion transforms corporate expense reconciliation by replacing slow manual receipt reviews with a 6-stage intelligent workflow. Built under 48-hour hackathon constraints and ranking 24th out of 100+ teams, it automatically checks receipts against company policy, detects duplicate submissions, and produces audit-ready financial ledgers.',
     problem:
       'Finance teams lose countless hours cross-referencing messy receipt photos against complex company spending policies, frequently missing duplicate or fraudulent claims.',
     solution:
       'Engineered an automated 6-stage state machine that scans receipt images, verifies merchant legitimacy, flags duplicate submissions via fuzzy matching, and updates transaction ledgers with full audit trails.',
     businessOutcomes: [
-      'Top 24 finish out of 100+ competing teams at UM Hackathon 2026',
+      'Ranked 24th out of 100+ competing teams at UM Hackathon 2026',
       'Automated duplicate detection stopping accidental double-reimbursements',
       'Audit-ready structured JSON ledgers for effortless accounting exports',
       '85% code coverage across unit and integration tests, with nightly regressions against production LLM APIs',
@@ -516,7 +519,7 @@ export const PROJECTS_DATA = [
       { name: 'Ledger Node', desc: 'Immutable structured transaction ledger' },
     ],
     impactMetrics: [
-      { value: "Top 24", label: "of 100+ teams at UM Hackathon 2026" },
+      { value: "Ranked 24th", label: "of 100+ teams at UM Hackathon 2026" },
       { value: "~80% faster", label: "claim processing than manual review" },
       { value: "Full audit trail", label: "every decision is recorded in the ledger" },
     ],
@@ -769,6 +772,7 @@ export const PROJECTS_DATA = [
     year: 'Oct 2025',
     badge: 'RL BUILD',
     highlight: '3rd place, AI category, XMUM AI Competition',
+    rank: { event: 'XMUM AI Competition', result: '3rd place' },
     posterAccent: 'from-white/[0.08] to-black/30',
     hasRealUI: true,
     coverImage: '/screenshots/dpickleball/cover.webp',

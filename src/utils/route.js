@@ -6,7 +6,6 @@ export const HOME = 'home';
 export const PAGES = [
   { route: 'projects', label: 'Projects' },
   { route: 'awards', label: 'Awards' },
-  { route: 'contact', label: 'Contact' },
 ];
 
 export const parseRoute = (hash = window.location.hash) => {
@@ -27,6 +26,11 @@ export const takePendingSection = () => {
 };
 
 export function navigate(route, section = null) {
+  // Contact lives on the home page: one design, one place
+  if (route === 'contact') {
+    route = HOME;
+    section = 'inquire';
+  }
   if (!window.location.hash.startsWith('#project=') && parseRoute() === route) {
     const el = section && document.getElementById(section);
     if (el) el.scrollIntoView({ behavior: 'smooth' });

@@ -5,14 +5,12 @@ import ProjectsNetflix from './ProjectsNetflix';
 import StackBench from './StackBench';
 import { setActiveRoom } from '../utils/roomStore';
 
-const ResultsRoom = lazy(() => import('./ActivitySection').then((m) => ({ default: m.ResultsRoom })));
-const KpiRoom = lazy(() => import('./ActivitySection').then((m) => ({ default: m.KpiRoom })));
 const GithubRoom = lazy(() => import('./ActivitySection').then((m) => ({ default: m.GithubRoom })));
 const PhotoStrip = lazy(() => import('./PhotoStrip'));
 const CredentialsSection = lazy(() => import('./CredentialsSection'));
 const ScopeInquiryDrawer = lazy(() => import('./ScopeInquiryDrawer'));
 
-const IDS = ['about', 'work', 'stack', 'activity', 'github', 'moments', 'awards', 'inquire'];
+const IDS = ['about', 'work', 'stack', 'github', 'moments', 'awards', 'inquire'];
 
 /* The home page: one calm vertical scroll. Each section has its own look; sideways movement happens only inside rows
    you drag or swipe (projects, KPIs, photos). Nothing is pinned and nothing takes over the scroll. */
@@ -37,7 +35,7 @@ export default function Home({ onOpenProject }) {
   const section = 'scroll-mt-20 border-t border-white/[0.06]';
   return (
     <>
-      <Hero />
+      <Hero onOpenProject={onOpenProject} />
       <section id="about" className={section}>
         <About />
       </section>
@@ -48,18 +46,14 @@ export default function Home({ onOpenProject }) {
         <StackBench />
       </section>
       <Suspense fallback={<div className="min-h-[50svh]" />}>
-        <section id="activity" className={section}>
-          <ResultsRoom />
-          <KpiRoom onOpenProject={onOpenProject} />
-        </section>
-        <section id="github" className="scroll-mt-20">
+        <section id="github" className={section}>
           <GithubRoom near />
         </section>
         <section id="moments" className={section}>
           <PhotoStrip />
         </section>
         <CredentialsSection compact />
-        <ScopeInquiryDrawer compact />
+        <ScopeInquiryDrawer />
       </Suspense>
     </>
   );

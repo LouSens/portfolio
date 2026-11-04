@@ -3,6 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import ProjectMedia from './ProjectMedia';
+import RankChip from './RankChip';
 import { PROJECTS_DATA, EARLIER_WORK } from '../data/portfolioData';
 import { navigate, routeUrl } from '../utils/route';
 
@@ -54,7 +55,8 @@ function Poster({ project, onOpen }) {
       <div className="mt-3 px-1">
         <p className="font-display font-semibold text-white group-hover:text-[var(--accent)] transition-colors">{project.title}</p>
         <p className="mt-0.5 text-xs text-white/45 truncate">{project.category}</p>
-        {metric && (
+        {project.rank && <RankChip rank={project.rank} stacked className="mt-2" />}
+        {!project.rank && metric && (
           <p className="mt-2 text-xs text-white/65">
             <span className="font-display font-bold text-white">{metric.value}</span> <span className="text-white/45">· {metric.label}</span>
           </p>
@@ -73,8 +75,9 @@ function Billboard({ project, onOpen }) {
         <ProjectMedia project={project} eager />
       </div>
       <div className="lg:col-span-5 relative p-6 md:p-9 flex flex-col">
-        <p className="text-xs font-medium tracking-wide text-[var(--accent)]">FEATURED · {project.highlight}</p>
-        <h3 className="mt-3 font-display font-extrabold text-3xl md:text-4xl text-white tracking-tight">{project.title}</h3>
+        <p className="text-xs font-medium tracking-wide text-white/50">FEATURED</p>
+        <RankChip rank={project.rank} className="mt-2" />
+        <h3 className="mt-4 font-display font-extrabold text-3xl md:text-4xl text-white tracking-tight">{project.title}</h3>
         <p className="mt-1 text-xs text-white/45">{[project.role, project.team, project.year].filter(Boolean).join(' · ')}</p>
         <p className="mt-4 text-[15px] text-white/70 leading-relaxed">{project.synopsis}</p>
         <dl className="mt-6 pt-5 border-t border-white/[0.1] grid grid-cols-[repeat(auto-fit,minmax(7.5rem,1fr))] gap-x-4 gap-y-4">

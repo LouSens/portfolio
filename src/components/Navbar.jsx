@@ -47,9 +47,7 @@ export default function Navbar({ route = HOME }) {
       <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 md:px-8 pt-3 pointer-events-none">
         <div className="max-w-[1240px] mx-auto pointer-events-auto">
           <div
-            className={`flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full border transition-colors duration-300 ${
-              scrolled ? 'bg-panel/90 border-white/[0.14] shadow-[0_12px_30px_rgba(0,0,0,0.25)]' : 'bg-panel/60 border-white/[0.08]'
-            }`}
+            className={`liquid-nav flex items-center justify-between gap-4 pl-3 pr-3 sm:pl-4 py-2 rounded-full transition-shadow duration-300 ${scrolled ? 'liquid-nav-strong' : ''}`}
           >
             <a href={routeUrl(HOME)} onClick={go(null)} className="flex items-center gap-2.5 min-w-0 group" aria-label="David Kurniawan, home">
               <span className="w-8 h-8 shrink-0 rounded-lg bg-white/[0.06] border border-white/[0.16] flex items-center justify-center font-display font-extrabold text-[12px] text-white group-hover:border-accent/70 transition-colors">
@@ -83,7 +81,7 @@ export default function Navbar({ route = HOME }) {
                 onClick={() => setOpen((o) => !o)}
                 aria-label={open ? 'Close menu' : 'Open menu'}
                 aria-expanded={open}
-                className="lg:hidden w-9 h-9 rounded-full border border-white/[0.14] bg-white/[0.05] text-white flex items-center justify-center cursor-pointer"
+                className="liquid-nav-btn lg:hidden w-9 h-9 rounded-full text-white flex items-center justify-center cursor-pointer"
               >
                 {open ? <X size={16} /> : <Menu size={16} />}
               </button>
@@ -101,7 +99,7 @@ export default function Navbar({ route = HOME }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-[68px] left-3 right-3 z-50 rounded-3xl border border-white/[0.14] bg-panel p-4 lg:hidden"
+              className="fixed top-[68px] left-3 right-3 z-50 liquid-nav liquid-nav-strong rounded-3xl p-4 lg:hidden"
             >
               <nav aria-label="Menu" className="flex flex-col">
                 {NAV_SECTIONS.map((link) => (

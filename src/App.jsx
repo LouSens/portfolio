@@ -17,7 +17,6 @@ import { HOME, PAGES, parseRoute, routeUrl, takePendingSection } from './utils/r
 const ProjectDetailModal = lazy(() => import('./components/ProjectDetailModal'));
 // Below the fold: fetched alongside the main script, rendered once the hero is already on screen.
 const CredentialsSection = lazy(() => import('./components/CredentialsSection'));
-const ScopeInquiryDrawer = lazy(() => import('./components/ScopeInquiryDrawer'));
 
 const HOME_TITLE = typeof document !== 'undefined' ? document.title : '';
 const IS_PHONE = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
@@ -215,7 +214,6 @@ export default function App() {
             {route === 'projects' && <ProjectsPage onOpenProject={handleOpenProject} />}
             <Suspense fallback={<div className="min-h-screen" />}>
               {route === 'awards' && <CredentialsSection />}
-              {route === 'contact' && <ScopeInquiryDrawer />}
             </Suspense>
             <PageNav route={route} />
           </div>

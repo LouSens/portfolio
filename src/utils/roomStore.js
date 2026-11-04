@@ -22,7 +22,7 @@ export const NAV_SECTIONS = [
   { id: 'about', label: 'About', rooms: ['about'] },
   { id: 'work', label: 'Projects', rooms: ['work'] },
   { id: 'stack', label: 'Stack', rooms: ['stack'] },
-  { id: 'activity', label: 'Numbers', rooms: ['activity', 'github'] },
+  { id: 'github', label: 'GitHub', rooms: ['github'] },
   { id: 'awards', label: 'Awards', rooms: ['moments', 'awards'] },
   { id: 'inquire', label: 'Contact', rooms: ['inquire'] },
 ];

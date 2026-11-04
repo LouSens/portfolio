@@ -35,7 +35,6 @@ export default function ResumeButton({ variant = 'secondary', className = '', la
       {state === 'busy' && <Loader2 size={15} className="animate-spin" aria-hidden="true" />}
       {state === 'done' && <Check size={15} aria-hidden="true" />}
       <span>{state === 'idle' ? label : state === 'busy' ? 'Preparing…' : 'Downloaded'}</span>
-      {state === 'idle' && variant !== 'compact' && <span className="text-[11px] font-normal text-white/40">PDF · 153 KB</span>}
     </a>
   );
 }

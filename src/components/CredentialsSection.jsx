@@ -432,74 +432,65 @@ export default function CredentialsSection({ compact = false, panel = false }) {
         <AwardFeature key={feature.id || feature.title} feature={feature} reverse={i % 2 === 1} onOpen={open} showMedia={!compact} />
       ))}
 
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-14 md:mt-28">
-        {compact && (
-          <a
-            href={routeUrl('awards')}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('awards');
-            }}
-            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.1] hover:border-accent/50 bg-white/[0.02] hover:bg-white/[0.04] px-5 py-4 sm:px-6 sm:py-5 mb-10 md:mb-16 transition-colors"
-          >
-            <span>
-              <span className="block font-display font-bold text-lg sm:text-xl text-white tracking-tight">See the full record</span>
-              <span className="block text-sm text-white/55 mt-0.5">
-                All {ACHIEVEMENTS.length} results since 2023, with certificates, photos and pitch decks
-              </span>
-            </span>
-            <ArrowRight size={20} className="shrink-0 text-[var(--accent)] transition-transform duration-150 group-hover:translate-x-0.5" />
-          </a>
-        )}
-
-        <p className="text-sm text-white/45 mb-2">Academics</p>
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-8 relative z-10 mt-14 md:mt-24">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.45, ease }}
-          className="grid md:grid-cols-12 gap-x-6 gap-y-6 py-6 border-y border-white/[0.1]"
+          className="rounded-3xl border border-white/[0.1] bg-white/[0.02] p-6 md:p-9"
         >
-          <div className="md:col-span-5">
-            <h3 className="font-display font-bold text-xl text-white tracking-tight">{EDUCATION.degree}</h3>
-            <p className="mt-1 text-sm text-white/55">
-              {EDUCATION.school}, {EDUCATION.start} to {EDUCATION.expected}
-            </p>
-          </div>
-
-          <dl className="md:col-span-3 flex gap-8">
+          <p className="text-xs text-white/45">Academics</p>
+          <div className="mt-3 grid md:grid-cols-2 gap-8 md:gap-12 md:items-end">
             <div>
-              <dt className="font-display font-extrabold text-3xl text-white leading-none tabular-nums">3.84</dt>
-              <dd className="text-xs text-white/50 mt-2">GPA out of 4.00</dd>
+              <h3 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight leading-snug">{EDUCATION.degree}</h3>
+              <p className="mt-1.5 text-sm text-white/55">
+                {EDUCATION.school}, {EDUCATION.start} to {EDUCATION.expected}
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2 text-sm">
+                <li className="rounded-full border border-white/[0.14] px-3.5 py-1.5 text-white/85">GPA 3.84 of 4.00</li>
+                <li className="rounded-full border border-white/[0.14] px-3.5 py-1.5 text-white/85">Top 16% of AI &amp; Robotics cohort</li>
+              </ul>
             </div>
             <div>
-              <dt className="font-display font-extrabold text-3xl text-white leading-none">Top 16%</dt>
-              <dd className="text-xs text-white/50 mt-2">of AI &amp; Robotics cohort</dd>
-            </div>
-          </dl>
-
-          <div className="md:col-span-4">
-            <p className="text-sm text-white/65 mb-2">Dean's List, 3 consecutive semesters</p>
-            <div className="flex flex-wrap gap-x-4">
-              {DEANS_LIST.map((d, i) => (
-                <button
-                  key={d.src}
-                  type="button"
-                  onClick={() =>
-                    open(
-                      DEANS_LIST.map((x) => ({ src: x.src, caption: `Dean's List certificate, ${x.label}` })),
-                      i
-                    )
-                  }
-                  className="group inline-flex items-center gap-1 py-2.5 text-sm text-[var(--accent)] hover:text-white transition-colors cursor-pointer"
-                >
-                  <span>{d.label}</span>
-                  <ArrowUpRight size={14} className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
-              ))}
+              <p className="text-sm text-white/65">Dean&apos;s List, 3 consecutive semesters</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {DEANS_LIST.map((d, i) => (
+                  <button
+                    key={d.src}
+                    type="button"
+                    onClick={() =>
+                      open(
+                        DEANS_LIST.map((x) => ({ src: x.src, caption: `Dean's List certificate, ${x.label}` })),
+                        i
+                      )
+                    }
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-white/[0.16] bg-white/[0.04] hover:bg-white/[0.08] hover:border-accent/60 px-4 py-2 text-sm text-white transition-colors cursor-pointer"
+                  >
+                    {d.label}
+                    <ArrowUpRight size={13} className="text-[var(--accent)] transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
+
+        {compact && (
+          <div className="mt-8 flex justify-center">
+            <a
+              href={routeUrl('awards')}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('awards');
+              }}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/[0.16] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.32] px-6 py-3 text-sm font-display font-semibold text-white transition-colors"
+            >
+              All {ACHIEVEMENTS.length} results, with certificates and photos
+              <ArrowRight size={15} className="text-[var(--accent)] transition-transform duration-150 group-hover:translate-x-0.5" />
+            </a>
+          </div>
+        )}
       </div>
 
       <AnimatePresence>{lightbox && <Lightbox items={lightbox.items} index={lightbox.index} onClose={close} onIndex={setIndex} />}</AnimatePresence>

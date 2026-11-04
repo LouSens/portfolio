@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
 import { ArrowUpRight, GraduationCap, MapPin, Search } from 'lucide-react';
 import SectionLabel from './SectionLabel';
 import IsoObject from './iso/IsoObject';
@@ -14,74 +13,68 @@ const openProject = (id) => {
 const FACT_ICONS = { 'Based in': MapPin, Studying: GraduationCap, 'Looking for': Search };
 const KINDS = ['database', 'cluster', 'bars'];
 
-/* One focus area. It comes forward as you reach it and rests back as you leave, so the right column reads as a
-   sequence you move down, with the intro staying beside it. */
-function Focus({ item, kind }) {
-  const ref = useRef(null);
-  const here = useInView(ref, { margin: '-35% 0px -35% 0px' });
-  return (
-    <article ref={ref} className={`py-9 first:pt-0 border-t first:border-t-0 border-white/[0.1] transition-opacity duration-500 ${here ? 'opacity-100' : 'opacity-50'}`}>
-      <div className="flex items-start gap-6">
-        <IsoObject kind={kind} className="w-16 h-16 shrink-0 hidden sm:block" />
-        <div className="min-w-0">
-          <h3 className="font-display font-bold text-2xl text-white tracking-tight">{item.title}</h3>
-          <ul className="mt-4 space-y-2 text-[15px] text-white/70">
-            {item.points.map((pt) => (
-              <li key={pt} className="flex gap-3">
-                <span className="mt-2.5 w-1 h-1 rounded-full bg-[var(--accent)] shrink-0" />
-                {pt}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-            <span className="text-white/35">See it in</span>
-            {item.projects.map((id) => (
-              <button key={id} type="button" onClick={() => openProject(id)} className="group inline-flex items-center gap-1 py-1 text-[var(--accent)] hover:text-white transition-colors cursor-pointer">
-                {projectTitle(id)}
-                <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </button>
-            ))}
-          </p>
-        </div>
-      </div>
-    </article>
-  );
-}
-
+/* A short statement first, then who I am (one card) beside what I work on (three cards). */
 export default function About() {
   return (
     <div className="px-5 sm:px-8 py-16 md:py-24">
-      <div className="max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-12 lg:gap-20">
-        {/* Stays beside the list while it scrolls (large screens) */}
-        <div className="lg:col-span-5 lg:sticky lg:top-28 self-start">
-          <SectionLabel label="About" />
-          <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-            Hi, I&apos;m <span className="text-[var(--accent)]">David.</span>
-          </h2>
-          <div className="mt-6 space-y-3 text-[17px] text-white/70 leading-relaxed max-w-md">
-            {ABOUT.intro.map((line) => (
-              <p key={line}>{line}</p>
+      <div className="max-w-[1100px] mx-auto">
+        <SectionLabel label="About" />
+        <p className="font-display font-bold text-2xl sm:text-3xl md:text-4xl text-white tracking-tight leading-[1.2] max-w-[48rem]">
+          I study AI and build the <span className="text-[var(--accent)]">backend and AI side</span> of products.
+        </p>
+        <p className="mt-5 text-[17px] text-white/65 leading-relaxed max-w-[38rem]">
+          From Indonesia, studying at Xiamen University Malaysia. In team projects I usually end up owning the backend.
+        </p>
+
+        <div className="mt-12 grid lg:grid-cols-12 gap-4 md:gap-5">
+          <aside className="lg:col-span-4 liquid-glass-card rounded-3xl p-6 md:p-7 self-start">
+            <div className="flex items-center gap-3.5">
+              <span className="w-12 h-12 rounded-2xl bg-accent/15 border border-accent/40 flex items-center justify-center font-display font-extrabold text-[var(--accent)]">DK</span>
+              <div>
+                <p className="font-display font-bold text-white leading-tight">David Kurniawan</p>
+                <p className="text-xs text-white/45">AI student and developer</p>
+              </div>
+            </div>
+            <ul className="mt-6 space-y-5">
+              {ABOUT.facts.map((f) => {
+                const Icon = FACT_ICONS[f.label] || MapPin;
+                return (
+                  <li key={f.label} className="flex gap-3.5">
+                    <Icon size={16} className="mt-0.5 text-[var(--accent)] shrink-0" aria-hidden="true" />
+                    <span>
+                      <span className="block text-xs text-white/45">{f.label}</span>
+                      <span className="block text-[15px] text-white/90 leading-snug">{f.value}</span>
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </aside>
+
+          <div className="lg:col-span-8 grid md:grid-cols-3 gap-4 md:gap-5">
+            {ABOUT.focus.map((item, i) => (
+              <article key={item.title} className="rounded-3xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-6 flex flex-col">
+                <IsoObject kind={KINDS[i % KINDS.length]} className="w-14 h-14" />
+                <h3 className="mt-4 font-display font-bold text-lg text-white tracking-tight">{item.title}</h3>
+                <ul className="mt-3 space-y-2 text-sm text-white/65 leading-snug">
+                  {item.points.map((pt) => (
+                    <li key={pt} className="flex gap-2.5">
+                      <span className="mt-1.5 w-1 h-1 rounded-full bg-[var(--accent)] shrink-0" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-auto pt-5 flex flex-wrap gap-x-3 gap-y-0.5 text-sm">
+                  {item.projects.map((id) => (
+                    <button key={id} type="button" onClick={() => openProject(id)} className="group inline-flex items-center gap-1 py-1 text-[var(--accent)] hover:text-white transition-colors cursor-pointer">
+                      {projectTitle(id)}
+                      <ArrowUpRight size={12} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </button>
+                  ))}
+                </p>
+              </article>
             ))}
           </div>
-          <ul className="mt-8 space-y-4">
-            {ABOUT.facts.map((f) => {
-              const Icon = FACT_ICONS[f.label] || MapPin;
-              return (
-                <li key={f.label} className="flex items-center gap-3.5 text-[15px]">
-                  <Icon size={17} className="text-[var(--accent)] shrink-0" aria-hidden="true" />
-                  <span className="text-white/45 w-24 shrink-0">{f.label}</span>
-                  <span className="text-white/90">{f.value}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div className="lg:col-span-7">
-          <p className="text-sm text-white/40 mb-8">What I work on</p>
-          {ABOUT.focus.map((item, i) => (
-            <Focus key={item.title} item={item} kind={KINDS[i % KINDS.length]} />
-          ))}
         </div>
       </div>
     </div>

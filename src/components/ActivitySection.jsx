@@ -1,55 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ArrowUpRight, ChevronLeft, ChevronRight, Star, GitCommitHorizontal, GitPullRequest, Flame, CalendarDays, FolderGit2 } from 'lucide-react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { ArrowUpRight } from 'lucide-react';
 import SectionLabel from './SectionLabel';
-import CountUp from './ui/CountUp';
-import { GITHUB_USER, KEY_NUMBERS, PERSONAL_INFO, PROJECTS_DATA, EARLIER_WORK, TECH_STACK } from '../data/portfolioData';
+import { GITHUB_USER } from '../data/portfolioData';
 import { fetchGitHub, readCache, isFresh, summariseCalendar } from '../utils/github';
 import SNAPSHOT from '../data/githubSnapshot.json';
 
-/* The Numbers room. Three blocks, each answering one question:
-   1. Results          what the work achieved (figures that already appear in the project write-ups)
-   2. Project KPIs     the headline numbers of each project, one row each
-   3. GitHub           how much I build, live from GitHub (commits, activity, languages, repositories) */
+/* The GitHub section: a day-by-day activity map, commits per repository and languages. */
 
 const WEEKDAYS = ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const nf = (n) => (typeof n === 'number' ? n.toLocaleString('en-US') : '–');
-
-function Block({ title, kicker, children, id }) {
-  return (
-    <div id={id} className="mt-14 md:mt-20 first:mt-0">
-      <div className="flex items-end justify-between gap-4 mb-5 md:mb-7">
-        <h3 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight">{title}</h3>
-        {kicker && <p className="text-xs text-white/45 text-right max-w-[50%]">{kicker}</p>}
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function Tile({ icon: Icon, value, label, note, to, decimals, prefix, suffix }) {
-  return (
-    <div className="rounded-2xl border border-white/[0.1] bg-white/[0.02] p-4 md:p-5 min-w-0">
-      {Icon && <Icon size={16} className="text-[var(--accent)] mb-3" />}
-      <p className="font-display font-extrabold text-2xl md:text-3xl text-white tracking-tight leading-none">
-        {typeof to === 'number' ? <CountUp to={to} decimals={decimals} prefix={prefix} suffix={suffix} /> : value}
-      </p>
-      <p className="mt-2 text-sm text-white/75 leading-snug">{label}</p>
-      {note && <p className="mt-0.5 text-xs text-white/40 leading-snug">{note}</p>}
-    </div>
-  );
-}
-
-/* A two-part pill: muted label, strong value. Same idea as a README badge, drawn here so it matches the theme. */
-function Badge({ label, value, accent = false }) {
-  return (
-    <span className="inline-flex items-stretch rounded-md overflow-hidden text-[11px] font-medium border border-white/[0.12]">
-      <span className="px-2 py-1 bg-white/[0.06] text-white/65">{label}</span>
-      <span className={`px-2 py-1 ${accent ? 'bg-[var(--accent)] text-white' : 'bg-white/[0.14] text-white'}`}>{value}</span>
-    </span>
-  );
-}
 
 /* ─── charts: plain SVG, so they follow the theme and weigh nothing ─── */
 
@@ -205,33 +165,19 @@ function GitHubBlock({ near }) {
   const since = live?.profile?.createdAt ? new Date(live.profile.createdAt).getFullYear() : new Date(SNAPSHOT.firstCommit).getFullYear();
   const updated = new Date(live?.fetchedAt || SNAPSHOT.generatedAt);
 
-  const tiles = [
-    { icon: GitCommitHorizontal, v: commits, label: 'Commits', note: `across ${SNAPSHOT.repositories} repositories` },
-    { icon: CalendarDays, v: cal.total, label: `${calLabel}, last year`, note: `${cal.activeDays} active days` },
-    { icon: Flame, v: cal.longest, label: 'Longest streak', note: 'days in a row' },
-    { icon: FolderGit2, v: repoCount, label: 'Public repositories', note: languages.length ? `${languages.length} languages` : undefined },
-    live?.pullRequests != null && { icon: GitPullRequest, v: live.pullRequests, label: 'Pull requests' },
-    live?.stars != null && { icon: Star, v: live.stars, label: 'Stars received' },
-  ].filter(Boolean);
-
   return (
     <div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        {tiles.slice(0, 8).map((t) => (
-          <Tile key={t.label} icon={t.icon} to={typeof t.v === 'number' ? t.v : undefined} value={String(t.v)} label={t.label} note={t.note} />
-        ))}
-      </div>
+      <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-[44rem]">
+        <span className="text-white font-semibold">{nf(commits)} commits</span> across {nf(repoCount)} repositories since {since}.
+        Longest streak: {cal.longest} days.
+      </p>
 
-      <div className="mt-4 md:mt-5 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
+      <div className="mt-8 rounded-2xl border border-white/[0.1] bg-white/[0.02] p-5 md:p-7">
         <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
           <h4 className="font-display font-semibold text-white">{calLabel} by day</h4>
           <p className="text-xs text-white/45">{cal.from} to {cal.to}</p>
         </div>
         <Heatmap calendar={cal} />
-        <div className="mt-6 pt-6 border-t border-white/[0.08]">
-          <h4 className="font-display font-semibold text-white mb-4">{calLabel} by month</h4>
-          <MonthBars months={cal.months.slice(-12)} />
-        </div>
       </div>
 
       <div className="mt-4 md:mt-5 grid md:grid-cols-2 gap-4 md:gap-5">
@@ -261,16 +207,7 @@ function GitHubBlock({ near }) {
         </ul>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2" aria-label="GitHub badges">
-        <Badge label="commits" value={nf(commits)} accent />
-        <Badge label="repos" value={nf(repoCount)} />
-        <Badge label="streak" value={`${cal.longest} days`} />
-        {live?.stars != null && <Badge label="stars" value={nf(live.stars)} />}
-        {live?.profile?.followers != null && <Badge label="followers" value={nf(live.profile.followers)} />}
-        {live?.pullRequests != null && <Badge label="PRs" value={nf(live.pullRequests)} />}
-        <Badge label="on GitHub since" value={String(since)} />
-      </div>
-      <p className="mt-3 text-xs text-white/40 flex flex-wrap items-center gap-x-3">
+      <p className="mt-5 text-xs text-white/40 flex flex-wrap items-center gap-x-3">
         <span>Updated {updated.toLocaleDateString('en-GB', { dateStyle: 'medium' })}</span>
         <a href={`https://github.com/${GITHUB_USER}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-white/60 hover:text-white">
           github.com/{GITHUB_USER} <ArrowUpRight size={11} />
@@ -280,97 +217,20 @@ function GitHubBlock({ near }) {
   );
 }
 
-/* ─── rooms ─── */
-
-const Frame = ({ children }) => <div className="px-5 sm:px-8 md:px-12 py-8 md:py-12"><div className="max-w-[1100px] mx-auto">{children}</div></div>;
-
-export function ResultsRoom() {
-  const awards = [
-    ['Finalist, top 15', 'SDC XMUM Hackathon 2026'],
-    ['Top 80 of 2,000+', 'PIDI Digdaya 2026'],
-    ['Silver', 'SEA-CICSIC 2026'],
-    ['Top 24 of 100+', 'UMHackathon 2026'],
-    ['3rd place', 'DPickleball AI'],
-    ['Top 20%', 'WorldQuant IQC'],
-    ['Gold', 'ONSK 2023 Physics'],
-  ];
-  return (
-    <Frame>
-      <SectionLabel label="Numbers" />
-      <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
-        The work, <span className="text-[var(--accent)]">in numbers</span>
-      </h2>
-      <div className="mt-8 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-        {KEY_NUMBERS.map((k) => (
-          <Tile key={k.label} to={k.value} decimals={k.decimals} prefix={k.prefix} suffix={k.suffix} label={k.label} note={k.note} />
-        ))}
-      </div>
-      <ul className="mt-4 flex flex-wrap gap-2">
-        {awards.map(([v, l]) => <li key={l}><Badge label={l} value={v} accent={v.startsWith('Top 80') || v.startsWith('Finalist')} /></li>)}
-      </ul>
-    </Frame>
-  );
-}
-
-export function KpiRoom({ onOpenProject }) {
-  const rows = useMemo(() => PROJECTS_DATA.filter((p) => p.impactMetrics?.length), []);
-  const [ref, api] = useEmblaCarousel({ align: 'start', dragFree: true, containScroll: 'trimSnaps' });
-  const [can, setCan] = useState({ prev: false, next: true });
-  useEffect(() => {
-    if (!api) return undefined;
-    const update = () => setCan({ prev: api.canScrollPrev(), next: api.canScrollNext() });
-    update();
-    api.on('select', update).on('reInit', update).on('scroll', update);
-    return () => api.off('select', update).off('reInit', update).off('scroll', update);
-  }, [api]);
-  const arrow = 'w-9 h-9 rounded-full border border-white/[0.16] text-white/80 hover:text-white hover:border-white/[0.4] disabled:opacity-25 disabled:pointer-events-none flex items-center justify-center transition-colors cursor-pointer';
-  return (
-    <Frame>
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="font-display font-bold text-xl md:text-2xl text-white tracking-tight">Project KPIs</h3>
-        <div className="hidden sm:flex gap-2">
-          <button type="button" className={arrow} onClick={() => api?.scrollPrev()} disabled={!can.prev} aria-label="Previous KPIs"><ChevronLeft size={16} /></button>
-          <button type="button" className={arrow} onClick={() => api?.scrollNext()} disabled={!can.next} aria-label="Next KPIs"><ChevronRight size={16} /></button>
-        </div>
-      </div>
-      <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={ref}>
-        <div className="flex gap-4 pb-2">
-          {rows.map((p) => (
-            <button
-              key={p.id}
-              type="button"
-              onClick={() => onOpenProject(p)}
-              className="group flex-none w-[290px] text-left rounded-2xl border border-white/[0.12] hover:border-accent/50 bg-white/[0.02] p-5 transition-colors cursor-pointer"
-            >
-              <span className="flex items-start justify-between gap-2">
-                <span>
-                  <span className="block font-display font-semibold text-white group-hover:text-[var(--accent)] transition-colors">{p.title}</span>
-                  <span className="block text-xs text-white/45">{p.type}</span>
-                </span>
-                <ArrowUpRight size={15} className="mt-1 text-white/30 group-hover:text-[var(--accent)]" />
-              </span>
-              <span className="mt-4 grid gap-3">
-                {p.impactMetrics.slice(0, 3).map((x) => (
-                  <span key={x.label} className="block border-t border-white/[0.08] pt-2.5">
-                    <span className="block font-display font-bold text-white leading-snug">{x.value}</span>
-                    <span className="block text-xs text-white/50 leading-snug">{x.label}</span>
-                  </span>
-                ))}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </Frame>
-  );
-}
+/* ─── room ─── */
 
 export function GithubRoom({ near }) {
   return (
-    <Frame>
-      <Block title="GitHub">
-        <GitHubBlock near={near} />
-      </Block>
-    </Frame>
+    <div className="px-5 sm:px-8 md:px-12 py-14 md:py-20">
+      <div className="max-w-[1100px] mx-auto">
+        <SectionLabel label="GitHub" />
+        <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
+          Steady work, <span className="text-[var(--accent)]">in the open</span>
+        </h2>
+        <div className="mt-8">
+          <GitHubBlock near={near} />
+        </div>
+      </div>
+    </div>
   );
 }
