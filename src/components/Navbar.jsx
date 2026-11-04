@@ -99,7 +99,7 @@ export default function Navbar({ route = HOME }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.2 }}
-              className="fixed top-[68px] left-3 right-3 z-50 liquid-nav liquid-nav-strong rounded-3xl p-4 lg:hidden"
+              className="fixed top-[72px] left-3 right-3 z-50 liquid-nav liquid-nav-menu rounded-3xl p-3 lg:hidden"
             >
               <nav aria-label="Menu" className="flex flex-col">
                 {NAV_SECTIONS.map((link) => (
@@ -108,7 +108,7 @@ export default function Navbar({ route = HOME }) {
                     href={`#${link.id}`}
                     onClick={go(link.id)}
                     aria-current={current(link) ? 'true' : undefined}
-                    className={`flex items-center justify-between px-4 py-3 rounded-xl font-display font-semibold ${current(link) ? 'text-white bg-white/[0.07]' : 'text-white/75'}`}
+                    className={`flex items-center justify-between px-4 py-3 rounded-xl font-display font-semibold ${current(link) ? 'text-white bg-white/[0.1]' : 'text-white/90'}`}
                   >
                     {link.label}
                     {current(link) && <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />}

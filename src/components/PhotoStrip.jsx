@@ -45,7 +45,7 @@ export default function PhotoStrip() {
             <h2 className="font-display font-extrabold text-fluid-h2 text-white tracking-tight leading-[1.1]">
               From the <span className="text-[var(--accent)]">stage</span>
             </h2>
-            <p className="mt-3 text-[15px] text-white/55">Booths, trophies and teams. Hover to pause, drag to browse.</p>
+            <p className="mt-3 text-[15px] text-white/55">Booths, trophies and teams.</p>
           </div>
         </div>
 

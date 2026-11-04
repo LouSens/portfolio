@@ -225,14 +225,25 @@ export default function ScopeInquiryDrawer({ compact = false, panel = false }) {
               Looking for an internship or remote part-time work in backend, full-stack and AI. Send me a few lines.
             </p>
 
-            <p className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-              <button type="button" onClick={handleCopyEmail} className="inline-flex items-center gap-1.5 text-white/75 hover:text-white transition-colors cursor-pointer" aria-label="Copy email address">
-                {copiedEmail ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
-                {copiedEmail ? 'Copied' : PERSONAL_INFO.email}
-              </button>
-              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-white/75 hover:text-white transition-colors">LinkedIn <ArrowUpRight size={13} /></a>
-              <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-white/75 hover:text-white transition-colors">GitHub <ArrowUpRight size={13} /></a>
-            </p>
+            <div className="mt-8 flex items-center gap-2.5">
+              {[
+                { label: 'GitHub', href: PERSONAL_INFO.github, Icon: Github, external: true },
+                { label: 'LinkedIn', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
+                { label: 'Email', href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail },
+              ].map(({ label, href, Icon, external }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noreferrer' : undefined}
+                  aria-label={label}
+                  title={label === 'Email' ? PERSONAL_INFO.email : label}
+                  className="w-12 h-12 rounded-xl border border-white/25 text-white/80 hover:text-white hover:border-white/60 hover:bg-white/10 flex items-center justify-center transition-colors"
+                >
+                  <Icon size={20} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Right: the message form */}

@@ -40,29 +40,29 @@ export default function Hero() {
       <div className="stage stage-bleed min-h-[100svh] flex flex-col pt-16">
         <StageArt scene="hero" />
 
-        <div className="relative z-10 flex-1 flex items-center px-6 sm:px-10 md:px-16 pt-14 pb-10">
+        <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-8 sm:pt-14 pb-8 sm:pb-10">
           <div className="w-full max-w-[1100px] mx-auto grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7">
               <motion.h1 {...item(0.1)} className="font-display font-extrabold text-fluid-h1 tracking-[-0.035em] leading-[1.04] text-white">
-                I build web apps and <span className="text-[var(--accent)]">AI systems.</span>
+                I build web apps<br className="sm:hidden" /> and <span className="text-[var(--accent)]">AI systems.</span>
               </motion.h1>
 
-              <motion.p {...item(0.2)} className="mt-6 text-lg md:text-xl text-white/75 leading-relaxed max-w-[34rem]">
+              <motion.p {...item(0.2)} className="mt-5 sm:mt-6 text-base sm:text-lg md:text-xl text-white/75 leading-relaxed max-w-[34rem]">
                 David Kurniawan, AI student at Xiamen University Malaysia. I work on the backend, the data and the models behind a product.
               </motion.p>
 
-              <motion.div {...item(0.3)} className="mt-9 flex flex-col sm:flex-row gap-3">
+              <motion.div {...item(0.3)} className="mt-7 sm:mt-9 grid grid-cols-2 sm:flex gap-2.5 sm:gap-3">
                 <a
                   href="#work"
                   onClick={goProjects}
-                  className="group inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-accent text-white font-display font-bold text-[15px] shadow-[0_10px_28px_rgba(255,90,54,0.35)] hover:brightness-110 transition"
+                  className="group inline-flex items-center justify-center gap-2.5 px-4 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-accent text-white font-display font-bold text-[15px] shadow-[0_10px_28px_rgba(255,90,54,0.35)] hover:brightness-110 transition"
                 >
-                  See my projects
+                  <span className="sm:hidden">Projects</span><span className="hidden sm:inline">See my projects</span>
                   <ArrowRight size={17} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl border-2 border-white/80 text-white font-display font-bold text-[15px] hover:bg-white hover:text-canvas transition-colors"
+                  className="inline-flex items-center justify-center gap-2.5 px-4 sm:px-7 py-3.5 sm:py-4 rounded-xl border-2 border-white/80 text-white font-display font-bold text-[15px] hover:bg-white hover:text-canvas transition-colors"
                 >
                   <Mail size={17} aria-hidden="true" /> Get in touch
                 </a>
@@ -77,9 +77,9 @@ export default function Hero() {
         </div>
 
         {/* Bottom bar */}
-        <motion.div {...item(0.45)} className="stage-bar relative z-10 px-6 sm:px-10 md:px-16 py-5">
+        <motion.div {...item(0.45)} className="stage-bar relative z-10 px-5 sm:px-10 md:px-16 py-4 sm:py-5">
           <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-            <ul className="flex items-center gap-2" aria-label="Find me">
+            <ul className="flex items-center gap-2 order-2 md:order-1" aria-label="Find me">
               {ICONS.map(({ label, href, Icon, external, download }) => (
                 <li key={label}>
                   <a
@@ -96,7 +96,7 @@ export default function Hero() {
                 </li>
               ))}
             </ul>
-            <ul className="flex flex-wrap gap-x-10 gap-y-3">
+            <ul className="grid grid-cols-2 md:flex gap-x-6 md:gap-x-10 gap-y-3">
               {PROOF.map(([result, event]) => (
                 <li key={event}>
                   <span className="block font-display font-bold text-[15px] text-[var(--accent)]">{result}</span>
