@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import PaperPlane from './PaperPlane';
@@ -17,6 +17,20 @@ const LINKS = [
 
 /* The first screen: the sentence about me, one main action, one quiet one, and where else to find me. */
 export default function Hero() {
+  // As the hero scrolls away the plane dips, then takes off along its nose (up and right) and shrinks into the
+  // distance; the trail it leaves fades out. Nothing moves for visitors who ask for less motion.
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const p = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
+  const flight = {
+    x: useTransform(p, [0, 0.12, 0.6], [0, -10, 560]),
+    y: useTransform(p, [0, 0.12, 0.6], [0, 16, -300]),
+    rotate: useTransform(p, [0, 0.12, 0.6], [0, 6, -12]),
+    scale: useTransform(p, [0, 0.6], [1, 0.55]),
+    opacity: useTransform(p, [0, 0.4, 0.6], [1, 1, 0]),
+    trail: useTransform(p, [0, 0.3], [1, 0]),
+  };
+
   const item = (delay) => ({
     initial: calm ? false : { opacity: 0, y: 14 },
     animate: { opacity: 1, y: 0 },
@@ -28,7 +42,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero">
+    <section id="hero" ref={heroRef}>
       <div className="min-h-[100svh] flex flex-col pt-16">
 
         <div className="relative z-10 flex-1 flex items-center px-5 sm:px-10 md:px-16 pt-24 pb-14">
@@ -78,7 +92,7 @@ export default function Hero() {
 
             {/* The object sits in its own column, level with the text */}
             <motion.div {...item(0.35)} className="hidden lg:flex lg:col-span-5 items-center justify-center" aria-hidden="true">
-              <PaperPlane className="w-full max-w-[460px] h-auto" />
+              <PaperPlane className="w-full max-w-[460px] h-auto" flight={calm ? undefined : flight} />
             </motion.div>
           </div>
         </div>
