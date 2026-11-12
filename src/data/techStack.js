@@ -68,6 +68,13 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "SQL",
+        "repos": [
+          "Adept",
+          "KerjaCerdas"
+        ]
+      },
+      {
         "name": "C",
         "repos": [
           "Hotel System"
@@ -80,9 +87,35 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "C#",
+        "repos": [
+          "dPickleBall"
+        ]
+      },
+      {
         "name": "Luau",
         "repos": [
           "Roblox (just started)"
+        ]
+      },
+      {
+        "name": "Bash",
+        "repos": [
+          "Adept",
+          "KerjaCerdas",
+          "dPickleBall"
+        ]
+      },
+      {
+        "name": "PowerShell",
+        "repos": [
+          "Adept"
+        ]
+      },
+      {
+        "name": "LaTeX",
+        "repos": [
+          "RADAR"
         ]
       }
     ]
@@ -139,6 +172,12 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "React Three Fiber",
+        "repos": [
+          "RADAR"
+        ]
+      },
+      {
         "name": "Framer Motion",
         "repos": [
           "This portfolio",
@@ -162,6 +201,37 @@ export const TECH_STACK = [
         "repos": [
           "RADAR"
         ]
+      },
+      {
+        "name": "Recharts",
+        "repos": [
+          "Adept",
+          "NeuralVoid"
+        ]
+      },
+      {
+        "name": "Remotion",
+        "repos": [
+          "Adept",
+          "RADAR",
+          "This portfolio"
+        ]
+      },
+      {
+        "name": "Zustand",
+        "repos": [
+          "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "next-intl",
+        "repos": [
+          "Adept"
+        ]
+      },
+      {
+        "name": "Streamlit",
+        "repos": []
       }
     ]
   },
@@ -176,6 +246,12 @@ export const TECH_STACK = [
           "NeuralVoid",
           "Orion",
           "RADAR"
+        ]
+      },
+      {
+        "name": "Flask",
+        "repos": [
+          "Face Mask"
         ]
       },
       {
@@ -206,6 +282,43 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "Supabase",
+        "repos": [
+          "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "Neon",
+        "repos": [
+          "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "pgvector",
+        "repos": [
+          "Adept",
+          "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "SQLAlchemy",
+        "repos": [
+          "KerjaCerdas",
+          "RADAR"
+        ]
+      },
+      {
+        "name": "Alembic",
+        "repos": [
+          "KerjaCerdas",
+          "RADAR"
+        ]
+      },
+      {
+        "name": "Firebase",
+        "repos": []
+      },
+      {
         "name": "Pydantic",
         "repos": [
           "Adept",
@@ -217,6 +330,33 @@ export const TECH_STACK = [
         "repos": [
           "Gold Forecast",
           "Movie Recommender"
+        ]
+      },
+      {
+        "name": "Matplotlib",
+        "repos": [
+          "Gold Forecast",
+          "Movie Recommender",
+          "NLP Corpus",
+          "NeuralVoid",
+          "RADAR",
+          "dPickleBall"
+        ]
+      },
+      {
+        "name": "seaborn",
+        "repos": [
+          "Gold Forecast",
+          "Movie Recommender",
+          "NLP Corpus",
+          "NeuralVoid"
+        ]
+      },
+      {
+        "name": "statsmodels",
+        "repos": [
+          "Gold Forecast",
+          "RADAR"
         ]
       },
       {
@@ -235,6 +375,18 @@ export const TECH_STACK = [
         "name": "TimescaleDB",
         "repos": [
           "RADAR"
+        ]
+      },
+      {
+        "name": "Nginx",
+        "repos": [
+          "RADAR"
+        ]
+      },
+      {
+        "name": "Resend",
+        "repos": [
+          "KerjaCerdas"
         ]
       }
     ]
@@ -257,6 +409,37 @@ export const TECH_STACK = [
           "Gold Forecast",
           "Movie Recommender",
           "NeuralVoid"
+        ]
+      },
+      {
+        "name": "XGBoost",
+        "repos": [
+          "Gold Forecast",
+          "NeuralVoid"
+        ]
+      },
+      {
+        "name": "Stable-Baselines3",
+        "repos": [
+          "dPickleBall"
+        ]
+      },
+      {
+        "name": "Unity ML-Agents",
+        "repos": [
+          "dPickleBall"
+        ]
+      },
+      {
+        "name": "NLTK",
+        "repos": [
+          "NLP Corpus"
+        ]
+      },
+      {
+        "name": "Surprise",
+        "repos": [
+          "Movie Recommender"
         ]
       },
       {
@@ -312,6 +495,18 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "Google Cloud",
+        "repos": [
+          "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "OpenAI API",
+        "repos": [
+          "Orion"
+        ]
+      },
+      {
         "name": "LangChain",
         "repos": [
           "IndoLegal-LLM",
@@ -328,6 +523,24 @@ export const TECH_STACK = [
         "name": "LangGraph",
         "repos": [
           "Orion"
+        ]
+      },
+      {
+        "name": "LangSmith",
+        "repos": [
+          "Orion"
+        ]
+      },
+      {
+        "name": "FAISS",
+        "repos": [
+          "IndoLegal-LLM"
+        ]
+      },
+      {
+        "name": "Unsloth",
+        "repos": [
+          "IndoLegal-LLM"
         ]
       }
     ]
@@ -370,6 +583,14 @@ export const TECH_STACK = [
         ]
       },
       {
+        "name": "Playwright",
+        "repos": [
+          "Adept",
+          "KerjaCerdas",
+          "Orion"
+        ]
+      },
+      {
         "name": "Prettier",
         "repos": [
           "Adept",
@@ -381,6 +602,13 @@ export const TECH_STACK = [
         "repos": [
           "Adept",
           "Movie Recommender"
+        ]
+      },
+      {
+        "name": "mypy",
+        "repos": [
+          "KerjaCerdas",
+          "RADAR"
         ]
       },
       {
@@ -415,6 +643,12 @@ export const TECH_STACK = [
         "repos": [
           "Adept",
           "KerjaCerdas"
+        ]
+      },
+      {
+        "name": "RunPod",
+        "repos": [
+          "Adept"
         ]
       },
       {
@@ -458,6 +692,30 @@ export const TECH_STACK = [
         "name": "Unity",
         "repos": [
           "dPickleBall"
+        ]
+      },
+      {
+        "name": "Blender",
+        "repos": [
+          "RADAR"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Editors",
+    "items": [
+      {
+        "name": "VS Code",
+        "repos": [
+          "All repositories"
+        ]
+      },
+      {
+        "name": "PyCharm",
+        "repos": [
+          "dPickleBall",
+          "NeuralVoid"
         ]
       }
     ]

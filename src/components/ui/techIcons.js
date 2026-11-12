@@ -1,5 +1,6 @@
 // Generated from the tool list: brand marks from simple-icons, only the ones used (tree-shaken).
 import {
+  siBlender,
   siC,
   siCloudflareworkers,
   siCplusplus,
@@ -7,9 +8,13 @@ import {
   siEslint,
   siExpress,
   siFastapi,
+  siFirebase,
+  siFlask,
   siFramer,
   siGit,
   siGithubactions,
+  siGnubash,
+  siGooglecloud,
   siGooglegemini,
   siGradio,
   siGsap,
@@ -20,16 +25,20 @@ import {
   siKeras,
   siLangchain,
   siLanggraph,
+  siLatex,
   siLuau,
   siMlflow,
   siMockserviceworker,
+  siNeon,
   siNextdotjs,
+  siNginx,
   siNodedotjs,
   siNumpy,
   siOpencv,
   siPandas,
   siPostgresql,
   siPrettier,
+  siPycharm,
   siPydantic,
   siPytest,
   siPython,
@@ -41,10 +50,14 @@ import {
   siRedis,
   siRender,
   siReplit,
+  siResend,
   siRoblox,
   siRuff,
   siScikitlearn,
   siScipy,
+  siSqlalchemy,
+  siStreamlit,
+  siSupabase,
   siTailwindcss,
   siTensorflow,
   siTestinglibrary,
@@ -57,6 +70,11 @@ import {
   siVitest,
   siWeightsandbiases,
 } from 'simple-icons';
+
+// Tools simple-icons has no mark for get a plain glyph in the same 24-unit box (not the brand's logo)
+const glyph = (path) => ({ path });
+const CHART_WEDGES = glyph('M12 12L12 2A10 10 0 0 1 20.19 6.26ZM12 12L18.58 9.61A7 7 0 0 1 17.36 16.5ZM12 12L17.45 19.78A9.5 9.5 0 0 1 7.25 20.23ZM12 12L7.76 16.24A6 6 0 0 1 6.2 10.45ZM12 12L4.64 7.75A8.5 8.5 0 0 1 9.8 3.79Z');
+const SERVER_STACK = glyph('M3 3h18v5H3zM3 9.5h18v5H3zM3 16h18v5H3zM5.5 4.75h2v1.5h-2zM5.5 11.25h2v1.5h-2zM5.5 17.75h2v1.5h-2z');
 
 export const ICONS = {
   "python": siPython,
@@ -83,6 +101,8 @@ export const ICONS = {
   "postgresql": siPostgresql,
   "pydantic": siPydantic,
   "scipy": siScipy,
+  "matplotlib": CHART_WEDGES,
+  "supabase": siSupabase,
   "express": siExpress,
   "redis": siRedis,
   "timescaledb": siTimescale,
@@ -108,6 +128,7 @@ export const ICONS = {
   "docker": siDocker,
   "github actions": siGithubactions,
   "replit": siReplit,
+  "runpod": SERVER_STACK,
   "vercel": siVercel,
   "cloudflare workers": siCloudflareworkers,
   "git and github": siGit,
@@ -115,6 +136,20 @@ export const ICONS = {
   "render": siRender,
   "roblox studio": siRoblox,
   "unity": siUnity,
+  "bash": siGnubash,
+  "latex": siLatex,
+  "streamlit": siStreamlit,
+  "flask": siFlask,
+  "neon": siNeon,
+  "pgvector": siPostgresql,
+  "sqlalchemy": siSqlalchemy,
+  "firebase": siFirebase,
+  "nginx": siNginx,
+  "resend": siResend,
+  "unity ml-agents": siUnity,
+  "google cloud": siGooglecloud,
+  "blender": siBlender,
+  "pycharm": siPycharm,
 };
 
 export const ICON_DATA = Object.fromEntries(Object.entries(ICONS).map(([k, v]) => [k, v.path]));
