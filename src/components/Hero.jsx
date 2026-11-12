@@ -17,19 +17,20 @@ const LINKS = [
 
 /* The first screen: the sentence about me, one main action, one quiet one, and where else to find me. */
 export default function Hero() {
-  // As the hero scrolls away the plane dips, then takes off along its nose (up and right) and shrinks into the
-  // distance; the trail it leaves fades out. Nothing moves for visitors who ask for less motion.
+  // As the hero scrolls away the plane shrinks, climbs, loops over the top and swoops down and out, drawing a dotted
+  // trail. The drawing is held in place on screen while it flies, so the loop plays out instead of scrolling away.
+  // Nothing moves for visitors who ask for less motion.
   const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
+  const { scrollY, scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const p = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.4 });
   const flight = {
-    x: useTransform(p, [0, 0.12, 0.6], [0, -10, 560]),
-    y: useTransform(p, [0, 0.12, 0.6], [0, 16, -300]),
-    rotate: useTransform(p, [0, 0.12, 0.6], [0, 6, -12]),
-    scale: useTransform(p, [0, 0.6], [1, 0.55]),
-    opacity: useTransform(p, [0, 0.4, 0.6], [1, 1, 0]),
-    trail: useTransform(p, [0, 0.3], [1, 0]),
+    t: useTransform(p, [0.03, 0.85], [0, 1]),
+    scale: useTransform(p, [0, 0.12], [1, 0.36]),
+    opacity: useTransform(p, [0.7, 0.88], [1, 0]),
+    decor: useTransform(p, [0, 0.08], [1, 0]),
+    trail: useTransform(p, [0, 0.05, 0.72, 0.9], [0, 1, 1, 0]),
   };
+  const hold = useTransform(scrollY, (v) => Math.min(Math.max(v, 0), 1600));
 
   const item = (delay) => ({
     initial: calm ? false : { opacity: 0, y: 14 },
@@ -92,7 +93,9 @@ export default function Hero() {
 
             {/* The object sits in its own column, level with the text */}
             <motion.div {...item(0.35)} className="hidden lg:flex lg:col-span-5 items-center justify-center" aria-hidden="true">
-              <PaperPlane className="w-full max-w-[460px] h-auto" flight={calm ? undefined : flight} />
+              <motion.div style={calm ? undefined : { y: hold }} className="w-full max-w-[460px] pointer-events-none">
+                <PaperPlane className="w-full h-auto" flight={calm ? undefined : flight} />
+              </motion.div>
             </motion.div>
           </div>
         </div>
