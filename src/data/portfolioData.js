@@ -1226,6 +1226,8 @@ export const SDC = {
     { src: SDC_DIR + 'coding.webp', w: 1800, h: 1200, caption: 'Building Adept during the hackathon' },
     { src: SDC_DIR + 'team-table.webp', w: 1800, h: 1200, caption: 'Team Pecel Lele at our table' },
     { src: SDC_DIR + 'team-hallway.webp', w: 1800, h: 1201, caption: 'Checking the build before the pitch' },
+    { src: SDC_DIR + 'auditorium-team.webp', w: 1800, h: 1200, caption: 'The team in the auditorium' },
+    { src: SDC_DIR + 'mentoring-group.webp', w: 1800, h: 753, caption: 'All the teams at the mentoring session' },
   ],
 };
 
