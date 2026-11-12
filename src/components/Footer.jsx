@@ -1,21 +1,30 @@
 import React from 'react';
-import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { ArrowUp } from 'lucide-react';
 import Logo from './Logo';
+import { HOME, navigate } from '../utils/route';
 
-const LINKS = [
-  { label: 'GitHub', href: PERSONAL_INFO.github, Icon: Github, external: true },
-  { label: 'LinkedIn', href: PERSONAL_INFO.linkedin, Icon: Linkedin, external: true },
-  { label: 'Email', href: `mailto:${PERSONAL_INFO.email}`, Icon: Mail },
+// The contact section right above already has the GitHub, LinkedIn and Email buttons, so the footer offers the
+// sections instead, including the photos, which have no navbar entry of their own.
+const SECTIONS = [
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Projects' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'moments', label: 'Photos' },
+  { id: 'awards', label: 'Awards' },
 ];
 
-/* One quiet row: the mark and name on the left, the three places to find me on the right, the year and a way back up
-   underneath. */
+/* One quiet row: the mark and name on the left, the sections as plain text links on the right, the year and a way
+   back up underneath. */
 export default function Footer() {
+  const go = (id) => (e) => {
+    e.preventDefault();
+    navigate(HOME, id);
+  };
+
   return (
     <footer className="relative z-20 px-5 sm:px-8 pt-10 pb-8 border-t border-white/[0.12] bg-[var(--band)]">
       <div className="max-w-[1100px] mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
           <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="flex items-center gap-3 group w-fit" aria-label="Back to the top">
             <Logo className="w-10 h-10 transition-transform duration-300 group-hover:-translate-y-0.5" />
             <span>
@@ -24,22 +33,17 @@ export default function Footer() {
             </span>
           </a>
 
-          <ul className="flex items-center gap-2.5">
-            {LINKS.map(({ label, href, Icon, external }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target={external ? '_blank' : undefined}
-                  rel={external ? 'noreferrer' : undefined}
-                  aria-label={label}
-                  title={label}
-                  className="w-11 h-11 rounded-xl border border-white/25 text-white/75 hover:text-white hover:border-white/60 hover:bg-white/10 flex items-center justify-center transition-colors"
-                >
-                  <Icon size={18} aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Footer">
+            <ul className="flex flex-wrap items-center gap-x-5 gap-y-1">
+              {SECTIONS.map(({ id, label }) => (
+                <li key={id}>
+                  <a href={`#${id}`} onClick={go(id)} className="inline-block py-1.5 text-sm text-white/60 hover:text-white transition-colors">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
         <div className="mt-8 pt-5 border-t border-white/[0.12] flex items-center justify-between gap-3 text-xs text-white/55">
