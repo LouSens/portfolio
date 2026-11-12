@@ -55,7 +55,7 @@ export default function StackBench() {
             {shown ? (
               <>
                 <span className="text-white font-medium">{shown.name}</span>
-                <span className="text-white/40"> · {shown.repos.join(', ')}</span>
+                {shown.repos.length > 0 && <span className="text-white/40"> · {shown.repos.join(', ')}</span>}
               </>
             ) : (
               <span className="text-white/35">{group.name}</span>
