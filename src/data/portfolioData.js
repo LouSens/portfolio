@@ -1084,6 +1084,7 @@ export const ACHIEVEMENTS = [
     organizer: 'Xiamen University Malaysia, Domain 1: The Aiversecity Future-Ready Workforce',
     detail: 'Adept, a career and reskilling guide that matches skills to roles and builds a learning plan. One of 15 finalists from 245 teams, 221 projects and 941 participants from 52+ universities. I led team Pecel Lele.',
     projectId: 'adept',
+    feature: 'sdc',
   },
   {
     year: '2026',
@@ -1217,7 +1218,18 @@ export const DPICKLEBALL = {
   ],
 };
 
-export const AWARD_FEATURES = [DIGDAYA, OMNIQC, DPICKLEBALL];
+const SDC_DIR = '/media/sdc/';
+export const SDC = {
+  id: 'sdc',
+  lead: { src: SDC_DIR + 'finals-podium.webp', w: 1800, h: 1200, caption: 'Pitching Adept in the finals' },
+  photos: [
+    { src: SDC_DIR + 'coding.webp', w: 1800, h: 1200, caption: 'Building Adept during the hackathon' },
+    { src: SDC_DIR + 'team-table.webp', w: 1800, h: 1200, caption: 'Team Pecel Lele at our table' },
+    { src: SDC_DIR + 'team-hallway.webp', w: 1800, h: 1201, caption: 'Checking the build before the pitch' },
+  ],
+};
+
+export const AWARD_FEATURES = [SDC, DIGDAYA, OMNIQC, DPICKLEBALL];
 
 
 export { TECH_STACK } from './techStack';
